@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import { useRouter } from 'next/router'
 
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
@@ -37,8 +36,6 @@ export async function getStaticProps ({ locale, params }) {
 }
 
 export default function BlogPostPage (props) {
-  const { asPath } = useRouter()
-
   return (
     <>
       <Head>

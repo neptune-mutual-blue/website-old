@@ -32,5 +32,7 @@
   "SECURITY_DESC": "{{SECURITY_DESC}}",
   "LEGAL_DESC": "{{LEGAL_DESC}}",
   "FROM_YOUTUBE": "{{FROM_YOUTUBE}}",
-  "ALL_VIDEO_TUTS": "{{ALL_VIDEO_TUTS}}"
+  "ALL_VIDEO_TUTS": "{{ALL_VIDEO_TUTS}}",
+  "COPY_LINK": "Copy Link",
+  "COPIED": "Copied"
 }
