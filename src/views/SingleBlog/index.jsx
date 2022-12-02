@@ -58,7 +58,8 @@ const MainWrapper = styled.div`
 
 const Sidebar = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  flex-direction: column;
 `
 
 const ContentWrapper = styled.div`

@@ -61,26 +61,34 @@ const Shareit = (props) => {
     <Share>
 
       <Btn href='javascript:' hasText onClick={copy}>
-        <Icon size='20' variant='copy-01' />  {copied ? t('COPIED') : t('COPY_LINK')}
+        <Icon size='18' variant='copy-01' />  <BtnLabel>{copied ? t('COPIED') : t('COPY_LINK')}</BtnLabel>
       </Btn>
 
       <Btn onClick={share} data-url='url' data-href={`https://twitter.com/intent/tweet?text=${props.intro}`}>
-        <Icon size='20' variant='twitter' />
+        <Icon size='18' variant='twitter' />
       </Btn>
 
       <Btn onClick={share} data-url='u' data-href='https://www.facebook.com/sharer/sharer.php'>
-        <Icon size='20' variant='facebook' />
+        <Icon size='18' variant='facebook' />
       </Btn>
 
       <Btn onClick={share} data-url='url' data-href={`https://www.linkedin.com/shareArticle?mini=true&title=${props.title}&summary=${props.intro}&source=Neptune Mutual`}>
-        <Icon size='20' variant='linkedin' />
+        <Icon size='18' variant='linkedin' />
       </Btn>
 
     </Share>
   )
 }
 
-const Share = styled.div``
+const Share = styled.div`
+  margin: 0 auto;
+  padding: 0;
+  text-align: center;
+
+  @media (max-width: 1024px) {
+    text-align: left;
+  }
+`
 
 const Btn = styled.button`
   cursor: pointer;
@@ -100,6 +108,9 @@ const Btn = styled.button`
     ${props => props.hasText && 'margin-right:10px;'}
     z-index: -1;
   }
+`
+const BtnLabel = styled.label`
+  margin-left:10px;
 `
 
 export { Shareit }
