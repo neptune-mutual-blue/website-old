@@ -44,7 +44,7 @@ const Shareit = (props) => {
   return (
     <Share>
 
-      <Btn href='javascript:' hasText onClick={copy}>
+      <Btn onClick={copy}>
         <Icon size='18' variant='copy-01' />  <BtnLabel>{copied ? t('COPIED') : t('COPY_LINK')}</BtnLabel>
       </Btn>
 
@@ -84,15 +84,17 @@ const Btn = styled.button`
   margin-right: 12px;
   font-size: 14px;
   font-weight: 600;
+
+  &:hover {
+    background-color: ${props => props.theme.isLightMode ? colors.gray['50'] : colors.gray['100']}
+  }
   
   &:focus {
     outline: none;
     box-shadow: ${shadows.sm}
   }
 
-  svg {
-    z-index: -1;
-  }
+
 `
 const BtnLabel = styled.label`
   margin-left:10px;
