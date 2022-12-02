@@ -4,7 +4,6 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { services } from '../../services'
 import { BlogPost } from '../../src/views/SingleBlog'
-import { Shareit } from '../../src/components/Shareit'
 
 export async function getStaticPaths () {
   const slugs = await services.getPostsSlugs()
@@ -46,7 +45,7 @@ export default function BlogPostPage (props) {
 
       <main>
         <BlogPost post={props.post} />
-        <Shareit title={props.post.title} intro={props.post.intro} />
+
       </main>
     </>
   )

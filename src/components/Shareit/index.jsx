@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+
 import styled from 'styled-components'
+
 import { useRouter } from 'next/router'
 
-import { useTranslation } from 'react-i18next'
-import { colors } from '../../../styles/colors'
 import { Icon } from '../Icon'
+import { copyToClipBoard } from '../../utils'
+
+import { colors } from '../../../styles/colors'
 import { shadows } from '../../../styles/shadows'
 
 const Shareit = (props) => {
@@ -24,27 +28,7 @@ const Shareit = (props) => {
   const copy = (e) => {
     e.preventDefault()
     const text = `${window.location.origin}${asPath}`
-    if (!navigator.clipboard) {
-      const textArea = document.createElement('textarea')
-      textArea.value = text
-
-      // Avoid scrolling to bottom
-      textArea.style.top = '0'
-      textArea.style.left = '0'
-      textArea.style.position = 'fixed'
-
-      document.body.appendChild(textArea)
-      textArea.focus()
-      textArea.select()
-
-      try {
-        document.execCommand('copy')
-      } finally {
-        document.body.removeChild(textArea)
-      }
-    }
-
-    navigator?.clipboard?.writeText(text)
+    copyToClipBoard(text)
     setCopied(true)
   }
 
@@ -93,11 +77,13 @@ const Share = styled.div`
 const Btn = styled.button`
   cursor: pointer;
   display: inline-flex;
-  color: ${props => props.theme.isLightMode ? colors.gray['600'] : colors.white};
+  color: ${props => props.theme.isLightMode ? colors.gray['700'] : colors.white};
   border: 1px solid ${props => props.theme.isLightMode ? colors.gray['300'] : colors.gray['600']};
   border-radius: 8px;
   padding: 10px;
   margin-right: 12px;
+  font-size: 14px;
+  font-weight: 600;
   
   &:focus {
     outline: none;
@@ -105,12 +91,16 @@ const Btn = styled.button`
   }
 
   svg {
-    ${props => props.hasText && 'margin-right:10px;'}
     z-index: -1;
   }
 `
 const BtnLabel = styled.label`
   margin-left:10px;
+  display: none;
+
+  @media (min-width: 1024px) {
+    display: block;
+  }
 `
 
 export { Shareit }

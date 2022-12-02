@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { utils } from '../../../styles/utils'
 import { TableOfContents } from '../../components/BlogDetails/TableOfContents'
+import { Shareit } from '../../components/Shareit'
 import { BlogHero } from './BlogHero'
 import { Content } from './Content'
 
@@ -27,12 +28,15 @@ export const BlogPost = (props) => {
       <MainWrapper>
         <Sidebar>
           <TableOfContents title={props.post.title} wrapperClass={wrapperClass} />
+          <Shareit title={props.post.title} intro={props.post.intro} />
         </Sidebar>
 
         <ContentWrapper>
           <Content content={props.post.content.html} wrapperClass={wrapperClass} />
         </ContentWrapper>
+
       </MainWrapper>
+
     </>
   )
 }
@@ -41,6 +45,7 @@ const MainWrapper = styled.div`
   margin: auto 80px;
   padding-left: 86px;
   padding-right: 86px;
+  padding-bottom: 96px;
   display: grid;
   gap: 64px;
   grid-template-columns: 4fr 9fr;
@@ -60,6 +65,10 @@ const Sidebar = styled.div`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+  @media (max-width: 1024px) {
+    padding-bottom: 96px;
+  }
+  
 `
 
 const ContentWrapper = styled.div`
