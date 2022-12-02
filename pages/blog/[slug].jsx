@@ -46,7 +46,7 @@ export default function BlogPostPage (props) {
 
       <main>
         <BlogPost post={props.post} />
-        <Shareit title={props.post.title} intro={props.post.intro} href={asPath} />
+        <Shareit title={props.post.title} intro={props.post.intro} />
       </main>
     </>
   )
