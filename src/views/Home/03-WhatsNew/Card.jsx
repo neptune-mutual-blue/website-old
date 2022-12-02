@@ -23,6 +23,8 @@ export const Card = ({ post }) => {
         {post.tags.slice(0, 1).map((tag) => (
           <Tag key={tag}>{tag}</Tag>
         ))}
+        <Tag>{post.tags[0]}</Tag>
+
       </TagsContainer>
     </Container>
   )
@@ -67,6 +69,8 @@ const TagsContainer = styled.div`
   margin-top: 24px;
 
   display: flex;
+  flex-wrap: wrap;
+  gap:8px;
 `
 
 const Tag = styled.div`

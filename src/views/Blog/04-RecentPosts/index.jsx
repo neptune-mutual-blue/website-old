@@ -1,15 +1,31 @@
+import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { colors } from '../../../../styles/colors'
 import { typography } from '../../../../styles/typography'
 import { utils } from '../../../../styles/utils'
 import { Card } from '../../Home/03-WhatsNew/Card'
 import { Pagination } from './Pagination'
+import { TabsContainer } from './TabsContainer'
 
 export const BLOGS_PER_PAGE = 6
+
+const tabs = [
+  'all',
+  'weekly report',
+  'monthly review',
+  'exploit analysis',
+  'press room'
+]
 
 export const RecentPosts = ({ blogPosts }) => {
   const [page, setPage] = useState(0)
   const [isLast, setIsLast] = useState(false)
+  const [selectedTab, setSelectedTab] = useState('all')
+
+  const { query, replace } = useRouter()
+
+  const queryPageNum = query.page - 1 || page
 
   const getPageNumbers = () => {
     const actualDividend = parseInt(blogPosts.length / BLOGS_PER_PAGE)
@@ -34,16 +50,41 @@ export const RecentPosts = ({ blogPosts }) => {
   const handlePrev = () => {
     if (page > 0) {
       setPage((prev) => prev - 1)
+      replace(
+        {
+          query: {
+            ...query,
+            page: page
+          }
+        },
+        undefined,
+        {
+          shallow: true
+        }
+      )
     }
   }
 
   const handleNext = () => {
     setPage((prev) => prev + 1)
+    replace(
+      {
+        query: {
+          ...query,
+          page: page + 2
+        }
+      },
+      undefined,
+      {
+        shallow: true
+      }
+    )
   }
 
   return (
     <Container>
       <InnerContainer>
+        <TabsContainer tabs={tabs} selectedTab={selectedTab} onTabClick={(tab) => { setSelectedTab(tab) }} />
         <TextAndCta>
           <TextContainer>
             <Heading>Recent Posts</Heading>
@@ -59,24 +100,24 @@ export const RecentPosts = ({ blogPosts }) => {
           ))}
         </BlogsContainer>
 
-        <Pagination page={page} setPage={setPage} isLast={isLast} handleNext={handleNext} handlePrev={handlePrev} totalPages={totalPages} />
+        <Pagination page={queryPageNum} setPage={setPage} isLast={isLast} handleNext={handleNext} handlePrev={handlePrev} totalPages={totalPages} />
       </InnerContainer>
     </Container>
   )
 }
 
 const Container = styled.div`
-  padding-top: 96px;
-  padding-bottom: 96px;
-
-  @media (max-width: 768px) {
-    padding-top: 64px;
-    padding-bottom: 64px;
-  }
+  ${utils.fullWidthContainer};
 `
 
 const InnerContainer = styled.div`
-  ${utils.fullWidthContainer};
+  border-top: 1px solid ${props => props.theme.isLightMode ? colors.gray['300'] : colors.gray['700']};
+  padding-bottom: 96px;
+
+  @media (max-width: 768px) {
+    padding-top: 28px;
+    padding-bottom: 64px;
+  }
 `
 
 const TextAndCta = styled.div`
@@ -115,4 +156,5 @@ const BlogsContainer = styled.div`
 `
 const SingleCard = styled.div`
   max-width: 384px;
+  height: 468px;
 `

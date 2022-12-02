@@ -2,7 +2,6 @@ import styled from 'styled-components'
 import { colors } from '../../../../styles/colors'
 import { typography } from '../../../../styles/typography'
 import { utils } from '../../../../styles/utils'
-import { Icon } from '../../../components/Icon'
 import { getFormattedDate } from '../../../utils'
 
 export const BlogHero = ({ title, createdAt, timeToRead, featuredImage }) => {
@@ -11,7 +10,7 @@ export const BlogHero = ({ title, createdAt, timeToRead, featuredImage }) => {
       <Header>
         <BlogInfoContainer>
           <Time itemprop='published' datetime={createdAt}>{getFormattedDate(new Date(createdAt).toString())}</Time>
-          <Icon size={8} variant='dot' />
+          •
           <BlogInfo>{timeToRead} read</BlogInfo>
         </BlogInfoContainer>
         <Heading>
@@ -63,6 +62,7 @@ const BlogInfoContainer = styled.div`
   align-items:center; 
   margin-bottom: 16px;
   gap: 8px; 
+  color: ${props => props.theme.isLightMode ? colors.gray['500'] : colors.gray['200']};
 `
 
 const BlogInfo = styled.p`
