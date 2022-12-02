@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { colors, primaryColorKey } from '../../../styles/colors'
 import { typography } from '../../../styles/typography'
+import { generateHash } from '../../utils'
 
 export const TableOfContents = ({ wrapperClass, title }) => {
   const [headers, setHeaders] = useState([])
@@ -21,7 +22,8 @@ export const TableOfContents = ({ wrapperClass, title }) => {
       const elName = el.tagName
       const elText = el.textContent.replace(/^(\s)+|(\s)+$/g, '')
       // .replace(/^(\d+\.\s)/g, '') to remove preceeding numbers
-      const elId = el.getAttribute('id') + '-permalink'
+      const id = el.getAttribute('id')
+      const elId = id ? `${id}-permalink` : `header-${generateHash(elText)}-permalink`
 
       const newEl = document.createElement('i')
       newEl.setAttribute('id', elId)
