@@ -7,7 +7,7 @@ export const VacanciesList = ({ vacancies, departments }) => {
   const [selectedOption, setSelectedOption] = useState(departments[0])
 
   const filtered = selectedOption ? vacancies.filter(vacancy => vacancy.department === selectedOption) : vacancies
-
+  console.log(departments)
   return (
     <Container>
       <Filter

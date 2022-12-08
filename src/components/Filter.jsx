@@ -7,13 +7,13 @@ import { typography } from '../../styles/typography'
 import { utils } from '../../styles/utils'
 import { Icon } from './Icon'
 
-export const Filter = ({ options, selectedOption, setSelectedOption, label, iconVariant, defaultOption, getOptionText = (x) => x }) => {
+export const Filter = ({ options, selectedOption, setSelectedOption, label, iconVariant, defaultOption, getOptionText = (x) => x, filterlabelposition = 'side' }) => {
   return (
-    <Container>
+    <Container filterlabelposition={filterlabelposition}>
       <Listbox value={selectedOption} onChange={setSelectedOption}>
         <FilterLabel>{label}</FilterLabel>
         <ButtonContainer>
-          <ListboxButton>
+          <ListboxButton filterlabelposition={filterlabelposition}>
             <Left>
               {iconVariant && <Icon variant={iconVariant} size={20} />}
               <span>{getOptionText(selectedOption) || defaultOption}</span>
@@ -50,8 +50,25 @@ export const Filter = ({ options, selectedOption, setSelectedOption, label, icon
 
 const Container = styled.div`
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  flex-direction: ${props => {
+    if (props.filterlabelposition === 'top') {
+      return 'column'
+    }
+    return 'row'
+  }};
+  justify-content: ${props => {
+    if (props.filterlabelposition === 'top') {
+      return 'flex-start'
+    }
+    return 'flex-end'
+  }};
+  align-items: ${props => {
+    if (props.filterlabelposition === 'top') {
+      return ''
+    }
+    return 'center'
+  }};
+  
   gap: 16px;
 
   @media (max-width: 768px) {
@@ -72,7 +89,12 @@ const FilterLabel = styled(Listbox.Label)`
 `
 
 const ListboxButton = styled(Listbox.Button)`
-  width: 240px;
+  width: ${props => {
+    if (props.filterlabelposition === 'top') {
+      return '100%'
+    }
+    return '240px'
+  }};
 
   display: flex;
   align-items: center;
