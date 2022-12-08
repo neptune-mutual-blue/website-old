@@ -39,10 +39,24 @@ export const ContactForm = () => {
       }))
       return false
     }
+    if (!/^[a-zA-Z]+$/.test(formData.firstName)) {
+      setError((prev) => ({
+        ...prev,
+        firstName: 'Cant be number or special characters'
+      }))
+      return false
+    }
     if (formData.lastName === '') {
       setError((prev) => ({
         ...prev,
         lastName: 'This is required.'
+      }))
+      return false
+    }
+    if (!/^[a-zA-Z]+$/.test(formData.lastName)) {
+      setError((prev) => ({
+        ...prev,
+        lastName: 'Cant be number or special characters'
       }))
       return false
     }
@@ -78,6 +92,13 @@ export const ContactForm = () => {
       setError((prev) => ({
         ...prev,
         message: 'This is required.'
+      }))
+      return false
+    }
+    if (formData.phone && !/^[+]?\d+$/.test(formData.phone)) {
+      setError((prev) => ({
+        ...prev,
+        phone: 'Only numbers allowed'
       }))
       return false
     }
@@ -153,7 +174,7 @@ export const ContactForm = () => {
         <Filter
           options={purposeOption}
           selectedOption={formData.purpose}
-          setSelectedOption={(_s) => { console.log(_s); setFormData((prev) => ({ ...prev, purpose: _s })) }}
+          setSelectedOption={(_s) => setFormData((prev) => ({ ...prev, purpose: _s }))}
           defaultOption={purposeOption[0].value}
           label='Purpose*'
           filterlabelposition='top'
@@ -165,7 +186,10 @@ export const ContactForm = () => {
         placeholder='+1 (555) 000-0000'
         value={formData.phone}
         onChange={(e) => setFormData((prev) => ({ ...prev, phone: e.target.value }))}
-      />
+      >
+        {console.log(error)}
+        <ErrorText>{error?.phone}</ErrorText>
+      </InputWithLabel>
       <TextArea
         label='Message*'
         placeholder='Leave us a message...'
