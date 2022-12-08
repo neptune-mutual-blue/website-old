@@ -5,8 +5,8 @@ export const nav = [
       { href: '/marketplace', text: 'MARKETPLACE', isExternal: false },
       { href: '/blog', text: 'BLOG', isExternal: false },
       { href: '/ecosystem', text: 'ECOSYSTEM', isExternal: false },
-      { href: 'https://docs.neptunemutual.com', text: 'DOCUMENTATION', isExternal: false },
-      { href: '/web3-tools', text: 'WEB3_TOOLS', isExternal: false }
+      { href: 'https://docs.neptunemutual.com', text: 'DOCUMENTATION', isExternal: false }
+      // { href: '/web3-tools', text: 'WEB3_TOOLS', isExternal: false }
     ]
   },
   {
@@ -22,10 +22,10 @@ export const nav = [
   {
     title: 'POLICIES',
     links: [
-      { href: 'https://docs.neptunemutual.com/usage/risk-factors', text: 'RISK_FACTORS', isExternal: true },
-      { href: 'https://docs.neptunemutual.com/usage/terms-of-use', text: 'TERMS_OF_SERVICE', isExternal: true },
-      { href: 'https://docs.neptunemutual.com/usage/privacy-policy', text: 'PRIVACY_POLICY', isExternal: true },
-      { href: 'https://docs.neptunemutual.com/usage/standard-terms-and-conditions', text: 'STANDARD_TERMS_&_CONDITIONS', isExternal: true }
+      { href: '/risk-factors', text: 'RISK_FACTORS', isExternal: false },
+      { href: '/terms-of-use', text: 'TERMS_OF_SERVICE', isExternal: false },
+      { href: '/privacy-policy', text: 'PRIVACY_POLICY', isExternal: false },
+      { href: '/standard-terms-and-conditions', text: 'STANDARD_TERMS_&_CONDITIONS', isExternal: false }
     ]
   }
 ]

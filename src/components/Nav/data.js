@@ -18,7 +18,7 @@ export const data = [
         type: 'section',
         title: 'RESOURCES',
         links: [
-          { title: 'EXPLORE_MARKETPLACE', href: 'https://app.neptunemutual.com', description: 'EXPLORE_MARKETPLACE_DESC', icon: 'bank', isExternal: true },
+          { title: 'EXPLORE_MARKETPLACE', href: '/marketplace', description: 'EXPLORE_MARKETPLACE_DESC', icon: 'bank', isExternal: true },
           { title: 'BLOG_AND_PRESS_ROOM', href: '/blog', description: 'BLOG_AND_PRESS_ROOM_DESC', icon: 'edit-03' },
           { title: 'ECOSYSTEM', href: '/ecosystem', description: 'ECOSYSTEM_DESC', icon: 'database-01' },
           { title: 'DOCUMENTATION', href: 'https://docs.neptunemutual.com', description: 'DOCUMENTATION_DESC', icon: 'file-code-01', isExternal: true },
@@ -33,7 +33,7 @@ export const data = [
           { title: 'GRANTS_AND_BOUNTIES', href: '/grants', description: 'GRANTS_AND_BOUNTIES_DESC', icon: 'stars-02' },
           { title: 'CAREERS', href: '/careers', description: 'CAREERS_DESC', icon: 'users-01' },
           { title: 'SECURITY', href: '/security', description: 'SECURITY_DESC', icon: 'glasses-02' },
-          { title: 'LEGAL', href: '#', description: 'LEGAL_DESC', icon: 'folder' }
+          { title: 'LEGAL', href: '/policy', description: 'LEGAL_DESC', icon: 'folder' }
         ]
       },
       {
