@@ -7,6 +7,7 @@ import { Checkbox } from '../../../components/Checkbox'
 import { Filter } from '../../../components/Filter'
 import { InputWithLabel } from '../../../components/InputWithLabel'
 import { TextArea } from '../../../components/TextArea'
+import { validateForm } from './validateForm'
 
 const purposeOption = [
   'Select a purpose',
@@ -28,86 +29,13 @@ export const ContactForm = () => {
   const [error, setError] = useState()
 
   const [captchaCode, setCaptchaCode] = useState()
+  const [acceptTerms, setAcceptTerms] = useState(false)
 
   const recaptchaRef = useRef()
 
-  const validateForm = () => {
-    if (formData.firstName === '') {
-      setError((prev) => ({
-        ...prev,
-        firstName: 'This is required.'
-      }))
-      return false
-    }
-    if (!/^[a-zA-Z]+$/.test(formData.firstName)) {
-      setError((prev) => ({
-        ...prev,
-        firstName: 'Cant be number or special characters'
-      }))
-      return false
-    }
-    if (formData.lastName === '') {
-      setError((prev) => ({
-        ...prev,
-        lastName: 'This is required.'
-      }))
-      return false
-    }
-    if (!/^[a-zA-Z]+$/.test(formData.lastName)) {
-      setError((prev) => ({
-        ...prev,
-        lastName: 'Cant be number or special characters'
-      }))
-      return false
-    }
-    if (formData.email === '') {
-      setError((prev) => ({
-        ...prev,
-        email: 'This is required.'
-      }))
-      return false
-    }
-    if (/^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/.test(formData.email)) {
-      setError((prev) => ({
-        ...prev,
-        email: 'Please enter correct email'
-      }))
-      return false
-    }
-    if (formData.company_name === '') {
-      setError((prev) => ({
-        ...prev,
-        company_name: 'This is required.'
-      }))
-      return false
-    }
-    if (formData.purpose === purposeOption[0]) {
-      setError((prev) => ({
-        ...prev,
-        purpose: 'Select a option'
-      }))
-      return false
-    }
-    if (formData.message === '') {
-      setError((prev) => ({
-        ...prev,
-        message: 'This is required.'
-      }))
-      return false
-    }
-    if (formData.phone && !/^[+]?\d+$/.test(formData.phone)) {
-      setError((prev) => ({
-        ...prev,
-        phone: 'Only numbers allowed'
-      }))
-      return false
-    }
-    return true
-  }
-
   const onSubmit = (e) => {
     e.preventDefault()
-    const validated = validateForm()
+    const validated = validateForm(formData, setError, purposeOption)
     if (validated) {
       console.log(formData)
       setFormData({
@@ -130,6 +58,10 @@ export const ContactForm = () => {
       return
     }
     setCaptchaCode(captchaCode)
+  }
+
+  const handleChange = () => {
+    setAcceptTerms((prev) => !prev)
   }
 
   return (
@@ -187,7 +119,6 @@ export const ContactForm = () => {
         value={formData.phone}
         onChange={(e) => setFormData((prev) => ({ ...prev, phone: e.target.value }))}
       >
-        {console.log(error)}
         <ErrorText>{error?.phone}</ErrorText>
       </InputWithLabel>
       <TextArea
@@ -199,7 +130,7 @@ export const ContactForm = () => {
         <ErrorText>{error?.message}</ErrorText>
       </TextArea>
 
-      <Checkbox>
+      <Checkbox checked={acceptTerms} onChange={handleChange}>
         You agree to our friendly privacy policy.
       </Checkbox>
 
@@ -213,7 +144,7 @@ export const ContactForm = () => {
       <StyledButton
         hierarchy='primary'
         size='xl'
-        disabled={error || !captchaCode}
+        disabled={error || !captchaCode || !acceptTerms}
       >
         Send Message
       </StyledButton>
