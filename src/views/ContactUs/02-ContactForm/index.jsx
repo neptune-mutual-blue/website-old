@@ -64,6 +64,24 @@ export const ContactForm = () => {
     setAcceptTerms((prev) => !prev)
   }
 
+  const handleNameChange = (field, value) => {
+    if (value === '') {
+      return setFormData((prev) => ({ ...prev, [field]: value }))
+    }
+    if (/^[a-zA-Z]+$/.test(value)) {
+      setFormData((prev) => ({ ...prev, [field]: value }))
+    }
+  }
+
+  const handlePhoneNumberChange = (field, value) => {
+    if (value === '') {
+      return setFormData((prev) => ({ ...prev, [field]: value }))
+    }
+    if (value && /^[\d ()+]+$/.test(value)) {
+      setFormData((prev) => ({ ...prev, [field]: value }))
+    }
+  }
+
   return (
     <Form onSubmit={onSubmit}>
       <FirstRow>
@@ -71,7 +89,7 @@ export const ContactForm = () => {
           label='First Name*'
           placeholder='First Name'
           value={formData.firstName}
-          onChange={(e) => setFormData((prev) => ({ ...prev, firstName: e.target.value }))}
+          onChange={(e) => handleNameChange('firstName', e.target.value)}
         >
           <ErrorText>{error?.firstName}</ErrorText>
         </InputWithLabel>
@@ -79,7 +97,7 @@ export const ContactForm = () => {
           label='Last Name*'
           placeholder='Last Name'
           value={formData.lastName}
-          onChange={(e) => setFormData((prev) => ({ ...prev, lastName: e.target.value }))}
+          onChange={(e) => handleNameChange('lastName', e.target.value)}
         >
           <ErrorText>{error?.lastName}</ErrorText>
         </InputWithLabel>
@@ -117,7 +135,7 @@ export const ContactForm = () => {
         label='Phone Number (Optional)'
         placeholder='+1 (555) 000-0000'
         value={formData.phone}
-        onChange={(e) => setFormData((prev) => ({ ...prev, phone: e.target.value }))}
+        onChange={(e) => handlePhoneNumberChange('phone', e.target.value)}
       >
         <ErrorText>{error?.phone}</ErrorText>
       </InputWithLabel>
