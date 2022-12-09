@@ -1,4 +1,6 @@
+import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
+import Slider from 'react-slick'
 import styled from 'styled-components'
 import { colors } from '../../../../styles/colors'
 import { typography } from '../../../../styles/typography'
@@ -8,20 +10,55 @@ import { data } from './data'
 export const SecuringApps = () => {
   const { t } = useTranslation('home')
 
+  const sliderRef = useRef(null)
+
+  const settings = {
+    dots: false,
+    arrows: false,
+    infinite: true,
+    slidesToShow: 5,
+    rows: 1,
+    centerMode: false,
+    lazyLoad: true,
+    responsive: [
+      {
+        breakpoint: 1365,
+        settings: {
+          slidesToShow: 3
+        }
+      },
+      {
+        breakpoint: 767,
+        settings: {
+          slidesToShow: 2
+        }
+      }
+    ],
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    pauseOnHover: false
+  }
+
   return (
     <Container>
       <InnerContainer>
         <ContentContainer>
           <Heading>{t('SECURING_APPS_TITLE')}</Heading>
           <CoversContainer>
-            {data.map((app) => {
-              return (
-                <AppContainer key={app.name}>
-                  <AppImg src={app.src} alt={app.name} height='32' width='32' loading='lazy' />
-                  <AppName>{app.name}</AppName>
-                </AppContainer>
-              )
-            })}
+            <Slider
+              ref={sliderRef}
+              {...settings}
+            >
+              {data.map((app) => {
+                return (
+                  <AppContainer key={app.name}>
+                    <AppImg src={app.src} alt={app.name} height='32' width='32' loading='lazy' />
+                    <AppName>{app.name}</AppName>
+                  </AppContainer>
+                )
+              })}
+            </Slider>
           </CoversContainer>
         </ContentContainer>
       </InnerContainer>
@@ -81,13 +118,17 @@ const CoversContainer = styled.div`
   align-items: center;
   gap: 24px;
 
+  .slick-slider{
+    width:100%;
+  }
+
   @media (max-width: 768px) {
     gap: 16px;
   }
 `
 
 const AppContainer = styled.div`
-  display: flex;
+  display: flex !important;
   align-items: center;
   padding: 12px 16px;
   gap: 8px;
