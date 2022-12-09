@@ -40,6 +40,7 @@ const Button = styled(Popover.Button)`
   gap: 16px;
   color: ${props => props.theme.isLightMode ? colors.gray['600'] : colors.gray['400']};
   border-radius: 8px;
+  cursor: pointer;
 
   ${typography.styles.textMd};
   ${typography.weights.semibold};
