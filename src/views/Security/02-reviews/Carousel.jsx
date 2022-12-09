@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react'
+import { useRef, useState } from 'react'
 import styled from 'styled-components'
 import SlickSlider from 'react-slick'
 
@@ -41,16 +41,6 @@ const Carousel = (props) => {
   const sliderRef = useRef(null)
   const [currentIndex, setCurrentIndex] = useState(initialSlide)
   const [isLast, setIsLast] = useState(0)
-  const [list, setList] = useState([])
-
-  useEffect(() => {
-    if (props.audits.length) {
-      const audits = chunk(props.audits, 4)
-      setList(audits)
-
-      setIsLast(initialSlide === audits.length - 1)
-    }
-  }, [props.audits])
 
   const handleBeforeChange = (oldIndex, newIndex) => {
     // Hack to find if we are on last slide
@@ -66,7 +56,7 @@ const Carousel = (props) => {
     dots: false,
     arrows: false,
     infinite: false,
-    slidesToShow: 1,
+    slidesToShow: 2,
     rows: 1,
     centerMode: false,
     lazyLoad: true,
@@ -75,7 +65,21 @@ const Carousel = (props) => {
     autoplaySpeed: 2000,
     pauseOnHover: false,
     beforeChange: handleBeforeChange,
-    afterChange: setCurrentIndex
+    afterChange: setCurrentIndex,
+    responsive: [
+      {
+        breakpoint: 1265,
+        settings: {
+          slidesToShow: 1
+        }
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1
+        }
+      }
+    ]
   }
 
   return (
@@ -85,24 +89,14 @@ const Carousel = (props) => {
         ref={sliderRef}
         {...settings}
       >
-        {list.map((audits, i) => {
+        {props.audits.map((audit) => {
           return (
-            <div key={`slider-${i}}`}>
-              <Grid>
-                {
-                audits.map(audit => {
-                  return (
-                    <Card key={audit.id} audit={audit} />
-                  )
-                })
-              }
-              </Grid>
-            </div>
+            <Card key={audit.id} audit={audit} />
           )
         })}
       </SlickSlider>
 
-      {list.length > 1 && (
+      {props.audits.length > 1 && (
         <Arrows>
           <PrevArrow onClick={() => { sliderRef.current.slickPrev() }} disabled={currentIndex === 0} />
           <NextArrow onClick={() => { sliderRef.current.slickNext() }} disabled={isLast} />
@@ -115,7 +109,7 @@ const Carousel = (props) => {
 
 const Container = styled.div`
   position: relative;
-  width: 800px;
+  max-width: 800px;
 
   .slick-track {
     display: flex !important;
@@ -133,14 +127,11 @@ const Container = styled.div`
       transition: visibility 0.3s 1s linear;
     }
   }
-`
 
-const Grid = styled.div`
-  display: grid;
-  gap: 32px;
-  grid-template-columns: 1fr 1fr;
+  // @media (max-width: 1265px) {
+  //   width: 400px;
+  // }
 `
-
 const ArrowContainer = styled.button`
   display: inline-flex;
   align-items: center;

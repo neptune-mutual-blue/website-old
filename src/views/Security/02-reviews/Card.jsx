@@ -44,6 +44,10 @@ const Container = styled.div`
   a {
     margin-top: 20px;
   }
+
+  @media screen and (max-width: 768px) {
+    max-width: auto;
+  }
 `
 const CardTitle = styled.p`
   color: ${props => props.theme.isLightMode ? colors.gray[900] : colors.white};

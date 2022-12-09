@@ -41,8 +41,8 @@ const InnerContainer = styled.div`
   padding-bottom: 100px;
 
   @media (max-width: 768px) {
-    padding-top: 64px;
-    padding-bottom: 64px;
+    padding-top: 56px;
+    padding-bottom: 48px;
     flex-direction: column;
     align-items: stretch;
   }
@@ -64,6 +64,11 @@ const Subheader = styled.span`
   ${typography.styles.textMd}
   margin-bottom: 12px;
   display: block;
+
+  @media (max-width: 768px) {
+    ${typography.styles.textSm}
+  }
+
 `
 const HeaderTitle = styled.h1`
   color: ${props => props.theme.color};
@@ -81,6 +86,11 @@ const HeaderContent = styled.p`
   color: ${props => props.theme.secondaryColor};
   ${typography.styles.textXl}
   ${typography.weights.regular}
+
+  @media (max-width: 768px) {
+    ${typography.styles.textLg}
+    margin-bottom: 84px;
+  }
 `
 
 const ImageContainer = styled.div`
