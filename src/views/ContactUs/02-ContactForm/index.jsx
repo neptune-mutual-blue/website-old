@@ -85,22 +85,26 @@ export const ContactForm = () => {
   return (
     <Form onSubmit={onSubmit}>
       <FirstRow>
-        <InputWithLabel
-          label='First Name*'
-          placeholder='First Name'
-          value={formData.firstName}
-          onChange={(e) => handleNameChange('firstName', e.target.value)}
-        >
-          <ErrorText>{error?.firstName}</ErrorText>
-        </InputWithLabel>
-        <InputWithLabel
-          label='Last Name*'
-          placeholder='Last Name'
-          value={formData.lastName}
-          onChange={(e) => handleNameChange('lastName', e.target.value)}
-        >
-          <ErrorText>{error?.lastName}</ErrorText>
-        </InputWithLabel>
+        <WrappedInput>
+          <InputWithLabel
+            label='First Name*'
+            placeholder='First Name'
+            value={formData.firstName}
+            onChange={(e) => handleNameChange('firstName', e.target.value)}
+          >
+            <ErrorText>{error?.firstName}</ErrorText>
+          </InputWithLabel>
+        </WrappedInput>
+        <WrappedInput>
+          <InputWithLabel
+            label='Last Name*'
+            placeholder='Last Name'
+            value={formData.lastName}
+            onChange={(e) => handleNameChange('lastName', e.target.value)}
+          >
+            <ErrorText>{error?.lastName}</ErrorText>
+          </InputWithLabel>
+        </WrappedInput>
       </FirstRow>
       <InputWithLabel
         label='Email*'
@@ -172,30 +176,42 @@ export const ContactForm = () => {
 }
 
 const Form = styled.form`
-    width: 480px;
-    display:flex;
-    gap:24px;
-    flex-direction: column;
-    margin: 56px auto 96px;
+  max-width: 480px;
+  width:100%;
+  display:flex;
+  gap:24px;
+  flex-direction: column;
+  margin: 56px auto 96px;
+
+  @media (max-width: 768px){
+    padding: 0 16px;
+    margin: 40px auto 64px;
+  }
 `
 const FirstRow = styled.div`
-    display:flex;
-    flex-wrap: wrap;
-    gap: 32px;
-    width: 100%;
+  display:flex;
+  gap: 32px;
+  width: 100%;
+  @media (max-width: 768px){
+    flex-wrap:wrap;
+  }
+`
+
+const WrappedInput = styled.div`
+  width: 100%;
 `
 
 const StyledButton = styled(Button)`
-    width: 100%;
-    margin-top:8px;
+  width: 100%;
+  margin-top:8px;
 `
 const ErrorText = styled.p`
-    margin-top:6px;
-    ${typography.styles.textSm}
-    ${typography.weights.regular}
+  margin-top:6px;
+  ${typography.styles.textSm}
+  ${typography.weights.regular}
 `
 const FilterContainer = styled.div`
-    width:100%;
-    display:flex;
-    flex-direction: column;
+  width:100%;
+  display:flex;
+  flex-direction: column;
 `
