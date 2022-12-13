@@ -47,7 +47,7 @@ export async function getStaticProps ({ locale, params }) {
 }
 
 export default function PressPage (props) {
-  const { t } = useTranslation('press')
+  const { t } = useTranslation('press-room')
   const router = useRouter()
 
   return (
