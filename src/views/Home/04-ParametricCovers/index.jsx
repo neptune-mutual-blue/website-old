@@ -13,7 +13,7 @@ export const ParametricCovers = () => {
       <InnerContainer>
         <TextContainer>
           <H2>
-            <Subheading>{t('Reduce your exposure to crypto market risks')}</Subheading>
+            <Subheading>{t('Coming Soon')}</Subheading>
             <Heading>{t('Decentralized Parametric Insurance')}</Heading>
           </H2>
           <SupportingText>{t('Neptune Mutual Protocol offers a couple of different flavors of decentralized parametric insurances.')}</SupportingText>
