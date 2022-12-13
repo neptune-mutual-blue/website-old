@@ -65,6 +65,9 @@ import { Folder, FolderPlus } from "./variants/Files";
 import { Bank } from "./variants/FinanceAndEcommerce";
 import { ShieldTick } from "./variants/Security";
 import { AnnotationDots } from "./variants/Communication";
+import SvgProvideLiquidity from "./custom/ProvideLiquidityIcon";
+import { PencilLine } from "./variants/Editor"
+import { Avalanche } from "./variants/Brands";
 
 export const Icon = ({ size, variant }) => {
   let IconComponent = null;
@@ -343,13 +346,24 @@ export const Icon = ({ size, variant }) => {
     IconComponent = SearchLg;
   }
 
-  if(variant === 'annotation-dots'){
+  if(variant === 'annotation-dots') {
     IconComponent = AnnotationDots;
   }
 
-  if(variant === 'rss-01'){
+  if(variant === 'rss-01') {
     IconComponent = Rss01;
   }
 
+  if(variant === 'provide-liquidity') {
+    IconComponent = SvgProvideLiquidity;
+  }
+
+  if(variant === 'pencil-line') {
+    IconComponent = PencilLine;
+  }
+
+  if(variant === 'avalanche') {
+    IconComponent = Avalanche;
+  }
   return IconComponent ? <IconComponent width={size} height={size} /> : null;
 };
