@@ -88,8 +88,6 @@ const ImageContainer = styled.div`
     flex: 1 0 240px;
     height: 240px;
     max-width: none;
-    margin-left: -16px;
-    margin-right: -16px;
   }
 
   position: relative;

@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import styled from 'styled-components'
 
 import {
@@ -8,6 +9,14 @@ import { typography } from '../../styles/typography'
 import { utils } from '../../styles/utils'
 
 export const HtmlContent = ({ content }) => {
+  useEffect(() => {
+    if (!window.twttr) {
+      return
+    }
+
+    window.twttr.widgets.load()
+  }, [])
+
   return (
     <Container>
       <div dangerouslySetInnerHTML={{ __html: content }} />
@@ -92,6 +101,11 @@ const Container = styled.div`
     padding-top: 0;
   }
 
+  iframe {
+    width: 100%;
+    height: 300px;
+  }
+
   /* Custom classes */
   h1, h2, h3, h4, h5, h6 {
     .heading-anchor {
@@ -105,6 +119,20 @@ const Container = styled.div`
       text-decoration: none;
     }
   }
+
+  /* .npm-iframe-wrap {
+    position: relative;
+    width: 100%;
+    padding-top: 56.5%;
+
+    > iframe {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0px;
+      top: 0px;
+    }
+  } */
 
   /* Legacy blog content */
   /* Bookmarks

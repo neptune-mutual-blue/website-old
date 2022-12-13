@@ -78,6 +78,31 @@ const getTableOfContents = async ($) => {
   return h
 }
 
+const convertTwitterAnchorsToEmbeds = ($ = cheerioLoad('', null, false)) => {
+  $('a').each(function () {
+    // Anchor href should match inner text
+    if ($(this).attr('href').trim() !== $(this).text().trim()) {
+      return
+    }
+
+    const match = $(this).attr('href').match(/^https?:\/\/twitter\.com\/(?:#!\/)?(\w+)\/status(es)?\/(\d+)$/)
+
+    // Anchor href should match twitter status url regex
+    if (!match) {
+      return
+    }
+
+    $(this).replaceWith(
+      $(`<blockquote class="twitter-tweet">
+      <a href="${$(this).text().trim()}"></a>
+      </blockquote>
+      <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>`
+      ))
+  })
+
+  return $
+}
+
 const addHeadingAnchors = ($ = cheerioLoad('', null, false)) => {
   $('h2, h3, h4, h5, h6').each(function () {
     // Removes anything inside `heading` tags. Replace children with trimmed text
@@ -109,6 +134,7 @@ const parseHtml = async (html) => {
 
   const toc = await getTableOfContents($)
   $ = await parseLegacyHtml($)
+  $ = convertTwitterAnchorsToEmbeds($)
   $ = addHeadingAnchors($)
   const text = $.text().trim()
   const minsToRead = getMinsToRead(text)
