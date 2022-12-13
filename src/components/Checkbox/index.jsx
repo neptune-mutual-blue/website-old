@@ -32,7 +32,8 @@ const Container = styled.div`
 const Label = styled.label`
   margin-left: 12px;
   ${typography.styles.textMd}
-  ${typography.weights.medium}
+  ${typography.weights.regular}
+  color: ${props => props.theme.isLightMode ? colors.gray[600] : colors.gray[300]};
 `
 
 const Check = styled.input`

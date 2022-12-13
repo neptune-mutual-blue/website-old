@@ -27,7 +27,7 @@ export const roleOptions = [
 
 export const blockchainOptions = [
   { text: 'Select a blockchain', value: '' },
-  { text: 'Avalanche', value: 'avalanche', iconVariant: 'avalanche' }
+  { text: 'Avalanche', value: 'avalanche', iconVariant: 'avalanche', iconVariantDark: 'avalanche-dark' }
 ]
 
 export const ContactForm = () => {
@@ -320,7 +320,7 @@ const ErrorText = styled.p`
   ${typography.styles.textSm}
   ${typography.weights.regular}
 
-  color: ${props => props.theme.isLightMode ? colors.error[600] : colors.error[800]};
+  color: ${props => props.theme.isLightMode ? colors.error[800] : colors.error[600]};
 `
 
 const FilterContainer = styled.div`

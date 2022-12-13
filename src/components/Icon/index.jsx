@@ -67,7 +67,7 @@ import { ShieldTick } from "./variants/Security";
 import { AnnotationDots } from "./variants/Communication";
 import SvgProvideLiquidity from "./custom/ProvideLiquidityIcon";
 import { PencilLine } from "./variants/Editor"
-import { Avalanche } from "./variants/Brands";
+import { Avalanche, AvalancheDark } from "./variants/Brands";
 
 export const Icon = ({ size, variant }) => {
   let IconComponent = null;
@@ -364,6 +364,10 @@ export const Icon = ({ size, variant }) => {
 
   if(variant === 'avalanche') {
     IconComponent = Avalanche;
+  }
+
+  if(variant === 'avalanche-dark') {
+    IconComponent = AvalancheDark;
   }
   return IconComponent ? <IconComponent width={size} height={size} /> : null;
 };

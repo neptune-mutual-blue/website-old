@@ -1,6 +1,6 @@
 import { Listbox } from '@headlessui/react'
 import React from 'react'
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 import { colors, primaryColorKey } from '../../../../styles/colors'
 import { shadows } from '../../../../styles/shadows'
 import { typography } from '../../../../styles/typography'
@@ -17,6 +17,9 @@ export const FormOptions = ({
   error
 }) => {
   const s = selectedOption ?? defaultOption
+  const theme = useTheme()
+  const selectedIconVariant = (!theme.isLightMode && s.iconVariantDark) ? s.iconVariantDark : s.iconVariant
+
   return (
     <Container>
       <Listbox value={selectedOption} onChange={setSelectedOption}>
@@ -24,7 +27,7 @@ export const FormOptions = ({
         <ButtonContainer>
           <ListboxButton data-error={error ? 'true' : 'false'} data-default={s.value === ''}>
             <Left>
-              {s.iconVariant && <Icon variant={s.iconVariant} size={20} />}
+              {selectedIconVariant && <Icon variant={selectedIconVariant} size={20} />}
               <span>{getOptionText(s)}</span>
             </Left>
             <Right>
@@ -34,20 +37,23 @@ export const FormOptions = ({
           <ListboxOptions>
             {options.map((option) => (
               <ListboxOption key={option.text} value={option}>
-                {({ active, selected }) => (
-                  <OptionContent data-active={active.toString()}>
-                    <Left>
-                      {option.iconVariant && <Icon variant={option.iconVariant} size={20} />}
-                      <span>{getOptionText(option) || getOptionText(defaultOption)}</span>
-                    </Left>
-                    {selected && (
-                      <Right>
-                        <Icon variant='check' size={20} />
-                      </Right>
-                    )}
+                {({ active, selected }) => {
+                  const optionIconVariant = (!theme.isLightMode && option.iconVariantDark) ? option.iconVariantDark : option.iconVariant
+                  return (
+                    <OptionContent data-active={active.toString()}>
+                      <Left>
+                        {optionIconVariant && <Icon variant={optionIconVariant} size={20} />}
+                        <span>{getOptionText(option) || getOptionText(defaultOption)}</span>
+                      </Left>
+                      {selected && (
+                        <Right>
+                          <Icon variant='check' size={20} />
+                        </Right>
+                      )}
 
-                  </OptionContent>
-                )}
+                    </OptionContent>
+                  )
+                }}
               </ListboxOption>
             ))}
           </ListboxOptions>
@@ -175,6 +181,7 @@ const OptionContent = styled.div`
   padding: 10px 10px 10px 8px;
   gap: 8px;
   border-radius: 6px;
+  cursor: pointer;
 
   &[aria-selected="true"] ${Right} svg {
     color:  ${props => props.theme.isLightMode ? colors[primaryColorKey]['500'] : colors[primaryColorKey]['600']};
