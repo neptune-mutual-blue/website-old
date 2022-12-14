@@ -108,7 +108,6 @@ const LinkStyle = css`
 
   &[data-isactive='false']:hover {
     background-color: ${props => props.theme.isLightMode ? colors.gray[200] : colors.gray[700]};
-    color: ${props => (props.theme.isLightMode ? colors.gray[600] : colors.gray[25])};
   }
 `
 

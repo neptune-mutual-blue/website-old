@@ -67,11 +67,7 @@ const LinkText = styled.a`
   ${typography.styles.textMd}
   ${typography.weights.semibold}
 
-  color: ${colors[primaryColorKey][600]};
-
-  :hover, :active{
-    color: ${colors.rose[600]}
-  }
+  color: ${colors[primaryColorKey][500]};
 `
 
 const Title = styled.p`

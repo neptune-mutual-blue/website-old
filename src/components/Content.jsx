@@ -57,8 +57,10 @@ const Container = styled.div`
   }
   
   a{
+    color: ${props => props.theme.isLightMode ? colors[primaryColorKey]['600'] : colors[primaryColorKey]['500']};
     :hover, :active{
       text-decoration: underline;
+      color: ${colors.rose[600]}
     }
   }
 

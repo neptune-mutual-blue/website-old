@@ -62,10 +62,6 @@ const ExternalLink = styled.a`
   gap: 8px;
   ${typography.styles.textMd};
   ${typography.weights.semibold};
-
-  :hover, :active{
-    color: ${colors.rose[600]};
-  }
   
   @media (max-width: 375px) {
     justify-content: start;

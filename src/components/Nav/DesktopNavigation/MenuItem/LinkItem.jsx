@@ -40,7 +40,6 @@ const Container = styled(Link)`
 
   :hover {
     color: ${props => props.theme.color};
-    text-decoration:none;
   }
 
   svg {

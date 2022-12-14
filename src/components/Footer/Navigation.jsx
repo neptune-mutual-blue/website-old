@@ -112,14 +112,9 @@ const Li = styled.li`
   ${typography.styles.textMd};
   ${typography.weights.semibold};
 
-  a{
-    color: ${(props) => props.theme.secondaryColor};
-
-    :hover{
-      color: ${(props) => props.theme.secondaryColor};
-    }
+  a:hover{
+    text-decoration: none;
   }
-
 `
 const Badge = styled.div`
   ${typography.styles.textSm};
@@ -132,10 +127,4 @@ const Badge = styled.div`
 `
 const StyledLink = styled(Link)`
   display:flex;
-
-  color: ${(props) => props.theme.secondaryColor};
-
-  :hover{
-    color: ${(props) => props.theme.secondaryColor};
-  }
 `
