@@ -59,10 +59,10 @@ const Panel = styled(Dialog.Panel)`
   align-items: center;
 
   iframe {
-    width: 1200px;
+    width: 1400px;
     min-height: 240px;
     max-height: 80%;
-    max-width: 100%;
+    max-width: 85%;
     aspect-ratio: 16 / 9;
   }
 `
