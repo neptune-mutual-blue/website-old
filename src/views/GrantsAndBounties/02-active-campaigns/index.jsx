@@ -125,7 +125,7 @@ const HeaderContainer = styled.div`
   }
 `
 
-const Heading = styled.p`
+const Heading = styled.h2`
   ${typography.styles.displayMd}
   ${typography.weights.semibold}
 `

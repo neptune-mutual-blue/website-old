@@ -15,7 +15,7 @@ export const Hero = () => {
         </div>
 
         <ImageContainer>
-          <img src='/assets/images/hero/grants-hero.webp' alt='Grants and Bounties hero image' />
+          <img src='/assets/images/hero/grants-hero.webp' alt='@todo' />
         </ImageContainer>
       </InnerContainer>
     </Container>
@@ -45,7 +45,7 @@ const InnerContainer = styled.div`
   }
 `
 
-const Heading = styled.div`
+const Heading = styled.h1`
   ${typography.styles.displayLg}
   ${typography.weights.semibold}
   
