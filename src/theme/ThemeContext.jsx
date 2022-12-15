@@ -64,7 +64,7 @@ const GlobalStyle = createGlobalStyle`
     
     :hover, :active{
       color: ${colors.rose[600]};
-      text-decoration:none;
+      text-decoration: none;
     }
   }
 

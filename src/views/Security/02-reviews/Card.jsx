@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 
 import { colors, primaryColorKey } from '../../../../styles/colors'
 import { typography } from '../../../../styles/typography'
-import { Button } from '../../../components/Button'
+import { Icon } from '../../../components/Icon'
 
 const Card = (props) => {
   const { t } = useTranslation('security')
@@ -21,13 +21,7 @@ const Card = (props) => {
       <CardTitle>{props.audit.title}</CardTitle>
       <CardContent>{props.audit.intro}</CardContent>
 
-      <Button
-        hierarchy='link-color'
-        size='sm'
-        iconTrailing
-        iconVariant='arrow-right' as={Link} href={`/security/${props.audit.slug}`}
-      > {t('Show Result')}
-      </Button>
+      <Link href={`/security/${props.audit.slug}`}> {t('Show Result')} <Icon variant='arrow-right' size={18} /> </Link>
     </Container>
   )
 }
@@ -42,6 +36,12 @@ const Container = styled.div`
 
   a {
     margin-top: 20px;
+    ${typography.styles.textSm}
+    ${typography.weights.medium}
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    
   }
 `
 const CardTitle = styled.p`

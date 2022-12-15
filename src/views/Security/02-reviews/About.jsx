@@ -20,7 +20,7 @@ const About = () => {
 
 const Container = styled.div``
 
-const AboutTitle = styled.p`
+const AboutTitle = styled.h2`
   margin-top: 24px;
   ${typography.styles.displayMd}
   ${typography.weights.semibold}

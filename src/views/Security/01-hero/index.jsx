@@ -61,7 +61,7 @@ const Content = styled.div`
 `
 
 const Subheader = styled.span`
-  color: ${props => props.theme.isLightMode ? colors[primaryColorKey]['700'] : colors[primaryColorKey]['500']};
+  color: ${props => props.theme.isLightMode ? colors[primaryColorKey]['700'] : colors[primaryColorKey]['300']};
   ${typography.weights.semibold}
   ${typography.styles.textMd}
   display: block;
