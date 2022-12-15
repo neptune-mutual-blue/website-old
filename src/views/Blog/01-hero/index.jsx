@@ -27,7 +27,7 @@ export const Hero = () => {
         </Text>
 
         <FormContainer>
-          <BlogSubscribe />
+          <BlogSubscribe showRSS={false} />
         </FormContainer>
 
       </InnerContainer>

@@ -1,28 +1,30 @@
 import Link from 'next/link'
-import { useState } from 'react'
 import styled from 'styled-components'
-import { getApiHeaders } from '../../../services/api/config'
-import { request } from '../../../services/http/request'
 import { colors } from '../../../styles/colors'
 import { typography } from '../../../styles/typography'
 import { Button } from '../Button'
 import { Icon } from '../Icon'
 import { Input } from '../Input'
 import { InputHint } from '../Input/Hint'
+import { getApiHeaders } from '../../../services/api/config'
 
-export const BlogSubscribe = () => {
-  const [error, setError] = useState(false)
-
+export const BlogSubscribe = ({ showRSS = true }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const formData = new FormData(e.target)
     const email = formData.get('email')
 
     try {
-      const res = await request.post('https://api.neptunemutual.net/subscribe', getApiHeaders(), { email: email })
+      const res = await fetch('https://api.neptunemutual.net/subscribe', {
+        method: 'POST',
+        body: {
+          email
+        },
+        headers: { ...getApiHeaders() }
+      })
       console.log(res)
     } catch (error) {
-      setError(true)
+      console.error(error)
     }
   }
 
@@ -41,17 +43,18 @@ export const BlogSubscribe = () => {
           Subscribe
         </Button>
       </FormContainer>
-      {error && <p>{error}</p>}
-      <SubscribeContainer>
-        <AtomContainer href='/atom.xml'>
-          <Icon variant='rss-01' size={16} />
-          Atom
-        </AtomContainer>
-        <RSSContainer href='/rss.xml'>
-          <Icon variant='rss-01' size={16} />
-          RSS
-        </RSSContainer>
-      </SubscribeContainer>
+      {showRSS && (
+        <SubscribeContainer>
+          <AtomContainer href='/atom.xml'>
+            <Icon variant='rss-01' size={16} />
+            Atom
+          </AtomContainer>
+          <RSSContainer href='/rss.xml'>
+            <Icon variant='rss-01' size={16} />
+            RSS
+          </RSSContainer>
+        </SubscribeContainer>
+      )}
     </Container>
   )
 }
@@ -92,8 +95,9 @@ const SubscribeContainer = styled.div`
 
 const AtomContainer = styled(Link)`
   display: flex;
+  align-items: center;
   gap:6px;
-  padding: 4px 8px;
+  padding: 2px 8px;
   background-color: ${props => props.theme.isLightMode ? colors.gray[600] : colors.gray[800]};
   color: ${colors.white};
   border-radius: 4px;
@@ -109,7 +113,8 @@ const AtomContainer = styled(Link)`
 const RSSContainer = styled(Link)`
   display: flex;
   gap:6px;
-  padding: 4px 8px;
+  padding: 2px 8px;
+  align-items: center;
   background-color: ${colors.orange[500]};
   color: ${colors.white};
   border-radius: 4px;
