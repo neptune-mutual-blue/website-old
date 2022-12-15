@@ -8,7 +8,7 @@ import { Icon } from '../../../components/Icon'
 import { getFormattedDate } from '../../../helpers'
 import { getBlurDataURL } from '../../../helpers/images'
 
-export const BlogHero = ({ title, createdAt, timeToRead, featuredImage }) => {
+export const BlogHero = ({ title, createdAt, timeToRead, featuredImage, alt }) => {
   return (
     <Container>
       <Header>
@@ -23,10 +23,14 @@ export const BlogHero = ({ title, createdAt, timeToRead, featuredImage }) => {
       </Header>
       <ImageContainer>
         <Image
-          src={`${featuredImage}`} alt={title} fill loading='eager' priority
+          src={`${featuredImage}`}
+          fill
+          loading='eager'
+          priority
           sizes='(max-width: 768px) 80vw, (max-width: 1280px) 40vw, 640px'
           placeholder='blur'
           blurDataURL={getBlurDataURL(1280, 1280)}
+          alt={alt}
         />
       </ImageContainer>
     </Container>

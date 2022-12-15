@@ -12,10 +12,9 @@ import { RelatedPosts } from './03-related-posts'
 
 export const BlogPostDetail = (props) => {
   const timeToRead = `${props.post.content.minsToRead} min`
-
   return (
     <>
-      <BlogHero title={props.post.title} featuredImage={props.post.image} createdAt={props.post.date} timeToRead={timeToRead} />
+      <BlogHero title={props.post.title} alt={props.post?.meta?.image?.alt} featuredImage={props.post.image} createdAt={props.post.date} timeToRead={timeToRead} />
 
       <MainWrapper>
         <Sidebar>
