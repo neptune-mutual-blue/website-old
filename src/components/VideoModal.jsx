@@ -64,5 +64,10 @@ const Panel = styled(Dialog.Panel)`
     max-height: 80%;
     max-width: 85%;
     aspect-ratio: 16 / 9;
+
+    @media (max-width: 767px){
+      max-width: 100%;
+    }
   }
+
 `
