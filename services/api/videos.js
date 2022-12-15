@@ -1,7 +1,7 @@
-import { storeLocally } from '../io/download'
-import { request } from '../http/request'
 import { mockData } from '../_mock_'
 import { helpers } from '../helpers'
+import { request } from '../http/request'
+import { storeLocally } from '../io/download'
 import { getApiHeaders } from './config'
 
 const getVideoDurationText = (timestamp) => {
@@ -34,6 +34,7 @@ const getDocs = async () => {
   if (process.env.PROD === 'true') {
     const dataStr = await request.get(`${process.env.API_URL_PREFIX}videos?limit=1000`, getApiHeaders())
     const data = JSON.parse(dataStr)
+
     docs = data.docs
     return docs
   }
@@ -51,6 +52,7 @@ const transformDoc = async (doc) => {
     title: doc.title,
     image: await storeLocally(`${process.env.FILE_URL_PREFIX}${doc.thumbnail.filename}`, 'images'),
     videoId: doc.videoId,
+    sort: doc.sort,
     description: {
       text: parsedHtml.text.substring(0, 56)
     },
@@ -67,9 +69,8 @@ export const getVideos = async () => {
     const result = await Promise.allSettled(docs.map(async (doc) => transformDoc(doc)))
 
     const allVideos = result.map(x => x.value)
-    const latestVideos = allVideos.sort((a, b) => {
-      return (new Date(a.date) < new Date(b.date) ? 1 : new Date(a.date) > new Date(b.date) ? -1 : 0)
-    }).slice(0, 3)
+
+    const latestVideos = allVideos.sort((a, b) => a.sort - b.sort).slice(0, 3)
 
     return latestVideos
   } catch (error) {

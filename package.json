@@ -34,6 +34,7 @@
   },
   "devDependencies": {
     "dotenv": "12.0.0",
+    "standard": "^17.0.0",
     "styled-components": "5.3.3"
   }
 }

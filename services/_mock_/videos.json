@@ -1,8 +1,199 @@
 {
     "docs": [
         {
+            "id": "639b0b7a29a6254e0c663683",
+            "title": "How to Purchase Cover Policy?",
+            "slug": "how-to-purchase-cover-policy",
+            "type": "youtube",
+            "category": "tutorial",
+            "videoId": "0UTIuqWHVHY",
+            "sort": 1,
+            "length": 412,
+            "thumbnail": {
+                "id": "639390c48d8faa8807d8ed32",
+                "alt": "Tutorial Video: Purchase Cover Policy",
+                "description": "Tutorial Video: Purchase Cover Policy",
+                "identifier": "tutorial-video-purchase-cover-policy",
+                "filename": "tutorial-video-purchase-cover-policy.webp",
+                "mimeType": "image/webp",
+                "filesize": 34632,
+                "width": 1280,
+                "height": 720,
+                "createdAt": "2022-12-09T19:47:16.339Z",
+                "updatedAt": "2022-12-09T19:47:16.339Z",
+                "url": "https://content.neptunedefi.com/media/tutorial-video-purchase-cover-policy.webp"
+            },
+            "description": [
+                {
+                    "children": [
+                        {
+                            "text": "This video walks you through the stages of purchasing a parametric cover policy on Neptune Mutual's testnet application.\n"
+                        }
+                    ]
+                }
+            ],
+            "_status": "published",
+            "createdAt": "2022-12-15T11:56:42.880Z",
+            "updatedAt": "2022-12-15T11:56:44.202Z",
+            "descriptionHtml": "<p>This video walks you through the stages of purchasing a parametric cover policy on Neptune Mutual&#39;s testnet application.\n</p>"
+        },
+        {
+            "id": "639b0aec29a6254e0c66355b",
+            "title": "Reduce Your Exposure to Crypto Market Risks",
+            "slug": "reduce-your-exposure-to-crypto-market-risks",
+            "type": "youtube",
+            "category": "explainer",
+            "videoId": "GeqjuV1u4UI",
+            "sort": 0,
+            "length": 92,
+            "thumbnail": {
+                "id": "639390ba8d8faa8807d8ed1a",
+                "alt": "Neptune Mutual Explainer Video",
+                "description": "Neptune Mutual Explainer Video",
+                "identifier": "neptune-mutual-explainer-video",
+                "filename": "neptune-mutual-explainer-video.webp",
+                "mimeType": "image/webp",
+                "filesize": 36286,
+                "width": 1280,
+                "height": 720,
+                "createdAt": "2022-12-09T19:47:06.249Z",
+                "updatedAt": "2022-12-09T19:47:06.249Z",
+                "url": "https://content.neptunedefi.com/media/neptune-mutual-explainer-video.webp"
+            },
+            "description": [
+                {
+                    "children": [
+                        {
+                            "text": "Visit "
+                        },
+                        {
+                            "type": "link",
+                            "newTab": true,
+                            "url": "https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqazJIZEw3aTZza1RmZDZrNXowc2lmUkZEdThCd3xBQ3Jtc0trVEFkcFY4dWotNG1YT2ZuRUpSSGRLUVdxUFN0ZWM5SXRiRjJ4RTloOHduV2ktdkN6UkZCeEZ0U2hSeWZWV0kwcmZDN3ZoY3p4Q2lmNDg0U05xM05uQXJlcURERl9EaXljUHZNTmVyUVNQdTFYYk5OSQ&q=https%3A%2F%2Fneptunemutual.com%2F&v=GeqjuV1u4UI",
+                            "children": [
+                                {
+                                    "text": "https://neptunemutual.com/"
+                                }
+                            ]
+                        },
+                        {
+                            "text": " today to find out more about parametric covers and how you can protect your digital assets.\n\nCrypto's fast-evolving nature makes it both a rewarding and challenging industry to explore. Being relatively new, it’s also a risky market to dive into, especially without a reliable safety net to fall back on. If you’re invested in the blockchain, it’s crucial to protect yourself against hackers and exploits in the space. Safeguard your digital assets from crypto market risks and purchase a cover policy on "
+                        },
+                        {
+                            "type": "link",
+                            "newTab": false,
+                            "url": "https://www.youtube.com/hashtag/neptunemutual",
+                            "children": [
+                                {
+                                    "text": "#NeptuneMutual"
+                                }
+                            ]
+                        },
+                        {
+                            "text": ". \n\nYou can also support your favorite projects on the platform by providing liquidity, reporting incidents, and staking in cover pools.\n\nTry out Neptune Mutual on our testnet: \n"
+                        },
+                        {
+                            "type": "link",
+                            "newTab": true,
+                            "url": "https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqazUtUC14NV9qQ2RGY050UzJIeDRHT09ydFQ0UXxBQ3Jtc0ttazRkS2MtbkFGWjZiVmdWTjBFSFVRaHNSQjV4ckdQTUxCTEFxRGhRQm1DaHFhUm80Zm9HWkZ3cklCZlRtQ2JGdDhGWV9vMTlySUprNmVwcmphcWFTeGJlTjRPNmJvMGktR0tWb25OZ3JQY2VjOVB0NA&q=https%3A%2F%2Ftest.neptunemutual.com%2F&v=GeqjuV1u4UI",
+                            "children": [
+                                {
+                                    "text": "https://test.neptunemutual.com/"
+                                }
+                            ]
+                        },
+                        {
+                            "text": " 🔱\n\nIt’s super easy to use! \n\nCheck out our step-by-step starter guide on how to use the Neptune Mutual testnet: \n\n"
+                        },
+                        {
+                            "type": "link",
+                            "newTab": true,
+                            "url": "https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbmJCdkFTY0VKb0NUck5VTmFtTmkxVzVTV18wQXxBQ3Jtc0ttMXZvRUptVGQxdWpTZl8yeFhrRXNhRTlQX19DVktUc00wUGluZ2k3eWQzSEpNbzdIcjBadEdsZ2xLOHl3b3hXM2FBWlRqQTNPbGtHTy0tcm5lVkdENWU4enQ4VVdUckpqNDY5blhDZWN2VmJlUFF5RQ&q=https%3A%2F%2Fmedium.com%2Fneptune-mutual%2Fneptune-mutual-testnet-is-live-12eec012679b&v=GeqjuV1u4UI",
+                            "children": [
+                                {
+                                    "text": "https://medium.com/neptune-mutual/nep..."
+                                }
+                            ]
+                        },
+                        {
+                            "text": " \n\nAbout Us\n\nNeptune Mutual is a cover protocol that enables users to purchase cover policies to protect their digital assets from hacks and exploits. The protocol uses parametric cover as opposed to discretionary insurance. It has an easy and reliable on-chain claim process. This means that when incidents are confirmed by our community, resolution is fast and payouts to all cover policyholders are guaranteed.\n\nJoin us in our mission to cover, protect, and secure on-chain digital assets.\n\nFollow us on Medium: \n"
+                        },
+                        {
+                            "type": "link",
+                            "newTab": true,
+                            "url": "https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbVFTRVB2UmlMQ2lZRURDZnJha1ZUbXFkNFdEd3xBQ3Jtc0tsUnhsVmR6alhvS01GSEFLSWJwMGdORGFUdGRlZzI1WWZxMjJQVTRmM3hYcWxHTmRtNllXUGFYZzYxbDVNN2pDR1A1SnhXcUtRYWZJd2dZX1BpU1h0RVpzUEI1YW1GYm5TNWtXNmtyd2V4QlpFRllFdw&q=https%3A%2F%2Fneptunemutual.medium.com%2F&v=GeqjuV1u4UI",
+                            "children": [
+                                {
+                                    "text": "https://neptunemutual.medium.com/"
+                                }
+                            ]
+                        },
+                        {
+                            "text": "\n\nStay updated on the latest protocol and industry news on Twitter: "
+                        },
+                        {
+                            "type": "link",
+                            "newTab": true,
+                            "url": "https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbXY3R2FpSHJaUHF5Qk94b2VpODA4dWZKQTl3UXxBQ3Jtc0tsUS1obmpXN0NWcF9HM0dXbi1JNzBnVF8yNnFZVWNDVmtBMEhCV1lNTVcxLWZOTHJHUm5YVWhycGJNNzNCOEVnbnN3WlVETnZwQ00zZU5pM2NFQlZZTWFIcWNtQVp0SEx5UVB6SlBJcThVc2Npbm9aQQ&q=https%3A%2F%2Ftwitter.com%2Fneptunemutual&v=GeqjuV1u4UI",
+                            "children": [
+                                {
+                                    "text": "https://twitter.com/neptunemutual"
+                                }
+                            ]
+                        },
+                        {
+                            "text": "\n\nConnect with our global community on Discord: \n"
+                        },
+                        {
+                            "type": "link",
+                            "newTab": true,
+                            "url": "https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbTlKYXN3TWNSdkZWX0hGX1JFZGJ5eHJVd3E0QXxBQ3Jtc0ttc1RGRXhkbmlDR2RXR1hydkt3VmpkWXZGTTlzUXRDQVRNcmZqcnhOUjJMVDNGWUpOQWhrM0NIN0VGNzVGRTI1VDFBVlRwZ1FUb0tBeTNSV1U0dmc1LXo4NENQN3JmYm9jUkNpUkFxcTl4Y2hod3pURQ&q=https%3A%2F%2Fdiscord.com%2Fchannels%2F846975061163900938%2F846975063193550890&v=GeqjuV1u4UI",
+                            "children": [
+                                {
+                                    "text": "https://discord.com/channels/84697506..."
+                                }
+                            ]
+                        },
+                        {
+                            "text": "\n\nShare interests with our community on Telegram: \n"
+                        },
+                        {
+                            "type": "link",
+                            "newTab": true,
+                            "url": "https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbS1KZmwxb0VxQ1paMjhSdXB3bW9uLWhON2VKQXxBQ3Jtc0ttRk14cFJEb0U2bHR3b0ZpeFRMSXN2M0l5emphNmZHc3gtN3VSV29iem04ZHFHMTFsQ1FielRWVFpLb1djVVhnYzFMbV9hRVUzeWY1VWNzbUhDdkFVWXJ1QzhOQ29HdXpkbjFROTlYZVV6bG9qcjBySQ&q=https%3A%2F%2Ft.me%2Fneptunemutual&v=GeqjuV1u4UI",
+                            "children": [
+                                {
+                                    "text": "https://t.me/neptunemutual"
+                                }
+                            ]
+                        },
+                        {
+                            "text": "\n\nParticipate in our discussions on Reddit: \n"
+                        },
+                        {
+                            "type": "link",
+                            "newTab": true,
+                            "url": "https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbE10akpDdXNKclNtZGNMWjlyVFg4eGxTcTFEUXxBQ3Jtc0tsa2tMTkpXVEdYcXJBSlZmaFYwQW9zUERVQUwxZnBhVGhNWWZHTEUzOVB6NlBfaUtEZTRqcERVSENybmNMclM0Tm1NM2xkbUg3NlFaSzU4dW1lLXlLYmdWTHdzUnM2OFc4SjdIamg1ekJncERDVzBvNA&q=https%3A%2F%2Fwww.reddit.com%2Fr%2FNeptuneMutual&v=GeqjuV1u4UI",
+                            "children": [
+                                {
+                                    "text": "https://www.reddit.com/r/NeptuneMutual"
+                                }
+                            ]
+                        },
+                        {
+                            "text": ""
+                        }
+                    ]
+                }
+            ],
+            "_status": "published",
+            "createdAt": "2022-12-15T11:54:20.226Z",
+            "updatedAt": "2022-12-15T11:54:22.166Z",
+            "descriptionHtml": "<p>Visit <a href=\"https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqazJIZEw3aTZza1RmZDZrNXowc2lmUkZEdThCd3xBQ3Jtc0trVEFkcFY4dWotNG1YT2ZuRUpSSGRLUVdxUFN0ZWM5SXRiRjJ4RTloOHduV2ktdkN6UkZCeEZ0U2hSeWZWV0kwcmZDN3ZoY3p4Q2lmNDg0U05xM05uQXJlcURERl9EaXljUHZNTmVyUVNQdTFYYk5OSQ&amp;q=https%3A%2F%2Fneptunemutual.com%2F&amp;v=GeqjuV1u4UI\" rel=\"noopener noreferrer nofollow\" target=\"_blank\">https://neptunemutual.com/</a> today to find out more about parametric covers and how you can protect your digital assets.\n\nCrypto&#39;s fast-evolving nature makes it both a rewarding and challenging industry to explore. Being relatively new, it’s also a risky market to dive into, especially without a reliable safety net to fall back on. If you’re invested in the blockchain, it’s crucial to protect yourself against hackers and exploits in the space. Safeguard your digital assets from crypto market risks and purchase a cover policy on <a href=\"https://www.youtube.com/hashtag/neptunemutual\" rel=\"noopener noreferrer nofollow\" target=\"_blank\">#NeptuneMutual</a>. \n\nYou can also support your favorite projects on the platform by providing liquidity, reporting incidents, and staking in cover pools.\n\nTry out Neptune Mutual on our testnet: \n<a href=\"https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqazUtUC14NV9qQ2RGY050UzJIeDRHT09ydFQ0UXxBQ3Jtc0ttazRkS2MtbkFGWjZiVmdWTjBFSFVRaHNSQjV4ckdQTUxCTEFxRGhRQm1DaHFhUm80Zm9HWkZ3cklCZlRtQ2JGdDhGWV9vMTlySUprNmVwcmphcWFTeGJlTjRPNmJvMGktR0tWb25OZ3JQY2VjOVB0NA&amp;q=https%3A%2F%2Ftest.neptunemutual.com%2F&amp;v=GeqjuV1u4UI\" rel=\"noopener noreferrer nofollow\" target=\"_blank\">https://test.neptunemutual.com/</a> 🔱\n\nIt’s super easy to use! \n\nCheck out our step-by-step starter guide on how to use the Neptune Mutual testnet: \n\n<a href=\"https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqbmJCdkFTY0VKb0NUck5VTmFtTmkxVzVTV18wQXxBQ3Jtc0ttMXZvRUptVGQxdWpTZl8yeFhrRXNhRTlQX19DVktUc00wUGluZ2k3eWQzSEpNbzdIcjBadEdsZ2xLOHl3b3hXM2FBWlRqQTNPbGtHTy0tcm5lVkdENWU4enQ4VVdUckpqNDY5blhDZWN2VmJlUFF5RQ&amp;q=https%3A%2F%2Fmedium.com%2Fneptune-mutual%2Fneptune-mutual-testnet-is-live-12eec012679b&amp;v=GeqjuV1u4UI\" rel=\"noopener noreferrer nofollow\" target=\"_blank\">https://medium.com/neptune-mutual/nep...</a> \n\nAbout Us\n\nNeptune Mutual is a cover protocol that enables users to purchase cover policies to protect their digital assets from hacks and exploits. The protocol uses parametric cover as opposed to discretionary insurance. It has an easy and reliable on-chain claim process. This means that when incidents are confirmed by our community, resolution is fast and payouts to all cover policyholders are guaranteed.\n\nJoin us in our mission to cover, protect, and secure on-chain digital assets.\n\nFollow us on Medium: \n<a href=\"https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqbVFTRVB2UmlMQ2lZRURDZnJha1ZUbXFkNFdEd3xBQ3Jtc0tsUnhsVmR6alhvS01GSEFLSWJwMGdORGFUdGRlZzI1WWZxMjJQVTRmM3hYcWxHTmRtNllXUGFYZzYxbDVNN2pDR1A1SnhXcUtRYWZJd2dZX1BpU1h0RVpzUEI1YW1GYm5TNWtXNmtyd2V4QlpFRllFdw&amp;q=https%3A%2F%2Fneptunemutual.medium.com%2F&amp;v=GeqjuV1u4UI\" rel=\"noopener noreferrer nofollow\" target=\"_blank\">https://neptunemutual.medium.com/</a>\n\nStay updated on the latest protocol and industry news on Twitter: <a href=\"https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqbXY3R2FpSHJaUHF5Qk94b2VpODA4dWZKQTl3UXxBQ3Jtc0tsUS1obmpXN0NWcF9HM0dXbi1JNzBnVF8yNnFZVWNDVmtBMEhCV1lNTVcxLWZOTHJHUm5YVWhycGJNNzNCOEVnbnN3WlVETnZwQ00zZU5pM2NFQlZZTWFIcWNtQVp0SEx5UVB6SlBJcThVc2Npbm9aQQ&amp;q=https%3A%2F%2Ftwitter.com%2Fneptunemutual&amp;v=GeqjuV1u4UI\" rel=\"noopener noreferrer nofollow\" target=\"_blank\">https://twitter.com/neptunemutual</a>\n\nConnect with our global community on Discord: \n<a href=\"https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqbTlKYXN3TWNSdkZWX0hGX1JFZGJ5eHJVd3E0QXxBQ3Jtc0ttc1RGRXhkbmlDR2RXR1hydkt3VmpkWXZGTTlzUXRDQVRNcmZqcnhOUjJMVDNGWUpOQWhrM0NIN0VGNzVGRTI1VDFBVlRwZ1FUb0tBeTNSV1U0dmc1LXo4NENQN3JmYm9jUkNpUkFxcTl4Y2hod3pURQ&amp;q=https%3A%2F%2Fdiscord.com%2Fchannels%2F846975061163900938%2F846975063193550890&amp;v=GeqjuV1u4UI\" rel=\"noopener noreferrer nofollow\" target=\"_blank\">https://discord.com/channels/84697506...</a>\n\nShare interests with our community on Telegram: \n<a href=\"https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqbS1KZmwxb0VxQ1paMjhSdXB3bW9uLWhON2VKQXxBQ3Jtc0ttRk14cFJEb0U2bHR3b0ZpeFRMSXN2M0l5emphNmZHc3gtN3VSV29iem04ZHFHMTFsQ1FielRWVFpLb1djVVhnYzFMbV9hRVUzeWY1VWNzbUhDdkFVWXJ1QzhOQ29HdXpkbjFROTlYZVV6bG9qcjBySQ&amp;q=https%3A%2F%2Ft.me%2Fneptunemutual&amp;v=GeqjuV1u4UI\" rel=\"noopener noreferrer nofollow\" target=\"_blank\">https://t.me/neptunemutual</a>\n\nParticipate in our discussions on Reddit: \n<a href=\"https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqbE10akpDdXNKclNtZGNMWjlyVFg4eGxTcTFEUXxBQ3Jtc0tsa2tMTkpXVEdYcXJBSlZmaFYwQW9zUERVQUwxZnBhVGhNWWZHTEUzOVB6NlBfaUtEZTRqcERVSENybmNMclM0Tm1NM2xkbUg3NlFaSzU4dW1lLXlLYmdWTHdzUnM2OFc4SjdIamg1ekJncERDVzBvNA&amp;q=https%3A%2F%2Fwww.reddit.com%2Fr%2FNeptuneMutual&amp;v=GeqjuV1u4UI\" rel=\"noopener noreferrer nofollow\" target=\"_blank\">https://www.reddit.com/r/NeptuneMutual</a></p>"
+        },
+        {
             "id": "639395ea0e1033cf72b3a3b8",
-            "updatedAt": "2022-11-28T10:51:33.448Z",
+            "updatedAt": "2022-12-15T11:59:46.856Z",
             "createdAt": "2022-11-28T10:51:33.448Z",
             "title": "Neptune Mutual: 크립토 시장 위험에 대한 노출 줄이기",
             "slug": "neptune-mutual-keuribto-sijang-wiheome-daehan-nocul-juligi",
@@ -60,11 +251,12 @@
                 }
             ],
             "_status": "published",
-            "descriptionHtml": "<p>지금<a href=\"https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqbE9ubUhZbUxkRXB6dDIxd0dhSUxLLVdObGVZQXxBQ3Jtc0trWEl5b2dBeEpJa1FpNmpYZnJ6cnh6VjViTkpuLUhsTXFJaFdlQzk4eHJmYm5oQkJjbFdqaU1GbmNpVVRPbUt0anhleVU4dFJqNXM3OHZUMGotS2stVWtPS0xwOGtUZkN4ZUdEZHc1QnBISEFwQnZxcw&amp;q=https%3A%2F%2Fneptunemutual.com%2F%EC%9D%84&amp;v=K-n83VM2fqM\" rel=\"noopener noreferrer nofollow\" target=\"_blank\">https://neptunemutual.com/을</a>방문하여 파라메트릭 보장와 디지털 자산을 보호하는 방법에 대해 자세히 알아보세요.\n\n크립토의 빠르게 진화하는 특성은 탐험하기에 보람 있고 도전적인 산업입니다. 상대적으로 새로운 시장이기 때문에 특히 신뢰할 수 있는 안전망이 없으면 뛰어들 수 있는 위험한 시장이기도 합니다. 블록체인에 투자했다면 해킹 과 오용으로부터 자신을 보호하는 것이 중요합니다. 크립토 시장 위험으로부터 디지털 자산을 보호하여<a href=\"https://www.youtube.com/hashtag/neptunemutual%EC%97%90%EC%84%9C\" rel=\"noopener noreferrer nofollow\" target=\"_blank\">#NeptuneMutual에서</a>보장을 구매하세요.</p>"
+            "sort": 10,
+            "descriptionHtml": "<p>지금 <a href=\"https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqbE9ubUhZbUxkRXB6dDIxd0dhSUxLLVdObGVZQXxBQ3Jtc0trWEl5b2dBeEpJa1FpNmpYZnJ6cnh6VjViTkpuLUhsTXFJaFdlQzk4eHJmYm5oQkJjbFdqaU1GbmNpVVRPbUt0anhleVU4dFJqNXM3OHZUMGotS2stVWtPS0xwOGtUZkN4ZUdEZHc1QnBISEFwQnZxcw&amp;q=https%3A%2F%2Fneptunemutual.com%2F%EC%9D%84&amp;v=K-n83VM2fqM\" rel=\"noopener noreferrer nofollow\" target=\"_blank\">https://neptunemutual.com/을</a> 방문하여 파라메트릭 보장와 디지털 자산을 보호하는 방법에 대해 자세히 알아보세요.\n\n크립토의 빠르게 진화하는 특성은 탐험하기에 보람 있고 도전적인 산업입니다. 상대적으로 새로운 시장이기 때문에 특히 신뢰할 수 있는 안전망이 없으면 뛰어들 수 있는 위험한 시장이기도 합니다. 블록체인에 투자했다면 해킹 과 오용으로부터 자신을 보호하는 것이 중요합니다. 크립토 시장 위험으로부터 디지털 자산을 보호하여 <a href=\"https://www.youtube.com/hashtag/neptunemutual%EC%97%90%EC%84%9C\" rel=\"noopener noreferrer nofollow\" target=\"_blank\">#NeptuneMutual에서</a> 보장을 구매하세요.</p>"
         },
         {
             "id": "639395ed0e1033cf72b3a3bb",
-            "updatedAt": "2022-11-28T10:50:52.330Z",
+            "updatedAt": "2022-12-15T11:59:34.273Z",
             "createdAt": "2022-11-28T10:50:52.330Z",
             "title": "Neptune Mutual: 降低您在加密市场的风险",
             "slug": "neptune-mutual-jiang-di-nin-zai-jia-mi-shi-chang-de-feng-xian",
@@ -109,11 +301,12 @@
                 }
             ],
             "_status": "published",
+            "sort": 9,
             "descriptionHtml": "<p>加密市场瞬息万变，为投资者带来超额回报，但也带来了很多挑战。作为一种新兴资产类别，投资加密资产仍伴随着相当的高风险，尤其是缺乏可靠的安全保障。如果您已经投资了区块链，那么了解如何保护您的资产免于各种黑客和安全漏洞的风险至关重要。您可以通过在<a href=\"https://www.youtube.com/hashtag/neptunemutual%E5%B9%B3%E5%8F%B0%E4%B8%8A%E8%B4%AD%E4%B9%B0%E4%BF%9D%E9%9A%9C%E6%9D%A5%E4%BF%9D%E6%8A%A4%E6%82%A8%E7%9A%84%E9%93%BE%E4%B8%8A%E8%B5%84%E4%BA%A7%E7%9A%84%E5%AE%89%E5%85%A8\" rel=\"noopener noreferrer nofollow\" target=\"_blank\">#NeptuneMutual平台上购买保障来保护您的链上资产的安全</a>。</p>"
         },
         {
             "id": "639395f00e1033cf72b3a3c1",
-            "updatedAt": "2022-11-28T10:49:07.120Z",
+            "updatedAt": "2022-12-15T11:59:51.566Z",
             "createdAt": "2022-11-28T10:49:07.120Z",
             "title": "Man in the Ocean",
             "slug": "man-in-the-ocean",
@@ -145,11 +338,12 @@
                 }
             ],
             "_status": "published",
+            "sort": 11,
             "descriptionHtml": "<p>A Short Story About a Man in the Ocean</p>"
         },
         {
             "id": "639395f30e1033cf72b3a3ce",
-            "updatedAt": "2022-11-28T10:46:18.727Z",
+            "updatedAt": "2022-12-15T11:59:29.938Z",
             "createdAt": "2022-11-28T10:46:18.727Z",
             "title": "Bond Pools",
             "slug": "bond-pools",
@@ -181,11 +375,12 @@
                 }
             ],
             "_status": "published",
+            "sort": 8,
             "descriptionHtml": "<p>This video walks you through the workings of the Bond pool in the Neptune Mutual application.</p>"
         },
         {
             "id": "639395f60e1033cf72b3a3d1",
-            "updatedAt": "2022-11-28T10:45:44.990Z",
+            "updatedAt": "2022-12-15T11:59:08.789Z",
             "createdAt": "2022-11-28T10:45:44.990Z",
             "title": "POD Staking Pools",
             "slug": "pod-staking-pools",
@@ -217,11 +412,12 @@
                 }
             ],
             "_status": "published",
-            "descriptionHtml": "<p>Staking Proof of Deposits to gain shield mining rewards.</p>"
+            "sort": 6,
+            "descriptionHtml": "<p>Staking Proof of Deposits to gain shield mining rewards. </p>"
         },
         {
             "id": "639395f90e1033cf72b3a3d4",
-            "updatedAt": "2022-11-28T10:45:06.233Z",
+            "updatedAt": "2022-12-15T11:59:13.194Z",
             "createdAt": "2022-11-28T10:45:06.233Z",
             "title": "Staking Pools",
             "slug": "staking-pools",
@@ -253,11 +449,12 @@
                 }
             ],
             "_status": "published",
-            "descriptionHtml": "<p>This video describes how to stake NPM tokens in one or more of the staking pools.</p>"
+            "sort": 7,
+            "descriptionHtml": "<p>This video describes how to stake NPM tokens in one or more of the staking pools. </p>"
         },
         {
             "id": "639395fc0e1033cf72b3a3f1",
-            "updatedAt": "2022-11-28T10:44:17.928Z",
+            "updatedAt": "2022-12-15T11:58:30.183Z",
             "createdAt": "2022-11-28T10:44:17.928Z",
             "title": "Submit Claim to Receive Payout",
             "slug": "submit-claim-to-receive-payout",
@@ -289,11 +486,12 @@
                 }
             ],
             "_status": "published",
-            "descriptionHtml": "<p>This video explains how to claim a payout when a project, for which you have bought parametric cover protection, incurs a incident that the Neptune Mutual community agrees fulfills the parametric terms of the cover policy.</p>"
+            "sort": 5,
+            "descriptionHtml": "<p>This video explains how to claim a payout when a project, for which you have bought parametric cover protection, incurs a incident that the Neptune Mutual community agrees fulfills the parametric terms of the cover policy. </p>"
         },
         {
             "id": "639395ff0e1033cf72b3a3f4",
-            "updatedAt": "2022-11-28T10:43:18.013Z",
+            "updatedAt": "2022-12-15T11:58:23.350Z",
             "createdAt": "2022-11-28T10:43:18.013Z",
             "title": "Dispute a Reported Incident",
             "slug": "dispute-a-reported-incident",
@@ -325,11 +523,12 @@
                 }
             ],
             "_status": "published",
-            "descriptionHtml": "<p>This adds a little more to the video relating to Incident Reporting, and shows the exact process of becoming a Candidate Reporter (the first person to vote against the First Reporter).</p>"
+            "sort": 4,
+            "descriptionHtml": "<p>This adds a little more to the video relating to Incident Reporting, and shows the exact process of becoming a Candidate Reporter (the first person to vote against the First Reporter). </p>"
         },
         {
             "id": "639396020e1033cf72b3a3f7",
-            "updatedAt": "2022-11-28T10:41:46.687Z",
+            "updatedAt": "2022-12-15T11:58:22.920Z",
             "createdAt": "2022-11-28T10:41:46.687Z",
             "title": "Reporting an Incident",
             "slug": "reporting-an-incident",
@@ -361,11 +560,12 @@
                 }
             ],
             "_status": "published",
-            "descriptionHtml": "<p>This video explains how to report an incident when you believe a hack or exploit meets the parameters of the cover policy of the project in question.  The tutorial also explains how you can stake NPM tokens and vote for or against reported incidents, and provides information about the incentive scheme that promotes participation in the reporting process.</p>"
+            "sort": 3,
+            "descriptionHtml": "<p>This video explains how to report an incident when you believe a hack or exploit meets the parameters of the cover policy of the project in question.  The tutorial also explains how you can stake NPM tokens and vote for or against reported incidents, and provides information about the incentive scheme that promotes participation in the reporting process. </p>"
         },
         {
             "id": "639396050e1033cf72b3a3fa",
-            "updatedAt": "2022-11-28T10:40:54.564Z",
+            "updatedAt": "2022-12-15T11:55:17.830Z",
             "createdAt": "2022-11-28T10:40:54.564Z",
             "title": "Provide Liquidity",
             "slug": "provide-liquidity",
@@ -397,10 +597,11 @@
                 }
             ],
             "_status": "published",
-            "descriptionHtml": "<p>This video explains how to provide stablecoin liquidity into one or more of the projects that have created dedicated cover pools in the Neptune Mutual marketplace.</p>"
+            "sort": 2,
+            "descriptionHtml": "<p>This video explains how to provide stablecoin liquidity into one or more of the projects that have created dedicated cover pools in the Neptune Mutual marketplace. </p>"
         }
     ],
-    "totalDocs": 10,
+    "totalDocs": 12,
     "limit": 1000,
     "totalPages": 1,
     "page": 1,
