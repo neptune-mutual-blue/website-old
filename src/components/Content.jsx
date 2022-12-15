@@ -60,13 +60,6 @@ const Container = styled.div`
     }
   }
 
-  
-  a{
-    :hover, :active{
-      text-decoration: underline;
-    }
-  }
-
   h2, h3, h4 {
     color: ${props => props.theme.isLightMode ? colors.gray[900] : colors.white};
   }
