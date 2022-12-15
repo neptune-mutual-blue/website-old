@@ -12,7 +12,7 @@ const Card = (props) => {
     <Container>
       <ImageContainer>
         <Image
-          alt={props.post.title}
+          alt={props.post.alt}
           fill
           sizes='(max-width: 768px) 80vw, (max-width: 1280px) 40vw, 420px'
           src={props.post.image}

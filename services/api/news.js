@@ -29,6 +29,7 @@ const transformDoc = async (doc) => {
     title: doc.title,
     link: doc.link,
     image: await storeLocally(`${process.env.COVER_FILE_URI_PREFIX}${doc.cover.filename}`, 'images'),
+    alt: doc.cover.alt || '',
     press: {
       name: doc.press.name,
       badge: doc.press.badge

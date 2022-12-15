@@ -86,12 +86,14 @@ export const Media = ({ news }) => {
         <ArrowsContainer>
           <ArrowButton
             disabled={prevButtonDisabled}
+            title='Left'
             onClick={() => handleArrowClick('left')}
           >
             <ArrowLeft width='24' height='24' />
           </ArrowButton>
           <ArrowButton
             disabled={nextButtonDisabled}
+            title='Right'
             onClick={() => handleArrowClick('right')}
           >
             <ArrowRight width='24' height='24' />
@@ -112,7 +114,7 @@ const InnerContainer = styled.div`
   border-top: 1px solid ${props => props.theme.isLightMode ? colors.gray[300] : colors.gray[700]};
 `
 
-const Title = styled.p`
+const Title = styled.h2`
   ${typography.styles.displayXs}
   ${typography.weights.semibold}
 `
