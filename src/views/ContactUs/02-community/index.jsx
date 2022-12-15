@@ -73,7 +73,7 @@ export const CommunityChannels = () => {
               <LinkWrapper key={i}>
                 <SocialLink href={href} target='_blank' rel='noreferrer nofollow'>
                   {theme.isLightMode ? Icon : IconWhite}
-                  <p>{name}</p>
+                  {name}
                 </SocialLink>
               </LinkWrapper>
             ))
@@ -114,12 +114,12 @@ const IntroContainer = styled.div`
   text-align: center;
 `
 
-const Title = styled.div`
+const Title = styled.h2`
   ${typography.styles.displayMd}
   ${typography.weights.semibold}
 `
 
-const SubHeading = styled.div`
+const SubHeading = styled.p`
   margin-top: 24px;
   ${typography.styles.textXl}
   ${typography.weights.regular}
