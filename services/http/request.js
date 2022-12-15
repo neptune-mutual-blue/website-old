@@ -48,6 +48,52 @@ const get = (url, headers = {}) => {
   })
 }
 
+const post = (url, headers = {}, body = {}) => {
+  const urlObj = new URL(url)
+
+  return new Promise(function (resolve, reject) {
+    const options = {
+      method: 'POST',
+      hostname: urlObj.hostname,
+      path: urlObj.pathname + urlObj.search,
+      headers: {
+        ...headers
+      },
+      body: { ...body },
+      maxRedirects: 20
+    }
+
+    console.log(options)
+
+    const req = https.request(options, function (res) {
+      // reject on bad status
+      if (res.statusCode < 200 || res.statusCode >= 300) {
+        return reject(new Error('statusCode=' + res.statusCode))
+      }
+
+      console.log(res)
+      // res.on('end', () => {
+      //   const body = res
+      //   resolve(body.toString())
+      // })
+
+      res.on('error', (error) => {
+        console.error(error)
+      })
+    })
+
+    // reject on request error
+    req.on('error', function (err) {
+      // This is not a "Second reject", just a different sort of failure
+      reject(err)
+    })
+
+    // important: end the request
+    req.end()
+  })
+}
+
 export const request = {
-  get
+  get,
+  post
 }
