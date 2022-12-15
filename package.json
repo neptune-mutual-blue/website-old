@@ -10,6 +10,7 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "license": "LicenseRef-LICENSE",
   "dependencies": {
     "@fontsource/inter": "^4.5.14",
     "@fontsource/roboto-mono": "^4.5.8",
