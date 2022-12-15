@@ -59,7 +59,7 @@ const Panel = styled(Dialog.Panel)`
   align-items: center;
 
   iframe {
-    width: 1000px;
+    width: 1200px;
     min-height: 240px;
     max-height: 80%;
     max-width: 100%;
