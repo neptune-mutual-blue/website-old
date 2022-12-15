@@ -6,21 +6,16 @@ import { Button } from '../Button'
 import { Icon } from '../Icon'
 import { Input } from '../Input'
 import { InputHint } from '../Input/Hint'
-import { getApiHeaders } from '../../../services/api/config'
 
-export const BlogSubscribe = ({ showRSS = true }) => {
+export const BlogSubscribe = ({ showRSS = false }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const formData = new FormData(e.target)
     const email = formData.get('email')
-
     try {
-      const res = await fetch('https://api.neptunemutual.net/subscribe', {
+      const res = await fetch('https://api2.neptunemutual.net/subscribe', {
         method: 'POST',
-        body: {
-          email
-        },
-        headers: { ...getApiHeaders() }
+        body: JSON.stringify({ email: email })
       })
       console.log(res)
     } catch (error) {
@@ -104,6 +99,7 @@ const AtomContainer = styled(Link)`
   ${typography.styles.textSm}
   ${typography.weights.semibold}
   cursor: pointer;
+  box-shadow: 0px 20px 24px -4px rgba(16, 24, 40, 0.08), 0px 8px 8px -4px rgba(16, 24, 40, 0.03);
 
   :hover{
     color: ${colors.white};
@@ -121,6 +117,7 @@ const RSSContainer = styled(Link)`
   ${typography.styles.textSm}
   ${typography.weights.semibold}
   cursor: pointer;
+  box-shadow: 0px 20px 24px -4px rgba(16, 24, 40, 0.08), 0px 8px 8px -4px rgba(16, 24, 40, 0.03);
 
   :hover{
     color: ${colors.white};

@@ -8,7 +8,6 @@ import {
 import { typography } from '../../../../styles/typography'
 import { utils } from '../../../../styles/utils'
 import { BlogSubscribe } from '../../../components/BlogSubscribe'
-import { Icon } from '../../../components/Icon'
 
 export const Hero = () => {
   const { t } = useTranslation('blog')
@@ -31,9 +30,6 @@ export const Hero = () => {
         </FormContainer>
 
       </InnerContainer>
-      <RssLink href='/rss.xml' target='_blank' title='rss'>
-        <Icon variant='rss-01' size={16} />
-      </RssLink>
     </Container>
   )
 }
@@ -108,27 +104,4 @@ const Subtitle = styled.p`
 
 const FormContainer = styled.div`
   margin-top: 40px;
-`
-
-const RssLink = styled.a`
-  position: absolute;
-  top: 24px;
-  right: 24px;  
-
-  display: inline-flex;
-  padding: 8px;
-  gap: 4px;
-
-  color: ${colors.white};
-  background: ${colors.orange['500']};
-  border: 1px solid ${colors.orange['400']};
-  border-radius: 4px;
-  
-  &:hover {
-    opacity: 0.8;
-  }
-
-  @media (max-width: 768px) {
-    display: none;
-  }
 `

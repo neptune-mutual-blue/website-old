@@ -9,7 +9,11 @@ import { typography } from '../../../styles/typography'
 import { utils } from '../../../styles/utils'
 import { BlogSubscribe } from '../BlogSubscribe'
 
-export const NewsletterSignupForm = ({ paddingTop }) => {
+export const NewsletterSignupForm = ({
+  paddingTop,
+  heading = 'Sign up for our newsletter',
+  subtitle = 'Be the first to know about releases and industry news and insights.'
+}) => {
   const { t } = useTranslation('common')
 
   return (
@@ -17,12 +21,12 @@ export const NewsletterSignupForm = ({ paddingTop }) => {
       <InnerContainer>
         <Box>
           <ContentContainer>
-            <Heading>{t('Sign up for our newsletter')}</Heading>
-            <Subtitle>{t('Join our mailing list and be the first to learn about our new product releases, industry news, and exploit analysis. We vow to never spam you.')}</Subtitle>
+            <Heading>{t(`${heading}`)}</Heading>
+            <Subtitle>{t(`${subtitle}`)}</Subtitle>
           </ContentContainer>
 
           <FormContainer>
-            <BlogSubscribe />
+            <BlogSubscribe showRSS />
           </FormContainer>
 
         </Box>
