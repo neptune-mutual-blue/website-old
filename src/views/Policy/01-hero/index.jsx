@@ -12,9 +12,7 @@ const Hero = ({ slugs, activeSlug }) => {
   return (
     <Container>
       <InnerContainer>
-        <h1>
-          <Title>Policies</Title>
-        </h1>
+        <Title>Policies</Title>
 
         <HorizontalTabs>
           {
@@ -42,7 +40,7 @@ const InnerContainer = styled.div`
   padding-top: 96px;
 `
 
-const Title = styled.p`
+const Title = styled.h1`
   ${typography.styles.displayLg}
   ${typography.weights.semibold}
 `
@@ -61,7 +59,7 @@ const Tab = styled(Link)`
   ${typography.styles.textSm}
   ${typography.weights.semibold}
   border-radius: 6px;
-  color: ${colors.gray[500]};
+  color: ${props => props.theme.isLightMode ? colors.gray[500] : colors.gray[300]};
   white-space: nowrap;
 
   &[isactive="true"] {
