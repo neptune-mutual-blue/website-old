@@ -19,6 +19,7 @@ const SujitaImage = '/assets/images/team/Sujita.webp'
 
 export const data = [
   {
+    id: 'binod',
     imgSrc: BinodImage,
     name: 'Binod Nirvan',
     title: 'CEO & Founder',
@@ -29,6 +30,7 @@ export const data = [
     }
   },
   {
+    id: 'Gillian',
     imgSrc: GillianImage,
     name: 'Gillian Wu',
     title: 'Co-Founder',
@@ -37,6 +39,7 @@ export const data = [
     }
   },
   {
+    id: 'gilbert',
     imgSrc: GilbertImage,
     name: 'Gilbert NG',
     title: 'Chief Legal Officer',
@@ -46,18 +49,21 @@ export const data = [
     }
   },
   {
+    id: 'flashburst',
     imgSrc: FlashburstImage,
     name: 'Flashburst',
     title: 'Blockchain Engineer',
     links: {}
   },
   {
+    id: 'hans',
     imgSrc: HansImage,
     name: 'Hans Koning',
     title: 'Blockchain Advisor',
     links: {}
   },
   {
+    id: 'mark',
     imgSrc: MarkImage,
     name: 'Mark Garcia',
     title: 'Design Lead',
@@ -66,6 +72,7 @@ export const data = [
     }
   },
   {
+    id: 'paul',
     imgSrc: PaulImage,
     name: 'Paul Steven Cue',
     title: 'Senior Graphic Designer',
@@ -75,6 +82,7 @@ export const data = [
     }
   },
   {
+    id: 'savin',
     imgSrc: SavinImage,
     name: 'Savin Bhandari',
     title: 'Frontend Engineer',
@@ -85,6 +93,7 @@ export const data = [
     }
   },
   {
+    id: 'rupak',
     imgSrc: RupakImage,
     name: 'Rupak Acharya',
     title: 'Frontend Engineer',
@@ -94,24 +103,28 @@ export const data = [
     }
   },
   {
+    id: 'ali',
     imgSrc: AliImage,
     name: 'Ali',
     title: 'Senior Graphic Designer',
     links: {}
   },
   {
+    id: 'ezekiel',
     imgSrc: EzekielImage,
     name: 'Ezekiel Arifalo',
     title: 'Content Strategist',
     links: {}
   },
   {
+    id: 'brando',
     imgSrc: BrandoImage,
     name: 'Brando',
     title: 'Growth',
     links: {}
   },
   {
+    id: 'pukar',
     imgSrc: PukarImage,
     name: 'Pukar Acharya',
     title: 'Research Analyst',
@@ -121,6 +134,7 @@ export const data = [
     }
   },
   {
+    id: 'binita',
     imgSrc: BinitaImage,
     name: 'Binita Thapa',
     title: 'Finance Analyst',
@@ -130,6 +144,7 @@ export const data = [
     }
   },
   {
+    id: 'sujita',
     imgSrc: SujitaImage,
     name: 'Sujita Gurung',
     title: 'Administrative Officer',
@@ -138,6 +153,7 @@ export const data = [
     }
   },
   {
+    id: 'jonalyn',
     imgSrc: JonalynImage,
     name: 'Jonalyn Delos Santos',
     title: 'Technical Recruiter',
@@ -148,12 +164,14 @@ export const data = [
     }
   },
   {
+    id: 'rudolf',
     imgSrc: RudolfImage,
     name: 'Rudolf',
     title: 'Blockchain Engineer',
     links: {}
   },
   {
+    id: 'edward',
     imgSrc: EdwardImage,
     name: 'Edward Ryall',
     title: 'Co-Founder',

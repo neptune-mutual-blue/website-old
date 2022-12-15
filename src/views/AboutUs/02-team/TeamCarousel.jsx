@@ -23,9 +23,9 @@ import {
 } from '../../../components/Icon/variants/Socials/White'
 import { data } from './data'
 
-const Details = ({ name, title, links, isMobile }) => (
+const Details = ({ id, name, title, links, isMobile }) => (
   <DetailsContainer data-is-mobile={isMobile ? 'true' : 'false'}>
-    <Name id={name.split(' ').join('_')}>{name}</Name>
+    <Name id={id}>{name}</Name>
     <Title>{title}</Title>
 
     <LinksContainer>
@@ -62,12 +62,12 @@ const Details = ({ name, title, links, isMobile }) => (
 )
 
 const TeamSliderItem = ({ team }) => {
-  const { imgSrc, name, title, links } = team
+  const { imgSrc, name, title, links, id } = team
 
   return (
     <ItemContainer>
-      <img src={imgSrc} aria-labelledby={name.split(' ').join('_')} />
-      <Details name={name} title={title} links={links} />
+      <img src={imgSrc} aria-labelledby={id} />
+      <Details id={id} name={name} title={title} links={links} />
     </ItemContainer>
   )
 }
