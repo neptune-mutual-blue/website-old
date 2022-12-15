@@ -1,15 +1,17 @@
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { useTranslation } from 'react-i18next'
-
-import { colors, primaryColorKey } from '../../../../styles/colors'
+import { blurs } from '../../../../styles/blurs'
+import {
+  colors,
+  primaryColorKey
+} from '../../../../styles/colors'
+import { shadows } from '../../../../styles/shadows'
 import { typography } from '../../../../styles/typography'
 import { utils } from '../../../../styles/utils'
 import PlayIcon from '../../../components/Icon/custom/PlayIcon'
-
 import { useVideosContext } from '../../../context/VideosContext'
-import { shadows } from '../../../../styles/shadows'
-import { blurs } from '../../../../styles/blurs'
+
 const YoutubeId = 'GeqjuV1u4UI'
 
 const Hero = () => {
@@ -25,7 +27,7 @@ const Hero = () => {
       <InnerContainer>
         <Content>
           <H1>
-            <Subheader>{t('About us')}</Subheader>
+            <Subheader>{t('DeFi Insurance Protocol Based on Parametric Insurance Model')}</Subheader>
             <HeaderTitle>{t('Simplifying Decentralized Insurance')}</HeaderTitle>
           </H1>
           <HeaderContent>

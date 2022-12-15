@@ -1,6 +1,10 @@
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
-import { colors, primaryColorKey } from '../../../../styles/colors'
+
+import {
+  colors,
+  primaryColorKey
+} from '../../../../styles/colors'
 import { typography } from '../../../../styles/typography'
 import { utils } from '../../../../styles/utils'
 import { Features } from './Features'
@@ -13,7 +17,7 @@ export const Benefits = () => {
       <InnerContainer>
         <TextContainer>
           <H2>
-            <Subheading>{t('Benefits')}</Subheading>
+            <Subheading>{t('Work together with the brightest minds in decentralized insurance space')}</Subheading>
             <Heading>{t('Why should you apply for a position at Neptune Mutual?')}</Heading>
           </H2>
           <SupportingText>{t('Inspiring unity and cooperation, our common principles serve as the bedrock of our company culture.')}</SupportingText>

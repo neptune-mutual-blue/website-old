@@ -1,9 +1,11 @@
 import Image from 'next/image'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { useTranslation } from 'react-i18next'
-
-import { colors, primaryColorKey } from '../../../../styles/colors'
+import {
+  colors,
+  primaryColorKey
+} from '../../../../styles/colors'
 import { typography } from '../../../../styles/typography'
 import { utils } from '../../../../styles/utils'
 import { getBlurDataURL } from '../../../helpers/images'
@@ -17,7 +19,7 @@ const Hero = () => {
         <Content>
           <H1>
             <SubheadingWithBadge>
-              <Subheading>{t('Careers')}</Subheading><Badge>{t("We're Hiring!")}</Badge>
+              <Subheading>{t('DeFi Insurance is the Future!')}</Subheading><Badge>{t("We're Hiring!")}</Badge>
             </SubheadingWithBadge>
             <HeaderTitle>{t('Interested in Pursuing a Career with Neptune Mutual?')}</HeaderTitle>
           </H1>

@@ -1,6 +1,10 @@
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
-import { colors, primaryColorKey } from '../../../styles/colors'
+
+import {
+  colors,
+  primaryColorKey
+} from '../../../styles/colors'
 import { typography } from '../../../styles/typography'
 import { utils } from '../../../styles/utils'
 import { BlogSubscribe } from '../BlogSubscribe'
@@ -14,7 +18,7 @@ export const NewsletterSignupForm = ({ paddingTop }) => {
         <Box>
           <ContentContainer>
             <Heading>{t('Sign up for our newsletter')}</Heading>
-            <Subtitle>{t('Be the first to know about releases and industry news and insights.')}</Subtitle>
+            <Subtitle>{t('Join our mailing list and be the first to learn about our new product releases, industry news, and exploit analysis. We vow to never spam you.')}</Subtitle>
           </ContentContainer>
 
           <FormContainer>

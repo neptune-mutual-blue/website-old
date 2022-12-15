@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import styled from 'styled-components'
+
 import { Button } from '../Button'
 import { Input } from '../Input'
 import { InputHint } from '../Input/Hint'
@@ -16,7 +17,7 @@ export const BlogSubscribe = () => {
     <Container onSubmit={handleSubmit}>
       <InputContainer>
         <Input placeholder='Enter your email' type='email' name='email' autoComplete='off'>
-          <InputHint>We care about your data in our <Link href='#'>privacy policy</Link>.</InputHint>
+          <InputHint>Our privacy policies are in our <Link href='/policies/terms-of-use'>terms of use</Link>.</InputHint>
         </Input>
       </InputContainer>
 

@@ -17,7 +17,7 @@ const Hero = () => {
       <InnerContainer>
         <Content>
           <H1>
-            <Subheader>{t('Audits, Bug Bounty, and More')}</Subheader>
+            <Subheader>{t('Independent Third-Party Assessments of Smart Contract and Application Security')}</Subheader>
             <HeaderTitle>{t('Security and Cyber Hygiene')}</HeaderTitle>
           </H1>
           <HeaderContent>
