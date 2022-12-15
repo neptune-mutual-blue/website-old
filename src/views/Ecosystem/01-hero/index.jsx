@@ -76,7 +76,7 @@ const TextContainer = styled.div`
   max-width: 768px;
 `
 
-const Heading = styled.h2`
+const Heading = styled.h1`
   color: ${(props) => props.theme.color};
 
   ${typography.styles.displayXL};
