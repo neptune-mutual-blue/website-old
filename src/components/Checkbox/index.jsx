@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { colors, primaryColorKey } from '../../../styles/colors'
+import { shadows } from '../../../styles/shadows'
 import { typography } from '../../../styles/typography'
 
 export const Checkbox = React.forwardRef(
@@ -52,9 +53,13 @@ const Check = styled.input`
   border-radius: 6px;
   border: 1px solid ${props => props.theme.isLightMode ? colors.gray[300] : colors[primaryColorKey][600]};
   background-color: ${props => props.theme.isLightMode ? 'transparent' : colors[primaryColorKey][50]};
-
-  &:focus {
+  
+  &:focus,
+  &:active,
+  &:focus-visible {
     outline: none;
+    box-shadow: ${shadows.xs},
+      0px 0px 0px 4px ${(props) => props.theme.isLightMode ? colors[primaryColorKey]['100'] : colors[primaryColorKey]['800']};
   }
 
   &:hover,

@@ -1,5 +1,5 @@
 import { Listbox } from '@headlessui/react'
-import React from 'react'
+import React, { useState } from 'react'
 import styled, { useTheme } from 'styled-components'
 import { colors, primaryColorKey } from '../../../../styles/colors'
 import { shadows } from '../../../../styles/shadows'
@@ -16,16 +16,21 @@ export const FormOptions = ({
   getOptionText = (x) => x.text,
   error
 }) => {
+  const [touched, setTouched] = useState(false)
+
   const s = selectedOption ?? defaultOption
   const theme = useTheme()
   const selectedIconVariant = (!theme.isLightMode && s.iconVariantDark) ? s.iconVariantDark : s.iconVariant
 
   return (
-    <Container>
+    <Container onBlur={() => setTouched(true)}>
       <Listbox value={selectedOption} onChange={setSelectedOption}>
         <FilterLabel>{label}</FilterLabel>
         <ButtonContainer>
-          <ListboxButton data-error={error ? 'true' : 'false'} data-default={s.value === ''}>
+          <ListboxButton
+            data-error={(error && touched) ? 'true' : 'false'}
+            data-default={s.value === ''}
+          >
             <Left>
               {selectedIconVariant && <Icon variant={selectedIconVariant} size={20} />}
               <span>{getOptionText(s)}</span>
@@ -59,6 +64,8 @@ export const FormOptions = ({
           </ListboxOptions>
         </ButtonContainer>
       </Listbox>
+
+      {(touched && error) && <ErrorText>{error}</ErrorText>}
     </Container>
   )
 }
@@ -111,13 +118,12 @@ const ListboxButton = styled(Listbox.Button)`
     
     svg, path {
       color: var(--color);
-      /* stroke: var(--color); */
     }
   }
 
-  &[data-error="true"] {
+  /* &[data-error="true"] {
     border: 1px solid ${colors.error[700]};
-  }
+  } */
 
   :not(:disabled) {
     :focus,
@@ -189,5 +195,17 @@ const OptionContent = styled.div`
   
   &[data-active="true"], :hover {
     background-color: ${props => props.theme.isLightMode ? colors.gray['50'] : colors.gray['600']};
+  }
+`
+
+const ErrorText = styled.p`
+  margin-top:6px;
+  ${typography.styles.textSm}
+  ${typography.weights.regular}
+
+  color: ${props => props.theme.isLightMode ? colors.error[800] : colors.error[600]};
+
+  &:empty {
+    display: none;
   }
 `

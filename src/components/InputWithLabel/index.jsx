@@ -1,15 +1,26 @@
+import { useState } from 'react'
 import styled from 'styled-components'
 import { colors, primaryColorKey } from '../../../styles/colors'
 import { shadows } from '../../../styles/shadows'
 import { typography } from '../../../styles/typography'
 
 export const InputWithLabel = ({ children, placeholder, label, error, ...props }) => {
+  const [touched, setTouched] = useState(false)
+
   return (
     <Container>
       <Label>
         {label}
       </Label>
-      <StyledInput data-error={error ? 'true' : 'false'} placeholder={placeholder} {...props} />
+
+      <StyledInput
+        data-error={(touched && error) ? 'true' : 'false'}
+        placeholder={placeholder}
+        onBlur={() => setTouched(true)}
+        {...props}
+      />
+
+      {(touched && error) && <ErrorText>{error}</ErrorText>}
 
       {/* Hint as children */}
       {children}
@@ -75,5 +86,17 @@ const StyledInput = styled.input`
 
   &[data-error="true"] {
     border: 1px solid ${colors.error[700]};
+  }
+`
+
+const ErrorText = styled.p`
+  margin-top:6px;
+  ${typography.styles.textSm}
+  ${typography.weights.regular}
+
+  color: ${props => props.theme.isLightMode ? colors.error[800] : colors.error[600]};
+
+  &:empty {
+    display: none;
   }
 `

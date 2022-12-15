@@ -1,17 +1,27 @@
+import { useState } from 'react'
 import styled from 'styled-components'
 import { colors, primaryColorKey } from '../../../styles/colors'
 import { shadows } from '../../../styles/shadows'
 import { typography } from '../../../styles/typography'
 
-export const TextArea = ({ children, placeholder, label, ...props }) => {
+export const TextArea = ({ children, placeholder, label, error, ...props }) => {
+  const [touched, setTouched] = useState(false)
+
   return (
     <Container>
       <Label>
         {label}
       </Label>
-      <StyledTextArea rows='4' placeholder={placeholder} {...props} />
 
-      {/* Hint as children */}
+      <StyledTextArea
+        data-error={(touched && error) ? 'true' : 'false'}
+        rows='4'
+        placeholder={placeholder}
+        {...props}
+        onBlur={() => setTouched(true)}
+      />
+
+      {(touched && error) && <ErrorText>{error}</ErrorText>}
       {children}
     </Container>
   )
@@ -67,5 +77,21 @@ const StyledTextArea = styled.textarea`
       box-shadow: ${shadows.xs},
         0px 0px 0px 4px ${(props) => props.theme.isLightMode ? colors[primaryColorKey]['100'] : colors[primaryColorKey]['800']};
     }
+  }
+
+  &[data-error="true"] {
+    border: 1px solid ${colors.error[700]};
+  }
+`
+
+const ErrorText = styled.p`
+  margin-top:6px;
+  ${typography.styles.textSm}
+  ${typography.weights.regular}
+
+  color: ${props => props.theme.isLightMode ? colors.error[800] : colors.error[600]};
+
+  &:empty {
+    display: none;
   }
 `

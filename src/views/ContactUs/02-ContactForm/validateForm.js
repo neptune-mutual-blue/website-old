@@ -1,7 +1,7 @@
 
 export const validateForm = (formData, setError) => {
   if (formData.firstName === '') {
-    setError(() => ({
+    setError((prev) => ({
       // ...prev,
       firstName: 'This is required.'
     }))
@@ -9,15 +9,15 @@ export const validateForm = (formData, setError) => {
   }
 
   if (!/^[a-zA-Z]+$/.test(formData.firstName)) {
-    setError(() => ({
+    setError((prev) => ({
       // ...prev,
-      firstName: 'Cant be number or special characters'
+      firstName: 'Can\'t be number or special characters'
     }))
     return false
   }
 
   if (formData.lastName === '') {
-    setError(() => ({
+    setError((prev) => ({
       // ...prev,
       lastName: 'This is required.'
     }))
@@ -25,7 +25,7 @@ export const validateForm = (formData, setError) => {
   }
 
   if (!/^[a-zA-Z]+$/.test(formData.lastName)) {
-    setError(() => ({
+    setError((prev) => ({
       // ...prev,
       lastName: 'Cant be number or special characters'
     }))
@@ -33,7 +33,7 @@ export const validateForm = (formData, setError) => {
   }
 
   if (formData.email === '') {
-    setError(() => ({
+    setError((prev) => ({
       // ...prev,
       email: 'This is required.'
     }))
@@ -42,7 +42,7 @@ export const validateForm = (formData, setError) => {
 
   const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   if (!String(formData.email).toLowerCase().match(emailRegex)) {
-    setError(() => ({
+    setError((prev) => ({
       // ...prev,
       email: 'Please enter correct email'
     }))
@@ -50,7 +50,7 @@ export const validateForm = (formData, setError) => {
   }
 
   if (formData.company_name === '') {
-    setError(() => ({
+    setError((prev) => ({
       // ...prev,
       company_name: 'This is required.'
     }))
@@ -59,7 +59,7 @@ export const validateForm = (formData, setError) => {
 
   const urlRegex = /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)?/gi
   if (!String(formData.website).toLowerCase().match(urlRegex)) {
-    setError(() => ({
+    setError((prev) => ({
       // ...prev,
       website: 'Please enter a valid website'
     }))
@@ -74,7 +74,7 @@ export const validateForm = (formData, setError) => {
   // }
 
   if (formData.contactMethod.value === '') {
-    setError(() => ({
+    setError((prev) => ({
       // ...prev,
       contactMethod: 'Please select an option'
     }))
@@ -83,14 +83,16 @@ export const validateForm = (formData, setError) => {
 
   if (formData.contactMethod.value === 'other') {
     if (!formData.contactMethodName) {
-      setError(() => ({
+      setError((prev) => ({
+        // ...prev,
         contactMethodName: 'Please enter the contact method'
       }))
       return false
     }
 
     if (!formData.contactAddress) {
-      setError(() => ({
+      setError((prev) => ({
+        // ...prev,
         contactAddress: 'Please enter the contact address'
       }))
       return false
@@ -98,7 +100,7 @@ export const validateForm = (formData, setError) => {
   }
 
   if (formData.role.value === '') {
-    setError(() => ({
+    setError((prev) => ({
       // ...prev,
       role: 'Please select role'
     }))
@@ -106,7 +108,7 @@ export const validateForm = (formData, setError) => {
   }
 
   if (formData.blockchain.value === '') {
-    setError(() => ({
+    setError((prev) => ({
       // ...prev,
       blockchain: 'Please select blockchain networks'
     }))
@@ -114,7 +116,7 @@ export const validateForm = (formData, setError) => {
   }
 
   if (formData.phone && !/^[+]?\d+$/.test(formData.phone)) {
-    setError(() => ({
+    setError((prev) => ({
       // ...prev,
       phone: 'Only numbers allowed'
     }))
@@ -122,7 +124,7 @@ export const validateForm = (formData, setError) => {
   }
 
   if (formData.message === '') {
-    setError(() => ({
+    setError((prev) => ({
       // ...prev,
       message: 'This is required.'
     }))

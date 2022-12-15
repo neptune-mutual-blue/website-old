@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
 import styled from 'styled-components'
-import { colors } from '../../../../styles/colors'
-import { typography } from '../../../../styles/typography'
 import { Button } from '../../../components/Button'
 import { Checkbox } from '../../../components/Checkbox'
 import { InputWithLabel } from '../../../components/InputWithLabel'
@@ -30,20 +28,23 @@ export const blockchainOptions = [
   { text: 'Avalanche', value: 'avalanche', iconVariant: 'avalanche', iconVariantDark: 'avalanche-dark' }
 ]
 
+const initialState = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  company_name: '',
+  website: '',
+  purpose: purposeOptions[0],
+  contactMethod: contactMethodOptions[0],
+  contactMethodName: '',
+  contactAddress: '',
+  role: roleOptions[0],
+  blockchain: blockchainOptions[0],
+  phone: '',
+  message: ''
+}
 export const ContactForm = () => {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    company_name: '',
-    website: '',
-    purpose: purposeOptions[0],
-    contactMethod: contactMethodOptions[0],
-    role: roleOptions[0],
-    blockchain: blockchainOptions[0],
-    phone: '',
-    message: ''
-  })
+  const [formData, setFormData] = useState(initialState)
 
   const [error, setError] = useState()
 
@@ -57,14 +58,7 @@ export const ContactForm = () => {
     const validated = validateForm(formData, setError, purposeOptions)
     if (validated && captchaCode && acceptTerms) {
       console.log(formData)
-      setFormData({
-        firstName: '',
-        lastName: '',
-        email: '',
-        company_name: '',
-        phone: '',
-        message: ''
-      })
+      setFormData(initialState)
     }
   }
 
@@ -111,9 +105,7 @@ export const ContactForm = () => {
             value={formData.firstName}
             onChange={(e) => handleNameChange('firstName', e.target.value)}
             error={error?.firstName}
-          >
-            <ErrorText>{error?.firstName}</ErrorText>
-          </InputWithLabel>
+          />
         </WrappedInput>
 
         <WrappedInput>
@@ -123,9 +115,7 @@ export const ContactForm = () => {
             value={formData.lastName}
             onChange={(e) => handleNameChange('lastName', e.target.value)}
             error={error?.lastName}
-          >
-            <ErrorText>{error?.lastName}</ErrorText>
-          </InputWithLabel>
+          />
         </WrappedInput>
       </FirstRow>
 
@@ -136,9 +126,7 @@ export const ContactForm = () => {
         value={formData.email}
         onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
         error={error?.email}
-      >
-        <ErrorText>{error?.email}</ErrorText>
-      </InputWithLabel>
+      />
 
       <InputWithLabel
         label='Company Name*'
@@ -146,9 +134,7 @@ export const ContactForm = () => {
         value={formData.company_name}
         onChange={(e) => setFormData((prev) => ({ ...prev, company_name: e.target.value }))}
         error={error?.company_name}
-      >
-        <ErrorText>{error?.company_name}</ErrorText>
-      </InputWithLabel>
+      />
 
       <InputWithLabel
         label='Website*'
@@ -156,9 +142,7 @@ export const ContactForm = () => {
         value={formData.website}
         onChange={(e) => setFormData((prev) => ({ ...prev, website: e.target.value }))}
         error={error?.website}
-      >
-        <ErrorText>{error?.website}</ErrorText>
-      </InputWithLabel>
+      />
 
       <FilterContainer>
         <FormOptions
@@ -170,7 +154,6 @@ export const ContactForm = () => {
           label='Purpose'
           error={error?.purpose}
         />
-        <ErrorText>{error?.purpose}</ErrorText>
       </FilterContainer>
 
       <FilterContainer>
@@ -183,7 +166,6 @@ export const ContactForm = () => {
           label='Contact Method*'
           error={error?.contactMethod}
         />
-        <ErrorText>{error?.contactMethod}</ErrorText>
 
         {
           formData.contactMethod.value === 'other' && (
@@ -193,18 +175,14 @@ export const ContactForm = () => {
                 value={formData.contactMethodName}
                 onChange={(e) => setFormData((prev) => ({ ...prev, contactMethodName: e.target.value }))}
                 error={error?.contactMethodName}
-              >
-                <ErrorText>{error?.contactMethodName}</ErrorText>
-              </InputWithLabel>
+              />
 
               <InputWithLabel
                 placeholder='2. Enter your contact number/address'
                 value={formData.contactAddress}
                 onChange={(e) => setFormData((prev) => ({ ...prev, contactAddress: e.target.value }))}
                 error={error?.contactAddress}
-              >
-                <ErrorText>{error?.contactAddress}</ErrorText>
-              </InputWithLabel>
+              />
             </SubInputs>
           )
         }
@@ -220,7 +198,6 @@ export const ContactForm = () => {
           label='Role*'
           error={error?.role}
         />
-        <ErrorText>{error?.role}</ErrorText>
       </FilterContainer>
 
       <FilterContainer>
@@ -233,7 +210,6 @@ export const ContactForm = () => {
           label='Blockchain*'
           error={error?.blockchain}
         />
-        <ErrorText>{error?.blockchain}</ErrorText>
       </FilterContainer>
 
       <InputWithLabel
@@ -242,9 +218,7 @@ export const ContactForm = () => {
         value={formData.phone}
         onChange={(e) => handlePhoneNumberChange('phone', e.target.value)}
         error={error?.phone}
-      >
-        <ErrorText>{error?.phone}</ErrorText>
-      </InputWithLabel>
+      />
 
       <TextArea
         label='Message*'
@@ -252,9 +226,7 @@ export const ContactForm = () => {
         value={formData.message}
         onChange={(e) => setFormData((prev) => ({ ...prev, message: e.target.value }))}
         error={error?.message}
-      >
-        <ErrorText>{error?.message}</ErrorText>
-      </TextArea>
+      />
 
       <Checkbox
         checked={acceptTerms}
@@ -314,13 +286,6 @@ const StyledButton = styled(Button)`
   :disabled {
     opacity: 0.75;
   }
-`
-const ErrorText = styled.p`
-  margin-top:6px;
-  ${typography.styles.textSm}
-  ${typography.weights.regular}
-
-  color: ${props => props.theme.isLightMode ? colors.error[800] : colors.error[600]};
 `
 
 const FilterContainer = styled.div`
