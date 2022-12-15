@@ -32,7 +32,7 @@ export const BlogPostDetail = (props) => {
 
       <RelatedPosts blogPosts={props.relatedPosts} />
 
-      <NewsletterSignupForm />
+      <NewsletterSignupForm showRSS />
     </>
   )
 }

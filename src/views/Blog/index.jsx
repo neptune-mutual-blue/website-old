@@ -20,7 +20,7 @@ export const Blog = ({ featuredPosts, blogPosts, totalPages, page, tag }) => {
         tag={tag}
       />
 
-      <NewsletterSignupForm />
+      <NewsletterSignupForm showRSS />
     </>
   )
 }

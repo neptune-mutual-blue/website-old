@@ -12,7 +12,8 @@ import { BlogSubscribe } from '../BlogSubscribe'
 export const NewsletterSignupForm = ({
   paddingTop,
   heading = 'Sign up for our newsletter',
-  subtitle = 'Be the first to know about releases and industry news and insights.'
+  subtitle = 'Be the first to know about releases and industry news and insights.',
+  showRSS = false
 }) => {
   const { t } = useTranslation('common')
 
@@ -26,7 +27,7 @@ export const NewsletterSignupForm = ({
           </ContentContainer>
 
           <FormContainer>
-            <BlogSubscribe showRSS />
+            <BlogSubscribe showRSS={showRSS} />
           </FormContainer>
 
         </Box>
