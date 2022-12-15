@@ -71,11 +71,10 @@ const post = (url, headers = {}, body = {}) => {
         return reject(new Error('statusCode=' + res.statusCode))
       }
 
-      console.log(res)
-      // res.on('end', () => {
-      //   const body = res
-      //   resolve(body.toString())
-      // })
+      res.on('end', () => {
+        const body = res
+        resolve(body.toString())
+      })
 
       res.on('error', (error) => {
         console.error(error)
