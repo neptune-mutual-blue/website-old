@@ -1,12 +1,9 @@
-import { useState } from 'react'
 import styled from 'styled-components'
 import { colors, primaryColorKey } from '../../../styles/colors'
 import { shadows } from '../../../styles/shadows'
 import { typography } from '../../../styles/typography'
 
 export const InputWithLabel = ({ children, placeholder, label, error, ...props }) => {
-  const [touched, setTouched] = useState(false)
-
   return (
     <Container>
       <Label>
@@ -14,13 +11,12 @@ export const InputWithLabel = ({ children, placeholder, label, error, ...props }
       </Label>
 
       <StyledInput
-        data-error={(touched && error) ? 'true' : 'false'}
+        data-error={(error) ? 'true' : 'false'}
         placeholder={placeholder}
-        onBlur={() => setTouched(true)}
         {...props}
       />
 
-      {(touched && error) && <ErrorText>{error}</ErrorText>}
+      {(error) && <ErrorText>{error}</ErrorText>}
 
       {/* Hint as children */}
       {children}

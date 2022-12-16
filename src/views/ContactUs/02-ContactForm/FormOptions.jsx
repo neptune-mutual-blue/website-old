@@ -1,5 +1,5 @@
 import { Listbox } from '@headlessui/react'
-import React, { useState } from 'react'
+import React from 'react'
 import styled, { useTheme } from 'styled-components'
 import { colors, primaryColorKey } from '../../../../styles/colors'
 import { shadows } from '../../../../styles/shadows'
@@ -16,19 +16,17 @@ export const FormOptions = ({
   getOptionText = (x) => x.text,
   error
 }) => {
-  const [touched, setTouched] = useState(false)
-
   const s = selectedOption ?? defaultOption
   const theme = useTheme()
   const selectedIconVariant = (!theme.isLightMode && s.iconVariantDark) ? s.iconVariantDark : s.iconVariant
 
   return (
-    <Container onBlur={() => setTouched(true)}>
+    <Container>
       <Listbox value={selectedOption} onChange={setSelectedOption}>
         <FilterLabel>{label}</FilterLabel>
         <ButtonContainer>
           <ListboxButton
-            data-error={(error && touched) ? 'true' : 'false'}
+            data-error={(error) ? 'true' : 'false'}
             data-default={s.value === ''}
           >
             <Left>
@@ -65,7 +63,7 @@ export const FormOptions = ({
         </ButtonContainer>
       </Listbox>
 
-      {(touched && error) && <ErrorText>{error}</ErrorText>}
+      {(error) && <ErrorText>{error}</ErrorText>}
     </Container>
   )
 }
@@ -108,7 +106,6 @@ const ListboxButton = styled(Listbox.Button)`
   svg, path {
     --c: ${props => props.theme.isLightMode ? colors.gray['500'] : colors.white};
     color: var(--c);
-    /* stroke: var(--c); */
   }
 
   
@@ -121,9 +118,9 @@ const ListboxButton = styled(Listbox.Button)`
     }
   }
 
-  /* &[data-error="true"] {
+  &[data-error="true"] {
     border: 1px solid ${colors.error[700]};
-  } */
+  }
 
   :not(:disabled) {
     :focus,
@@ -177,6 +174,11 @@ const ListboxOptions = styled(Listbox.Options)`
   outline: none;
   list-style: none;
   width: 100%;
+
+  svg, path {
+    --c: ${props => props.theme.isLightMode ? colors.gray['500'] : colors.white};
+    color: var(--c);
+  }
 `
 
 const ListboxOption = styled(Listbox.Option)``

@@ -1,12 +1,9 @@
-import { useState } from 'react'
 import styled from 'styled-components'
 import { colors, primaryColorKey } from '../../../styles/colors'
 import { shadows } from '../../../styles/shadows'
 import { typography } from '../../../styles/typography'
 
 export const TextArea = ({ children, placeholder, label, error, ...props }) => {
-  const [touched, setTouched] = useState(false)
-
   return (
     <Container>
       <Label>
@@ -14,14 +11,13 @@ export const TextArea = ({ children, placeholder, label, error, ...props }) => {
       </Label>
 
       <StyledTextArea
-        data-error={(touched && error) ? 'true' : 'false'}
+        data-error={(error) ? 'true' : 'false'}
         rows='4'
         placeholder={placeholder}
         {...props}
-        onBlur={() => setTouched(true)}
       />
 
-      {(touched && error) && <ErrorText>{error}</ErrorText>}
+      {(error) && <ErrorText>{error}</ErrorText>}
       {children}
     </Container>
   )

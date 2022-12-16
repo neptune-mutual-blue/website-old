@@ -6,26 +6,44 @@ import { Checkbox } from '../../../components/Checkbox'
 import { InputWithLabel } from '../../../components/InputWithLabel'
 import { TextArea } from '../../../components/TextArea'
 import { FormOptions } from './FormOptions'
+import { FormSelector } from './FormSelector'
 import { validateForm } from './validateForm'
 
 export const purposeOptions = [
   { text: 'Select a purpose', value: '' },
-  { text: 'Provide Liquidity', value: 'provide-liquidity', iconVariant: 'provide-liquidity' }
+  { text: 'Provide Liquidity', value: 'providing-liquidity', iconVariant: 'chart-breakout-square' },
+  { text: 'Purchasing Policy', value: 'purchasing-policy', iconVariant: 'shield-tick' },
+  { text: 'Creating Cover', value: 'creating-cover', iconVariant: 'folder-plus' },
+  { text: 'Press Reachout', value: 'creating-cover', iconVariant: 'message-dots-circle' },
+  { text: 'Other', value: 'other', iconVariant: 'edit-03' }
 ]
 
 export const contactMethodOptions = [
   { text: 'Select a contact method', value: '' },
-  { text: 'Other', value: 'other', iconVariant: 'pencil-line' }
+  { text: 'Email', value: 'email', iconVariant: 'mail-02' },
+  { text: 'Telegram', value: 'telegram', iconVariant: 'telegram' },
+  { text: 'Phone/Whatsapp', value: 'phone-whatsapp', iconVariant: 'phone-01' },
+  { text: 'Other', value: 'other', iconVariant: 'edit-03' }
 ]
 
 export const roleOptions = [
   { text: 'Select a role', value: '' },
-  { text: 'Engineering', value: 'engineering', iconVariant: 'cube-01' }
+  { text: 'Business Development', value: 'business-development', iconVariant: 'lightbulb-03' },
+  { text: 'Sale', value: 'sale', iconVariant: 'line-chart-up-03' },
+  { text: 'Blockchain Developer', value: 'blockchain-developer', iconVariant: 'code-square-one' },
+  { text: 'Co-founder/CXO', value: 'co-founder-cxo', iconVariant: 'user-square' },
+  { text: 'Engineering', value: 'engineering', iconVariant: 'cube-01' },
+  { text: 'Operations', value: 'operations', iconVariant: 'dots-grid' },
+  { text: 'Product Manager', value: 'product-manager', iconVariant: 'heart-hand' }
 ]
 
 export const blockchainOptions = [
-  { text: 'Select a blockchain', value: '' },
-  { text: 'Avalanche', value: 'avalanche', iconVariant: 'avalanche', iconVariantDark: 'avalanche-dark' }
+  { text: 'Ethereum', value: 'ethereum', iconVariant: 'ethereum', iconVariantDark: 'ethereum-dark' },
+  { text: 'Arbitrum', value: 'arbitrum', iconVariant: 'arbitrum', iconVariantDark: 'arbitrum-dark' },
+  { text: 'BNB Chain', value: 'bnbchain', iconVariant: 'bnbchain', iconVariantDark: 'bnbchain-dark' },
+  { text: 'Avalanche', value: 'avalanche', iconVariant: 'avalanche', iconVariantDark: 'avalanche-dark' },
+  { text: 'Polygon', value: 'polygon', iconVariant: 'polygon', iconVariantDark: 'polygon-dark' },
+  { text: 'Other', value: 'other', iconVariant: 'pencil-line' }
 ]
 
 const initialState = {
@@ -50,15 +68,39 @@ export const ContactForm = () => {
 
   const [captchaCode, setCaptchaCode] = useState('')
   const [acceptTerms, setAcceptTerms] = useState(false)
+  const [submitClicked, setSubmitClicked] = useState(false)
 
   const recaptchaRef = useRef()
 
+  const makeRequest = async (data, cb = () => {}) => {
+    const API_URL = 'https://api.neptunemutual.net/contact'
+    try {
+      const res = await fetch(API_URL, {
+        method: 'POST',
+        body: JSON.stringify(data)
+      })
+      console.log({ res })
+      cb()
+    } catch (err) {
+      console.log({ err })
+    }
+  }
+
   const onSubmit = (e) => {
+    setSubmitClicked(true)
     e.preventDefault()
-    const validated = validateForm(formData, setError, purposeOptions)
+    const validated = validateForm(formData, setError)
     if (validated && captchaCode && acceptTerms) {
-      console.log(formData)
-      setFormData(initialState)
+      const _data = formData
+
+      _data.contactMethod = formData.contactMethod.value
+      _data.purpose = formData.purpose.value
+      _data.role = formData.role.value
+
+      makeRequest(formData, () => {
+        setSubmitClicked(false)
+        setFormData(initialState)
+      })
     }
   }
 
@@ -82,18 +124,20 @@ export const ContactForm = () => {
     }
   }
 
-  const handlePhoneNumberChange = (field, value) => {
-    if (value === '') {
-      return setFormData((prev) => ({ ...prev, [field]: value }))
-    }
-    if (value && /^[\d ()+]+$/.test(value)) {
-      setFormData((prev) => ({ ...prev, [field]: value }))
-    }
+  const handleBlockchainChange = _options => {
+    setFormData(prev => ({
+      ...prev,
+      blockchain: _options.map(_option => {
+        const _val = _option.textValue ?? _option.text
+        if (_val) return _val
+        return false
+      }).filter(val => !!val)
+    }))
   }
 
   useEffect(() => {
-    validateForm(formData, setError)
-  }, [formData])
+    if (submitClicked) validateForm(formData, setError)
+  }, [formData, submitClicked])
 
   return (
     <Form onSubmit={onSubmit}>
@@ -129,16 +173,26 @@ export const ContactForm = () => {
       />
 
       <InputWithLabel
-        label='Company Name*'
+        label='What is the name of your business or project?*'
         placeholder='XYZ Company'
         value={formData.company_name}
         onChange={(e) => setFormData((prev) => ({ ...prev, company_name: e.target.value }))}
         error={error?.company_name}
       />
 
+      <FilterContainer>
+        <FormSelector
+          options={blockchainOptions}
+          label='Blockchain*'
+          error={error?.blockchain}
+          placeholder='Choose relevant blockchains from the list'
+          onChange={handleBlockchainChange}
+        />
+      </FilterContainer>
+
       <InputWithLabel
-        label='Website*'
-        placeholder='https://'
+        label='What is the website for your business or project?*'
+        placeholder='https://example.com'
         value={formData.website}
         onChange={(e) => setFormData((prev) => ({ ...prev, website: e.target.value }))}
         error={error?.website}
@@ -150,8 +204,7 @@ export const ContactForm = () => {
           selectedOption={formData.purpose}
           setSelectedOption={(_s) => setFormData((prev) => ({ ...prev, purpose: _s }))}
           defaultOption={purposeOptions[0]}
-          filterlabelposition='top'
-          label='Purpose'
+          label='Please select a purpose of this contact request*'
           error={error?.purpose}
         />
       </FilterContainer>
@@ -163,7 +216,7 @@ export const ContactForm = () => {
           setSelectedOption={(_s) => setFormData((prev) => ({ ...prev, contactMethod: _s }))}
           defaultOption={contactMethodOptions[0]}
           filterlabelposition='top'
-          label='Contact Method*'
+          label='What’s the best way to get in touch with you?*'
           error={error?.contactMethod}
         />
 
@@ -195,30 +248,10 @@ export const ContactForm = () => {
           setSelectedOption={(_s) => setFormData((prev) => ({ ...prev, role: _s }))}
           defaultOption={roleOptions[0]}
           filterlabelposition='top'
-          label='Role*'
+          label='What role best describes you?*'
           error={error?.role}
         />
       </FilterContainer>
-
-      <FilterContainer>
-        <FormOptions
-          options={blockchainOptions}
-          selectedOption={formData.blockchain}
-          setSelectedOption={(_s) => setFormData((prev) => ({ ...prev, blockchain: _s }))}
-          defaultOption={blockchainOptions[0]}
-          filterlabelposition='top'
-          label='Blockchain*'
-          error={error?.blockchain}
-        />
-      </FilterContainer>
-
-      <InputWithLabel
-        label='Phone Number (Optional)'
-        placeholder='+1 (555) 000-0000'
-        value={formData.phone}
-        onChange={(e) => handlePhoneNumberChange('phone', e.target.value)}
-        error={error?.phone}
-      />
 
       <TextArea
         label='Message*'
@@ -226,6 +259,7 @@ export const ContactForm = () => {
         value={formData.message}
         onChange={(e) => setFormData((prev) => ({ ...prev, message: e.target.value }))}
         error={error?.message}
+        rows={13}
       />
 
       <Checkbox
@@ -245,7 +279,8 @@ export const ContactForm = () => {
       <StyledButton
         hierarchy='primary'
         size='xl'
-        disabled={error || !captchaCode || !acceptTerms}
+        // disabled={error || !captchaCode || !acceptTerms}
+        disabled={!captchaCode || !acceptTerms}
       >
         Send Message
       </StyledButton>
@@ -254,7 +289,7 @@ export const ContactForm = () => {
 }
 
 const Form = styled.form`
-  max-width: 480px;
+  max-width: 680px;
   width:100%;
   display:flex;
   gap:24px;
