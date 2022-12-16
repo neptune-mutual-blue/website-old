@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
 import styled from 'styled-components'
+import { colors } from '../../../../styles/colors'
+import { typography } from '../../../../styles/typography'
 import { Button } from '../../../components/Button'
 import { Checkbox } from '../../../components/Checkbox'
+import { Icon } from '../../../components/Icon'
 import { InputWithLabel } from '../../../components/InputWithLabel'
 import { TextArea } from '../../../components/TextArea'
 import { FormOptions } from './FormOptions'
@@ -22,7 +25,7 @@ export const contactMethodOptions = [
   { text: 'Select a contact method', value: '' },
   { text: 'Email', value: 'email', iconVariant: 'mail-02' },
   { text: 'Telegram', value: 'telegram', iconVariant: 'telegram' },
-  { text: 'Phone/Whatsapp', value: 'phone-whatsapp', iconVariant: 'phone-01' },
+  { text: 'Phone/Whatsapp', value: 'phone', iconVariant: 'phone-01' },
   { text: 'Other', value: 'other', iconVariant: 'edit-03' }
 ]
 
@@ -69,17 +72,20 @@ export const ContactForm = () => {
   const [captchaCode, setCaptchaCode] = useState('')
   const [acceptTerms, setAcceptTerms] = useState(false)
   const [submitClicked, setSubmitClicked] = useState(false)
+  const [submitSuccess, setSubmitSuccess] = useState(false)
 
   const recaptchaRef = useRef()
+  const itemsRef = useRef([])
 
   const makeRequest = async (data, cb = () => {}) => {
     const API_URL = 'https://api.neptunemutual.net/contact'
     try {
-      const res = await fetch(API_URL, {
+      await fetch(API_URL, {
         method: 'POST',
         body: JSON.stringify(data)
       })
-      console.log({ res })
+
+      setSubmitSuccess(true)
       cb()
     } catch (err) {
       console.log({ err })
@@ -87,15 +93,23 @@ export const ContactForm = () => {
   }
 
   const onSubmit = (e) => {
-    setSubmitClicked(true)
     e.preventDefault()
-    const validated = validateForm(formData, setError)
+
+    setSubmitClicked(true)
+
+    const { validated, firstErrorKey } = validateForm(formData, setError)
+
+    if (!validated && firstErrorKey) {
+      itemsRef.current?.[firstErrorKey]?.focus()
+    }
+
     if (validated && captchaCode && acceptTerms) {
       const _data = formData
 
       _data.contactMethod = formData.contactMethod.value
       _data.purpose = formData.purpose.value
       _data.role = formData.role.value
+      _data.captcha = captchaCode
 
       makeRequest(formData, () => {
         setSubmitClicked(false)
@@ -120,6 +134,15 @@ export const ContactForm = () => {
       return setFormData((prev) => ({ ...prev, [field]: value }))
     }
     if (/^[a-zA-Z]+$/.test(value)) {
+      setFormData((prev) => ({ ...prev, [field]: value }))
+    }
+  }
+
+  const handlePhoneChange = (field, value) => {
+    if (value === '') {
+      return setFormData((prev) => ({ ...prev, [field]: value }))
+    }
+    if (/^\+?\d*$/.test(value)) {
       setFormData((prev) => ({ ...prev, [field]: value }))
     }
   }
@@ -149,6 +172,10 @@ export const ContactForm = () => {
             value={formData.firstName}
             onChange={(e) => handleNameChange('firstName', e.target.value)}
             error={error?.firstName}
+            ref={el => {
+              itemsRef.current.firstName = el
+            }}
+            id='firstName'
           />
         </WrappedInput>
 
@@ -159,6 +186,10 @@ export const ContactForm = () => {
             value={formData.lastName}
             onChange={(e) => handleNameChange('lastName', e.target.value)}
             error={error?.lastName}
+            ref={el => {
+              itemsRef.current.lastName = el
+            }}
+            id='lastName'
           />
         </WrappedInput>
       </FirstRow>
@@ -170,6 +201,10 @@ export const ContactForm = () => {
         value={formData.email}
         onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
         error={error?.email}
+        ref={el => {
+          itemsRef.current.email = el
+        }}
+        id='email'
       />
 
       <InputWithLabel
@@ -178,6 +213,10 @@ export const ContactForm = () => {
         value={formData.company_name}
         onChange={(e) => setFormData((prev) => ({ ...prev, company_name: e.target.value }))}
         error={error?.company_name}
+        ref={el => {
+          itemsRef.current.company_name = el
+        }}
+        id='company_name'
       />
 
       <FilterContainer>
@@ -187,6 +226,10 @@ export const ContactForm = () => {
           error={error?.blockchain}
           placeholder='Choose relevant blockchains from the list'
           onChange={handleBlockchainChange}
+          ref={el => {
+            itemsRef.current.blockchain = el
+          }}
+          id='blockchain'
         />
       </FilterContainer>
 
@@ -196,6 +239,10 @@ export const ContactForm = () => {
         value={formData.website}
         onChange={(e) => setFormData((prev) => ({ ...prev, website: e.target.value }))}
         error={error?.website}
+        ref={el => {
+          itemsRef.current.website = el
+        }}
+        id='website'
       />
 
       <FilterContainer>
@@ -206,6 +253,10 @@ export const ContactForm = () => {
           defaultOption={purposeOptions[0]}
           label='Please select a purpose of this contact request*'
           error={error?.purpose}
+          ref={el => {
+            itemsRef.current.purpose = el
+          }}
+          id='purpose'
         />
       </FilterContainer>
 
@@ -218,26 +269,54 @@ export const ContactForm = () => {
           filterlabelposition='top'
           label='What’s the best way to get in touch with you?*'
           error={error?.contactMethod}
+          ref={el => {
+            itemsRef.current.contactMethod = el
+          }}
+          id='contactMethod'
         />
 
         {
-          formData.contactMethod.value === 'other' && (
-            <SubInputs>
-              <InputWithLabel
-                placeholder='1. What contact method are you using?'
-                value={formData.contactMethodName}
-                onChange={(e) => setFormData((prev) => ({ ...prev, contactMethodName: e.target.value }))}
-                error={error?.contactMethodName}
-              />
+          formData.contactMethod.value === 'other'
+            ? (
+              <SubInputs>
+                <InputWithLabel
+                  placeholder='1. What contact method are you using?'
+                  value={formData.contactMethodName}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, contactMethodName: e.target.value }))}
+                  error={error?.contactMethodName}
+                  ref={el => {
+                    itemsRef.current.contactMethodName = el
+                  }}
+                  id='contactMethodName'
+                />
 
-              <InputWithLabel
-                placeholder='2. Enter your contact number/address'
-                value={formData.contactAddress}
-                onChange={(e) => setFormData((prev) => ({ ...prev, contactAddress: e.target.value }))}
-                error={error?.contactAddress}
-              />
-            </SubInputs>
-          )
+                <InputWithLabel
+                  placeholder='2. Enter your contact number/address'
+                  value={formData.contactAddress}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, contactAddress: e.target.value }))}
+                  error={error?.contactAddress}
+                  ref={el => {
+                    itemsRef.current.contactAddress = el
+                  }}
+                  id='contactAddress'
+                />
+              </SubInputs>
+              )
+            : ['telegram', 'phone'].includes(formData.contactMethod.value) && (
+              <SubInputs>
+                <InputWithLabel
+                  placeholder='Enter your Whatsapp/Telegram Id'
+                  value={formData.phone}
+                  onChange={(e) => handlePhoneChange('phone', e.target.value)}
+                  error={error?.phone}
+                  ref={el => {
+                    itemsRef.current.phone = el
+                  }}
+                  id='phone'
+                />
+              </SubInputs>
+              )
+
         }
       </FilterContainer>
 
@@ -250,6 +329,10 @@ export const ContactForm = () => {
           filterlabelposition='top'
           label='What role best describes you?*'
           error={error?.role}
+          ref={el => {
+            itemsRef.current.role = el
+          }}
+          id='role'
         />
       </FilterContainer>
 
@@ -260,6 +343,10 @@ export const ContactForm = () => {
         onChange={(e) => setFormData((prev) => ({ ...prev, message: e.target.value }))}
         error={error?.message}
         rows={13}
+        ref={el => {
+          itemsRef.current.message = el
+        }}
+        id='message'
       />
 
       <Checkbox
@@ -280,10 +367,18 @@ export const ContactForm = () => {
         hierarchy='primary'
         size='xl'
         // disabled={error || !captchaCode || !acceptTerms}
-        disabled={!captchaCode || !acceptTerms}
       >
         Send Message
       </StyledButton>
+
+      {
+          submitSuccess && (
+            <SuccessMessage>
+              <Icon variant='check-circle-broken' size={20} />
+              Thank you for contacting us. We have received your message.
+            </SuccessMessage>
+          )
+       }
     </Form>
   )
 }
@@ -306,6 +401,7 @@ const FirstRow = styled.div`
   gap: 32px;
   width: 100%;
   @media (max-width: 768px){
+    gap: 24px;
     flex-wrap:wrap;
   }
 `
@@ -316,10 +412,14 @@ const WrappedInput = styled.div`
 
 const StyledButton = styled(Button)`
   width: 100%;
-  margin-top:8px;
-
+  margin-top: 8px;
+  
   :disabled {
     opacity: 0.75;
+  }
+  
+  @media (max-width: 768px){
+    margin-top: 16px;
   }
 `
 
@@ -332,4 +432,13 @@ const SubInputs = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
+`
+
+const SuccessMessage = styled.div`
+  display: flex;
+  align-items: center;
+  ${typography.styles.textMd}
+  ${typography.weights.regular}
+  color: ${colors.success[600]};
+  gap: 12px;
 `

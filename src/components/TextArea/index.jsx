@@ -1,12 +1,13 @@
+import { forwardRef } from 'react'
 import styled from 'styled-components'
 import { colors, primaryColorKey } from '../../../styles/colors'
 import { shadows } from '../../../styles/shadows'
 import { typography } from '../../../styles/typography'
 
-export const TextArea = ({ children, placeholder, label, error, ...props }) => {
+const TextArea = forwardRef(({ children, placeholder, label, error, ...props }, ref) => {
   return (
     <Container>
-      <Label>
+      <Label htmlFor={props.id}>
         {label}
       </Label>
 
@@ -15,13 +16,18 @@ export const TextArea = ({ children, placeholder, label, error, ...props }) => {
         rows='4'
         placeholder={placeholder}
         {...props}
+        ref={ref}
       />
 
       {(error) && <ErrorText>{error}</ErrorText>}
       {children}
     </Container>
   )
-}
+})
+
+TextArea.displayName = 'TextArea'
+
+export { TextArea }
 
 const Container = styled.div`
   flex: 1;
@@ -46,6 +52,7 @@ const StyledTextArea = styled.textarea`
   gap: 8px;
   ${typography.styles.textMd};
   ${typography.weights.regular};
+  height: auto;
 
   ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: ${props => props.theme.isLightMode ? colors.gray['500'] : colors.gray['300']};
@@ -77,6 +84,10 @@ const StyledTextArea = styled.textarea`
 
   &[data-error="true"] {
     border: 1px solid ${colors.error[700]};
+  }
+
+  @media screen and (max-width: 768px) {
+    height: 214px;
   }
 `
 

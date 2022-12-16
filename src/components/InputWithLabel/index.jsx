@@ -1,12 +1,13 @@
+import { forwardRef } from 'react'
 import styled from 'styled-components'
 import { colors, primaryColorKey } from '../../../styles/colors'
 import { shadows } from '../../../styles/shadows'
 import { typography } from '../../../styles/typography'
 
-export const InputWithLabel = ({ children, placeholder, label, error, ...props }) => {
+const InputWithLabel = forwardRef(({ children, placeholder, label, error, ...props }, ref) => {
   return (
     <Container>
-      <Label>
+      <Label htmlFor={props.id}>
         {label}
       </Label>
 
@@ -14,6 +15,7 @@ export const InputWithLabel = ({ children, placeholder, label, error, ...props }
         data-error={(error) ? 'true' : 'false'}
         placeholder={placeholder}
         {...props}
+        ref={ref}
       />
 
       {(error) && <ErrorText>{error}</ErrorText>}
@@ -22,7 +24,11 @@ export const InputWithLabel = ({ children, placeholder, label, error, ...props }
       {children}
     </Container>
   )
-}
+})
+
+InputWithLabel.displayName = 'InputWithLabel'
+
+export { InputWithLabel }
 
 const Container = styled.div`
   flex: 1;

@@ -16,7 +16,8 @@ import {
   SearchLg,
   CheckCircleFilled,
   DotsGrid,
-  HeartHand
+  HeartHand,
+  CheckCircleBroken
 } from "./variants/General";
 import {
   ArrowLeft,
@@ -434,6 +435,10 @@ export const Icon = ({ size, variant }) => {
 
   if(variant === 'phone-01') {
     IconComponent = Phone01
+  }
+
+  if(variant === 'check-circle-broken') {
+    IconComponent = CheckCircleBroken
   }
 
   return IconComponent ? <IconComponent width={size} height={size} /> : null;

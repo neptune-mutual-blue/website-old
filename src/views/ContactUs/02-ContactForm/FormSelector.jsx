@@ -1,18 +1,20 @@
-import React, { useState } from 'react'
+import React, { forwardRef, useState } from 'react'
 import styled, { useTheme } from 'styled-components'
 import { Icon } from '../../../components/Icon'
 import { colors, primaryColorKey } from '../../../../styles/colors'
 import { shadows } from '../../../../styles/shadows'
 import { typography } from '../../../../styles/typography'
 
-export const FormSelector = ({
+const FormSelector = forwardRef(({
   options,
   placeholder,
   label,
   error,
   onChange,
   ...props
-}) => {
+},
+ref
+) => {
   const theme = useTheme()
   const [filteredOptions, setFilteredOptions] = useState(options)
   const [selectedOptions, setSelectedOptions] = useState([])
@@ -112,6 +114,7 @@ export const FormSelector = ({
               onClick={() => handleOptionSelect(o)}
               data-isselected={o.selected}
               type='button'
+              ref={i === 0 ? ref : null}
             >
               <Icon variant={getIconName(o)} size={20} />
               <span>{o.text}</span>
@@ -128,7 +131,11 @@ export const FormSelector = ({
       </OptionsContainer>
     </Container>
   )
-}
+})
+
+FormSelector.displayName = 'FormSelector'
+
+export { FormSelector }
 
 const Container = styled.div`
   flex: 1;

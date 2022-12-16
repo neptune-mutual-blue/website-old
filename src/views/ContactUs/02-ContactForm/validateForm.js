@@ -1,9 +1,12 @@
 
 export const validateForm = (formData, setError) => {
   let formError = false
+  let firstErrorKey = ''
 
   const set = (key, value) => {
     if (value) formError = true
+    if (value && !firstErrorKey) firstErrorKey = key
+
     setError((prev) => ({
       ...prev,
       [key]: value || ''
@@ -34,6 +37,10 @@ export const validateForm = (formData, setError) => {
     set('company_name', 'This is required.')
   } else set('company_name')
 
+  if (!formData.blockchain?.length) {
+    set('blockchain', 'Please select blockchain networks')
+  } else set('blockchain')
+
   const urlRegex = /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)?/gi
   if (!String(formData.website).toLowerCase().match(urlRegex)) {
     set('website', 'Please enter a valid website')
@@ -57,21 +64,20 @@ export const validateForm = (formData, setError) => {
     } else set('contactAddress')
   }
 
+  const phoneRegex = /^(\+\d{1,3})?\s?\d{10}$/
+  if (['telegram', 'phone'].includes(formData.contactMethod.value)) {
+    if (!formData.phone || !formData.phone.match(phoneRegex)) {
+      set('phone', 'Please enter a valid phone number')
+    } else set('phone')
+  }
+
   if (formData.role.value === '') {
     set('role', 'Please select role')
   } else set('role')
-
-  if (!formData.blockchain?.length) {
-    set('blockchain', 'Please select blockchain networks')
-  } else set('blockchain')
-
-  if (formData.phone && !/^[+]?\d+$/.test(formData.phone)) {
-    set('phone', 'Only numbers allowed')
-  } else set('phone')
 
   if (formData.message === '') {
     set('message', 'This is required.')
   } else set('message')
 
-  return !formError
+  return { validated: !formError, firstErrorKey }
 }

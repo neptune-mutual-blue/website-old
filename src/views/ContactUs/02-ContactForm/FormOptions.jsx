@@ -1,5 +1,5 @@
 import { Listbox } from '@headlessui/react'
-import React from 'react'
+import React, { forwardRef } from 'react'
 import styled, { useTheme } from 'styled-components'
 import { colors, primaryColorKey } from '../../../../styles/colors'
 import { shadows } from '../../../../styles/shadows'
@@ -7,15 +7,16 @@ import { typography } from '../../../../styles/typography'
 import { utils } from '../../../../styles/utils'
 import { Icon } from '../../../components/Icon'
 
-export const FormOptions = ({
+const FormOptions = forwardRef(({
   options,
   selectedOption,
   setSelectedOption,
   label,
   defaultOption,
   getOptionText = (x) => x.text,
-  error
-}) => {
+  error,
+  ...props
+}, ref) => {
   const s = selectedOption ?? defaultOption
   const theme = useTheme()
   const selectedIconVariant = (!theme.isLightMode && s.iconVariantDark) ? s.iconVariantDark : s.iconVariant
@@ -28,6 +29,8 @@ export const FormOptions = ({
           <ListboxButton
             data-error={(error) ? 'true' : 'false'}
             data-default={s.value === ''}
+            {...props}
+            ref={ref}
           >
             <Left>
               {selectedIconVariant && <Icon variant={selectedIconVariant} size={20} />}
@@ -66,7 +69,11 @@ export const FormOptions = ({
       {(error) && <ErrorText>{error}</ErrorText>}
     </Container>
   )
-}
+})
+
+FormOptions.displayName = 'FormOptions'
+
+export { FormOptions }
 
 const Container = styled.div`
   display: flex;
@@ -97,6 +104,7 @@ const ListboxButton = styled(Listbox.Button)`
   background-color:  ${props => props.theme.isLightMode ? colors.white : colors.gray['600']};
   box-shadow: ${shadows.xs};
   border-radius: 8px;
+  cursor: pointer;
 
   @media (max-width: 768px) {
     flex: 1;
