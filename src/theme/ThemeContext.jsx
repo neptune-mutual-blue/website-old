@@ -73,29 +73,6 @@ const GlobalStyle = createGlobalStyle`
     max-height: 100%;
   }
 
-  figure:has(figcaption) {
-    border: 1px dashed ${props => props.theme.isLightMode ? colors.gray['300'] : colors.gray['600']};
-    margin: 0.5rem 0 1.5rem 0;
-    border-radius: 1rem;
-    padding: 0.5rem;
-
-    img{
-      margin:unset!important;
-    }
-
-    figcaption {
-      color: ${colors.gray['500']};
-      font-size: 0.78rem;
-      line-height: 1rem;
-      text-align: center;
-    }
-    
-
-    figcaption a, figcaption a:hover {
-      color: unset;
-    }
-  }
-
   svg.icon {
     width: 24px;
     height: 24px;

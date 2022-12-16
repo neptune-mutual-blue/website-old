@@ -75,7 +75,45 @@ const Container = styled.div`
     }
   }
 
-  h2, h3, h4 {
+
+  figure:has(figcaption) {
+    border: 1px dashed ${props => props.theme.isLightMode ? colors.gray['300'] : colors.gray['600']};
+    margin: 0.5rem 0 1.5rem 0;
+    border-radius: 1rem;
+    padding: 0.5rem;
+
+    img{
+      margin:unset!important;
+    }
+
+    p {
+      margin: 0
+    }
+
+    figcaption, figcaption p, figcaption ol, figcaption ul {
+      color: ${props => props.theme.isLightMode ? colors.gray['500'] : colors.gray['300']};
+      font-size: 0.78rem;
+      line-height: 1rem;
+      text-align: center;
+    }
+
+    figcaption svg {
+      height: 12px;
+      width: auto;
+    }
+    
+
+    figcaption a {
+      color: ${props => props.theme.isLightMode ? colors[primaryColorKey]['500'] : colors[primaryColorKey]['300']};
+    }
+
+    figcaption a:hover {
+      color: ${colors.rose['400']};
+    }
+  }
+
+
+ h2, h3, h4 {
     color: ${props => props.theme.isLightMode ? colors.gray[900] : colors.white};
   }
 
