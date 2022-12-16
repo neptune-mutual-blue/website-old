@@ -1,2 +1,11 @@
-export { default as Avalanche } from "./SvgAvalanche"
-export { default as AvalancheDark } from "./SvgAvalancheDark"
+export { default as Ethereum } from "./default/SvgEthereum"
+export { default as Avalanche } from "./default/SvgAvalanche"
+export { default as Arbitrum } from "./default/SvgArbitrum"
+export { default as BNBChain } from "./default/SvgBNBChain"
+export { default as Polygon } from "./default/SvgPolygon"
+
+export { default as EthereumDark } from "./dark/SvgEthereumDark"
+export { default as AvalancheDark } from "./dark/SvgAvalancheDark"
+export { default as ArbitrumDark } from "./dark/SvgArbitrumDark"
+export { default as BNBChainDark } from "./dark/SvgBNBChainDark"
+export { default as PolygonDark } from "./dark/SvgPolygonDark"
