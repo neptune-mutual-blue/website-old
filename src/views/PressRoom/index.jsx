@@ -9,7 +9,7 @@ const PressRoom = ({ news, pressRoomPosts, pressRoomPostsTotal, page, tag }) => 
       <Hero />
       <Announcement posts={pressRoomPosts} totalPage={pressRoomPostsTotal} page={page} tag={tag} />
       <Media news={news} />
-      <NewsletterSignupForm heading='Subscribe to Our Pressroom' showRSS />
+      <NewsletterSignupForm heading='Subscribe to Our Pressroom' showRSS atomLink='/atom.xml' rssLink='/rss.xml' />
     </>
   )
 }

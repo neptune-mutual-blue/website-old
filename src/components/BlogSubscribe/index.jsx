@@ -7,7 +7,7 @@ import { Icon } from '../Icon'
 import { Input } from '../Input'
 import { InputHint } from '../Input/Hint'
 
-export const BlogSubscribe = ({ showRSS = false }) => {
+export const BlogSubscribe = ({ showRSS = false, atomLink = '/atom.xml', rssLink = '/rss.xml' }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const formData = new FormData(e.target)
@@ -40,11 +40,11 @@ export const BlogSubscribe = ({ showRSS = false }) => {
       </FormContainer>
       {showRSS && (
         <SubscribeContainer>
-          <AtomContainer href='/atom.xml'>
+          <AtomContainer href={atomLink}>
             <Icon variant='rss-01' size={16} />
             Atom
           </AtomContainer>
-          <RSSContainer href='/rss.xml'>
+          <RSSContainer href={rssLink}>
             <Icon variant='rss-01' size={16} />
             RSS
           </RSSContainer>
