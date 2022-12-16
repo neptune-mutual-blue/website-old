@@ -147,8 +147,8 @@ const Type = styled.div`
     margin: 0;
   }
 `
-const Label = styled.label`
-  color: ${colors.gray[400]};
+const Label = styled.span`
+  color: ${props => props.theme.isLightMode ? colors.gray[600] : colors.gray[300]};
   ${typography.styles.textSm}
   ${typography.weights.regular}
   @media (max-width: 768px) {

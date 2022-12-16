@@ -93,7 +93,7 @@ const Container = styled.div`
 const Label = styled.p`
   ${typography.styles.textMd};
   ${typography.weights.semibold};
-  color:  ${props => (props.theme.isLightMode ? colors.gray[400] : colors.gray[300])};
+  color:  ${props => (props.theme.isLightMode ? colors.gray[500] : colors.gray[300])};
   padding-left: 8px;
 `
 
