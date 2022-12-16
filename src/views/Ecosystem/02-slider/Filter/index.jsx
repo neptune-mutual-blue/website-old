@@ -12,7 +12,7 @@ export const EcosystemFilter = ({ types, selectedOption, setSelectedOption }) =>
           getOptionText={type => data.labels[type]}
           selectedOption={selectedOption}
           setSelectedOption={setSelectedOption}
-          label='Filter by Type'
+          // label='Filter by Type'
           defaultOption='All'
         />
       </DesktopFilter>
@@ -23,7 +23,7 @@ export const EcosystemFilter = ({ types, selectedOption, setSelectedOption }) =>
           getOptionText={type => data.labels[type]}
           selectedOption={selectedOption}
           setSelectedOption={setSelectedOption}
-          label='Filter by Type'
+          // label='Filter by Type'
           defaultOption='All'
         />
       </MobileFilter>

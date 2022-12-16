@@ -8,7 +8,7 @@ import { utils } from '../../../../../styles/utils'
 export const RadioGroupFilter = ({ options, selectedOption, setSelectedOption, label, defaultOption, getOptionText = (x) => x }) => {
   return (
     <Container value={selectedOption} onChange={setSelectedOption}>
-      <RadioGroupLabel>{label}</RadioGroupLabel>
+      {label && <RadioGroupLabel>{label}</RadioGroupLabel>}
       {options.map(option => {
         return (
           <RadioGroupOption key={option} value={option}>
