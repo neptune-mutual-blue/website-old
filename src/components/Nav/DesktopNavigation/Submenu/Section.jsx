@@ -71,6 +71,6 @@ const More = styled.a`
   ${typography.weights.semibold};
 
   :hover, :active{
-    color: ${colors.rose[600]};
+    color: ${props => props.theme.isLightMode ? colors[primaryColorKey]['600'] : colors[primaryColorKey]['300']};
   }
 `

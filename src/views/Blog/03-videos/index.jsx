@@ -64,7 +64,7 @@ const ExternalLink = styled.a`
   ${typography.weights.semibold};
 
   :hover, :active{
-    color: ${colors.rose[600]};
+    color: ${props => props.theme.isLightMode ? colors[primaryColorKey]['700'] : colors[primaryColorKey]['300']};
   }
   
   @media (max-width: 375px) {

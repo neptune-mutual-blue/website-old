@@ -52,6 +52,12 @@ const Crumb = styled.a`
     border-radius: 6px;
     ${typography.weights.semibold}
   }
+
+  :hover{
+    background-color: ${props => (props.theme.isLightMode ? colors.gray[50] : colors.gray[600])};
+    border-radius:6px;
+    color: ${props => (props.theme.isLightMode ? colors.gray[700] : colors.gray[25])};
+  }
 `
 
 export { Breadcrumbs }

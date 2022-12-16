@@ -70,7 +70,7 @@ const LinkText = styled.a`
   color: ${props => props.theme.isLightMode ? colors[primaryColorKey][600] : colors[primaryColorKey]['300']};
 
   :hover, :active{
-    color: ${colors.rose[600]}
+    color: ${props => props.theme.isLightMode ? colors[primaryColorKey][600] : colors[primaryColorKey]['300']};
   }
 `
 

@@ -174,4 +174,9 @@ const SocialLink = styled.a`
   display: flex;
   gap: 12px;
   align-items: center;
+  color: ${props => props.theme.isLightMode ? colors.gray[900] : colors.white};  
+
+  :hover{
+    color: ${props => props.theme.isLightMode ? colors.gray[900] : colors.white}; 
+  }
 `

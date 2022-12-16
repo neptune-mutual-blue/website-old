@@ -49,4 +49,8 @@ const FilterItem = styled(Link)`
     color: ${props => props.theme.isLightMode ? colors[primaryColorKey][700] : colors.white};
     background-color: ${props => props.theme.isLightMode ? colors[primaryColorKey][50] : colors[primaryColorKey][700]};
   }
+
+  :hover{
+    color: ${props => props.theme.isLightMode ? colors.gray[500] : colors.gray[300]};
+  }
 `

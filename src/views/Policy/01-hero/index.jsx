@@ -66,6 +66,10 @@ const Tab = styled(Link)`
     background-color: ${props => props.theme.isLightMode ? colors[primaryColorKey][100] : colors.gray[600]};
     color: ${props => props.theme.isLightMode ? colors[primaryColorKey][700] : colors.white};
   }
+  :hover[isactive=false]{
+    background-color: ${props => props.theme.isLightMode ? colors[primaryColorKey][50] : colors.gray[600]};
+    color: ${props => props.theme.isLightMode ? colors[primaryColorKey][700] : colors.white};
+  }
 `
 
 export { Hero }

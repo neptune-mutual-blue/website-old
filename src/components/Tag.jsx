@@ -16,4 +16,8 @@ export const Tag = styled(Link)`
   ${typography.styles.textSm};
   ${typography.weights.medium};
   ${utils.ellipsis};
+
+  :hover, :active{
+    color: ${props => props.theme.isLightMode ? colors[props.color || primaryColorKey]['700'] : colors[props.color || primaryColorKey]['400']};
+  }
 `

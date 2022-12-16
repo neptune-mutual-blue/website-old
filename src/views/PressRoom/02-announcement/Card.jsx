@@ -114,6 +114,11 @@ const Tag = styled(Link)`
   ${typography.styles.textSm};
   ${typography.weights.medium};
   ${utils.ellipsis};
+
+  :hover, :active{
+    background-color: ${props => props.theme.isLightMode ? colors[props.color || primaryColorKey]['50'] : colors.gray['700']};
+  color: ${props => props.theme.isLightMode ? colors[props.color || primaryColorKey]['700'] : colors[props.color || primaryColorKey]['400']};
+  }
 `
 
 export { Card }

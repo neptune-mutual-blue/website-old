@@ -42,6 +42,9 @@ const Container = styled.div`
     align-items: center;
     gap: 8px;
     
+    :hover,:active{
+      color: ${props => props.theme.isLightMode ? colors[primaryColorKey]['700'] : colors[primaryColorKey]['300']};
+    }
   }
 `
 const CardTitle = styled.p`
