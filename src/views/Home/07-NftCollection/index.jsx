@@ -23,7 +23,7 @@ export const NftCollection = () => {
           </TextContainer>
 
           <Button
-            href='#'
+            href='https://discord.gg/2qMGTtJtnW'
             as='a'
             hierarchy='primary'
             size='xl'

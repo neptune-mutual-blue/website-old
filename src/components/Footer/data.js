@@ -2,7 +2,7 @@ export const nav = [
   {
     title: 'Resources',
     links: [
-      { href: '/marketplace', text: 'Overview', isExternal: false },
+      { href: '/marketplace', text: 'Marketplace', isExternal: false },
       { href: '/blog', text: 'Blog', isExternal: false },
       { href: '/pressroom', text: 'Press Room', isExternal: false },
       { href: '/ecosystem', text: 'Ecosystem', isExternal: false },

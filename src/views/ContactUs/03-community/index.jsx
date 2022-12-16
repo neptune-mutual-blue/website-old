@@ -7,49 +7,49 @@ import { Icon } from '../../../components/Icon'
 const links = [
   {
     name: 'Twitter',
-    href: '#',
+    href: 'https://twitter.com/neptunemutual',
     Icon: <Icon variant='twitter-default' />,
     IconWhite: <Icon variant='twitter' />
   },
   {
     name: 'Reddit',
-    href: '#',
+    href: 'https://www.reddit.com/r/NeptuneMutual/',
     Icon: <Icon variant='reddit-default' />,
     IconWhite: <Icon variant='reddit' />
   },
   {
     name: 'Telegram',
-    href: '#',
+    href: 'https://t.me/neptunemutual',
     Icon: <Icon variant='telegram-default' />,
     IconWhite: <Icon variant='telegram' />
   },
   {
     name: 'Github',
-    href: '#',
+    href: 'https://github.com/neptune-mutual',
     Icon: <Icon variant='github-default' />,
     IconWhite: <Icon variant='github' />
   },
   {
     name: 'LinkedIn',
-    href: '#',
+    href: 'https://www.linkedin.com/company/neptune-mutual/',
     Icon: <Icon variant='linkedin-default' />,
     IconWhite: <Icon variant='linkedin' />
   },
   {
     name: 'Medium',
-    href: '#',
+    href: 'https://medium.com/neptune-mutual',
     Icon: <Icon variant='medium-default' />,
     IconWhite: <Icon variant='medium' />
   },
   {
     name: 'Youtube',
-    href: '#',
+    href: 'https://www.youtube.com/@NeptuneMutual',
     Icon: <Icon variant='youtube-default' />,
     IconWhite: <Icon variant='youtube' />
   },
   {
     name: 'Discord',
-    href: '#',
+    href: 'https://discord.gg/2qMGTtJtnW',
     Icon: <Icon variant='discord-default' />,
     IconWhite: <Icon variant='discord' />
   }
