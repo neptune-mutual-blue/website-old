@@ -1,5 +1,9 @@
 import styled from 'styled-components'
-import { colors, primaryColorKey } from '../../../../styles/colors'
+
+import {
+  colors,
+  primaryColorKey
+} from '../../../../styles/colors'
 import { typography } from '../../../../styles/typography'
 import { utils } from '../../../../styles/utils'
 
@@ -15,7 +19,7 @@ export const Hero = () => {
         </div>
 
         <ImageContainer>
-          <img src='/assets/images/hero/grants-hero.webp' alt='@todo' />
+          <img src='/assets/images/hero/grants-hero.webp' alt='A banner illustration of a blue vault full with gold bullion coins, with a few more coins outside.' />
         </ImageContainer>
       </InnerContainer>
     </Container>

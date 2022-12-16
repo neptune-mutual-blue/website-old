@@ -33,7 +33,7 @@ export const Hero = () => {
         <ImageContainer>
           <Image
             src='/assets/images/hero/ecosystem.png'
-            alt='@todo'
+            alt='A banner image featuring a couple of cards labeled "Dedicated Cover" and "Diversified Pool," as well as a progress bar showing the utilization amount and utilization ratio'
             fill
             sizes='(max-width: 768px) 100vw, 1280px'
             placeholder='blur'

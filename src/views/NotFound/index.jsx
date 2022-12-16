@@ -2,7 +2,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
-import { colors, primaryColorKey } from '../../../styles/colors'
+
+import {
+  colors,
+  primaryColorKey
+} from '../../../styles/colors'
 import { typography } from '../../../styles/typography'
 import { utils } from '../../../styles/utils'
 import { Button } from '../../components/Button'
@@ -39,7 +43,9 @@ export const NotFound = () => {
 
       <ImageContainer>
         <Image
-          src='/assets/images/hero/not-found-alert.png' alt='@todo' fill loading='eager' priority
+          src='/assets/images/hero/not-found-alert.png'
+          alt='A 404 Not Found Image Showing a Three-Dimensional Traffic Cone'
+          fill loading='eager' priority
           sizes='(max-width: 768px) 80vw, (max-width: 1280px) 40vw, 640px'
           placeholder='blur'
           blurDataURL={getBlurDataURL(1280, 1280)}
