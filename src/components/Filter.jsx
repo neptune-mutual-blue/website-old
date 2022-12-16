@@ -11,7 +11,7 @@ export const Filter = ({ options, selectedOption, setSelectedOption, label, icon
   return (
     <Container>
       <Listbox value={selectedOption} onChange={setSelectedOption}>
-        <FilterLabel>{label}</FilterLabel>
+        {label && <FilterLabel>{label}</FilterLabel>}
         <ButtonContainer>
           <ListboxButton id='filter'>
             <Left>

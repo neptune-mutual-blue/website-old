@@ -190,10 +190,10 @@ const DotName = styled.p`
   ${typography.weights.bold};
   color: ${props => {
     const isLightMode = props.theme.isLightMode
-    let color = isLightMode ? colors.gray['500'] : colors.gray['400']
+    let color = isLightMode ? colors.gray['600'] : colors.gray['400']
 
     if (props.isFuture) {
-      color = isLightMode ? colors.gray['400'] : colors.gray['600']
+      color = isLightMode ? colors.gray['500'] : colors.gray['400']
     }
 
     if (props.isActive) {
@@ -201,7 +201,7 @@ const DotName = styled.p`
     }
 
     if (props.isCurrent) {
-      color = isLightMode ? colors[primaryColorKey]['700'] : colors[primaryColorKey]['500']
+      color = isLightMode ? colors[primaryColorKey]['700'] : colors[primaryColorKey]['300']
     }
 
   return color
