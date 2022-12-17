@@ -1,6 +1,11 @@
+import {
+  useRef,
+  useState
+} from 'react'
+
 import Link from 'next/link'
-import { useState, useRef } from 'react'
 import styled from 'styled-components'
+
 import { colors } from '../../../styles/colors'
 import { typography } from '../../../styles/typography'
 import { Button } from '../Button'
@@ -23,7 +28,7 @@ export const BlogSubscribe = ({ showRSS = false, atomLink = '/atom.xml', rssLink
       setIsPending(true)
       const res = await fetch('https://api2.neptunemutual.net/subscribe', {
         method: 'POST',
-        body: JSON.stringify({ email: email }),
+        body: JSON.stringify({ email }),
         headers: {
           'Content-Type': 'application/json'
         }
@@ -50,7 +55,7 @@ export const BlogSubscribe = ({ showRSS = false, atomLink = '/atom.xml', rssLink
         <InputContainer>
           <Input placeholder='Enter your email' type='email' name='email' autoComplete='off' disabled={isPending || isSuccess}>
             {isSuccess && <SuccessMessage />}
-            <InputHint>We care about your data in our <Link href='#'>privacy policy</Link>.</InputHint>
+            <InputHint>Our <Link href='/policies/privacy-policy'>privacy policy</Link>  explains how we handle your data</InputHint>
           </Input>
         </InputContainer>
         <Button
