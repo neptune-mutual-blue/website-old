@@ -1,13 +1,6 @@
-import {
-  useEffect,
-  useRef,
-  useState
-} from 'react'
-
-import Link from 'next/link'
+import { useEffect, useRef, useState } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
 import styled from 'styled-components'
-
 import { colors } from '../../../../styles/colors'
 import { typography } from '../../../../styles/typography'
 import { Button } from '../../../components/Button'
@@ -44,8 +37,7 @@ export const roleOptions = [
   { text: 'Co-founder/CXO', value: 'co-founder-cxo', iconVariant: 'user-square' },
   { text: 'Engineering', value: 'engineering', iconVariant: 'cube-01' },
   { text: 'Operations', value: 'operations', iconVariant: 'dots-grid' },
-  { text: 'Product Manager', value: 'product-manager', iconVariant: 'heart-hand' },
-  { text: 'Other', value: 'other', iconVariant: 'pencil-line' }
+  { text: 'Product Manager', value: 'product-manager', iconVariant: 'heart-hand' }
 ]
 
 export const blockchainOptions = [
@@ -102,9 +94,7 @@ export const ContactForm = () => {
     }
   }
 
-  const onSubmit = (e) => {
-    e.preventDefault()
-
+  const onSubmit = () => {
     setSubmitClicked(true)
 
     const { validated, firstErrorKey } = validateForm(formData, setError)
@@ -114,7 +104,7 @@ export const ContactForm = () => {
     }
 
     if (validated && captchaCode && acceptTerms) {
-      const _data = formData
+      const _data = JSON.parse(JSON.stringify(formData))
 
       _data.captcha = captchaCode
       _data.contactMethod = formData.contactMethod.otherValue || formData.contactMethod.value
@@ -176,7 +166,9 @@ export const ContactForm = () => {
   }, [formData, submitClicked])
 
   return (
-    <Form onSubmit={onSubmit}>
+    <Form
+      onSubmit={e => e.preventDefault()}
+    >
       <FirstRow>
         <WrappedInput>
           <InputWithLabel
@@ -248,7 +240,7 @@ export const ContactForm = () => {
       </FilterContainer>
 
       <InputWithLabel
-        label='What is the website of your business or project?*'
+        label='What is the website for your business or project?*'
         placeholder='https://example.com'
         value={formData.website}
         onChange={(e) => setFormData((prev) => ({ ...prev, website: e.target.value }))}
@@ -344,7 +336,7 @@ export const ContactForm = () => {
         checked={acceptTerms}
         onChange={handleChange}
       >
-        I accept the Neptune Mutual <Link href='/policies/privacy-policy'>privacy policy</Link>
+        You agree to our friendly privacy policy.
       </Checkbox>
 
       <ReCAPTCHA
@@ -357,6 +349,7 @@ export const ContactForm = () => {
       <StyledButton
         hierarchy='primary'
         size='xl'
+        onClick={onSubmit}
         // disabled={error || !captchaCode || !acceptTerms}
       >
         Send Message
