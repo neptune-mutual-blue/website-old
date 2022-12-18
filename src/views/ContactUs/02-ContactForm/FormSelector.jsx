@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from 'react'
+import React, { forwardRef, useEffect, useState } from 'react'
 import styled, { useTheme } from 'styled-components'
 import { Icon } from '../../../components/Icon'
 import { colors, primaryColorKey } from '../../../../styles/colors'
@@ -11,6 +11,7 @@ const FormSelector = forwardRef(({
   label,
   error,
   onChange,
+  reset,
   ...props
 },
 ref
@@ -57,6 +58,16 @@ ref
     setSelectedOptions(_selectedOptions)
     onChange(_selectedOptions)
   }
+
+  useEffect(() => {
+    if (reset) {
+      setFilteredOptions(prev => {
+        const _filteredOptions = [...prev].map(option => ({ ...option, selected: false }))
+        return [..._filteredOptions]
+      })
+      setSelectedOptions([])
+    }
+  }, [reset])
 
   return (
     <Container>

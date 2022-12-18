@@ -74,19 +74,23 @@ export const ContactForm = () => {
   const [submitClicked, setSubmitClicked] = useState(false)
   const [submitSuccess, setSubmitSuccess] = useState(false)
 
+  const [resetBlockchains, setResetBlockchains] = useState(0)
+
   const recaptchaRef = useRef()
   const itemsRef = useRef([])
 
   const makeRequest = async (data, cb = () => {}) => {
     const API_URL = 'https://api.neptunemutual.net/contact'
+
     try {
-      await fetch(API_URL, {
+      const res = await fetch(API_URL, {
         method: 'POST',
         body: JSON.stringify(data)
       })
 
-      setSubmitSuccess(true)
-      cb()
+      if (res.ok) {
+        cb()
+      }
     } catch (err) {
       console.log({ err })
     }
@@ -112,8 +116,11 @@ export const ContactForm = () => {
       _data.captcha = captchaCode
 
       makeRequest(formData, () => {
-        setSubmitClicked(false)
+        setSubmitSuccess(true)
         setFormData(initialState)
+        setSubmitClicked(false)
+
+        setResetBlockchains(val => val + 1)
       })
     }
   }
@@ -230,6 +237,7 @@ export const ContactForm = () => {
             itemsRef.current.blockchain = el
           }}
           id='blockchain'
+          reset={resetBlockchains}
         />
       </FilterContainer>
 
