@@ -66,6 +66,7 @@ const Check = styled.input`
   &:hover,
   & + label:hover {
     border-color: rgb(130, 130, 130);
+    cursor: pointer;
   }
 
   background-position: center;

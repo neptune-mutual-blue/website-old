@@ -56,9 +56,10 @@ const initialState = {
   company_name: '',
   website: '',
   purpose: purposeOptions[0],
+  otherPurpose: '',
   contactMethod: contactMethodOptions[0],
-  contactMethodName: '',
-  contactAddress: '',
+  otherContactMethod: '',
+  otherContactAddress: '',
   role: roleOptions[0],
   blockchain: blockchainOptions[0],
   phone: '',
@@ -110,10 +111,14 @@ export const ContactForm = () => {
     if (validated && captchaCode && acceptTerms) {
       const _data = formData
 
-      _data.contactMethod = formData.contactMethod.value
-      _data.purpose = formData.purpose.value
-      _data.role = formData.role.value
       _data.captcha = captchaCode
+      _data.contactMethod = formData.otherContactMethod || formData.contactMethod.value
+      _data.purpose = formData.otherPurpose || formData.purpose.value
+      _data.role = formData.role.value
+
+      delete _data.otherPurpose
+      delete _data.otherContactMethod
+      if (!_data.otherContactAddress) delete _data.otherContactAddress
 
       makeRequest(formData, () => {
         setSubmitSuccess(true)
@@ -266,6 +271,23 @@ export const ContactForm = () => {
           }}
           id='purpose'
         />
+
+        {
+          formData.purpose.value === 'other' && (
+            <SubInputs>
+              <InputWithLabel
+                placeholder='What is the purpose of this contact request?'
+                value={formData.otherPurpose}
+                onChange={(e) => setFormData((prev) => ({ ...prev, otherPurpose: e.target.value }))}
+                error={error?.otherPurpose}
+                ref={el => {
+                  itemsRef.current.otherPurpose = el
+                }}
+                id='otherPurpose'
+              />
+            </SubInputs>
+          )
+        }
       </FilterContainer>
 
       <FilterContainer>
@@ -289,24 +311,24 @@ export const ContactForm = () => {
               <SubInputs>
                 <InputWithLabel
                   placeholder='1. What contact method are you using?'
-                  value={formData.contactMethodName}
-                  onChange={(e) => setFormData((prev) => ({ ...prev, contactMethodName: e.target.value }))}
-                  error={error?.contactMethodName}
+                  value={formData.otherContactMethod}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, otherContactMethod: e.target.value }))}
+                  error={error?.otherContactMethod}
                   ref={el => {
-                    itemsRef.current.contactMethodName = el
+                    itemsRef.current.otherContactMethod = el
                   }}
-                  id='contactMethodName'
+                  id='otherContactMethod'
                 />
 
                 <InputWithLabel
                   placeholder='2. Enter your contact number/address'
-                  value={formData.contactAddress}
-                  onChange={(e) => setFormData((prev) => ({ ...prev, contactAddress: e.target.value }))}
-                  error={error?.contactAddress}
+                  value={formData.otherContactAddress}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, otherContactAddress: e.target.value }))}
+                  error={error?.otherContactAddress}
                   ref={el => {
-                    itemsRef.current.contactAddress = el
+                    itemsRef.current.otherContactAddress = el
                   }}
-                  id='contactAddress'
+                  id='otherContactAddress'
                 />
               </SubInputs>
               )

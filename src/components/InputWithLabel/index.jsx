@@ -1,10 +1,16 @@
-import { forwardRef } from 'react'
+import { forwardRef, useEffect } from 'react'
 import styled from 'styled-components'
 import { colors, primaryColorKey } from '../../../styles/colors'
 import { shadows } from '../../../styles/shadows'
 import { typography } from '../../../styles/typography'
 
 const InputWithLabel = forwardRef(({ children, placeholder, label, error, ...props }, ref) => {
+  useEffect(() => {
+    return () => {
+      props?.onChange({ target: { value: '' } })
+    }
+  }, [])
+
   return (
     <Container>
       <Label htmlFor={props.id}>

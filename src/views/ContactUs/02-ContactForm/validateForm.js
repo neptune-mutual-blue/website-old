@@ -50,14 +50,20 @@ export const validateForm = (formData, setError) => {
     set('purpose', 'Please select an option')
   } else set('purpose')
 
+  if (formData.purpose.value === 'other') {
+    if (!formData.otherPurpose) {
+      set('otherPurpose', 'Please enter the purpose')
+    } else set('otherPurpose')
+  }
+
   if (formData.contactMethod.value === '') {
     set('contactMethod', 'Please select an option')
   } else set('contactMethod')
 
   if (formData.contactMethod.value === 'other') {
-    if (!formData.contactMethodName) {
-      set('contactMethodName', 'Please enter the contact method')
-    } else set('contactMethodName')
+    if (!formData.otherContactMethod) {
+      set('otherContactMethod', 'Please enter the contact method')
+    } else set('otherContactMethod')
 
     if (!formData.contactAddress) {
       set('contactAddress', 'Please enter the contact address')

@@ -155,7 +155,7 @@ const Container = styled.div`
   width:100%;
 `
 
-const Label = styled.label`
+const Label = styled.p`
   flex: 1;
   margin-bottom: 6px;
 
