@@ -3,7 +3,7 @@ import {
   useRef
 } from 'react'
 
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 
 import {
   colors,
@@ -14,6 +14,7 @@ import { utils } from '../../styles/utils'
 import { parseEmbeds } from '../helpers/embed'
 
 export const HtmlContent = ({ content }) => {
+  const { name } = useTheme()
   const ref = useRef()
 
   useEffect(() => {
@@ -23,6 +24,20 @@ export const HtmlContent = ({ content }) => {
       window.twttr.widgets.load()
     }
   }, [content])
+
+  useEffect(() => {
+    // Change tweet theme
+    const tweets = document.querySelectorAll('[data-tweet-id]')
+
+    tweets.forEach(function (tweet) {
+      const src = tweet.getAttribute('src')
+
+      const srcUrl = (new URL(src))
+      srcUrl.searchParams.set('theme', name)
+
+      tweet.setAttribute('src', srcUrl.toString())
+    })
+  }, [name])
 
   return (
     <Container>
@@ -124,6 +139,11 @@ const Container = styled.div`
   .gist {width:100% !important;}
   .gist-file
   .gist-data {max-height: 100% !important; max-width: 100% !important;}
+
+  .twitter-tweet.twitter-tweet-rendered {
+    margin-left: auto;
+    margin-right: auto;
+  }
 
   /* Custom classes */
   h1, h2, h3, h4, h5, h6 {

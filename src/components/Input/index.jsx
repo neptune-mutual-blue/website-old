@@ -70,4 +70,8 @@ const StyledInput = styled.input`
         0px 0px 0px 4px ${(props) => props.theme.isLightMode ? colors[primaryColorKey]['100'] : colors[primaryColorKey]['800']};
     }
   }
+
+  :disabled {
+    cursor: not-allowed;
+  }
 `

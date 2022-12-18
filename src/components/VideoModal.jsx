@@ -43,6 +43,10 @@ const StyledDialog = styled(Dialog)`
   justify-content: center;
   align-items: center;
   padding: 0 24px;
+
+  @media (max-width: 767px){
+    padding: 0 12px;
+  }
 `
 
 const Title = styled(Dialog.Title)`
@@ -60,7 +64,6 @@ const Panel = styled(Dialog.Panel)`
 
   iframe {
     width: 2000px;
-    min-height: 240px;
     max-height: 80%;
     max-width: 85%;
     aspect-ratio: 16 / 9;

@@ -1,7 +1,11 @@
 import Image from 'next/image'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
-import { colors, primaryColorKey } from '../../../../styles/colors'
+
+import {
+  colors,
+  primaryColorKey
+} from '../../../../styles/colors'
 import { typography } from '../../../../styles/typography'
 import { utils } from '../../../../styles/utils'
 import { Button } from '../../../components/Button'
@@ -37,7 +41,7 @@ export const NftCollection = () => {
         <ImageContainer>
           <Image
             src='/assets/images/nft/promo.webp'
-            alt='@todo'
+            alt='A banner that displays an NFT set, consisting of cards featuring unique Neptune Mutual NFT character portraits, names, and descriptions.'
             fill
             sizes='(max-width: 768px) 100vw, 1280px'
             placeholder='blur'

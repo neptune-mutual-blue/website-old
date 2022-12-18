@@ -18,6 +18,7 @@ const Carousel = () => {
     adaptiveWidth: true,
     swipeToSlide: true,
     variableWidth: false,
+    lazyLoad: true,
     responsive: [
       {
         breakpoint: 1280,
@@ -54,11 +55,12 @@ const Carousel = () => {
 
   return (
     <Slider {...settings}>
-      {data.map((app, i) => {
+      {data.map((app) => {
         return (
-          <AppContainer key={app.name}>
-            <Image aria-labelledby={`img-${i}`} src={app.src} alt={app.name} height='32' width='32' loading='lazy' />
-            <AppName id={`img-${i}`}>{app.name}</AppName>
+          <AppContainer key={app.id}>
+            {/* @note - alt is empty because the content of the image is already provided in context through text */}
+            <Image src={app.src} alt='' height='32' width='32' />
+            <AppName>{app.name}</AppName>
           </AppContainer>
         )
       })}

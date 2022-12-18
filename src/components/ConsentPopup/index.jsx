@@ -46,7 +46,7 @@ export const ConsentPopup = ({ setAccepted }) => {
               {t('By clicking “Accept All Cookies”, you agree to the storing of cookies on your device to enhance site navigation, analyze site usage and assist in our marketing efforts.')}
             </Description>
 
-            <StyledLink href='/policies'>{t('More info')}</StyledLink>
+            <StyledLink href='/policies/terms-of-use'>{t('Terms of Use')}</StyledLink>
           </TextContainer>
 
           <ActionsContainer>
@@ -133,6 +133,7 @@ const Panel = styled(Dialog.Panel)`
 
 const ActionsContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
   padding: 24px;
   gap: 8px;
 

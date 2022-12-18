@@ -9,7 +9,7 @@ export const CloseButton = (props) => {
 
   return (
     <Container {...props} title={t('Close')}>
-      <Icon variant='x-close' size={24} />
+      <Icon variant='x-close' />
     </Container>
   )
 }
@@ -30,12 +30,27 @@ const Container = styled.button`
   }
 
   :focus,
-    :active,
-    :focus-visible {
-    background-color: ${props => props.theme.isLightMode ? colors[primaryColorKey]['50'] : colors.gray['700']};
+  :active,
+  :focus-visible {
+  background-color: ${props => props.theme.isLightMode ? colors[primaryColorKey]['50'] : colors.gray['700']};
 
-    outline: none;
-    box-shadow: ${shadows.xs},
-      0px 0px 0px 4px ${(props) => props.theme.isLightMode ? colors[primaryColorKey]['100'] : colors[primaryColorKey]['700']};
+  outline: none;
+  box-shadow: ${shadows.xs},
+    0px 0px 0px 4px ${(props) => props.theme.isLightMode ? colors[primaryColorKey]['100'] : colors[primaryColorKey]['700']};
+  }
+
+  @media (max-width: 768px) {
+    padding: 8px;
+    border-radius: 8px;
+  }
+
+  svg {
+    width: 24px;
+    height: 24px;
+
+    @media (max-width: 768px) {
+      width: 20px;
+      height: 20px;
     }
+  }
 `

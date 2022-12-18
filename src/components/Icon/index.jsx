@@ -317,6 +317,10 @@ export const Icon = ({ size, variant }) => {
     IconComponent = Check;
   }
 
+  if (variant === "check-circle-broken") {
+    IconComponent = CheckCircleBroken;
+  }
+
   if (variant === "download-01") {
     IconComponent = Download01;
   }

@@ -1,4 +1,9 @@
-function dynamicGistEmbedding (target, gistId, fileName) {
+function updateIframeHeight (targetId, newHeight) {
+  const e = document.getElementById(targetId)
+  e.children[0].style.height = parseInt(newHeight) + 'px'
+}
+
+function embedGist (target, gistId, fileName) {
   const frame = document.createElement('iframe')
   frame.setAttribute('width', '100%')
   frame.id = 'gist-frame-' + gistId
@@ -35,7 +40,12 @@ function dynamicGistEmbedding (target, gistId, fileName) {
   for (let i = 0; i < links.length; i++) {
     links[i].setAttribute('target', '_blank')
   }
+
   frameDocument.close()
+
+  frame.onload = function () {
+    updateIframeHeight(target.id, frame.contentDocument.body.scrollHeight)
+  }
   // console.log('iframe added')
 }
 
@@ -61,7 +71,7 @@ export const parseEmbeds = async (el = document) => {
         const container = document.createElement('div')
         i.replaceWith(container)
 
-        dynamicGistEmbedding(container, id)
+        embedGist(container, id)
       }
 
       // console.log([embedType, oEmbed])

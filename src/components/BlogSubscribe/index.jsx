@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { useState, useRef } from 'react'
 import styled from 'styled-components'
 import { colors } from '../../../styles/colors'
 import { typography } from '../../../styles/typography'
@@ -6,14 +7,20 @@ import { Button } from '../Button'
 import { Icon } from '../Icon'
 import { Input } from '../Input'
 import { InputHint } from '../Input/Hint'
+import { SuccessMessage } from './SuccessMessage'
 
 export const BlogSubscribe = ({ showRSS = false, atomLink = '/atom.xml', rssLink = '/rss.xml' }) => {
+  const [isPending, setIsPending] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
+  const formRef = useRef()
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     const formData = new FormData(e.target)
     const email = formData.get('email')
 
     try {
+      setIsPending(true)
       const res = await fetch('https://api2.neptunemutual.net/subscribe', {
         method: 'POST',
         body: JSON.stringify({ email: email }),
@@ -21,25 +28,37 @@ export const BlogSubscribe = ({ showRSS = false, atomLink = '/atom.xml', rssLink
           'Content-Type': 'application/json'
         }
       })
-      console.log(res)
+
+      const data = await res.json()
+
+      if (data.message === 'OK') {
+        setIsSuccess(true)
+        formRef.current.reset()
+      }
     } catch (error) {
       console.error(error)
+    } finally {
+      setIsPending(false)
     }
   }
 
+  const buttonText = isPending ? 'Subscribing...' : isSuccess ? 'Subscribed' : 'Subscribe'
+
   return (
-    <Container onSubmit={handleSubmit}>
+    <Container ref={formRef} onSubmit={handleSubmit}>
       <FormContainer>
         <InputContainer>
-          <Input placeholder='Enter your email' type='email' name='email' autoComplete='off'>
+          <Input placeholder='Enter your email' type='email' name='email' autoComplete='off' disabled={isPending || isSuccess}>
+            {isSuccess && <SuccessMessage />}
             <InputHint>We care about your data in our <Link href='#'>privacy policy</Link>.</InputHint>
           </Input>
         </InputContainer>
         <Button
           hierarchy='primary'
           size='xl'
+          disabled={isPending || isSuccess}
         >
-          Subscribe
+          {buttonText}
         </Button>
       </FormContainer>
       {showRSS && (

@@ -31,7 +31,7 @@ const Hero = () => {
         </Content>
         <ImageContainer>
           <Image
-            alt='@todo' src='/assets/images/hero/careers.webp'
+            alt='Neptune Mutual Careers Banner Image' src='/assets/images/hero/careers.webp'
             fill loading='eager' priority
             sizes='(max-width: 768px) 80vw, (max-width: 1280px) 40vw, 640px'
             placeholder='blur'

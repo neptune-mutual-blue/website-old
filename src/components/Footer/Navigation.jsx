@@ -30,7 +30,7 @@ export const Navigation = ({ pages }) => {
 
           return (
             <ListContainer key={idx}>
-              <H3>{t(list.title)}</H3>
+              <H2>{t(list.title)}</H2>
               <Ul>
                 {list.links.map((link) => {
                   return (
@@ -90,7 +90,7 @@ const ListContainer = styled.section`
   flex: 1;
 `
 
-const H3 = styled.h3`
+const H2 = styled.h2`
   color: ${(props) => props.theme.isLightMode ? colors.gray['500'] : colors.gray['400']};
 
   ${typography.styles.textSm};

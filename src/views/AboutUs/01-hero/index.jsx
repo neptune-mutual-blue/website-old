@@ -35,8 +35,8 @@ const Hero = () => {
           </HeaderContent>
         </Content>
       </InnerContainer>
-      <VideoContainer title='@todo' onClick={showVideo}>
-        <img alt='@todo' src='/assets/images/hero/reduce-exposure.webp' />
+      <VideoContainer title="Check out our 5-minute video to learn more about Neptune Mutual's contributions to the decentralized insurance industry" onClick={showVideo}>
+        <img alt='Neptune Mutual Explainer Youtube Video Thumbnail' src='/assets/images/hero/reduce-exposure.webp' />
         <Overlay>
           <PlayIcon />
         </Overlay>
