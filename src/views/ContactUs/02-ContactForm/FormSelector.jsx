@@ -218,6 +218,8 @@ const OptionsContainer = styled.div`
 
 const DisplayOption = styled.div`
   padding: 2px 4px 2px 9px;
+  height: 24px;
+  box-sizing: border-box;
   border: 1px solid ${props => props.theme.isLightMode ? colors.gray['300'] : colors.gray['500']};
   display: flex;
   align-items: center;
@@ -243,7 +245,7 @@ const SelectOption = styled.button`
   cursor: pointer;
   
   &[data-isselected="true"] {
-    border: 1.5px solid ${props => props.theme.isLightMode ? colors.primary[600] : 'transparent'};
+    border: 1px solid ${props => props.theme.isLightMode ? colors.primary[600] : 'transparent'};
     color: ${props => props.theme.isLightMode ? colors.gray[700] : colors.gray[900]};
     background-color: ${props => props.theme.isLightMode ? colors.primary[50] : colors.gray[300]};
   }

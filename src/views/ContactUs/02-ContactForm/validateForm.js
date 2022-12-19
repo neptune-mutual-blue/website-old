@@ -51,9 +51,9 @@ export const validateForm = (formData, setError) => {
   } else set('purpose')
 
   if (formData.purpose.value === 'other') {
-    if (!formData.otherPurpose) {
-      set('otherPurpose', 'Please enter the purpose')
-    } else set('otherPurpose')
+    if (!formData.purpose.otherValue) {
+      set('purpose', 'Please enter your purpose')
+    } else set('purpose')
   }
 
   if (formData.contactMethod.value === '') {
@@ -61,13 +61,9 @@ export const validateForm = (formData, setError) => {
   } else set('contactMethod')
 
   if (formData.contactMethod.value === 'other') {
-    if (!formData.otherContactMethod) {
-      set('otherContactMethod', 'Please enter the contact method')
-    } else set('otherContactMethod')
-
-    if (!formData.contactAddress) {
-      set('contactAddress', 'Please enter the contact address')
-    } else set('contactAddress')
+    if (!formData.contactMethod.otherValue) {
+      set('contactMethod', 'Please enter your contact method')
+    } else set('contactMethod')
   }
 
   const phoneRegex = /^(\+\d{1,3})?\s?\d{10}$/

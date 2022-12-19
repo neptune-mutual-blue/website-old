@@ -56,10 +56,7 @@ const initialState = {
   company_name: '',
   website: '',
   purpose: purposeOptions[0],
-  otherPurpose: '',
   contactMethod: contactMethodOptions[0],
-  otherContactMethod: '',
-  otherContactAddress: '',
   role: roleOptions[0],
   blockchain: blockchainOptions[0],
   phone: '',
@@ -112,13 +109,9 @@ export const ContactForm = () => {
       const _data = formData
 
       _data.captcha = captchaCode
-      _data.contactMethod = formData.otherContactMethod || formData.contactMethod.value
-      _data.purpose = formData.otherPurpose || formData.purpose.value
+      _data.contactMethod = formData.contactMethod.otherValue || formData.contactMethod.value
+      _data.purpose = formData.purpose.otherValue || formData.purpose.value
       _data.role = formData.role.value
-
-      delete _data.otherPurpose
-      delete _data.otherContactMethod
-      if (!_data.otherContactAddress) delete _data.otherContactAddress
 
       makeRequest(formData, () => {
         setSubmitSuccess(true)
@@ -265,29 +258,13 @@ export const ContactForm = () => {
           setSelectedOption={(_s) => setFormData((prev) => ({ ...prev, purpose: _s }))}
           defaultOption={purposeOptions[0]}
           label='Please select a purpose of this contact request*'
+          inputPlaceholder='Enter other purpose of contact'
           error={error?.purpose}
           ref={el => {
             itemsRef.current.purpose = el
           }}
           id='purpose'
         />
-
-        {
-          formData.purpose.value === 'other' && (
-            <SubInputs>
-              <InputWithLabel
-                placeholder='What is the purpose of this contact request?'
-                value={formData.otherPurpose}
-                onChange={(e) => setFormData((prev) => ({ ...prev, otherPurpose: e.target.value }))}
-                error={error?.otherPurpose}
-                ref={el => {
-                  itemsRef.current.otherPurpose = el
-                }}
-                id='otherPurpose'
-              />
-            </SubInputs>
-          )
-        }
       </FilterContainer>
 
       <FilterContainer>
@@ -298,6 +275,7 @@ export const ContactForm = () => {
           defaultOption={contactMethodOptions[0]}
           filterlabelposition='top'
           label='What’s the best way to get in touch with you?*'
+          inputPlaceholder='Enter other contact method'
           error={error?.contactMethod}
           ref={el => {
             itemsRef.current.contactMethod = el
@@ -306,46 +284,20 @@ export const ContactForm = () => {
         />
 
         {
-          formData.contactMethod.value === 'other'
-            ? (
-              <SubInputs>
-                <InputWithLabel
-                  placeholder='1. What contact method are you using?'
-                  value={formData.otherContactMethod}
-                  onChange={(e) => setFormData((prev) => ({ ...prev, otherContactMethod: e.target.value }))}
-                  error={error?.otherContactMethod}
-                  ref={el => {
-                    itemsRef.current.otherContactMethod = el
-                  }}
-                  id='otherContactMethod'
-                />
-
-                <InputWithLabel
-                  placeholder='2. Enter your contact number/address'
-                  value={formData.otherContactAddress}
-                  onChange={(e) => setFormData((prev) => ({ ...prev, otherContactAddress: e.target.value }))}
-                  error={error?.otherContactAddress}
-                  ref={el => {
-                    itemsRef.current.otherContactAddress = el
-                  }}
-                  id='otherContactAddress'
-                />
-              </SubInputs>
-              )
-            : ['telegram', 'phone'].includes(formData.contactMethod.value) && (
-              <SubInputs>
-                <InputWithLabel
-                  placeholder='Enter your Whatsapp/Telegram Id'
-                  value={formData.phone}
-                  onChange={(e) => handlePhoneChange('phone', e.target.value)}
-                  error={error?.phone}
-                  ref={el => {
-                    itemsRef.current.phone = el
-                  }}
-                  id='phone'
-                />
-              </SubInputs>
-              )
+          ['telegram', 'phone'].includes(formData.contactMethod.value) && (
+            <SubInputs>
+              <InputWithLabel
+                placeholder='Enter your Whatsapp/Telegram Id'
+                value={formData.phone}
+                onChange={(e) => handlePhoneChange('phone', e.target.value)}
+                error={error?.phone}
+                ref={el => {
+                  itemsRef.current.phone = el
+                }}
+                id='phone'
+              />
+            </SubInputs>
+          )
 
         }
       </FilterContainer>
@@ -358,6 +310,7 @@ export const ContactForm = () => {
           defaultOption={roleOptions[0]}
           filterlabelposition='top'
           label='What role best describes you?*'
+          inputPlaceholder='Enter other role that describes you'
           error={error?.role}
           ref={el => {
             itemsRef.current.role = el

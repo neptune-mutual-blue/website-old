@@ -1,5 +1,5 @@
 import { Listbox } from '@headlessui/react'
-import React, { forwardRef } from 'react'
+import React, { forwardRef, useRef } from 'react'
 import styled, { useTheme } from 'styled-components'
 import { colors, primaryColorKey } from '../../../../styles/colors'
 import { shadows } from '../../../../styles/shadows'
@@ -12,6 +12,7 @@ const FormOptions = forwardRef(({
   selectedOption,
   setSelectedOption,
   label,
+  inputPlaceholder,
   defaultOption,
   getOptionText = (x) => x.text,
   error,
@@ -20,6 +21,16 @@ const FormOptions = forwardRef(({
   const s = selectedOption ?? defaultOption
   const theme = useTheme()
   const selectedIconVariant = (!theme.isLightMode && s.iconVariantDark) ? s.iconVariantDark : s.iconVariant
+
+  const inputRef = useRef()
+
+  const handleOtherInputChange = e => {
+    const otherOption = options.find(o => o.value === 'other')
+    setSelectedOption({
+      ...otherOption,
+      otherValue: e.target.value
+    })
+  }
 
   return (
     <Container>
@@ -34,7 +45,23 @@ const FormOptions = forwardRef(({
           >
             <Left>
               {selectedIconVariant && <Icon variant={selectedIconVariant} size={20} />}
-              <span>{getOptionText(s)}</span>
+
+              {
+                s.value === 'other'
+                  ? (
+                    <OtherInput
+                      placeholder={inputPlaceholder || 'Enter other value'}
+                      onChange={handleOtherInputChange}
+                      ref={inputRef}
+                      onClick={() => {
+                        setTimeout(() => {
+                          inputRef.current?.focus()
+                        }, 50)
+                      }}
+                    />
+                    )
+                  : <span>{getOptionText(s)}</span>
+              }
             </Left>
             <Right>
               <Icon variant='chevron-down' size={20} />
@@ -217,5 +244,14 @@ const ErrorText = styled.p`
 
   &:empty {
     display: none;
+  }
+`
+
+const OtherInput = styled.input`
+  outline: none;
+
+  ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: ${props => props.theme.isLightMode ? colors.gray['500'] : colors.gray['300']};
+    opacity: 1; /* Firefox */
   }
 `
