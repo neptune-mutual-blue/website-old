@@ -14,7 +14,7 @@ import { FormSelector } from './FormSelector'
 import { validateForm } from './validateForm'
 
 export const purposeOptions = [
-  { text: 'Select a purpose', value: '' },
+  { text: 'Choose your reason for contacting us', value: '' },
   { text: 'Provide Liquidity', value: 'providing-liquidity', iconVariant: 'chart-breakout-square' },
   { text: 'Purchasing Policy', value: 'purchasing-policy', iconVariant: 'shield-tick' },
   { text: 'Creating Cover', value: 'creating-cover', iconVariant: 'folder-plus' },
@@ -23,7 +23,7 @@ export const purposeOptions = [
 ]
 
 export const contactMethodOptions = [
-  { text: 'Select a contact method', value: '' },
+  { text: 'Tell us how we should respond to you', value: '' },
   { text: 'Email', value: 'email', iconVariant: 'mail-02' },
   { text: 'Telegram', value: 'telegram', iconVariant: 'telegram' },
   { text: 'Phone/Whatsapp', value: 'phone', iconVariant: 'phone-01' },
@@ -31,7 +31,7 @@ export const contactMethodOptions = [
 ]
 
 export const roleOptions = [
-  { text: 'Select a role', value: '' },
+  { text: 'Choose the most relevant role', value: '' },
   { text: 'Business Development', value: 'business-development', iconVariant: 'lightbulb-03' },
   { text: 'Sale', value: 'sale', iconVariant: 'line-chart-up-03' },
   { text: 'Blockchain Developer', value: 'blockchain-developer', iconVariant: 'code-square-one' },
@@ -175,7 +175,7 @@ export const ContactForm = () => {
         <WrappedInput>
           <InputWithLabel
             label='First Name*'
-            placeholder='First Name'
+            placeholder='John'
             value={formData.firstName}
             onChange={(e) => handleNameChange('firstName', e.target.value)}
             error={error?.firstName}
@@ -189,7 +189,7 @@ export const ContactForm = () => {
         <WrappedInput>
           <InputWithLabel
             label='Last Name*'
-            placeholder='Last Name'
+            placeholder='Doe'
             value={formData.lastName}
             onChange={(e) => handleNameChange('lastName', e.target.value)}
             error={error?.lastName}
@@ -203,7 +203,7 @@ export const ContactForm = () => {
 
       <InputWithLabel
         label='Email*'
-        placeholder='you@company.com'
+        placeholder='john@example.com'
         type='email'
         value={formData.email}
         onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
@@ -216,7 +216,7 @@ export const ContactForm = () => {
 
       <InputWithLabel
         label='What is the name of your business or project?*'
-        placeholder='XYZ Company'
+        placeholder='Example Inc.'
         value={formData.company_name}
         onChange={(e) => setFormData((prev) => ({ ...prev, company_name: e.target.value }))}
         error={error?.company_name}
@@ -229,7 +229,7 @@ export const ContactForm = () => {
       <FilterContainer>
         <FormSelector
           options={blockchainOptions}
-          label='Blockchain*'
+          label='What blockchains are you currently building on?*'
           error={error?.blockchain}
           placeholder='Choose relevant blockchains from the list'
           onChange={handleBlockchainChange}
@@ -323,7 +323,7 @@ export const ContactForm = () => {
 
       <TextArea
         label='Message*'
-        placeholder='Leave us a message...'
+        placeholder='Kindly write your message'
         value={formData.message}
         onChange={(e) => setFormData((prev) => ({ ...prev, message: e.target.value }))}
         error={error?.message}
@@ -354,7 +354,8 @@ export const ContactForm = () => {
         onClick={onSubmit}
         // disabled={error || !captchaCode || !acceptTerms}
       >
-        Send Message
+        <span>Send Message</span>
+        <Icon variant='send-03' size={24} />
       </StyledButton>
 
       {
@@ -399,6 +400,13 @@ const WrappedInput = styled.div`
 const StyledButton = styled(Button)`
   width: 100%;
   margin-top: 8px;
+
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
   
   :disabled {
     opacity: 0.75;

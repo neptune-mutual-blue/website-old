@@ -64,7 +64,7 @@ import { FaceSmile, Users01, UserSquare } from "./variants/Users";
 import { Folder, FolderPlus } from "./variants/Files";
 import { Bank, Tag03 } from "./variants/FinanceAndEcommerce";
 import { ShieldTick } from "./variants/Security";
-import { AnnotationDots, Mail02, MessageChatCircle, MessageDotsCircle } from "./variants/Communication";
+import { AnnotationDots, Mail02, MessageChatCircle, MessageDotsCircle, Send03 } from "./variants/Communication";
 import { PencilLine } from "./variants/Editor"
 
 // custom icons
@@ -460,6 +460,10 @@ export const Icon = ({ size, variant }) => {
 
   if(variant === 'check-circle-broken') {
     IconComponent = CheckCircleBroken
+  }
+
+  if(variant === 'send-03') {
+    IconComponent = Send03
   }
 
   return IconComponent ? <IconComponent width={size} height={size} /> : null;
