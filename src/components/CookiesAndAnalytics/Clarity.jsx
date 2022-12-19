@@ -1,7 +1,7 @@
 import Script from 'next/script'
 
 export const ClarityAnalytics = ({ accepted }) => {
-  if (!accepted && !process.env.NEXT_PUBLIC_CLARITY_TRACKING_CODE) {
+  if (!accepted || !process.env.NEXT_PUBLIC_CLARITY_TRACKING_CODE) {
     return null
   }
 
