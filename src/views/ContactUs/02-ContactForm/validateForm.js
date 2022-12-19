@@ -77,6 +77,12 @@ export const validateForm = (formData, setError) => {
     set('role', 'Please select role')
   } else set('role')
 
+  if (formData.role.value === 'other') {
+    if (!formData.role.otherValue) {
+      set('role', 'Please enter your role')
+    } else set('role')
+  }
+
   if (formData.message === '') {
     set('message', 'This is required.')
   } else set('message')

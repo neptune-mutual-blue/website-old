@@ -249,6 +249,7 @@ const ErrorText = styled.p`
 
 const OtherInput = styled.input`
   outline: none;
+  width: 100%;
 
   ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: ${props => props.theme.isLightMode ? colors.gray['500'] : colors.gray['300']};
