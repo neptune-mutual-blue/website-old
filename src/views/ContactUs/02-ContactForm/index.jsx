@@ -80,7 +80,7 @@ export const ContactForm = () => {
   const itemsRef = useRef([])
 
   const makeRequest = async (data, cb = () => {}) => {
-    const API_URL = 'https://api.neptunemutual.net/contact'
+    const API_URL = process.env.NEXT_PUBLIC_FORM_API
 
     try {
       const res = await fetch(API_URL, {
@@ -96,6 +96,24 @@ export const ContactForm = () => {
     }
   }
 
+  const prepareData = (_formData, _captcha) => {
+    const _data = {}
+
+    _data.firstname = _formData.firstName
+    _data.lastname = _formData.lastName
+    _data.email = _formData.email
+    _data.company = _formData.company_name
+    _data.website = _formData.website
+    _data.purpose = _formData.purpose.text
+    _data.contactMethod = _formData.contactMethod.text
+    _data.role = _formData.role.text
+    _data.blockchains = _formData.blockchain
+    _data.message = _formData.message
+    _data.captcha = _captcha
+
+    return _data
+  }
+
   const onSubmit = () => {
     setSubmitClicked(true)
 
@@ -106,14 +124,9 @@ export const ContactForm = () => {
     }
 
     if (validated && captchaCode && acceptTerms) {
-      const _data = JSON.parse(JSON.stringify(formData))
+      const _data = prepareData(formData, captchaCode)
 
-      _data.captcha = captchaCode
-      _data.contactMethod = formData.contactMethod.otherValue || formData.contactMethod.value
-      _data.purpose = formData.purpose.otherValue || formData.purpose.value
-      _data.role = formData.role.otherValue || formData.role.value
-
-      makeRequest(formData, () => {
+      makeRequest(_data, () => {
         setSubmitSuccess(true)
         setFormData(initialState)
         setSubmitClicked(false)
@@ -179,10 +192,10 @@ export const ContactForm = () => {
             value={formData.firstName}
             onChange={(e) => handleNameChange('firstName', e.target.value)}
             error={error?.firstName}
+            id='firstName'
             ref={el => {
               itemsRef.current.firstName = el
             }}
-            id='firstName'
           />
         </WrappedInput>
 
@@ -193,10 +206,10 @@ export const ContactForm = () => {
             value={formData.lastName}
             onChange={(e) => handleNameChange('lastName', e.target.value)}
             error={error?.lastName}
+            id='lastName'
             ref={el => {
               itemsRef.current.lastName = el
             }}
-            id='lastName'
           />
         </WrappedInput>
       </FirstRow>
@@ -208,10 +221,10 @@ export const ContactForm = () => {
         value={formData.email}
         onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
         error={error?.email}
+        id='email'
         ref={el => {
           itemsRef.current.email = el
         }}
-        id='email'
       />
 
       <InputWithLabel
@@ -220,10 +233,10 @@ export const ContactForm = () => {
         value={formData.company_name}
         onChange={(e) => setFormData((prev) => ({ ...prev, company_name: e.target.value }))}
         error={error?.company_name}
+        id='company_name'
         ref={el => {
           itemsRef.current.company_name = el
         }}
-        id='company_name'
       />
 
       <FilterContainer>
@@ -233,10 +246,10 @@ export const ContactForm = () => {
           error={error?.blockchain}
           placeholder='Choose relevant blockchains from the list'
           onChange={handleBlockchainChange}
+          id='blockchain'
           ref={el => {
             itemsRef.current.blockchain = el
           }}
-          id='blockchain'
           reset={resetBlockchains}
         />
       </FilterContainer>
@@ -247,10 +260,10 @@ export const ContactForm = () => {
         value={formData.website}
         onChange={(e) => setFormData((prev) => ({ ...prev, website: e.target.value }))}
         error={error?.website}
+        id='website'
         ref={el => {
           itemsRef.current.website = el
         }}
-        id='website'
       />
 
       <FilterContainer>
@@ -260,12 +273,11 @@ export const ContactForm = () => {
           setSelectedOption={(_s) => setFormData((prev) => ({ ...prev, purpose: _s }))}
           defaultOption={purposeOptions[0]}
           label='Please select a purpose of this contact request*'
-          inputPlaceholder='Enter other purpose of contact'
           error={error?.purpose}
+          id='purpose'
           ref={el => {
             itemsRef.current.purpose = el
           }}
-          id='purpose'
         />
       </FilterContainer>
 
@@ -277,12 +289,11 @@ export const ContactForm = () => {
           defaultOption={contactMethodOptions[0]}
           filterlabelposition='top'
           label='What’s the best way to get in touch with you?*'
-          inputPlaceholder='Enter other contact method'
           error={error?.contactMethod}
+          id='contactMethod'
           ref={el => {
             itemsRef.current.contactMethod = el
           }}
-          id='contactMethod'
         />
 
         {
@@ -293,10 +304,10 @@ export const ContactForm = () => {
                 value={formData.phone}
                 onChange={(e) => handlePhoneChange('phone', e.target.value)}
                 error={error?.phone}
+                id='phone'
                 ref={el => {
                   itemsRef.current.phone = el
                 }}
-                id='phone'
               />
             </SubInputs>
           )
@@ -312,12 +323,11 @@ export const ContactForm = () => {
           defaultOption={roleOptions[0]}
           filterlabelposition='top'
           label='What role best describes you?*'
-          inputPlaceholder='Enter other role that describes you'
           error={error?.role}
+          id='role'
           ref={el => {
             itemsRef.current.role = el
           }}
-          id='role'
         />
       </FilterContainer>
 
@@ -328,10 +338,10 @@ export const ContactForm = () => {
         onChange={(e) => setFormData((prev) => ({ ...prev, message: e.target.value }))}
         error={error?.message}
         rows={13}
+        id='message'
         ref={el => {
           itemsRef.current.message = el
         }}
-        id='message'
       />
 
       <Checkbox

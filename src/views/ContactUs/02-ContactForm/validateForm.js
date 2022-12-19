@@ -13,11 +13,11 @@ export const validateForm = (formData, setError) => {
     }))
   }
 
-  const nameRegex = /^[a-zA-Z]+$/
+  const nameRegex = /^[a-zA-Z]{1,128}$/
   if (formData.firstName === '') {
     set('firstName', 'This is required.')
   } else if (!nameRegex.test(formData.firstName)) {
-    set('firstName', 'Can\'t be number or special characters')
+    set('firstName', 'Cant be number or special characters')
   } else set('firstName')
 
   if (formData.lastName === '') {
@@ -31,10 +31,14 @@ export const validateForm = (formData, setError) => {
     set('email', 'This is required.')
   } else if (!String(formData.email).toLowerCase().match(emailRegex)) {
     set('email', 'Please enter correct email')
+  } else if (String(formData.email).length > 256) {
+    set('email', 'Email too long')
   } else set('email')
 
   if (formData.company_name === '') {
     set('company_name', 'This is required.')
+  } else if (String(formData.company_name).length > 196) {
+    set('company_name', 'Company name too long')
   } else set('company_name')
 
   if (!formData.blockchain?.length) {
@@ -44,27 +48,17 @@ export const validateForm = (formData, setError) => {
   const urlRegex = /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)?/gi
   if (!String(formData.website).toLowerCase().match(urlRegex)) {
     set('website', 'Please enter a valid website')
+  } else if (String(formData.website).length > 256) {
+    set('website', 'Website name too long')
   } else set('website')
 
   if (formData.purpose.value === '') {
     set('purpose', 'Please select an option')
   } else set('purpose')
 
-  if (formData.purpose.value === 'other') {
-    if (!formData.purpose.otherValue) {
-      set('purpose', 'Please enter your purpose')
-    } else set('purpose')
-  }
-
   if (formData.contactMethod.value === '') {
     set('contactMethod', 'Please select an option')
   } else set('contactMethod')
-
-  if (formData.contactMethod.value === 'other') {
-    if (!formData.contactMethod.otherValue) {
-      set('contactMethod', 'Please enter your contact method')
-    } else set('contactMethod')
-  }
 
   const phoneRegex = /^(\+\d{1,3})?\s?\d{10}$/
   if (['telegram', 'phone'].includes(formData.contactMethod.value)) {
@@ -77,14 +71,10 @@ export const validateForm = (formData, setError) => {
     set('role', 'Please select role')
   } else set('role')
 
-  if (formData.role.value === 'other') {
-    if (!formData.role.otherValue) {
-      set('role', 'Please enter your role')
-    } else set('role')
-  }
-
   if (formData.message === '') {
     set('message', 'This is required.')
+  } else if (String(formData.message).length > 1024) {
+    set('message', 'Message too long')
   } else set('message')
 
   return { validated: !formError, firstErrorKey }
