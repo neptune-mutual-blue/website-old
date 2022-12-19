@@ -168,39 +168,20 @@ const ProgramCategory = styled.div`
 
 const BadgeContainer = styled.div`
   display: flex;
+  ${typography.styles.textSm}
+  ${typography.weights.medium}
+  
   gap: 6px;
   align-items: center;
   padding: 2px 10px 2px 8px;
   border-radius: 16px;
-  ${typography.styles.textSm}
-  ${typography.weights.medium}
-  background-color: ${colors.gray[600]};
+  background-color: ${props => props.theme.isLightMode ? colors[props['data-color']][50] : colors.gray[600]};
 
-  &[data-color="success"] {
-    &[data-is-lightmode="true"] {
-      background-color: ${colors.pink[50]};
-    }
-
-    & svg {
-      color: ${colors.pink[500]};
-    }
-    
-    & span {
-      color: ${props => props.theme.isLightMode ? colors.pink[700] : colors.pink[400]};
-    }
+  & svg {
+    color: ${props => colors[props['data-color']][500]};
   }
   
-  &[data-color="blue"] {
-    &[data-is-lightmode="true"] {
-      background-color: ${colors.blue[50]};
-    }
-
-    & svg {
-      color: ${colors.blue[500]};
-    }
-
-    & span {
-      color: ${props => props.theme.isLightMode ? colors.blue[700] : colors.blue[400]};
-    }
+  & span {
+    color: ${props => props.theme.isLightMode ? colors[props['data-color']][700] : colors[props['data-color']][50]};
   }
 `
