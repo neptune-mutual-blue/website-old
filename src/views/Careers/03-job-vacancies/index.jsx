@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { useTranslation } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import {
@@ -24,10 +24,18 @@ export const JobVacancies = ({ vacancies }) => {
       <InnerContainer>
         <Content>
           <H2>
-            <Subheading>{t('Careers')}</Subheading>
-            <Heading>{t('Job Vacancies')}</Heading>
+            <Subheading>
+              <Trans t={t}>Careers</Trans>
+            </Subheading>
+            <Heading>
+              <Trans t={t}>Job Vacancies</Trans>
+            </Heading>
           </H2>
-          <SupportingText>{t('Our philosophy is simple — hire a team of diverse, passionate people and foster a culture that empowers you to do you best work.')}</SupportingText>
+          <SupportingText>
+            <Trans t={t}>
+              Our philosophy is simple — hire a team of diverse, passionate people and foster a culture that empowers you to do you best work.
+            </Trans>
+          </SupportingText>
         </Content>
 
         <Content>
