@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import { colors } from '../../../styles/colors'
@@ -29,29 +29,45 @@ const CareersDetail = (props) => {
 
           <Types>
             <Type>
-              <Label>{t('Department')}</Label>
+              <Label>
+                <Trans t={t}>
+                  Department
+                </Trans>
+              </Label>
               <TypeContent>{props.vacancy.department}</TypeContent>
             </Type>
             <Type>
-              <Label>{t('Job Type')}</Label>
+              <Label>
+                <Trans t={t}>
+                  Job Type
+                </Trans>
+              </Label>
               <TypeContent>{props.vacancy.type}</TypeContent>
             </Type>
             <Type>
-              <Label>{t('Location')}</Label>
+              <Label>
+                <Trans t={t}>
+                  Location
+                </Trans>
+              </Label>
               <TypeContent>{props.vacancy.location}</TypeContent>
             </Type>
           </Types>
 
           <AboutThisVacancy>
             <span />
-            <div>About this Vacancy</div>
+            <div>
+              <Trans t={t}>About this Vacancy</Trans>
+            </div>
           </AboutThisVacancy>
           <HtmlContent content={props.vacancy.description.html} />
           <SocialShare title={props.vacancy.title} intro={(props.vacancy.text || '').substr(0, 100)} />
 
           <ButtonContainer>
             <Button hierarchy='primary' as='a' target='_blank' href={props.vacancy.form} rel='noreferrer' size='lg' iconTrailing iconVariant='arrow-square-up-right'>
-              {t('Submit My Job Application')}
+              <Trans t={t}>
+                Submit My Job Application
+              </Trans>
             </Button>
           </ButtonContainer>
 
