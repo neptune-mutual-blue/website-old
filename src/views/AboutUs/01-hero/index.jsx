@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import { blurs } from '../../../../styles/blurs'
@@ -27,16 +27,32 @@ const Hero = () => {
       <InnerContainer>
         <Content>
           <H1>
-            <Subheader>{t('DeFi Insurance Protocol Based on Parametric Insurance Model')}</Subheader>
-            <HeaderTitle>{t('Simplifying Decentralized Insurance')}</HeaderTitle>
+            <Subheader>
+              <Trans t={t}>
+                DeFi Insurance Protocol Based on Parametric Insurance Model
+              </Trans>
+            </Subheader>
+            <HeaderTitle>
+              <Trans t={t}>
+                Simplifying Decentralized Insurance
+              </Trans>
+            </HeaderTitle>
           </H1>
           <HeaderContent>
-            {t('Watch out our 5-minute video to learn more about how Neptune Mutual contributes to the decentralized insurance industry.')}
+            <Trans t={t}>
+              Watch out our 5-minute video to learn more about how Neptune Mutual contributes to the decentralized insurance industry.
+            </Trans>
           </HeaderContent>
         </Content>
       </InnerContainer>
-      <VideoContainer title="Check out our 5-minute video to learn more about Neptune Mutual's contributions to the decentralized insurance industry" onClick={showVideo}>
-        <img alt='Neptune Mutual Explainer Youtube Video Thumbnail' src='/assets/images/hero/reduce-exposure.webp' />
+      <VideoContainer
+        title={t("Check out our 5-minute video to learn more about Neptune Mutual's contributions to the decentralized insurance industry")}
+        onClick={showVideo}
+      >
+        <img
+          alt={t('Neptune Mutual Explainer Youtube Video Thumbnail')}
+          src='/assets/images/hero/reduce-exposure.webp'
+        />
         <Overlay>
           <PlayIcon />
         </Overlay>
