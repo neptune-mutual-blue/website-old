@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import {
@@ -11,6 +12,7 @@ import { useVideosContext } from '../../../context/VideosContext'
 import { Video } from './Video'
 
 export const RecentVideos = () => {
+  const { t } = useTranslation('blog')
   const { videos } = useVideosContext()
 
   return (
