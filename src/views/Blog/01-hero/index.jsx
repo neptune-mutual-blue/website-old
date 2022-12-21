@@ -1,4 +1,4 @@
-import { Trans, useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import {
@@ -18,20 +18,14 @@ export const Hero = () => {
         <Text>
           <H1>
             <Subheader>
-              <Trans t={t}>
-                Recent developments in the decentralized insurance space
-              </Trans>
+              {t('Recent developments in the decentralized insurance space')}
             </Subheader>
             <Heading>
-              <Trans t={t}>
-                Neptune Mutual Blog
-              </Trans>
+              {t('Neptune Mutual Blog')}
             </Heading>
           </H1>
           <Subtitle>
-            <Trans t={t}>
-              The Neptune Mutual Blog is the go-to location for learning about web3 and smart contract vulnerabilities, decentralized insurance, security best practices, and industry news. Enter your address to get weekly updates.
-            </Trans>
+            {t('The Neptune Mutual Blog is the go-to location for learning about web3 and smart contract vulnerabilities, decentralized insurance, security best practices, and industry news. Enter your address to get weekly updates.')}
           </Subtitle>
         </Text>
 

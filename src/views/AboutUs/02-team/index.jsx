@@ -1,4 +1,4 @@
-import { Trans, useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { colors, primaryColorKey } from '../../../../styles/colors'
 import { typography } from '../../../../styles/typography'
@@ -14,23 +14,17 @@ export const Team = () => {
       <ContentContainer>
         <LinkText href='/careers'>
           <span>
-            <Trans t={t}>
-              We’re hiring!
-            </Trans>
+            {t('We’re hiring!')}
           </span>
           <Icon variant='link-external-01' size={16} />
         </LinkText>
 
         <Title>
-          <Trans t={t}>
-            Meet Our Team
-          </Trans>
+          {t('Meet Our Team')}
         </Title>
 
         <SubHeading>
-          <Trans t={t}>
-            We are a global and dynamic team with a mission to create a reliable, fast, and effective platform that protects digital assets.
-          </Trans>
+          {t('We are a global and dynamic team with a mission to create a reliable, fast, and effective platform that protects digital assets.')}
         </SubHeading>
       </ContentContainer>
 

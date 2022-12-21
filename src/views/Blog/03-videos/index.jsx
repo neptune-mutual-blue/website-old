@@ -19,8 +19,13 @@ export const RecentVideos = () => {
     <Container>
       <InnerContainer>
         <HeadingContainer>
-          <Heading>Recent Videos</Heading>
-          <ExternalLink href='https://www.youtube.com/neptune-mutual' rel='noreferrer' target='_blank'>View All Videos <Icon size={20} variant='link-external-01' /></ExternalLink>
+          <Heading>
+            {t('Recent Videos')}
+          </Heading>
+          <ExternalLink href='https://www.youtube.com/neptune-mutual' rel='noreferrer' target='_blank'>
+            {t('View All Videos')}
+            <Icon size={20} variant='link-external-01' />
+          </ExternalLink>
         </HeadingContainer>
 
         <VideosContainer>

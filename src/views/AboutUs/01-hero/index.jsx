@@ -1,4 +1,4 @@
-import { Trans, useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import { blurs } from '../../../../styles/blurs'
@@ -28,20 +28,14 @@ const Hero = () => {
         <Content>
           <H1>
             <Subheader>
-              <Trans t={t}>
-                DeFi Insurance Protocol Based on Parametric Insurance Model
-              </Trans>
+              {t('DeFi Insurance Protocol Based on Parametric Insurance Model')}
             </Subheader>
             <HeaderTitle>
-              <Trans t={t}>
-                Simplifying Decentralized Insurance
-              </Trans>
+              {t('Simplifying Decentralized Insurance')}
             </HeaderTitle>
           </H1>
           <HeaderContent>
-            <Trans t={t}>
-              Watch out our 5-minute video to learn more about how Neptune Mutual contributes to the decentralized insurance industry.
-            </Trans>
+            {t('Watch out our 5-minute video to learn more about how Neptune Mutual contributes to the decentralized insurance industry.')}
           </HeaderContent>
         </Content>
       </InnerContainer>

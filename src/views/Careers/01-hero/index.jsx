@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { Trans, useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import {
@@ -20,28 +20,22 @@ const Hero = () => {
           <H1>
             <SubheadingWithBadge>
               <Subheading>
-                <Trans t={t}>DeFi Insurance is the Future!</Trans>
+                {t('DeFi Insurance is the Future!')}
               </Subheading>
               <Badge>
-                <Trans t={t}>We're Hiring!</Trans>
+                {t("We're Hiring!")}
               </Badge>
             </SubheadingWithBadge>
             <HeaderTitle>
-              <Trans t={t}>Interested in Pursuing a Career with Neptune Mutual?</Trans>
+              {t('Interested in Pursuing a Career with Neptune Mutual?')}
             </HeaderTitle>
           </H1>
           <HeaderContent>
-            <Trans t={t}>
-              If you are driven, passionate and an executor, then Neptune Mutual is for you!
-            </Trans>
+            {t('If you are driven, passionate and an executor, then Neptune Mutual is for you!')}
             <br /><br />
-            <Trans t={t}>
-              We are looking for amazing talents anywhere across the globe to join our diverse and dynamic team that is on a mission to build a reliable, fast and effective platform that protects digital assets.
-            </Trans>
+            {t('We are looking for amazing talents anywhere across the globe to join our diverse and dynamic team that is on a mission to build a reliable, fast and effective platform that protects digital assets.')}
             <br /><br />
-            <Trans t={t}>
-              Hyper-talented experts from all over the world grow and thrive in our super dynamic, connected team. As a dedicated talent-nurturing workspace, we give each of our team members a fun and professional environment for them to do the work they enjoy.
-            </Trans>
+            {t('Hyper-talented experts from all over the world grow and thrive in our super dynamic, connected team. As a dedicated talent-nurturing workspace, we give each of our team members a fun and professional environment for them to do the work they enjoy.')}
           </HeaderContent>
         </Content>
         <ImageContainer>

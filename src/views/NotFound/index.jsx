@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { Trans, useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import {
@@ -22,20 +22,14 @@ export const NotFound = () => {
 
         <H1>
           <Subheading>
-            <Trans t={t}>
-              404 Error
-            </Trans>
+            {t('404 Error')}
           </Subheading>
           <Heading>
-            <Trans t={t}>
-              Something's gone missing
-            </Trans>...
+            {t("Something's gone missing")}
           </Heading>
         </H1>
         <Subtitle>
-          <Trans t={t}>
-            Sorry, the page you are looking for doesn't exist or has been moved.
-          </Trans>
+          {t("Sorry, the page you are looking for doesn't exist or has been moved.")}
         </Subtitle>
 
         <ButtonContainer>
@@ -48,9 +42,7 @@ export const NotFound = () => {
             iconTrailing
             iconVariant='arrow-narrow-right'
           >
-            <Trans t={t}>
-              Take me to homepage
-            </Trans>
+            {t('Take me to homepage')}
           </Button>
         </ButtonContainer>
       </TextAndCta>

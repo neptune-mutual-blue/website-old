@@ -1,4 +1,4 @@
-import { Trans, useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { colors, primaryColorKey } from '../../../../styles/colors'
 import { typography } from '../../../../styles/typography'
@@ -15,20 +15,14 @@ export const Roadmap = () => {
         <TextContainer>
           <H2>
             <Subheading>
-              <Trans t={t}>
-                Roadmap
-              </Trans>
+              {t('Roadmap')}
             </Subheading>
             <Heading>
-              <Trans t={t}>
-                Follow Our Story. Join Our Community.
-              </Trans>
+              {t('Follow Our Story. Join Our Community.')}
             </Heading>
           </H2>
           <SupportingText>
-            <Trans t={t}>
-              Our roadmap for growing the Neptune Mutual Ecosystem.
-            </Trans>
+            {t('Our roadmap for growing the Neptune Mutual Ecosystem.')}
           </SupportingText>
         </TextContainer>
 
