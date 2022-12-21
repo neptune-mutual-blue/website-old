@@ -6,7 +6,8 @@ export const nav = [
       { href: '/blog', text: 'Blog', isExternal: false },
       { href: '/pressroom', text: 'Press Room', isExternal: false },
       { href: '/ecosystem', text: 'Ecosystem', isExternal: false },
-      { href: 'https://docs.neptunemutual.com', text: 'Documentation', isExternal: true }
+      { href: 'https://docs.neptunemutual.com', text: 'Documentation', isExternal: true },
+      { href: '/web3-tools', text: 'Web3 Tools' }
     ]
   },
   {

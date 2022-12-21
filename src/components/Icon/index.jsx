@@ -17,7 +17,8 @@ import {
   DotsGrid,
   HeartHand,
   CheckCircleBroken,
-  Share07
+  Share07,
+  Tool01
 } from "./variants/General";
 import {
   ArrowLeft,
@@ -463,6 +464,10 @@ export const Icon = ({ size, variant }) => {
 
   if(variant === 'send-03') {
     IconComponent = Send03
+  }
+
+  if(variant === 'tool-01') {
+    IconComponent = Tool01
   }
 
   return IconComponent ? <IconComponent width={size} height={size} /> : null;

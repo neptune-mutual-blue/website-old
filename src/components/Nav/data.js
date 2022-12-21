@@ -23,7 +23,7 @@ export const data = [
           { title: 'Press Room', href: '/pressroom', description: 'The source for news about Neptune Mutual', icon: 'annotation-dots' },
           { title: 'Ecosystem', href: '/ecosystem', description: 'Learn how you can participate in our marketplace', icon: 'database-01' },
           { title: 'Documentation', href: 'https://docs.neptunemutual.com', description: 'Learn more about decentralized insurance and Neptune Mutual protocol', icon: 'file-code-01', isExternal: true },
-          { title: 'Contact', href: '/contact', description: 'Reach out to us via email or our community channels', icon: 'book-closed' }
+          { title: 'Web3 Tools', href: '/web3-tools', description: 'Free and easy to use web3 online tools', icon: 'tool-01' }
         ]
       },
       {
@@ -34,7 +34,8 @@ export const data = [
           { title: 'Grants and Bounties', href: '/grants-and-bounties', description: 'Learn about our referral, ambassador, and distributor programs', icon: 'stars-02' },
           { title: 'Careers', href: '/careers', description: 'We’re always looking for talented people. Join our team!', icon: 'users-01', badge: "We're Hiring!" },
           { title: 'Security', href: '/security', description: 'View our platform audit reports. Learn about our bug bounty program.', icon: 'glasses-02' },
-          { title: 'Policy', href: '/policies', description: 'View our disclaimer, terms of service, and privacy policy', icon: 'folder' }
+          { title: 'Policy', href: '/policies', description: 'View our disclaimer, terms of service, and privacy policy', icon: 'folder' },
+          { title: 'Contact', href: '/contact', description: 'Reach out to us via email or our community channels', icon: 'book-closed' }
         ]
       },
       {
