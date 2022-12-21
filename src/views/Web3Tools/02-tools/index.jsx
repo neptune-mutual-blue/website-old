@@ -8,7 +8,7 @@ import { Icon } from '../../../components/Icon'
 
 const tools = [
   {
-    slug: 'string-to-bytes32',
+    slug: 'string-to-bytes32-converter',
     title: 'Online String to Solidity Bytes32 Converter',
     intro: 'Convert Solidity bytes32 to utf8 string and vice versa.',
     category: 'Solidity',
