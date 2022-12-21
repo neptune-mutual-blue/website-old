@@ -1,23 +1,17 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import styled from 'styled-components'
 import { colors, primaryColorKey } from '../../../../styles/colors'
 import { typography } from '../../../../styles/typography'
 import { utils } from '../../../../styles/utils'
 import { getFormattedDate } from '../../../helpers'
-import { getBlurDataURL } from '../../../helpers/images'
 
 export const NewsCard = ({ newsItem }) => {
   return (
     <Container>
       <ImageContainer>
-        <Image
-          src={`${newsItem.image}`}
+        <img
+          src={newsItem.image}
           alt={newsItem.title.toLowerCase() === newsItem.alt.toLowerCase() ? '' : newsItem.alt}
-          fill
-          sizes='(max-width: 768px) 80vw, (max-width: 1280px) 40vw, 420px'
-          placeholder='blur'
-          blurDataURL={getBlurDataURL(800, 450)}
         />
       </ImageContainer>
 
@@ -46,6 +40,8 @@ const ImageContainer = styled.div`
   height: 240px;
 
   img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
   }
 

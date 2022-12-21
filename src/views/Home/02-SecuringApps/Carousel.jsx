@@ -2,7 +2,6 @@ import styled from 'styled-components'
 import { typography } from '../../../../styles/typography'
 import { data } from './data'
 import Slider from 'react-slick'
-import Image from 'next/image'
 
 const Carousel = () => {
   const settings = {
@@ -59,7 +58,7 @@ const Carousel = () => {
         return (
           <AppContainer key={app.id}>
             {/* @note - alt is empty because the content of the image is already provided in context through text */}
-            <Image src={app.src} alt='' height='32' width='32' />
+            <img src={app.src} alt='' height='32' width='32' />
             <AppName>{app.name}</AppName>
           </AppContainer>
         )

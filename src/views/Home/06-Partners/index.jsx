@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { useTranslation } from 'react-i18next'
 import styled, { useTheme } from 'styled-components'
 import { colors } from '../../../../styles/colors'
@@ -43,7 +42,7 @@ export const Partners = () => {
         <Heading>{t('Powered by You, Trusted by Industry Leaders')}</Heading>
         <FeaturedPartners>
           {(isLightMode ? partnersLight : partnersDark).map((partner, ind) => (
-            <Image key={ind} src={partner.imgSrc} alt={`${partner.name} Logo`} height={100} width={300} loading='lazy' />
+            <img key={ind} src={partner.imgSrc} alt={partner.name} height={100} width={300} loading='lazy' />
           ))}
         </FeaturedPartners>
         <BrandCarousel />

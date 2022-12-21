@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
@@ -9,7 +8,6 @@ import {
 import { typography } from '../../../../styles/typography'
 import { utils } from '../../../../styles/utils'
 import { Button } from '../../../components/Button'
-import { getBlurDataURL } from '../../../helpers/images'
 
 export const NftCollection = () => {
   const { t } = useTranslation('home')
@@ -39,13 +37,9 @@ export const NftCollection = () => {
         </TextAndCta>
 
         <ImageContainer>
-          <Image
+          <img
             src='/assets/images/nft/promo.webp'
             alt='A banner that displays an NFT set, consisting of cards featuring unique Neptune Mutual NFT character portraits, names, and descriptions.'
-            fill
-            sizes='(max-width: 768px) 100vw, 1280px'
-            placeholder='blur'
-            blurDataURL={getBlurDataURL(1280, 720)}
           />
         </ImageContainer>
       </InnerContainer>
@@ -121,7 +115,6 @@ const SupportingText = styled.p`
 `
 
 const ImageContainer = styled.div`
-  position: relative;
   margin-top: 64px;
   height: 480px;
   border-radius: 16px;
@@ -136,6 +129,8 @@ const ImageContainer = styled.div`
   }
 
   img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
   }
 `

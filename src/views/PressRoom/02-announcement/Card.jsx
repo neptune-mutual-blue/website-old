@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import styled from 'styled-components'
 
@@ -11,11 +10,9 @@ const Card = (props) => {
   return (
     <Container>
       <ImageContainer>
-        <Image
-          alt={props.post.title.toLowerCase() === props.post.alt.toLowerCase() ? '' : props.post.alt}
-          fill
-          sizes='(max-width: 768px) 80vw, (max-width: 1280px) 40vw, 420px'
+        <img
           src={props.post.image}
+          alt={props.post.title.toLowerCase() === props.post.alt.toLowerCase() ? '' : props.post.alt}
         />
       </ImageContainer>
 
@@ -47,16 +44,14 @@ const ImageContainer = styled.div`
   position: relative;
   height: 333px;
 
-  @media (max-width: 768px) { 
-    height: 200px;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
-  @media (max-width: 768px) {
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+  @media (max-width: 768px) { 
+    height: 200px;
   }
 `
 

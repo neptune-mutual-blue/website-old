@@ -1,4 +1,4 @@
-import Image from 'next/image'
+
 import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
@@ -10,7 +10,6 @@ import {
 import { typography } from '../../../styles/typography'
 import { utils } from '../../../styles/utils'
 import { Button } from '../../components/Button'
-import { getBlurDataURL } from '../../helpers/images'
 
 export const NotFound = () => {
   const { t } = useTranslation('404')
@@ -48,13 +47,10 @@ export const NotFound = () => {
       </TextAndCta>
 
       <ImageContainer>
-        <Image
+        <img
           src='/assets/images/hero/not-found-alert.webp'
           alt='A 404 Not Found Image Showing a Three-Dimensional Traffic Cone'
-          fill loading='eager' priority
-          sizes='(max-width: 768px) 80vw, (max-width: 1280px) 40vw, 640px'
-          placeholder='blur'
-          blurDataURL={getBlurDataURL(1280, 1280)}
+          loading='eager'
         />
       </ImageContainer>
     </Container>
@@ -135,9 +131,10 @@ const ImageContainer = styled.div`
   flex: 1;
   height: 560px;
   max-width: 100%;
-  position: relative;
 
   img {
+    width: 100%;
+    height: 100%;
     object-position: center;
     object-fit: contain;
   }

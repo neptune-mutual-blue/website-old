@@ -3,7 +3,6 @@ import { colors } from '../../../../styles/colors'
 import { typography } from '../../../../styles/typography'
 import PlayIcon from '../../Icon/custom/PlayIcon'
 import { useVideosContext } from '../../../context/VideosContext'
-import Image from 'next/image'
 
 export const Video = ({ video }) => {
   const { setId } = useVideosContext()
@@ -11,7 +10,7 @@ export const Video = ({ video }) => {
   return (
     <Container onClick={() => { setId(video.videoId) }}>
       <Thumbnail>
-        <Image src={`${video.image}`} alt={video.title} fill />
+        <img src={video.image} alt={video.title} loading='lazy' />
         <Overlay>
           <PlayIcon />
         </Overlay>

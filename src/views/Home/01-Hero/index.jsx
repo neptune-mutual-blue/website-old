@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
@@ -6,7 +5,6 @@ import { colors } from '../../../../styles/colors'
 import { typography } from '../../../../styles/typography'
 import { utils } from '../../../../styles/utils'
 import { Button } from '../../../components/Button'
-import { getBlurDataURL } from '../../../helpers/images'
 import { Announcement } from './Announcement'
 
 export const Hero = ({ latestAnnouncement }) => {
@@ -37,11 +35,10 @@ export const Hero = ({ latestAnnouncement }) => {
       </TextAndCta>
 
       <ImageContainer>
-        <Image
-          src='/assets/images/hero/home-cover.webp' alt='A portrait of the god Neptune holding a trident.' fill loading='eager' priority
-          sizes='(max-width: 768px) 80vw, (max-width: 1280px) 40vw, 640px'
-          placeholder='blur'
-          blurDataURL={getBlurDataURL(1280, 1280)}
+        <img
+          src='/assets/images/hero/home-cover.webp'
+          alt='A portrait of the god Neptune holding a trident.'
+          loading='eager'
         />
       </ImageContainer>
     </Container>
@@ -119,8 +116,9 @@ const ImageContainer = styled.div`
     margin-right: -16px;
   }
   
-  position: relative;
   img {
+    width: 100%;
+    height: 100%;
     object-position: top center;
     object-fit: cover;
   }

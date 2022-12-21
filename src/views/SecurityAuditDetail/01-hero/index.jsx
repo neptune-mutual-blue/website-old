@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
@@ -23,7 +22,7 @@ const Hero = (props) => {
           </HeaderContent>
         </Content>
         <ImageContainer>
-          <Image alt={props.audit.partner.logo.alt} src={`${props.audit.partner.logo.image}`} width='282' height='282' />
+          <img alt={props.audit.partner.logo.alt} src={`${props.audit.partner.logo.image}`} width='282' height='282' />
         </ImageContainer>
       </InnerContainer>
       <BreadcrumbsContainer>

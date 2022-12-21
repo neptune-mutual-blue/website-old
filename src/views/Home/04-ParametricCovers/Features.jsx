@@ -1,5 +1,4 @@
 import { Tab } from '@headlessui/react'
-import Image from 'next/image'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
@@ -27,10 +26,11 @@ export const Features = () => {
             return (
               <Tab.Panel key={feature.id}>
                 <ImageContainer>
-                  <Image
+                  <img
                     src={feature.image} alt={feature.title}
                     height={350}
                     width={350}
+                    loading='lazy'
                   />
                 </ImageContainer>
               </Tab.Panel>

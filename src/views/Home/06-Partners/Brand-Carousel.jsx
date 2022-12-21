@@ -1,6 +1,5 @@
 import { useRef } from 'react'
 
-import Image from 'next/image'
 import Slider from 'react-slick'
 import styled, { useTheme } from 'styled-components'
 
@@ -419,7 +418,7 @@ export const BrandCarousel = () => {
         {slidesToMap.map((brand, idx) => {
           return (
             <div key={idx}>
-              <Image src={brand.imgSrc} alt={brand.name + ' Logo'} width={230} height={64} />
+              <img src={brand.imgSrc} alt={brand.name} width={230} height={64} />
             </div>
           )
         })}

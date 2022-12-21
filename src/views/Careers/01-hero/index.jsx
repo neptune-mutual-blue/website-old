@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
@@ -8,7 +7,6 @@ import {
 } from '../../../../styles/colors'
 import { typography } from '../../../../styles/typography'
 import { utils } from '../../../../styles/utils'
-import { getBlurDataURL } from '../../../helpers/images'
 
 const Hero = () => {
   const { t } = useTranslation('careers')
@@ -39,12 +37,10 @@ const Hero = () => {
           </HeaderContent>
         </Content>
         <ImageContainer>
-          <Image
-            alt={t('Neptune Mutual Careers Banner Image')} src='/assets/images/hero/careers.webp'
-            fill loading='eager' priority
-            sizes='(max-width: 768px) 80vw, (max-width: 1280px) 40vw, 640px'
-            placeholder='blur'
-            blurDataURL={getBlurDataURL(1280, 1280)}
+          <img
+            src='/assets/images/hero/careers.webp'
+            alt={t('Neptune Mutual Careers Banner Image')}
+            loading='eager'
           />
         </ImageContainer>
 
@@ -132,7 +128,6 @@ const HeaderContent = styled.p`
 const ImageContainer = styled.div`
   flex: 1;
   max-width: 100%;
-  position: relative;
   display: inline-block;
 
   @media (max-width: 768px) {
@@ -144,6 +139,8 @@ const ImageContainer = styled.div`
   }
 
   img {
+    width: 100%;
+    height: 100%;
     object-position: top center;
     object-fit: cover;
 

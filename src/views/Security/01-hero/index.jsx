@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
@@ -25,7 +24,7 @@ const Hero = () => {
           </HeaderContent>
         </Content>
         <ImageContainer>
-          <Image
+          <img
             src='/assets/images/hero/shield.webp'
             alt='An image that depicts a blue shield or armor that appears to be floating in mid-air.'
             width={300} height={300}

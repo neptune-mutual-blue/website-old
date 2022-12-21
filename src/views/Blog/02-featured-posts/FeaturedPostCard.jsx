@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import styled from 'styled-components'
 
@@ -14,7 +13,7 @@ export const FeaturedPostCard = ({ post }) => {
   return (
     <Container>
       <ImageContainer>
-        <Image
+        <img
           src={`${post.image}`} height={200} width={320}
           alt={post.title.toLowerCase() === post.alt.toLowerCase() ? '' : post?.alt || ''}
         />

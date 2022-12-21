@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import styled from 'styled-components'
-import Image from 'next/image'
 import { useTranslation } from 'react-i18next'
 
 import { colors, primaryColorKey } from '../../../../styles/colors'
@@ -14,7 +13,7 @@ const Card = (props) => {
     <Container>
       <IconNTag>
         <IconContainer>
-          <Image alt={props.audit.partner.icon.alt} width='48' height='48' src={`${props.audit.partner.icon.image}`} />
+          <img alt={props.audit.partner.icon.alt} width='48' height='48' src={`${props.audit.partner.icon.image}`} />
         </IconContainer>
         <Tag color={props.audit.badges[0].color}>{t(`${props.audit.badges[0].text}`)}</Tag>
       </IconNTag>
