@@ -4,7 +4,10 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'react-i18next'
 
 import { services } from '../services'
-import { getFQDN } from '../src/helpers'
+import {
+  getCanonical,
+  getFQDN
+} from '../src/helpers'
 import { Home } from '../src/views/Home'
 
 export async function getStaticProps ({ locale }) {
@@ -31,7 +34,7 @@ export default function HomePage (props) {
       <Head>
         <title>{t('META_TITLE')}</title>
         <meta name='description' content={t('META_DESCRIPTION')} />
-        <link rel='canonical' href={getFQDN(router.asPath)} />
+        <link rel='canonical' href={getCanonical(router)} />
         <link rel='icon' href='/favicon.ico' />
 
         <meta property='og:type' content='website' />

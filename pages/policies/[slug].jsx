@@ -1,10 +1,12 @@
-import Head from 'next/head'
-
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import Head from 'next/head'
+import { useRouter } from 'next/router'
 
 import { services } from '../../services'
-import { useRouter } from 'next/router'
-import { getFQDN } from '../../src/helpers'
+import {
+  getCanonical,
+  getFQDN
+} from '../../src/helpers'
 import { Policy } from '../../src/views/Policy'
 
 export async function getStaticPaths ({ locales }) {
@@ -52,7 +54,7 @@ export default function SinglePolicyPage (props) {
       <Head>
         <title>{props.page.meta.title}</title>
         <meta name='description' content={props.page.meta.description} />
-        <link rel='canonical' href={getFQDN(router.asPath)} />
+        <link rel='canonical' href={getCanonical(router)} />
         <link rel='icon' href='/favicon.ico' />
 
         <meta property='og:type' content='website' />

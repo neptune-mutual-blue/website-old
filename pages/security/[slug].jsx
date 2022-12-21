@@ -1,11 +1,13 @@
-import Head from 'next/head'
-
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import Head from 'next/head'
+import { useRouter } from 'next/router'
 
 import { services } from '../../services'
+import {
+  getCanonical,
+  getFQDN
+} from '../../src/helpers'
 import { Audit } from '../../src/views/SecurityAuditDetail'
-import { useRouter } from 'next/router'
-import { getFQDN } from '../../src/helpers'
 
 export async function getStaticPaths ({ locales }) {
   const slugs = await services.getAuditSlugs()
@@ -52,7 +54,7 @@ export default function AuditPage (props) {
       <Head>
         <title>{props.audit.meta.title}</title>
         <meta name='description' content={props.audit.meta.description} />
-        <link rel='canonical' href={getFQDN(router.asPath)} />
+        <link rel='canonical' href={getCanonical(router)} />
         <link rel='icon' href='/favicon.ico' />
 
         <meta property='og:type' content='website' />

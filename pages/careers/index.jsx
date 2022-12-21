@@ -1,11 +1,14 @@
-import Head from 'next/head'
-
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { services } from '../../services'
-import { Careers } from '../../src/views/Careers'
-import { getFQDN } from '../../src/helpers'
-import { useTranslation } from 'react-i18next'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'react-i18next'
+
+import { services } from '../../services'
+import {
+  getCanonical,
+  getFQDN
+} from '../../src/helpers'
+import { Careers } from '../../src/views/Careers'
 
 export async function getStaticProps ({ locale }) {
   const s = await serverSideTranslations(locale, ['common', 'careers'])
@@ -31,7 +34,7 @@ export default function CareersPage (props) {
       <Head>
         <title>{t('META_TITLE')}</title>
         <meta name='description' content={t('META_DESCRIPTION')} />
-        <link rel='canonical' href={getFQDN(router.asPath)} />
+        <link rel='canonical' href={getCanonical(router)} />
         <link rel='icon' href='/favicon.ico' />
 
         <meta property='og:type' content='website' />

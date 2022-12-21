@@ -1,10 +1,12 @@
-import Head from 'next/head'
-
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import Head from 'next/head'
+import { useRouter } from 'next/router'
 
 import { services } from '../../services'
-import { getFQDN } from '../../src/helpers'
-import { useRouter } from 'next/router'
+import {
+  getCanonical,
+  getFQDN
+} from '../../src/helpers'
 import { PressroomPostDetail } from '../../src/views/PressroomPostDetail'
 
 export async function getStaticPaths ({ locales }) {
@@ -54,7 +56,7 @@ export default function BlogPostPage (props) {
       <Head>
         <title>{props.post.meta.title}</title>
         <meta name='description' content={props.post.meta.description} />
-        <link rel='canonical' href={getFQDN(router.asPath)} />
+        <link rel='canonical' href={getCanonical(router)} />
         <link rel='icon' href='/favicon.ico' />
 
         <meta property='og:type' content='article' />

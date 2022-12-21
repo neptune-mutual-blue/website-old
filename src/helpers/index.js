@@ -42,6 +42,14 @@ const copyToClipBoard = (text) => {
 
 const getDns = () => new URL(publicEnv.domain).origin
 
+const getCanonical = (router) => {
+  const domain = getDns()
+  const { pathname, origin } = new URL(router.asPath, domain)
+  const url = new URL(pathname, origin)
+
+  return url.href
+}
+
 // fully qualified domain name
 const getFQDN = (path) => {
   const dns = getDns()
@@ -55,11 +63,12 @@ const chunkArray = (arr, size) => {
 }
 
 export {
+  chunkArray,
   copyToClipBoard,
+  ga,
+  getCanonical,
+  getDns,
   getFormattedDate,
   getFQDN,
-  getDns,
-  chunkArray,
-  ga,
   scrollToHash
 }

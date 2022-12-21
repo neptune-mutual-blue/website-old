@@ -1,11 +1,13 @@
-import Head from 'next/head'
-
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import Head from 'next/head'
+import { useRouter } from 'next/router'
 
 import { services } from '../../services'
+import {
+  getCanonical,
+  getFQDN
+} from '../../src/helpers'
 import { CareersDetail } from '../../src/views/CareersDetail'
-import { useRouter } from 'next/router'
-import { getFQDN } from '../../src/helpers'
 
 export async function getStaticPaths ({ locales }) {
   const slugs = await services.getVacancySlugs()
@@ -57,7 +59,7 @@ export default function VacancyPage (props) {
       <Head>
         <title>{props.vacancy.meta.title}</title>
         <meta name='description' content={props.vacancy.meta.description} />
-        <link rel='canonical' href={getFQDN(router.asPath)} />
+        <link rel='canonical' href={getCanonical(router)} />
         <link rel='icon' href='/favicon.ico' />
 
         <meta property='og:type' content='website' />
