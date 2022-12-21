@@ -79,10 +79,9 @@ export const Tools = () => {
 const Container = styled.div`
   padding-top: 56px;
   ${utils.fullWidthContainer}
-
+  
   @media screen and (max-width: 768px) {
-    /* padding-top: 64px;
-    padding-bottom: 48px; */
+    padding-top: 24px;
   }
 `
 
@@ -122,14 +121,12 @@ const FlexContainer = styled.div`
 
 const TitleAndBadgeContainer = styled(FlexContainer)`
   @media screen and (max-width: 768px) {
+    justify-content: space-between;
     align-items: flex-start;
-    flex-direction: column;
   }
 `
 
 const CategoryContainer = styled(FlexContainer)`
-  margin-top: 24px;
-
   svg {
     color: ${props => props.theme.isLightMode ? colors.gray[400] : colors.gray[300]};
   }
@@ -182,6 +179,7 @@ const BadgeContainer = styled.div`
 `
 
 const BottomContainer = styled.div`
+  margin-top: 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
