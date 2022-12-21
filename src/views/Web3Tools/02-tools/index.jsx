@@ -61,7 +61,7 @@ export const Tools = () => {
                   </CategoryContainer>
 
                   <ArrowButton>
-                    <span>Click arrow button</span>
+                    <span>arrow button</span>
                     <Icon variant='arrow-right' size={20} />
                   </ArrowButton>
 
@@ -190,6 +190,7 @@ const ArrowButton = styled.button`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  color: ${props => props.theme.isLightMode ? colors.primary[700] : colors.primary[300]};
 
   span {
     ${utils.srOnly};

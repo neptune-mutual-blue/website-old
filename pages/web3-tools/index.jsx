@@ -7,7 +7,7 @@ import { getFQDN } from '../../src/helpers'
 import { Web3Tools } from '../../src/views/Web3Tools'
 
 export async function getStaticProps ({ locale }) {
-  const s = await serverSideTranslations(locale, ['common', 'about'])
+  const s = await serverSideTranslations(locale, ['common', 'web3-tools'])
   return {
     props: {
       ...(s),

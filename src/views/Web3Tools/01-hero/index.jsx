@@ -1,4 +1,4 @@
-import { Trans, useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import {
@@ -17,9 +17,7 @@ const Hero = () => {
         <Content>
           <H1>
             <HeaderTitle>
-              <Trans t={t}>
-                Web3 Tools
-              </Trans>
+              {t('Web3 Tools')}
             </HeaderTitle>
           </H1>
         </Content>
