@@ -48,7 +48,7 @@ export default class MyDocument extends Document {
           <Main />
           <NextScript />
           <noscript>We’re sorry, some parts of the Neptune Mutual website don’t work properly without JavaScript enabled.</noscript>
-          <script defer async src='https://platform.twitter.com/widgets.js' />
+          <script defer src='https://platform.twitter.com/widgets.js' />
         </body>
       </Html>
     )
