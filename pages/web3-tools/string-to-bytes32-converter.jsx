@@ -46,7 +46,7 @@ export default function Web3Pages () {
       </Head>
 
       <main>
-        <ToolsDetail />
+        <ToolsDetail slug='string-to-bytes32' />
       </main>
     </>
   )
