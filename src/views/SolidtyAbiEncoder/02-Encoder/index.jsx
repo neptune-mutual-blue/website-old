@@ -38,10 +38,6 @@ const Encoder = () => {
     }
   }, [])
 
-  useEffect(() => {
-
-  }, [])
-
   const restoreSpecificContract = (key) => {
     const { abi, contract_name: contractName, address } = contracts[key]
     const form = formRef.current
