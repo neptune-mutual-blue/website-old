@@ -52,7 +52,7 @@ const Container = styled.div`
   color: ${props => props.theme.secondaryColor};
 
   img {
-    filter: ${props => props.theme.isLightMode ? 'inherit' : 'invert(200%)'};
+    filter: ${props => props.theme.isLightMode ? 'inherit' : 'invert(100%)'};
   }
 
   strong {
@@ -129,9 +129,7 @@ const Container = styled.div`
       transition: 0.2s;
 
       :hover {
-        filter: contrast(200%);
-        filter: saturate(50%);
-        filter: ${props => props.theme.isLightMode ? 'inherit' : 'invert(200%)'};
+        filter: ${props => props.theme.isLightMode ? 'inherit' : 'invert(100%)'};
         transform: scale(1.075);
         transition: 1.25s;
       }
