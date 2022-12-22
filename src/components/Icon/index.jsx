@@ -19,7 +19,8 @@ import {
   CheckCircleBroken,
   Share07,
   Tool01,
-  HelpCircle
+  HelpCircle,
+  DownloadCloud01
 } from "./variants/General";
 import {
   ArrowLeft,
@@ -30,6 +31,7 @@ import {
   ChevronRight,
   ChevronUp,
   SwitchHorizontal02,
+  RefreshCcw02,
 } from "./variants/Arrows";
 import { MoonStar, Stars01, Stars02, Sun } from "./variants/Weather";
 import {
@@ -74,6 +76,7 @@ import Dot from "./custom/dot"
 import SunFilled from "./custom/sun-filled";
 import MoonStarFilled from "./custom/moon-star-filled";
 import { Arbitrum, ArbitrumDark, Avalanche, AvalancheDark, BNBChain, BNBChainDark, Ethereum, EthereumDark, Polygon, PolygonDark } from "./custom/Brands";
+import { AlignBottom01 } from "./variants/Layout";
 
 export const Icon = ({ size, variant }) => {
   let IconComponent = null;
@@ -479,6 +482,19 @@ export const Icon = ({ size, variant }) => {
   if(variant === 'help-circle') {
     IconComponent = HelpCircle
   }
+
+  if(variant === 'align-bottom-01') {
+    IconComponent = AlignBottom01
+  }
+
+  if(variant === 'refresh-ccw-02'){
+    IconComponent = RefreshCcw02
+  }
+
+  if(variant === 'download-cloud-01') {
+    IconComponent = DownloadCloud01
+  }
+
 
   return IconComponent ? <IconComponent width={size} height={size} /> : null;
 };
