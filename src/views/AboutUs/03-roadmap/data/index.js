@@ -370,7 +370,7 @@ export const data = [
             routinely to analyze and assess its security posture.
           </p>
           <p>
-            <a title='Security' href='/security'>View Previous Penetration Tests</a>
+            <Link title='Security' href='/security'>View Previous Penetration Tests</Link>
           </p>
         </>
       )
