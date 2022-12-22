@@ -10,10 +10,10 @@ import { CircularCheckbox } from '../CircularCheckbox'
 import { Icon } from '../Icon'
 
 const defaultValue = {
-  breadcrumbText: 'String to Bytes Converter',
+  breadcrumbText: 'String to Byte Converter',
   title: 'Convert String to Solidity Bytes32',
   switchButtonSlug: 'bytes32-to-string-converter',
-  switchButtonFrom: 'Bytes',
+  switchButtonFrom: 'Byte',
   switchButtonTo: 'String',
   inputLabel: 'Enter Your String Value',
   inputPlaceholder: 'Example: foobar',
@@ -29,10 +29,10 @@ const getInfoBySlug = slug => {
   switch (slug) {
     case 'string-to-bytes32':
       _info = {
-        breadcrumbText: 'String to Bytes Converter',
+        breadcrumbText: 'String to Byte Converter',
         title: 'Convert String to Solidity Bytes32',
         switchButtonSlug: 'bytes32-to-string-converter',
-        switchButtonFrom: 'Bytes',
+        switchButtonFrom: 'Byte',
         switchButtonTo: 'String',
         inputLabel: 'Enter Your String Value',
         inputPlaceholder: 'Example: foobar',
@@ -45,10 +45,10 @@ const getInfoBySlug = slug => {
 
     case 'number-to-bytes32':
       _info = {
-        breadcrumbText: 'Number to Bytes Converter',
+        breadcrumbText: 'Number to Byte Converter',
         title: 'Convert Number to Solidity Bytes32',
         switchButtonSlug: 'bytes32-to-number-converter',
-        switchButtonFrom: 'Bytes',
+        switchButtonFrom: 'Byte',
         switchButtonTo: 'Number',
         inputLabel: 'Enter Your Number Value',
         inputPlaceholder: 'Example: 123.456',
@@ -61,12 +61,12 @@ const getInfoBySlug = slug => {
 
     case 'bytes32-to-string':
       _info = {
-        breadcrumbText: 'Bytes to String Converter',
+        breadcrumbText: 'Byte to String Converter',
         title: 'Convert Solidity Bytes32 to String',
         switchButtonSlug: 'string-to-bytes32-converter',
         switchButtonFrom: 'String',
-        switchButtonTo: 'Bytes',
-        inputLabel: 'Enter Your Bytes Value',
+        switchButtonTo: 'Byte',
+        inputLabel: 'Enter Your Byte Value',
         inputPlaceholder: 'Example: 0x7465737400000000000000000000000000000000000000000000000',
         resultPlaceholder: 'foobar',
         convertFrom: false,
@@ -77,12 +77,12 @@ const getInfoBySlug = slug => {
 
     case 'bytes32-to-number':
       _info = {
-        breadcrumbText: 'Bytes to Number Converter',
+        breadcrumbText: 'Byte to Number Converter',
         title: 'Convert Solidity Bytes32 to Number',
         switchButtonSlug: 'number-to-bytes32-converter',
         switchButtonFrom: 'Number',
-        switchButtonTo: 'Bytes',
-        inputLabel: 'Enter Your Bytes Value',
+        switchButtonTo: 'Byte',
+        inputLabel: 'Enter Your Byte Value',
         inputPlaceholder: 'Example: 0x7465737400000000000000000000000000000000000000000000000',
         resultPlaceholder: '123.456',
         convertFrom: false,
@@ -104,6 +104,7 @@ const Web3Converter = ({ slug, crumbs }) => {
   const [radioForm, setRadioForm] = useState('string')
   const [input, setInput] = useState('')
   const [result, setResult] = useState('')
+  const [padding, setPadding] = useState(false)
 
   const router = useRouter()
 
@@ -121,12 +122,16 @@ const Web3Converter = ({ slug, crumbs }) => {
   const handleRadioChange = val => {
     setRadioForm(val)
 
-    router.push(`/web3-tools/${info.radioButtonSlug}`)
+    router.push(`/web3-tools/${info.radioButtonSlug}`, undefined, { scroll: false })
   }
 
   const handleInputChange = (field, value) => {
     if (field === 'input') setInput(value)
     if (field === 'result') setResult(value)
+  }
+
+  const handlePaddingChange = () => {
+    setPadding(_prev => !_prev)
   }
 
   return (
@@ -155,7 +160,7 @@ const Web3Converter = ({ slug, crumbs }) => {
               />
               <TitleContainer>
                 <Title>{info.title}</Title>
-                <SwitchButton href={info.switchButtonSlug}>
+                <SwitchButton href={info.switchButtonSlug} scroll={false}>
                   <Icon variant='switch-horizontal-02' size={20} />
                   <span>{info.switchButtonFrom} to {info.switchButtonTo}</span>
                 </SwitchButton>
@@ -223,7 +228,9 @@ const Web3Converter = ({ slug, crumbs }) => {
 
             {
               info.showPaddingSection && (
-                <PaddingContainer>
+                <PaddingContainer
+                  onClick={() => handlePaddingChange()}
+                >
                   <div>
                     <PaddingLabel htmlFor='padding-radio'>Add Padding</PaddingLabel>
                     <PaddingInfo>
@@ -233,6 +240,8 @@ const Web3Converter = ({ slug, crumbs }) => {
                   <CircularCheckbox
                     id='padding-radio'
                     name='padding-radio'
+                    checked={padding}
+                    onChange={() => {}}
                   >
                     Add Padding checkbox
                   </CircularCheckbox>
@@ -244,9 +253,9 @@ const Web3Converter = ({ slug, crumbs }) => {
         </FlexContainer>
 
         <MobileContainer2>
-          <SwitchButton href={info.switchButtonSlug}>
+          <SwitchButton href={info.switchButtonSlug} scroll={false}>
             <Icon variant='switch-horizontal-02' size={20} />
-            <span>Bytes to String</span>
+            <span>{info.switchButtonFrom} to {info.switchButtonTo}</span>
           </SwitchButton>
         </MobileContainer2>
       </InnerContainer>
@@ -261,15 +270,7 @@ const Container = styled.div`
   ${utils.fullWidthContainer}
 `
 
-const InnerContainer = styled.div`
-  padding-left: 32px;
-  padding-right: 32px;
-  
-  @media screen and (max-width: 768px) {
-    padding-left: 0px;
-    padding-right: 0px;
-  }
-`
+const InnerContainer = styled.div``
 
 const FlexContainer = styled.div`
   display: flex;
@@ -350,13 +351,14 @@ const IconButtonStyle = css`
   &:disabled {
     opacity: 50%;
     cursor: not-allowed;
-    background-color: ${props => props.theme.isLightMode ? colors[primaryColorKey][600] : colors.gray[500]};
+    background-color: ${colors.gray[500]};
   }
 `
 
 const SwitchButton = styled(Link)`
   ${IconButtonStyle}
   background-color: ${colors[primaryColorKey][600]};
+  width: max-content;
   
   span, svg {
     color: ${colors.white}; 
@@ -387,6 +389,8 @@ const Input = styled.div`
   background: ${props => props.theme.isLightMode ? 'transparent' : colors.gray[600]};
   margin-top: 6px;
   position: relative;
+  ${typography.styles.textMd}
+  ${typography.weights.regular}
 
   input, textarea {
     outline: none;
@@ -421,7 +425,11 @@ const InputContainer = styled(Input)`
 
 const TextareaContainer = styled(Input)`
   padding: 12px 14px;
-  height: 108px;
+
+  textarea {
+    height: 84px;
+    resize: none;
+  }
 `
 
 const CopyButton = styled.button`
@@ -492,7 +500,7 @@ const RadioButtons = styled.div`
   }
 `
 
-const PaddingContainer = styled.div`
+const PaddingContainer = styled.button`
   margin-top: 24px;
   padding: 16px;
   display: flex;
@@ -502,6 +510,8 @@ const PaddingContainer = styled.div`
   background-color: ${props => props.theme.isLightMode ? colors.gray[50] : colors.gray[600]};
   border: 2px solid ${props => props.theme.isLightMode ? colors.gray[400] : colors.gray[500]};
   border-radius: 12px;
+  text-align: left;
+  cursor: pointer;
 
   input[type="radio"] {
     width: 16px;

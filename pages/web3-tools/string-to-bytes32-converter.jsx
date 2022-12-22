@@ -7,7 +7,7 @@ import { getFQDN } from '../../src/helpers/index.js'
 import { ToolsDetail } from '../../src/views/ToolsDetail/index.jsx'
 
 export async function getStaticProps ({ locale }) {
-  const s = await serverSideTranslations(locale, ['common', 'web3-tools'])
+  const s = await serverSideTranslations(locale, ['common', 'string-to-bytes32-converter'])
   return {
     props: {
       ...(s),
