@@ -62,7 +62,7 @@ const Heading = styled.h1`
 `
 
 const Subtitle = styled.p`
-  margin-top: 24px;
+  margin: 24px auto 0 auto;
   max-width: 768px;
   color: ${(props) => props.theme.secondaryColor};
   ${typography.styles.textXl};
