@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { typography } from '../../../../styles/typography'
 import { utils } from '../../../../styles/utils'
 import { Button } from '../../../components/Button'
-import { Carousel } from './Carousel'
+import { CSSCarousel } from './CSSCarousel'
 
 export const WhatsNew = ({ blogPosts }) => {
   const { t } = useTranslation('home')
@@ -15,7 +15,7 @@ export const WhatsNew = ({ blogPosts }) => {
       <InnerContainer>
         <TextAndCta>
           <TextContainer>
-            <Heading>{t('What’s New?')}</Heading>
+            <Heading id='whats-new'>{t('What’s New?')}</Heading>
             <SupportingText>{t('The latest news, updates, and announcements from our team.')}</SupportingText>
           </TextContainer>
 
@@ -31,7 +31,7 @@ export const WhatsNew = ({ blogPosts }) => {
           </ButtonContainer>
 
           <CarouselContainer>
-            <Carousel posts={blogPosts} />
+            <CSSCarousel posts={blogPosts} />
           </CarouselContainer>
         </TextAndCta>
       </InnerContainer>
