@@ -1,13 +1,13 @@
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations.js'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { services } from '../../services'
 import Head from 'next/head'
 import { useRouter } from 'next/router.js'
 import { useTranslation } from 'react-i18next'
-import { services } from '../../services/index.js'
 import { getFQDN } from '../../src/helpers/index.js'
 import { ToolsDetail } from '../../src/views/ToolsDetail/index.jsx'
 
 export async function getStaticProps ({ locale }) {
-  const s = await serverSideTranslations(locale, ['common', 'string-to-bytes32-converter'])
+  const s = await serverSideTranslations(locale, ['common', 'web3-tools'])
   return {
     props: {
       ...(s),
