@@ -1,29 +1,19 @@
 import styled from 'styled-components'
 import { utils } from '../../../../styles/utils'
-import { colors, primaryColorKey } from '../../../../styles/colors'
-import { typography } from '../../../../styles/typography'
+import { colors } from '../../../../styles/colors'
 import { Button } from '../../../components/Button'
-import { shadows } from '../../../../styles/shadows'
-import { Input } from '../../../components/Input'
 import { InputHint } from '../../../components/Input/Hint'
 import { useRef, useState, useEffect } from 'react'
 import { isJSON } from '../../../helpers'
+import { TextArea } from '../../../components/TextArea'
+import { InputWithLabel } from '../../../components/InputWithLabel'
+import { History } from './History'
 
-// function
-// https://github.com/neptune-mutual-blue/protocol/tree/develop/abis
-// Encode
-// Everythiing function
-
-// Read Contract
-// view and pure
-
-// Write
-// Everythiing else
 const STORAGE_KEY = 'abis'
 
 const Encoder = () => {
   const formRef = useRef()
-  // const [selectedStorageKey, setSelectedStorageKey] = useState()
+
   const [contracts, setContracts] = useState([])
   const [abiInvalidFormat, setAbiInvalidFormat] = useState(false)
   const [isSaveable, setIsSaveable] = useState(false)
@@ -38,8 +28,8 @@ const Encoder = () => {
     }
   }, [])
 
-  const restoreSpecificContract = (key) => {
-    const { abi, contract_name: contractName, address } = contracts[key]
+  const restoreSpecificCallback = (data) => {
+    const { abi, contractName, address } = data
     const form = formRef.current
     form.abi.value = abi
     form.contract_name.value = contractName
@@ -62,8 +52,6 @@ const Encoder = () => {
 
     if (isJSON(storageData)) {
       abis = JSON.parse(storageData) || []
-    } else {
-      window.localStorage.removeItem(STORAGE_KEY)
     }
 
     const data = {
@@ -85,7 +73,7 @@ const Encoder = () => {
 
     const element = document.createElement('a')
     element.href = URL.createObjectURL(file)
-    element.download = 'contract.json'
+    element.download = 'contracts.json'
     document.body.appendChild(element)
     element.click()
     element.remove()
@@ -138,57 +126,47 @@ const Encoder = () => {
   return (
     <Container>
       <FormContent ref={formRef}>
+        <TextArea
+          required
+          label='What is your contract ABI?'
+          placeholder='Paste your smart contract or interface ABI code here'
+          onChange={validateABI}
+          error={abiInvalidFormat ? 'ABI format is invalid.' : ''}
+          rows={5}
+          id='abi'
+        />
 
-        <FormInputContainer>
-          <FormLabel htmlFor='abi'>What is your contract ABI?</FormLabel>
-          <FormTextArea id='abi' name='abi' onChange={validateABI} required placeholder='Paste your smart contract or interface ABI code here' />
-          {abiInvalidFormat && <Error>ABI format is invalid.</Error>}
-        </FormInputContainer>
+        <InputWithLabel
+          required
+          label='How would you want to remember your contract name in the future?'
+          placeholder='Contract or interface name'
+          id='contract_name'
+        >
+          <InputHint>
+            Enter the contract name or an easy to remember name for this contract
+          </InputHint>
+        </InputWithLabel>
 
-        <FormInputContainer>
-          <FormLabel htmlFor='name'>How would you want to remember your contract name in the future?</FormLabel>
-          <Input id='name' name='contract_name' placeholder='Contract or interface name' showLabelPlaceHolder={false}>
-            <InputHint>
-              Enter the contract name or an easy to remember name for this contract
-            </InputHint>
-          </Input>
-        </FormInputContainer>
-
-        <FormInputContainer>
-          <FormLabel htmlFor='address'>Have you deployed this contract on a blockchain network?</FormLabel>
-          <Input id='address' name='address' placeholder='0x' showLabelPlaceHolder={false}>
-            <InputHint>
-              If you’d like to perform read and write operations on this contract, paste its address.
-            </InputHint>
-          </Input>
-        </FormInputContainer>
+        <InputWithLabel
+          required
+          label='Have you deployed this contract on a blockchain network?'
+          placeholder='0x'
+          id='address'
+        >
+          <InputHint>
+            If you’d like to perform read and write operations on this contract, paste its address.
+          </InputHint>
+        </InputWithLabel>
 
         <FormAction>
           <Button hierarchy='secondary' disabled={!isSaveable} size='sm' iconLeading iconVariant='folder' onClick={saveToStorage}>Save to Local Storage</Button>
           <Button hierarchy='secondary' disabled={contracts.length === 0} size='sm' iconLeading iconVariant='download-cloud-01' onClick={download}>Save All to Your Computer</Button>
           <Button hierarchy='secondary' size='sm' type='file' iconLeading iconVariant='refresh-ccw-02' onClick={restore}>Restore from Your Computer</Button>
         </FormAction>
-
       </FormContent>
-      <History>
-        <HistoryTitle>Previous Contracts</HistoryTitle>
-        <HistoryCTA>
-          <Button hierarchy='secondary' disabled={contracts.length === 0} size='sm' iconLeading iconVariant='align-bottom-01' onClick={download}>Download Backup</Button>
-          <Button hierarchy='secondary' size='sm' iconLeading iconVariant='refresh-ccw-02' onClick={restore}>Restore</Button>
-        </HistoryCTA>
-        <HistoryList>
-          {contracts.length > 0 && contracts.map((contract, i) => {
-            return (
-              <HistoryListItem key={`contract-${i}`} onClick={(e) => { return restoreSpecificContract(i) }}>
-                {contract.contract_name || 'Untitled'}
-              </HistoryListItem>
-            )
-          })}
-        </HistoryList>
 
-        {restorationFailed && <Error>Restoration failed invalid JSON format.</Error>}
+      <History contracts={contracts} download={download} restore={restore} restorationFailed={restorationFailed} restoreSpecificCallback={restoreSpecificCallback} />
 
-      </History>
     </Container>
   )
 }
@@ -215,67 +193,6 @@ const FormContent = styled.form`
 
   @media (min-width: 1024px) { 
     width: 754px;  
-  }
-`
-
-const Error = styled.p`
-  color: ${props => props.theme.isLightMode ? colors.error[800] : colors.error[600]};\
-  margin-top:6px;
-  ${typography.styles.textSm}
-  ${typography.weights.regular}
-`
-
-const FormInputContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-`
-
-const FormLabel = styled.label`
-  color: ${props => props.theme.isLightMode ? colors.gray[700] : colors.gray[300]};1
-  ${typography.weights.medium}
-  ${typography.styles.textSm}
-`
-
-const FormTextArea = styled.textarea`
-  border: 1px solid ${colors.gray[300]};
-  background-color: ${props => props.theme.isLightMode ? props.theme.primaryBackgroundColor : colors.gray[600]};
-  height: 128px;
-  padding: 12px 14px;
-  border-radius: 8px;
-  box-shadow: ${shadows.xs};
-  outline: none;
-
-  ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: ${props => props.theme.isLightMode ? colors.gray['500'] : colors.gray['300']};
-    opacity: 1; /* Firefox */
-  }
-
-  :-ms-input-placeholder { /* Internet Explorer 10-11 */
-    color: ${props => props.theme.isLightMode ? colors.gray['500'] : colors.gray['300']};
-  }
-
-  ::-ms-input-placeholder { /* Microsoft Edge */
-    color: ${props => props.theme.isLightMode ? colors.gray['500'] : colors.gray['300']};
-  }
-
-  &:not(&:disabled) {
-    &[data-state="hover"], :hover {
-    }
-
-    &[data-state="focussed"],
-    :focus,
-    :active,
-    :focus-visible {
-
-      outline: none;
-      box-shadow: ${shadows.xs},
-        0px 0px 0px 4px ${(props) => props.theme.isLightMode ? colors[primaryColorKey]['100'] : colors[primaryColorKey]['800']};
-    }
-  }
-
-  :disabled {
-    cursor: not-allowed;
   }
 `
 
@@ -321,46 +238,6 @@ const FormAction = styled.div`
         border-top: none;
       }
     }
-  }
-`
-
-const History = styled.div`
-  padding: 24px 0px 24px 24px;
-  border: 1px solid ${colors.gray[300]};
-  border-radius: 8px;
-  height: 516px;
-  overflow-y: scroll;
-  overflow-x: hidden;
-`
-
-const HistoryTitle = styled.h2`
-  color: ${props => props.theme.isLightMode ? colors.gray[900] : colors.white};
-  ${typography.styles.textLg}
-  ${typography.weights.bold}
-`
-
-const HistoryList = styled.ul`
-  width: 342px;
-  
-`
-const HistoryListItem = styled.li`
-  word-wrap: break-word;
-  ${typography.weights.medium}
-  ${typography.styles.textSm}
-  color: ${props => props.theme.isLightMode ? colors.gray[900] : colors.white};
-  cursor: pointer;
-`
-
-const HistoryCTA = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 16px;
-  gap: 8px;
-
-  button {
-    color: ${props => props.theme.isLightMode ? colors[primaryColorKey][600] : colors.gray[700]};
-    ${typography.styles.textSm}
-    background-color: ${colors.white};
   }
 `
 

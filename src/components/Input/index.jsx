@@ -5,12 +5,12 @@ import { shadows } from '../../../styles/shadows'
 import { typography } from '../../../styles/typography'
 import { utils } from '../../../styles/utils'
 
-export const Input = ({ children, placeholder, showLabelPlaceHolder = true, ...props }) => {
+export const Input = ({ children, placeholder, ...props }) => {
   const id = useId()
 
   return (
     <Container>
-      {showLabelPlaceHolder && <Label htmlFor={id}>{placeholder}</Label>}
+      <Label htmlFor={id}>{placeholder}</Label>
       <StyledInput id={id} placeholder={placeholder} autoComplete='off' {...props} />
 
       {/* Hint as children */}

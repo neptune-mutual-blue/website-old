@@ -7,7 +7,7 @@ import { typography } from '../../../styles/typography'
 const InputWithLabel = forwardRef(({ children, placeholder, label, error, ...props }, ref) => {
   useEffect(() => {
     return () => {
-      props?.onChange({ target: { value: '' } })
+      typeof props.onChange === 'function' && props?.onChange({ target: { value: '' } })
     }
   }, [])
 
