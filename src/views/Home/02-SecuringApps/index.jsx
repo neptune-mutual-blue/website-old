@@ -4,7 +4,7 @@ import { colors } from '../../../../styles/colors'
 import { typography } from '../../../../styles/typography'
 import { utils } from '../../../../styles/utils'
 
-import { Carousel } from './Carousel'
+import { CSSCarousel } from './CSSCarousel'
 
 export const SecuringApps = () => {
   const { t } = useTranslation('home')
@@ -14,7 +14,7 @@ export const SecuringApps = () => {
       <InnerContainer>
         <ContentContainer>
           <Heading>{t('Securing your favorite DeFi, CeFi, and Metaverse Apps')}</Heading>
-          <Carousel />
+          <CSSCarousel />
         </ContentContainer>
       </InnerContainer>
     </Container>
