@@ -1,17 +1,18 @@
-import styled from 'styled-components'
-import { typography } from '../../../../styles/typography'
+import styled, { useTheme } from 'styled-components'
 
-import { data } from './data'
+import { carouselItemsInverted, carouselItemsLight } from './data'
 
 export const CSSCarousel = () => {
+  const { isLightMode } = useTheme()
+
+  const slidesToMap = isLightMode ? carouselItemsLight : carouselItemsInverted
+
   return (
     <Container>
-      {data.map((app) => {
+      {slidesToMap.map((brand, idx) => {
         return (
-          <ImageContainer key={app.id}>
-            {/* @note - alt is empty because the content of the image is already provided in context through text */}
-            <img src={app.src} alt='' height='32' width='32' loading='lazy' />
-            <AppName>{app.name}</AppName>
+          <ImageContainer key={idx}>
+            <img src={brand.imgSrc} alt={brand.name} width={200} height={64} loading='lazy' />
           </ImageContainer>
         )
       })}
@@ -20,6 +21,8 @@ export const CSSCarousel = () => {
 }
 
 const Container = styled.div`
+  margin-top: 64px;
+
   display: flex;
   overflow-x: auto;
   overscroll-behavior-x: contain;
@@ -30,8 +33,8 @@ const Container = styled.div`
 
 const ImageContainer = styled.div`
   --cardCount: 4;
-  --peek: 80px;
-  --gutter: 24px;
+  --peek: 100px;
+  --gutter: 1.5rem;
   scroll-snap-align: start;
   flex-shrink: 0;
   width: 33%;
@@ -42,7 +45,6 @@ const ImageContainer = styled.div`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
 
   img {
     object-fit: contain;
@@ -59,11 +61,4 @@ const ImageContainer = styled.div`
   @media (max-width: 768px) {
     --cardCount: 1;
   }
-`
-
-const AppName = styled.span`
-  color: ${(props) => props.theme.color};
-
-  ${typography.styles.textXl};
-  ${typography.weights.bold};
 `

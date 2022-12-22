@@ -3,7 +3,7 @@ import styled, { useTheme } from 'styled-components'
 import { colors } from '../../../../styles/colors'
 import { typography } from '../../../../styles/typography'
 import { utils } from '../../../../styles/utils'
-import { BrandCarousel } from './Brand-Carousel'
+import { CSSCarousel } from './CSSCarousel'
 
 const fenbushiImgLight = '/assets/images/partners/fenbushi-capital.webp'
 const animocaLight = '/assets/images/partners/animoca-brands.webp'
@@ -45,7 +45,7 @@ export const Partners = () => {
             <img key={ind} src={partner.imgSrc} alt={partner.name} height={100} width={300} loading='lazy' />
           ))}
         </FeaturedPartners>
-        <BrandCarousel />
+        <CSSCarousel />
       </InnerContainer>
     </Container>
   )
