@@ -13,9 +13,11 @@
   },
   "license": "LicenseRef-LICENSE",
   "dependencies": {
+    "@ethersproject/strings": "^5.7.0",
     "@fontsource/inter": "^4.5.14",
     "@fontsource/roboto-mono": "^4.5.8",
     "@headlessui/react": "^1.7.4",
+    "bignumber.js": "^9.1.1",
     "cheerio": "^1.0.0-rc.12",
     "eslint": "8.28.0",
     "eslint-config-next": "13.0.5",
