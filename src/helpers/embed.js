@@ -1,3 +1,5 @@
+import { delay } from './delay'
+
 function updateIframeHeight (targetId, newHeight) {
   const e = document.getElementById(targetId)
   e.children[0].style.height = parseInt(newHeight) + 'px'
@@ -80,5 +82,14 @@ export const parseEmbeds = async (el = document) => {
       console.log('Failed: ', i.getAttribute('data-embed-type'))
       console.log(err)
     }
+  }
+}
+
+export const loadTweets = async () => {
+  // Assume twitter script will load in 1.5s
+  await delay(1500)
+
+  if (window.twttr) {
+    window.twttr.widgets.load()
   }
 }

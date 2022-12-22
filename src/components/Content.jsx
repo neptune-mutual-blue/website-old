@@ -11,7 +11,7 @@ import {
 } from '../../styles/colors'
 import { typography } from '../../styles/typography'
 import { utils } from '../../styles/utils'
-import { parseEmbeds } from '../helpers/embed'
+import { loadTweets, parseEmbeds } from '../helpers/embed'
 
 export const HtmlContent = ({ content }) => {
   const { name } = useTheme()
@@ -19,10 +19,7 @@ export const HtmlContent = ({ content }) => {
 
   useEffect(() => {
     parseEmbeds(ref.current)
-
-    if (window.twttr) {
-      window.twttr.widgets.load()
-    }
+    loadTweets()
   }, [content])
 
   useEffect(() => {

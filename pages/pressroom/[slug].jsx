@@ -42,7 +42,8 @@ export async function getStaticProps ({ locale, params }) {
       post,
       relatedPosts: await services.pressroom.getRelatedPosts(post.tags, params.slug),
       videos: await services.getVideos(),
-      pages: await services.getPages()
+      pages: await services.getPages(),
+      hasTweets: true
       // Will be passed to the page component as props
     }
   }

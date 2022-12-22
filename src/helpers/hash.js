@@ -1,4 +1,4 @@
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+import { delay } from './delay'
 
 export const scrollToHash = async () => {
   await delay(500)
