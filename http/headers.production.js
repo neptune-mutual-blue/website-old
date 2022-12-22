@@ -33,7 +33,7 @@ module.exports = [
       `connect-src 'self' ${connectSources}`,
       "style-src 'self' 'unsafe-inline' https://github.githubassets.com/",
       'upgrade-insecure-requests',
-      'frame-src https://platform.twitter.com/ https://www.youtube.com/ https://www.google.com/',
+      "frame-src 'self' https://platform.twitter.com/ https://www.youtube.com/ https://www.google.com/",
       "frame-ancestors 'self'",
       "default-src 'none'",
       "prefetch-src 'self'",
