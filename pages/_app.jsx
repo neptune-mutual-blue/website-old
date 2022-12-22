@@ -15,6 +15,7 @@ import { MobileNavContainer } from '../src/components/Nav/MobileNavigation'
 import { PageLoader } from '../src/components/PageLoader'
 import { CookiesAndAnalytics } from '../src/components/CookiesAndAnalytics'
 import { scrollToHash } from '../src/helpers'
+import Script from 'next/script'
 
 function MyApp ({ Component, pageProps }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -49,6 +50,7 @@ function MyApp ({ Component, pageProps }) {
         <Footer pages={pageProps.pages} />
       </VideosProvider>
       <CookiesAndAnalytics />
+      {pageProps.hasTweets && <Script defer src='https://platform.twitter.com/widgets.js' />}
     </ThemeProvider>
   )
 }
