@@ -40,6 +40,7 @@ export const NftCollection = () => {
           <img
             src='/assets/images/nft/promo.webp'
             alt='A banner that displays an NFT set, consisting of cards featuring unique Neptune Mutual NFT character portraits, names, and descriptions.'
+            loading='lazy'
           />
         </ImageContainer>
       </InnerContainer>
