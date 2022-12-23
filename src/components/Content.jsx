@@ -140,9 +140,13 @@ const Container = styled.div`
   }
 
   h2 {
-    margin: 20px 0;
     ${typography.styles.displaySm};
     ${typography.weights.semibold};
+    margin-bottom: 20px;
+    
+    :not(:first-child){
+      margin-top: 20px;
+    }
   }
 
   h3 {

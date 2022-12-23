@@ -57,7 +57,7 @@ const Heading = styled.h1`
   @media (max-width: 768px) {
     margin: 0;
     padding: 0 16px;
-    padding-bottom: 32px;
+    margin-bottom: 40px;
     ${typography.styles.displayMd};
   }
 `
@@ -69,6 +69,7 @@ const BlogInfoContainer = styled.div`
   gap: 8px; 
 
   @media (max-width: 768px) {
+    padding: 0 16px;
     svg {
       display: none;
     }
@@ -110,8 +111,4 @@ const Time = styled.time`
   ${typography.styles.textMd};
   ${typography.weights.semibold};
   color: ${props => props.theme.isLightMode ? colors.gray['500'] : colors.gray['200']};
-
-  @media (max-width: 768px) {
-    display: none;
-  }
 `
