@@ -21,7 +21,8 @@ import {
   Tool01,
   HelpCircle,
   DownloadCloud01,
-  Link03
+  Link03,
+  L
 } from "./variants/General";
 import {
   ArrowLeft,
@@ -30,6 +31,7 @@ import {
   ArrowSquareUpRight,
   ChevronDown,
   ChevronRight,
+  ChevronRightDouble,
   ChevronUp,
   SwitchHorizontal02,
   RefreshCcw02,
@@ -67,7 +69,7 @@ import { Clock } from "./variants/Time";
 import { Flag06, MarkerPin01, Globe01, MarkerPin02 } from "./variants/MapsAndTravel";
 import { FaceSmile, Users01, UserSquare } from "./variants/Users";
 import { Folder, FolderPlus } from "./variants/Files";
-import { Bank, Tag03 } from "./variants/FinanceAndEcommerce";
+import { Bank, Tag03, Wallet04 } from "./variants/FinanceAndEcommerce";
 import { ShieldTick } from "./variants/Security";
 import { AnnotationDots, Mail02, MessageChatCircle, MessageDotsCircle, Send03 } from "./variants/Communication";
 import { PencilLine } from "./variants/Editor"
@@ -498,6 +500,18 @@ export const Icon = ({ size, variant }) => {
 
   if(variant === 'link-03') {
     IconComponent = Link03
+  }
+
+  if(variant === 'L') {
+    IconComponent = L
+  }
+
+  if(variant === 'chevron-right-double') {
+    IconComponent = ChevronRightDouble
+  }
+
+  if(variant === 'wallet-04') {
+    IconComponent = Wallet04
   }
 
   return IconComponent ? <IconComponent width={size} height={size} /> : null;

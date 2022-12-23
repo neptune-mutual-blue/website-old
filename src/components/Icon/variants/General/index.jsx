@@ -88,6 +88,7 @@ export { default as InfoCircle } from "./InfoCircle";
 export { default as InfoHexagon } from "./InfoHexagon";
 export { default as InfoOctagon } from "./InfoOctagon";
 export { default as InfoSquare } from "./InfoSquare";
+export { default as L } from "./L";
 export { default as LifeBuoy01 } from "./LifeBuoy01";
 export { default as LifeBuoy02 } from "./LifeBuoy02";
 export { default as Link01 } from "./Link01";

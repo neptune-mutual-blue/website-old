@@ -24,7 +24,7 @@ const filter = {
     stateMutability: '(view|pure)'
   },
   write_contract: {
-
+    stateMutability: '^(?!(view|pure))'
   }
 }
 
@@ -51,9 +51,14 @@ const Result = (props) => {
 
       {Array.isArray(props.abi) && props.abi.length > 0 && (
         <CallToAction>
-          <Btn hierarchy='secondary' active={type === 'encode_data'} size='sm' value='encode_data' onClick={handleType}>Encode Data</Btn>
-          <Btn hierarchy='secondary' active={type === 'read_contract'} size='sm' value='read_contract' onClick={handleType}>Read Contract</Btn>
-          <Btn hierarchy='secondary' active={type === 'write_contract'} size='sm' value='write_contract' onClick={handleType}>Write Contract</Btn>
+          <LeftGroup>
+            <Btn hierarchy='secondary' active={type === 'encode_data'} size='sm' value='encode_data' onClick={handleType}>Encode Data</Btn>
+            <Btn hierarchy='secondary' active={type === 'read_contract'} size='sm' value='read_contract' onClick={handleType}>Read Contract</Btn>
+            <Btn hierarchy='secondary' active={type === 'write_contract'} size='sm' value='write_contract' onClick={handleType}>Write Contract</Btn>
+          </LeftGroup>
+          <RigthGroup>
+            {type !== 'encode_data' && <Button hierarchy='primary' size='sm' iconLeading iconVariant='wallet-04'>Connect Wallet</Button>}
+          </RigthGroup>
         </CallToAction>
       )}
 
@@ -61,6 +66,7 @@ const Result = (props) => {
         {Array.isArray(props.abi) && props.abi.map((func, i) => {
           if (func.type === 'function' && validateStateMutability(func.stateMutability)) {
             count++
+
             return <Func type={type} key={`func-${i}`} func={func} count={count} />
           }
           return true
@@ -117,8 +123,13 @@ const ListContainer = styled.div`
 const CallToAction = styled.div`
   display: flex;
   margin: 24px 0;
+  justify-content: space-between;
+`
+const LeftGroup = styled.div`
+  display: flex;
   gap: 8px;
 `
+const RigthGroup = styled.div``
 
 const Btn = styled(Button)`
   padding: 8px 12px;

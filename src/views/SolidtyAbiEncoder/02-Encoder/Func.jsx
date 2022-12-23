@@ -5,14 +5,24 @@ import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import { Icon } from '../../../components/Icon'
 import { colors } from '../../../../styles/colors'
-import { InputGenerator } from './InputGenerator'
 import { typography } from '../../../../styles/typography'
 import { copyToClipBoard, getDns } from '../../../helpers'
+import { EncodeData } from './FunctionType/encode'
+import { ReadContract } from './FunctionType/read'
+import { WriteContract } from './FunctionType/write'
+
+const TypeComponent = {
+  encode_data: EncodeData,
+  read_contract: ReadContract,
+  write_contract: WriteContract
+}
 
 const Func = (props) => {
   const { pathname } = useRouter()
   const [isOpen, setIsOpen] = useState(false)
   const [copied, setCopied] = useState(false)
+
+  const Component = TypeComponent[props.type]
 
   useEffect(() => {
     if (copied) {
@@ -52,7 +62,7 @@ const Func = (props) => {
           </Button>
         </CallToAction>
       </ListHeader>
-      {isOpen && <InputGenerator inputs={props.func.inputs} />}
+      {isOpen && <Component type={props.type} func={props.func} />}
     </Container>
   )
 }

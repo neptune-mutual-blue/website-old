@@ -1,8 +1,9 @@
-import styled from 'styled-components'
-import { colors, primaryColorKey } from '../../../../styles/colors'
-import { InputWithLabel } from '../../../components/InputWithLabel'
 import { useId } from 'react'
-import { TextArea } from '../../../components/TextArea'
+
+import styled from 'styled-components'
+import { colors, primaryColorKey } from '../../../../../styles/colors'
+import { InputWithLabel } from '../../../../components/InputWithLabel'
+import { TextArea } from '../../../../components/TextArea'
 
 const placeHoldersSamples = {
   uint256: 111222333,
@@ -10,12 +11,12 @@ const placeHoldersSamples = {
   address: '0x11...22'
 }
 
-const InputGenerator = (props) => {
+const EncodeData = (props) => {
   const id = useId()
 
   return (
     <Container>
-      {props.inputs.map((input, i) => {
+      {props.func.inputs.map((input, i) => {
         return (
           <InputWithLabel
             key={`input-${i}`}
@@ -45,4 +46,4 @@ const Container = styled.div`
   gap: 24px;
 `
 
-export { InputGenerator }
+export { EncodeData }
