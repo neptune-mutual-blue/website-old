@@ -83,6 +83,6 @@ const LogosContainer = styled.div`
 const ImageContainer = styled.div`
   width: ${sizes.width}px;
   height: ${sizes.height}px;
-  background: url('assets/images/partners/partners_sprite.png') ${props => props.position};
+  background: url('assets/images/partners/partners_sprite.webp') ${props => props.position};
   filter: ${props => props.theme.isLightMode ? 'inherit' : 'invert(100%)'};
 `
