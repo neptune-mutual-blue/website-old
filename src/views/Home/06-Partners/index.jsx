@@ -1,48 +1,21 @@
 import { useTranslation } from 'react-i18next'
-import styled, { useTheme } from 'styled-components'
+import styled from 'styled-components'
 import { colors } from '../../../../styles/colors'
 import { typography } from '../../../../styles/typography'
 import { utils } from '../../../../styles/utils'
 import { BrandCarousel } from './Brand-Carousel'
-
-const fenbushiImgLight = '/assets/images/partners/fenbushi-capital.webp'
-const animocaLight = '/assets/images/partners/animoca-brands.webp'
-const fenbushiImgDark = '/assets/images/partners/darkmode/fenbushi-capital.webp'
-const animocaDark = '/assets/images/partners/darkmode/animoca-brands.webp'
-
-const partnersDark = [
-  {
-    name: 'Fenbushi Capital',
-    imgSrc: fenbushiImgDark
-  },
-  {
-    name: 'Animoca Brands',
-    imgSrc: animocaDark
-  }
-]
-const partnersLight = [
-  {
-    name: 'Fenbushi Capital',
-    imgSrc: fenbushiImgLight
-  },
-  {
-    name: 'Animoca Brands',
-    imgSrc: animocaLight
-  }
-]
+import { featuredPartners } from './data'
 
 export const Partners = () => {
   const { t } = useTranslation('home')
-
-  const { isLightMode } = useTheme()
 
   return (
     <Container>
       <InnerContainer>
         <Heading>{t('Powered by You, Trusted by Industry Leaders')}</Heading>
         <FeaturedPartners>
-          {(isLightMode ? partnersLight : partnersDark).map((partner, ind) => (
-            <img key={ind} src={partner.imgSrc} alt={partner.name} height={100} width={300} loading='lazy' />
+          {featuredPartners.map((partner, ind) => (
+            <ImageContainer key={ind} partner={partner} />
           ))}
         </FeaturedPartners>
         <BrandCarousel />
@@ -91,4 +64,11 @@ const FeaturedPartners = styled.div`
     height: 100px;
     object-fit: contain;
   }
+`
+
+const ImageContainer = styled.div`
+  width: ${props => props.partner.width}px;
+  height: ${props => props.partner.height}px;
+  background: url('assets/images/partners/feat_partners_sprite.png') ${props => props.partner.position};
+  filter: ${props => props.theme.isLightMode ? 'inherit' : 'invert(100%)'};
 `

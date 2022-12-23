@@ -1,12 +1,10 @@
 import { useRef } from 'react'
 
 import Slider from 'react-slick'
-import styled, { useTheme } from 'styled-components'
-import { carouselItemsInverted, carouselItemsLight } from './data'
+import styled from 'styled-components'
+import { sizes, otherPartners } from './data'
 
 export const BrandCarousel = () => {
-  const { isLightMode } = useTheme()
-
   const sliderRef = useRef(null)
 
   const settings = {
@@ -39,8 +37,6 @@ export const BrandCarousel = () => {
     ]
   }
 
-  const slidesToMap = isLightMode ? carouselItemsLight : carouselItemsInverted
-
   return (
     <LogosContainer>
       <Slider
@@ -48,11 +44,11 @@ export const BrandCarousel = () => {
         {...settings}
       >
 
-        {slidesToMap.map((brand, idx) => {
+        {otherPartners.map((partner, idx) => {
           return (
-            <div key={idx}>
-              <img src={brand.imgSrc} alt={brand.name} width={230} height={64} loading='lazy' />
-            </div>
+            <ImageContainer key={idx} position={partner.position}>
+              {/* <img src={partner.imgSrc} alt={partner.name} width={230} height={64} loading='lazy' /> */}
+            </ImageContainer>
           )
         })}
       </Slider>
@@ -82,4 +78,11 @@ const LogosContainer = styled.div`
   .slick-slide img{
     object-fit: contain;
   }
+`
+
+const ImageContainer = styled.div`
+  width: ${sizes.width}px;
+  height: ${sizes.height}px;
+  background: url('assets/images/partners/partners_sprite.png') ${props => props.position};
+  filter: ${props => props.theme.isLightMode ? 'inherit' : 'invert(100%)'};
 `
