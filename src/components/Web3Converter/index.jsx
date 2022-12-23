@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import styled, { css } from 'styled-components'
 import { colors, primaryColorKey } from '../../../styles/colors'
+import { shadows } from '../../../styles/shadows'
 import { typography } from '../../../styles/typography'
 import { utils } from '../../../styles/utils'
 import { Breadcrumbs } from '../Breadcrumbs'
@@ -10,10 +11,10 @@ import { CircularCheckbox } from '../CircularCheckbox'
 import { Icon } from '../Icon'
 
 const defaultValue = {
-  breadcrumbText: 'String to Byte Converter',
+  breadcrumbText: 'String to Bytes32 Converter',
   title: 'Convert String to Solidity Bytes32',
   switchButtonSlug: 'bytes32-to-string-converter',
-  switchButtonFrom: 'Byte',
+  switchButtonFrom: 'Bytes32',
   switchButtonTo: 'String',
   inputLabel: 'Enter Your String Value',
   inputPlaceholder: 'Example: foobar',
@@ -29,10 +30,10 @@ const getInfoBySlug = slug => {
   switch (slug) {
     case 'string-to-bytes32':
       _info = {
-        breadcrumbText: 'String to Byte Converter',
+        breadcrumbText: 'String to Bytes32 Converter',
         title: 'Convert String to Solidity Bytes32',
         switchButtonSlug: 'bytes32-to-string-converter',
-        switchButtonFrom: 'Byte',
+        switchButtonFrom: 'Bytes32',
         switchButtonTo: 'String',
         inputLabel: 'Enter Your String Value',
         inputPlaceholder: 'Example: foobar',
@@ -45,10 +46,10 @@ const getInfoBySlug = slug => {
 
     case 'number-to-bytes32':
       _info = {
-        breadcrumbText: 'Number to Byte Converter',
+        breadcrumbText: 'Number to Bytes32 Converter',
         title: 'Convert Number to Solidity Bytes32',
         switchButtonSlug: 'bytes32-to-number-converter',
-        switchButtonFrom: 'Byte',
+        switchButtonFrom: 'Bytes32',
         switchButtonTo: 'Number',
         inputLabel: 'Enter Your Number Value',
         inputPlaceholder: 'Example: 123.456',
@@ -61,12 +62,12 @@ const getInfoBySlug = slug => {
 
     case 'bytes32-to-string':
       _info = {
-        breadcrumbText: 'Byte to String Converter',
+        breadcrumbText: 'Bytes32 to String Converter',
         title: 'Convert Solidity Bytes32 to String',
         switchButtonSlug: 'string-to-bytes32-converter',
         switchButtonFrom: 'String',
-        switchButtonTo: 'Byte',
-        inputLabel: 'Enter Your Byte Value',
+        switchButtonTo: 'Bytes32',
+        inputLabel: 'Enter Your Bytes32 Value',
         inputPlaceholder: 'Example: 0x7465737400000000000000000000000000000000000000000000000',
         resultPlaceholder: 'foobar',
         convertFrom: false,
@@ -77,12 +78,12 @@ const getInfoBySlug = slug => {
 
     case 'bytes32-to-number':
       _info = {
-        breadcrumbText: 'Byte to Number Converter',
+        breadcrumbText: 'Bytes32 to Number Converter',
         title: 'Convert Solidity Bytes32 to Number',
         switchButtonSlug: 'number-to-bytes32-converter',
         switchButtonFrom: 'Number',
-        switchButtonTo: 'Byte',
-        inputLabel: 'Enter Your Byte Value',
+        switchButtonTo: 'Bytes32',
+        inputLabel: 'Enter Your Bytes32 Value',
         inputPlaceholder: 'Example: 0x7465737400000000000000000000000000000000000000000000000',
         resultPlaceholder: '123.456',
         convertFrom: false,
@@ -391,6 +392,11 @@ const Input = styled.div`
   position: relative;
   ${typography.styles.textMd}
   ${typography.weights.regular}
+
+  &:has(input:is(:focus,:active,:focus-visible), textarea:is(:focus,:active,:focus-visible)) {
+    box-shadow: ${shadows.xs},
+        0px 0px 0px 4px ${(props) => props.theme.isLightMode ? colors[primaryColorKey]['100'] : colors[primaryColorKey]['800']};
+  }
 
   input, textarea {
     outline: none;
