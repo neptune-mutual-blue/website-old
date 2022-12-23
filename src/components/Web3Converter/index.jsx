@@ -81,9 +81,16 @@ const initialFormValues = {
   radio: 'string',
   padding: false
 }
+
+const initialErrorValues = {
+  input: false,
+  result: false
+}
+
 const Web3Converter = ({ slug, crumbs }) => {
   const [info, setInfo] = useState(defaultValue)
   const [formData, setFormData] = useState(initialFormValues)
+  const [error, setError] = useState(initialErrorValues)
   const [copied, setCopied] = useState(false)
 
   const router = useRouter()
@@ -133,6 +140,7 @@ const Web3Converter = ({ slug, crumbs }) => {
   useEffect(() => {
     if (!formData.input) {
       setFormData(_val => ({ ..._val, result: '' }))
+      setError(_val => ({ ..._val, input: false }))
       return
     }
 
@@ -159,11 +167,17 @@ const Web3Converter = ({ slug, crumbs }) => {
     }
 
     try {
-      const _result = fn(...args) || ''
-      setFormData(_val => ({ ..._val, result: _result }))
+      const _result = fn(...args)
+      if (_result) {
+        setFormData(_val => ({ ..._val, result: _result }))
+        setError(_val => ({ ..._val, input: false }))
+        return
+      }
     } catch {
-      setFormData(_val => ({ ..._val, result: '' }))
     }
+
+    setFormData(_val => ({ ..._val, result: '' }))
+    setError(_val => ({ ..._val, input: true }))
   }, [formData.input, formData.padding, info.from, info.to])
 
   const handlePaddingChange = () => {
@@ -229,25 +243,34 @@ const Web3Converter = ({ slug, crumbs }) => {
                   Enter Your {getCapitalizedText(info.from)} Value
                 </InputLabel>
                 <InputContainer>
-                  <input
+                  <StyledInput
                     placeholder={info.inputPlaceholder}
                     id='input-value'
                     value={formData.input}
                     onChange={(e) => handleInputChange('input', e.target.value)}
-                    type={info.from === 'number' ? 'number' : 'text'}
                     min={0}
+                    data-error={error.input ? 'true' : 'false'}
                   />
-                  <Icon variant='help-circle' size={16} />
+                  <StyledTextarea2
+                    placeholder={info.inputPlaceholder}
+                    id='input-value'
+                    value={formData.input}
+                    onChange={(e) => handleInputChange('input', e.target.value)}
+                    data-error={error.input ? 'true' : 'false'}
+                  />
+                  <button type='button'>
+                    <Icon variant='help-circle' size={16} />
+                    <span>Help icon</span>
+                  </button>
                 </InputContainer>
               </div>
               <div>
                 <InputLabel htmlFor='result-value'>Result</InputLabel>
                 <TextareaContainer>
-                  <textarea
+                  <StyledTextarea
                     placeholder={info.resultPlaceholder}
                     id='result-value'
                     value={formData.result}
-                    // onChange={(e) => handleInputChange('result', e.target.value)}
                     onChange={() => {}}
                   />
                   <CopyButton
@@ -443,80 +466,147 @@ const Form = styled.form`
   }
 `
 
+const mobileOnly = css`
+  display: none;
+  
+  @media screen and (max-width: 768px) {
+    display: block;
+  }
+`
+
 const InputLabel = styled.label`
+  display: block;
+  margin-bottom: 6px;
   ${typography.styles.textSm}
   ${typography.weights.medium}
   color: ${props => props.theme.isLightMode ? colors.gray[700] : colors.gray[300]};
 `
 
-const Input = styled.div`
+const InputStyle = css`
   border-radius: 8px;
   border: 1px solid ${props => props.theme.isLightMode ? colors.gray[300] : colors.gray[500]};
   background: ${props => props.theme.isLightMode ? 'transparent' : colors.gray[600]};
-  margin-top: 6px;
   position: relative;
   ${typography.styles.textMd}
   ${typography.weights.regular}
 
-  &:has(input:is(:focus,:active,:focus-visible), textarea:is(:focus,:active,:focus-visible)) {
+  &:is(:focus,:active,:focus-visible) {
+    --shadow: ${(props) => props.theme.isLightMode ? colors[primaryColorKey]['100'] : colors[primaryColorKey]['800']};
+
     box-shadow: ${shadows.xs},
-        0px 0px 0px 4px ${(props) => props.theme.isLightMode ? colors[primaryColorKey]['100'] : colors[primaryColorKey]['800']};
+        0px 0px 0px 4px var(--shadow);
+
+    &[data-error='true'] {
+      --shadow: ${(props) => props.theme.isLightMode ? colors.error[100] : colors.error[900] + '90'};
+    }
   }
 
-  input, textarea {
-    outline: none;
-    width: 100%;
+  outline: none;
+  width: 100%;
 
-    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-      color: ${props => props.theme.isLightMode ? colors.gray['500'] : colors.gray['300']};
-      opacity: 1; /* Firefox */
-    }
+  ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: ${props => props.theme.isLightMode ? colors.gray['500'] : colors.gray['300']};
+    opacity: 1; /* Firefox */
+  }
+
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: ${props => props.theme.isLightMode ? colors.gray['500'] : colors.gray['300']};
+  }
+
+  ::-ms-input-placeholder { /* Microsoft Edge */
+    color: ${props => props.theme.isLightMode ? colors.gray['500'] : colors.gray['300']};
+  }
   
-    :-ms-input-placeholder { /* Internet Explorer 10-11 */
-      color: ${props => props.theme.isLightMode ? colors.gray['500'] : colors.gray['300']};
+  &[data-error='true'] {
+    border: 1px solid ${colors.error[700]};
+  }
+`
+
+const InputContainer = styled.div`
+  --input-padding-x: 14px;
+  --input-padding-y: 10px;
+  position: relative;
+
+  button {
+    padding: 8px;
+    padding-right: 0px;
+    position: absolute;
+    right: var(--input-padding-x);
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: ${props => props.theme.isLightMode ? colors.white : colors.gray[600]};
+
+    @media screen and (max-width: 768px) {
+      transform: translateY(0%);
+      padding: 0;
+      top: var(--input-padding-y);
+      right: var(--input-padding-x);
     }
-  
-    ::-ms-input-placeholder { /* Microsoft Edge */
-      color: ${props => props.theme.isLightMode ? colors.gray['500'] : colors.gray['300']};
+    
+    svg {
+      color: ${props => props.theme.isLightMode ? colors.gray[400] : colors.gray[50]};
     }
+
+    span {
+      ${utils.srOnly};
+    }
+  }
+`
+
+const StyledInput = styled.input`
+  ${InputStyle}
+  padding: var(--input-padding-y) var(--input-padding-x);
+
+  height: 44px;
+  resize: none;
+
+  @media screen and (max-width: 768px) {
+    display: none;
   }
 
   /* removing the arrows for number input field */
-  input[type="number"] {
-    -moz-appearance: textfield; /* Firefox */
+  -moz-appearance: textfield; /* Firefox */
 
-    ::-webkit-outer-spin-button,
-    ::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
+  ::-webkit-outer-spin-button,
+  ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 `
 
-const InputContainer = styled(Input)`
-  display: flex;
-  align-items: center;
-  gap: 8px;
+const TextareaContainer = styled.div`
+  --textarea-padding-x: 14px;
+  position: relative;
+  height: max-content;
+
+`
+
+const StyledTextarea = styled.textarea`
+  ${InputStyle}
+  padding: 12px var(--textarea-padding-x);
+
+  height: 108px;
+  resize: none;
+
+  @media screen and (max-width: 768px) {
+    height: 168px;
+  }
+`
+
+const StyledTextarea2 = styled(StyledTextarea)`
+  ${mobileOnly}
   padding: 10px 14px;
-
-  svg {
-    color: ${props => props.theme.isLightMode ? colors.gray[400] : colors.gray[50]};
-  }
-`
-
-const TextareaContainer = styled(Input)`
-  padding: 12px 14px;
-
-  textarea {
-    height: 84px;
-    resize: none;
+  height: 100px;
+  
+  @media screen and (max-width: 768px) {
+    padding-right: 38px;
   }
 `
 
 const CopyButton = styled.button`
-  ${IconButtonStyle}
+  ${IconButtonStyle};
   position: absolute;
-  bottom: 12px;
+  bottom: 16px;
   right: 14px;
   color: ${colors.white};
   background-color: ${colors[primaryColorKey][600]};
