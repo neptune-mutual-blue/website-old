@@ -11,17 +11,10 @@ import { CircularCheckbox } from '../CircularCheckbox'
 import { Icon } from '../Icon'
 
 const defaultValue = {
-  breadcrumbText: 'String to Bytes32 Converter',
-  title: 'Convert String to Solidity Bytes32',
-  switchButtonSlug: 'bytes32-to-string-converter',
-  switchButtonFrom: 'Bytes32',
-  switchButtonTo: 'String',
-  inputLabel: 'Enter Your String Value',
+  from: 'string',
+  to: 'bytes32',
   inputPlaceholder: 'Example: foobar',
-  resultPlaceholder: '0x',
-  convertFrom: true,
-  radioButtonSlug: 'number-to-bytes32-converter',
-  showPaddingSection: false
+  resultPlaceholder: '0x'
 }
 
 const getInfoBySlug = slug => {
@@ -30,74 +23,54 @@ const getInfoBySlug = slug => {
   switch (slug) {
     case 'string-to-bytes32':
       _info = {
-        breadcrumbText: 'String to Bytes32 Converter',
-        title: 'Convert String to Solidity Bytes32',
-        switchButtonSlug: 'bytes32-to-string-converter',
-        switchButtonFrom: 'Bytes32',
-        switchButtonTo: 'String',
-        inputLabel: 'Enter Your String Value',
+        from: 'string',
+        to: 'bytes32',
         inputPlaceholder: 'Example: foobar',
-        resultPlaceholder: '0x',
-        convertFrom: true,
-        radioButtonSlug: 'number-to-bytes32-converter',
-        showPaddingSection: true
+        resultPlaceholder: '0x'
       }
       break
 
     case 'number-to-bytes32':
       _info = {
-        breadcrumbText: 'Number to Bytes32 Converter',
-        title: 'Convert Number to Solidity Bytes32',
-        switchButtonSlug: 'bytes32-to-number-converter',
-        switchButtonFrom: 'Bytes32',
-        switchButtonTo: 'Number',
-        inputLabel: 'Enter Your Number Value',
+        from: 'number',
+        to: 'bytes32',
         inputPlaceholder: 'Example: 123.456',
-        resultPlaceholder: '0x',
-        convertFrom: true,
-        radioButtonSlug: 'string-to-bytes32-converter',
-        showPaddingSection: true
+        resultPlaceholder: '0x'
       }
       break
 
     case 'bytes32-to-string':
       _info = {
-        breadcrumbText: 'Bytes32 to String Converter',
-        title: 'Convert Solidity Bytes32 to String',
-        switchButtonSlug: 'string-to-bytes32-converter',
-        switchButtonFrom: 'String',
-        switchButtonTo: 'Bytes32',
-        inputLabel: 'Enter Your Bytes32 Value',
+        from: 'bytes32',
+        to: 'string',
         inputPlaceholder: 'Example: 0x7465737400000000000000000000000000000000000000000000000',
-        resultPlaceholder: 'foobar',
-        convertFrom: false,
-        radioButtonSlug: 'bytes32-to-number-converter',
-        showPaddingSection: false
+        resultPlaceholder: 'foobar'
       }
       break
 
     case 'bytes32-to-number':
       _info = {
-        breadcrumbText: 'Bytes32 to Number Converter',
-        title: 'Convert Solidity Bytes32 to Number',
-        switchButtonSlug: 'number-to-bytes32-converter',
-        switchButtonFrom: 'Number',
-        switchButtonTo: 'Bytes32',
-        inputLabel: 'Enter Your Bytes32 Value',
+        from: 'bytes32',
+        to: 'number',
         inputPlaceholder: 'Example: 0x7465737400000000000000000000000000000000000000000000000',
-        resultPlaceholder: '123.456',
-        convertFrom: false,
-        radioButtonSlug: 'bytes32-to-string-converter',
-        showPaddingSection: false
+        resultPlaceholder: '123.456'
       }
       break
 
     default:
-      _info = {}
+      _info = defaultValue
       break
   }
 
   return _info
+}
+
+const getCapitalizedText = (t = '') => `${t[0].toUpperCase()}${t.slice(1)}`
+
+const getTitleText = t => {
+  const _t = getCapitalizedText(t)
+  if (t === 'bytes32') return `Solidity ${_t}`
+  return _t
 }
 
 const Web3Converter = ({ slug, crumbs }) => {
@@ -109,12 +82,21 @@ const Web3Converter = ({ slug, crumbs }) => {
 
   const router = useRouter()
 
+  const getSwitchButtonSlug = () => {
+    return `/web3-tools/${info.to}-to-${info.from}-converter`
+  }
+
+  const getRadioSwitchSlug = () => {
+    const alternate = (t) => t === 'string' ? 'number' : t === 'number' ? 'string' : t
+    return `/web3-tools/${alternate(info.from)}-to-${alternate(info.to)}-converter`
+  }
+
   useEffect(() => {
     if (!slug) return
     const _info = getInfoBySlug(slug)
     setInfo(_info)
 
-    const _radio = (_info.switchButtonFrom === 'Number' || _info.switchButtonTo === 'Number')
+    const _radio = (_info.from === 'number' || _info.to === 'number')
       ? 'number'
       : 'string'
     setRadioForm(_radio)
@@ -123,7 +105,7 @@ const Web3Converter = ({ slug, crumbs }) => {
   const handleRadioChange = val => {
     setRadioForm(val)
 
-    router.push(`/web3-tools/${info.radioButtonSlug}`, undefined, { scroll: false })
+    router.push(getRadioSwitchSlug(), undefined, { scroll: false })
   }
 
   const handleInputChange = (field, value) => {
@@ -142,11 +124,13 @@ const Web3Converter = ({ slug, crumbs }) => {
           <Breadcrumbs
             crumbs={[
               ...crumbs,
-              { name: info.breadcrumbText, link: '#' }
+              { name: `${getCapitalizedText(info.from)} to ${getCapitalizedText(info.to)}`, link: '#' }
             ]}
           />
           <TitleContainer>
-            <Title>{info.title}</Title>
+            <Title>
+              Convert {getTitleText(info.from)} to {getTitleText(info.to)}
+            </Title>
           </TitleContainer>
         </MobileContainer>
 
@@ -156,20 +140,24 @@ const Web3Converter = ({ slug, crumbs }) => {
               <Breadcrumbs
                 crumbs={[
                   ...crumbs,
-                  { name: info.breadcrumbText, link: '#' }
+                  { name: `${getCapitalizedText(info.from)} to ${getCapitalizedText(info.to)}`, link: '#' }
                 ]}
               />
               <TitleContainer>
-                <Title>{info.title}</Title>
-                <SwitchButton href={info.switchButtonSlug} scroll={false}>
+                <Title>
+                  Convert {getTitleText(info.from)} to {getTitleText(info.to)}
+                </Title>
+                <SwitchButton href={getSwitchButtonSlug()} scroll={false}>
                   <Icon variant='switch-horizontal-02' size={20} />
-                  <span>{info.switchButtonFrom} to {info.switchButtonTo}</span>
+                  <span>{getCapitalizedText(info.to)} to {getCapitalizedText(info.from)}</span>
                 </SwitchButton>
               </TitleContainer>
             </DesktopContainer>
             <Form>
               <div>
-                <InputLabel htmlFor='input-value'>{info.inputLabel}</InputLabel>
+                <InputLabel htmlFor='input-value'>
+                  Enter Your {getCapitalizedText(info.from)} Value
+                </InputLabel>
                 <InputContainer>
                   <input
                     placeholder={info.inputPlaceholder}
@@ -200,7 +188,7 @@ const Web3Converter = ({ slug, crumbs }) => {
           <RightContainer>
             <OptionsTitle>Options</OptionsTitle>
             <RadioContainer onChange={e => handleRadioChange(e.target.value)}>
-              <OptionsLabel>Convert Values {info.convertFrom ? 'From' : 'To'}</OptionsLabel>
+              <OptionsLabel>Convert Values {info.to === 'bytes32' ? 'From' : 'To'}</OptionsLabel>
               <RadioButtons>
                 <div>
                   <input
@@ -228,7 +216,7 @@ const Web3Converter = ({ slug, crumbs }) => {
             </RadioContainer>
 
             {
-              info.showPaddingSection && (
+              info.to === 'bytes32' && (
                 <PaddingContainer
                   onClick={() => handlePaddingChange()}
                 >
@@ -254,9 +242,9 @@ const Web3Converter = ({ slug, crumbs }) => {
         </FlexContainer>
 
         <MobileContainer2>
-          <SwitchButton href={info.switchButtonSlug} scroll={false}>
+          <SwitchButton href={getSwitchButtonSlug()} scroll={false}>
             <Icon variant='switch-horizontal-02' size={20} />
-            <span>{info.switchButtonFrom} to {info.switchButtonTo}</span>
+            <span>{getCapitalizedText(info.to)} to {getCapitalizedText(info.from)}</span>
           </SwitchButton>
         </MobileContainer2>
       </InnerContainer>
