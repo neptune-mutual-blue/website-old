@@ -34,9 +34,14 @@ const Container = styled.div`
   padding: 24px 0px 24px 24px;
   border: 1px solid ${colors.gray[300]};
   border-radius: 8px;
-  height: 516px;
+  height: 302px;
   overflow-y: scroll;
   overflow-x: hidden;
+
+  @media (min-width: 1024px) { 
+    height: 516px;
+  }
+
 `
 
 const HistoryTitle = styled.h2`

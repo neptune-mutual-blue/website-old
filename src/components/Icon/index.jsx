@@ -20,7 +20,8 @@ import {
   Share07,
   Tool01,
   HelpCircle,
-  DownloadCloud01
+  DownloadCloud01,
+  Link03
 } from "./variants/General";
 import {
   ArrowLeft,
@@ -495,6 +496,9 @@ export const Icon = ({ size, variant }) => {
     IconComponent = DownloadCloud01
   }
 
+  if(variant === 'link-03') {
+    IconComponent = Link03
+  }
 
   return IconComponent ? <IconComponent width={size} height={size} /> : null;
 };

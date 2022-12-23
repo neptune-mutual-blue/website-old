@@ -8,6 +8,7 @@ import { isJSON } from '../../../helpers'
 import { TextArea } from '../../../components/TextArea'
 import { InputWithLabel } from '../../../components/InputWithLabel'
 import { History } from './History'
+import { Result } from './Result'
 
 const STORAGE_KEY = 'abis'
 
@@ -18,6 +19,10 @@ const Encoder = () => {
   const [abiInvalidFormat, setAbiInvalidFormat] = useState(false)
   const [isSaveable, setIsSaveable] = useState(false)
   const [restorationFailed, setRestorationFailed] = useState(false)
+
+  const [contractName, setContractName] = useState('')
+  const [address, setAddress] = useState('')
+  const [abi, setAbi] = useState('[]')
 
   useEffect(() => {
     const storageData = window.localStorage.getItem(STORAGE_KEY)
@@ -34,6 +39,9 @@ const Encoder = () => {
     form.abi.value = abi
     form.contract_name.value = contractName
     form.address.value = address
+    setContractName(contractName)
+    setAddress(address)
+    setAbi(abi)
     setIsSaveable(true)
   }
 
@@ -117,55 +125,65 @@ const Encoder = () => {
     if (abi === '') {
       return setAbiInvalidFormat(false)
     }
-    const isABIJSON = isJSON(abi)
 
+    const isABIJSON = typeof abi === 'string' && isJSON(abi)
+
+    if (isABIJSON && typeof JSON.parse(abi) === 'object') {
+      setAbi(abi)
+    }
     setIsSaveable(isABIJSON)
     setAbiInvalidFormat(!isABIJSON)
   }
 
   return (
     <Container>
-      <FormContent ref={formRef}>
-        <TextArea
-          required
-          label='What is your contract ABI?'
-          placeholder='Paste your smart contract or interface ABI code here'
-          onChange={validateABI}
-          error={abiInvalidFormat ? 'ABI format is invalid.' : ''}
-          rows={5}
-          id='abi'
-        />
+      <FormContainer>
+        <FormContent ref={formRef}>
+          <TextArea
+            required
+            label='What is your contract ABI?'
+            placeholder='Paste your smart contract or interface ABI code here'
+            onChange={validateABI}
+            error={abiInvalidFormat ? 'ABI format is invalid.' : ''}
+            rows={5}
+            id='abi'
+          />
 
-        <InputWithLabel
-          required
-          label='How would you want to remember your contract name in the future?'
-          placeholder='Contract or interface name'
-          id='contract_name'
-        >
-          <InputHint>
-            Enter the contract name or an easy to remember name for this contract
-          </InputHint>
-        </InputWithLabel>
+          <InputWithLabel
+            required
+            label='How would you want to remember your contract name in the future?'
+            placeholder='Contract or interface name'
+            id='contract_name'
+            onChange={(e) => { return setContractName(e.target.value) }}
+          >
+            <InputHint>
+              Enter the contract name or an easy to remember name for this contract
+            </InputHint>
+          </InputWithLabel>
 
-        <InputWithLabel
-          required
-          label='Have you deployed this contract on a blockchain network?'
-          placeholder='0x'
-          id='address'
-        >
-          <InputHint>
-            If you’d like to perform read and write operations on this contract, paste its address.
-          </InputHint>
-        </InputWithLabel>
+          <InputWithLabel
+            required
+            label='Have you deployed this contract on a blockchain network?'
+            placeholder='0x'
+            id='address'
+            onChange={(e) => { return setAddress(e.target.value) }}
+          >
+            <InputHint>
+              If you’d like to perform read and write operations on this contract, paste its address.
+            </InputHint>
+          </InputWithLabel>
 
-        <FormAction>
-          <Button hierarchy='secondary' disabled={!isSaveable} size='sm' iconLeading iconVariant='folder' onClick={saveToStorage}>Save to Local Storage</Button>
-          <Button hierarchy='secondary' disabled={contracts.length === 0} size='sm' iconLeading iconVariant='download-cloud-01' onClick={download}>Save All to Your Computer</Button>
-          <Button hierarchy='secondary' size='sm' type='file' iconLeading iconVariant='refresh-ccw-02' onClick={restore}>Restore from Your Computer</Button>
-        </FormAction>
-      </FormContent>
+          <FormAction>
+            <Button hierarchy='secondary' disabled={!isSaveable} size='sm' iconLeading iconVariant='folder' onClick={saveToStorage}>Save to Local Storage</Button>
+            <Button hierarchy='secondary' disabled={contracts.length === 0} size='sm' iconLeading iconVariant='download-cloud-01' onClick={download}>Save All to Your Computer</Button>
+            <Button hierarchy='secondary' size='sm' type='file' iconLeading iconVariant='refresh-ccw-02' onClick={restore}>Restore from Your Computer</Button>
+          </FormAction>
+        </FormContent>
 
-      <History contracts={contracts} download={download} restore={restore} restorationFailed={restorationFailed} restoreSpecificCallback={restoreSpecificCallback} />
+        <History contracts={contracts} download={download} restore={restore} restorationFailed={restorationFailed} restoreSpecificCallback={restoreSpecificCallback} />
+      </FormContainer>
+
+      <Result title={contractName} address={address} abi={JSON.parse(abi)} />
 
     </Container>
   )
@@ -173,10 +191,13 @@ const Encoder = () => {
 
 const Container = styled.div`
   ${utils.fullWidthContainer}
+`
+
+const FormContainer = styled.div`
   display: flex;
   margin-top: 24px;
   gap: 40px;
-  flex-direction: column;
+  flex-direction: column-reverse;
 
   @media (min-width: 1024px) { 
     flex-direction: row;
@@ -206,10 +227,13 @@ const FormAction = styled.div`
   button {
     background-color: ${props => props.theme.isLightMode ? props.theme.primaryBackgroundColor : colors.gray[600]};
     border-radius: 0;
-    border: 1px solid ${props => props.theme.isLightMode ? colors.gray[300] : colors.gray[600]};
+    border: 1px solid ${props => props.theme.isLightMode ? colors.gray[300] : colors.gray[500]};
     color: ${props => props.theme.isLightMode ? colors.gray[700] : colors.white};
-    ${props => !props.theme.isLightMode && `border-right-color: ${colors.gray[50]};`}
-    ${props => !props.theme.isLightMode && `border-left-color: ${colors.gray[50]};`}
+
+    @media (min-width: 768px) { 
+      ${props => !props.theme.isLightMode && `border-right-color: ${colors.gray[50]};`}
+      ${props => !props.theme.isLightMode && `border-left-color: ${colors.gray[50]};`}
+    }
 
     &:nth-of-type(1) {
       border-right: none;
@@ -218,7 +242,7 @@ const FormAction = styled.div`
       ${props => !props.theme.isLightMode && `border-left-color: ${colors.gray[600]};`}
 
       @media (max-width: 768px) {
-        border: 1px solid ${props => props.theme.isLightMode ? colors.gray[300] : colors.gray[600]};
+        border: 1px solid ${props => props.theme.isLightMode ? colors.gray[300] : colors.gray[500]};
         border-top-right-radius: 8px;
         border-bottom-left-radius: 0;
         border-bottom: none;
@@ -229,10 +253,10 @@ const FormAction = styled.div`
       border-left: none;
       border-top-right-radius: 8px;
       border-bottom-right-radius: 8px;
-      ${props => !props.theme.isLightMode && `border-right-color: ${colors.gray[600]};`}
+      ${props => !props.theme.isLightMode && `border-right-color: ${colors.gray[500]};`}
 
       @media (max-width: 768px) {
-        border: 1px solid ${props => props.theme.isLightMode ? colors.gray[300] : colors.gray[600]};
+        border: 1px solid ${props => props.theme.isLightMode ? colors.gray[300] : colors.gray[500]};
         border-top-right-radius: 0;
         border-bottom-left-radius: 8px;
         border-top: none;
