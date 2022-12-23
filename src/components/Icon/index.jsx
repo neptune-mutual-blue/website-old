@@ -18,7 +18,8 @@ import {
   HeartHand,
   CheckCircleBroken,
   Share07,
-  Tool01
+  Tool01,
+  HelpCircle
 } from "./variants/General";
 import {
   ArrowLeft,
@@ -28,6 +29,7 @@ import {
   ChevronDown,
   ChevronRight,
   ChevronUp,
+  SwitchHorizontal02,
 } from "./variants/Arrows";
 import { MoonStar, Stars01, Stars02, Sun } from "./variants/Weather";
 import {
@@ -468,6 +470,14 @@ export const Icon = ({ size, variant }) => {
 
   if(variant === 'tool-01') {
     IconComponent = Tool01
+  }
+
+  if(variant === 'switch-horizontal-02') {
+    IconComponent = SwitchHorizontal02
+  }
+
+  if(variant === 'help-circle') {
+    IconComponent = HelpCircle
   }
 
   return IconComponent ? <IconComponent width={size} height={size} /> : null;

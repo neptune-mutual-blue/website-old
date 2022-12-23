@@ -1,4 +1,5 @@
 // import { useTranslation } from 'react-i18next'
+import Link from 'next/link'
 import styled from 'styled-components'
 
 import { colors } from '../../../../styles/colors'
@@ -99,7 +100,7 @@ const ToolsContainer = styled.div`
   }
 `
 
-const Tool = styled.a`
+const Tool = styled(Link)`
   display: block;
   padding-top: 24px;
   

@@ -1,13 +1,13 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { services } from '../../services'
 import Head from 'next/head'
-import { useRouter } from 'next/router.js'
-import { useTranslation } from 'react-i18next'
-import { getFQDN } from '../../src/helpers/index.js'
 import { ToolsDetail } from '../../src/views/ToolsDetail/index.jsx'
+import { useTranslation } from 'react-i18next'
+import { useRouter } from 'next/router'
+import { getFQDN } from '../../src/helpers'
 
 export async function getStaticProps ({ locale }) {
-  const s = await serverSideTranslations(locale, ['common', 'string-to-bytes32-converter'])
+  const s = await serverSideTranslations(locale, ['common', 'number-to-bytes32-converter'])
   return {
     props: {
       ...(s),
@@ -20,7 +20,7 @@ export async function getStaticProps ({ locale }) {
 }
 
 export default function Web3Pages () {
-  const { t } = useTranslation('string-to-bytes32-converter')
+  const { t } = useTranslation('number-to-bytes32-converter')
   const router = useRouter()
 
   return (
@@ -46,7 +46,7 @@ export default function Web3Pages () {
       </Head>
 
       <main>
-        <ToolsDetail slug='string-to-bytes32' />
+        <ToolsDetail slug='number-to-bytes32' />
       </main>
     </>
   )

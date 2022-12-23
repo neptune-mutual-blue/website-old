@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
@@ -39,7 +40,7 @@ const Trail = styled.div`
   }
 
 `
-const Crumb = styled.a`
+const Crumb = styled(Link)`
   display: inline-block;
   ${typography.styles.textSm}
   ${typography.weights.medium}
