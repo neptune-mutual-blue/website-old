@@ -39,6 +39,9 @@ const Container = styled.div`
 const Label = styled.label`
   flex: 1;
   margin-bottom: 6px;
+  ${typography.styles.textSm};
+  ${typography.weights.medium};
+  color: ${props => props.theme.isLightMode ? colors.gray[700] : colors.gray[300]};
 `
 
 const StyledTextArea = styled.textarea`
@@ -52,7 +55,9 @@ const StyledTextArea = styled.textarea`
   gap: 8px;
   ${typography.styles.textMd};
   ${typography.weights.regular};
+  min-height: 100px;
   height: auto;
+  resize: vertical;
 
   ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: ${props => props.theme.isLightMode ? colors.gray['500'] : colors.gray['300']};

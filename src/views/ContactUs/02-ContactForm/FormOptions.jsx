@@ -83,7 +83,7 @@ const Container = styled.div`
 `
 
 const FilterLabel = styled(Listbox.Label)`
-  color: ${props => props.theme.isLightMode ? colors.gray['700'] : colors.white};
+  color: ${props => props.theme.isLightMode ? colors.gray[700] : colors.gray[300]};
 
   ${typography.styles.textSm};
   ${typography.weights.medium};
