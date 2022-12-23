@@ -10,7 +10,7 @@ export const Video = ({ video }) => {
   return (
     <Container onClick={() => { setId(video.videoId) }}>
       <Thumbnail>
-        <img src={`${video.image}`} alt={video.title} />
+        <img src={`${video.image}`} alt={video.title} loading='lazy' />
         <Overlay>
           <PlayIcon />
         </Overlay>
@@ -36,7 +36,11 @@ const Container = styled.button`
 const Thumbnail = styled.div`
   overflow: hidden;
   position: relative;
-  height: 240px;
+  height: 216px;
+  
+  @media (max-width: 768px) {
+    height: 193px;
+  }
 
   img {
     width: 100%;

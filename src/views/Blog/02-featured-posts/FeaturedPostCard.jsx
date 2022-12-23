@@ -16,6 +16,7 @@ export const FeaturedPostCard = ({ post }) => {
         <img
           src={`${post.image}`} height={200} width={320}
           alt={post.title.toLowerCase() === post.alt.toLowerCase() ? '' : post?.alt || ''}
+          loading='lazy'
         />
       </ImageContainer>
 
