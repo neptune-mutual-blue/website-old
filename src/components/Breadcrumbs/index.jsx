@@ -14,7 +14,7 @@ const Breadcrumbs = (props) => {
       {props.crumbs.map((link, i) => {
         return (
           <Fragment key={`link-${i}`}>
-            <Crumb isLast={props.crumbs.length === i} href={link.link}>{t(`${link.name}`)}</Crumb>
+            <Crumb href={link.link}>{t(`${link.name}`)}</Crumb>
             {i < (props.crumbs.length - 1) && <Icon size='15' variant='chevron-right' />}
           </Fragment>
         )

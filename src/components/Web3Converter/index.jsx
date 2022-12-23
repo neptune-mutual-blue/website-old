@@ -1,3 +1,4 @@
+/* eslint camelcase: 0 */
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
@@ -6,6 +7,7 @@ import { colors, primaryColorKey } from '../../../styles/colors'
 import { shadows } from '../../../styles/shadows'
 import { typography } from '../../../styles/typography'
 import { utils } from '../../../styles/utils'
+import { bytes32_to_number, bytes32_to_string, number_to_bytes32, string_to_bytes32 } from '../../helpers/web3-tools'
 import { Breadcrumbs } from '../Breadcrumbs'
 import { CircularCheckbox } from '../CircularCheckbox'
 import { Icon } from '../Icon'
@@ -73,12 +75,16 @@ const getTitleText = t => {
   return _t
 }
 
+const initialFormValues = {
+  input: '',
+  result: '',
+  radio: 'string',
+  padding: false
+}
 const Web3Converter = ({ slug, crumbs }) => {
   const [info, setInfo] = useState(defaultValue)
-  const [radioForm, setRadioForm] = useState('string')
-  const [input, setInput] = useState('')
-  const [result, setResult] = useState('')
-  const [padding, setPadding] = useState(false)
+  const [formData, setFormData] = useState(initialFormValues)
+  const [copied, setCopied] = useState(false)
 
   const router = useRouter()
 
@@ -99,22 +105,86 @@ const Web3Converter = ({ slug, crumbs }) => {
     const _radio = (_info.from === 'number' || _info.to === 'number')
       ? 'number'
       : 'string'
-    setRadioForm(_radio)
+    setFormData(_val => ({ ..._val, radio: _radio }))
   }, [slug])
 
   const handleRadioChange = val => {
-    setRadioForm(val)
+    setFormData(_val => ({ ..._val, radio: val }))
 
     router.push(getRadioSwitchSlug(), undefined, { scroll: false })
   }
 
   const handleInputChange = (field, value) => {
-    if (field === 'input') setInput(value)
-    if (field === 'result') setResult(value)
+    const numberRegex = /^\d*$/
+    const bytesRegex = /^(0x)?.*$/
+
+    if (field === 'input') {
+      if (info.from === 'number') {
+        if (!value.match(numberRegex)) return
+      }
+
+      if (info.from === 'bytes32') {
+        if (!value.match(bytesRegex)) return
+      }
+    }
+    setFormData(_val => ({ ..._val, [field]: value }))
   }
 
+  useEffect(() => {
+    if (!formData.input) {
+      setFormData(_val => ({ ..._val, result: '' }))
+      return
+    }
+
+    let fn = () => {}; let args = []
+
+    if (info.from === 'string' && info.to === 'bytes32') {
+      fn = string_to_bytes32
+      args = [formData.input, formData.padding]
+    }
+
+    if (info.from === 'number' && info.to === 'bytes32') {
+      fn = number_to_bytes32
+      args = [formData.input]
+    }
+
+    if (info.from === 'bytes32' && info.to === 'string') {
+      fn = bytes32_to_string
+      args = [formData.input]
+    }
+
+    if (info.from === 'bytes32' && info.to === 'number') {
+      fn = bytes32_to_number
+      args = [formData.input]
+    }
+
+    try {
+      const _result = fn(...args) || ''
+      setFormData(_val => ({ ..._val, result: _result }))
+    } catch {
+      setFormData(_val => ({ ..._val, result: '' }))
+    }
+  }, [formData.input, formData.padding, info.from, info.to])
+
   const handlePaddingChange = () => {
-    setPadding(_prev => !_prev)
+    setFormData(_val => ({ ..._val, padding: !_val.padding }))
+  }
+
+  useEffect(() => {
+    if (copied) {
+      setTimeout(() => {
+        setCopied(false)
+      }, 2000)
+    }
+  }, [copied])
+
+  const handleCopy = () => {
+    try {
+      navigator.clipboard.writeText(formData.result)
+      setCopied(true)
+    } catch (err) {
+      console.log('Unable to copy \nSee Error below:\n', err)
+    }
   }
 
   return (
@@ -162,8 +232,10 @@ const Web3Converter = ({ slug, crumbs }) => {
                   <input
                     placeholder={info.inputPlaceholder}
                     id='input-value'
-                    value={input}
+                    value={formData.input}
                     onChange={(e) => handleInputChange('input', e.target.value)}
+                    type={info.from === 'number' ? 'number' : 'text'}
+                    min={0}
                   />
                   <Icon variant='help-circle' size={16} />
                 </InputContainer>
@@ -174,12 +246,17 @@ const Web3Converter = ({ slug, crumbs }) => {
                   <textarea
                     placeholder={info.resultPlaceholder}
                     id='result-value'
-                    value={result}
-                    onChange={(e) => handleInputChange('result', e.target.value)}
+                    value={formData.result}
+                    // onChange={(e) => handleInputChange('result', e.target.value)}
+                    onChange={() => {}}
                   />
-                  <CopyButton disabled>
-                    <Icon variant='copy-01' size={20} />
-                    <span>Copy Result</span>
+                  <CopyButton
+                    onClick={handleCopy}
+                    disabled={!formData.result}
+                    type='button'
+                  >
+                    <Icon variant={copied ? 'check' : 'copy-01'} size={20} />
+                    <span>{copied ? 'Copied' : 'Copy Result'}</span>
                   </CopyButton>
                 </TextareaContainer>
               </div>
@@ -196,7 +273,7 @@ const Web3Converter = ({ slug, crumbs }) => {
                     id='string-radio'
                     name='convert-from'
                     value='string'
-                    checked={radioForm === 'string'}
+                    checked={formData.radio === 'string'}
                     onChange={() => {}}
                   />
                   <label htmlFor='string-radio'>String</label>
@@ -207,7 +284,7 @@ const Web3Converter = ({ slug, crumbs }) => {
                     id='number-radio'
                     name='convert-from'
                     value='number'
-                    checked={radioForm === 'number'}
+                    checked={formData.radio === 'number'}
                     onChange={() => {}}
                   />
                   <label htmlFor='number-radio'>Number</label>
@@ -229,7 +306,7 @@ const Web3Converter = ({ slug, crumbs }) => {
                   <CircularCheckbox
                     id='padding-radio'
                     name='padding-radio'
-                    checked={padding}
+                    checked={formData.padding}
                     onChange={() => {}}
                   >
                     Add Padding checkbox
@@ -404,6 +481,16 @@ const Input = styled.div`
     }
   }
 
+  /* removing the arrows for number input field */
+  input[type="number"] {
+    -moz-appearance: textfield; /* Firefox */
+
+    ::-webkit-outer-spin-button,
+    ::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
 `
 
 const InputContainer = styled(Input)`
