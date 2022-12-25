@@ -5,7 +5,6 @@ import { shadows } from '../../../../styles/shadows'
 import { typography } from '../../../../styles/typography'
 import { utils } from '../../../../styles/utils'
 import { Breadcrumbs } from '../../../components/Breadcrumbs'
-import { Icon } from '../../../components/Icon'
 
 const initialValue = {
   wei: '',
@@ -65,15 +64,12 @@ const UnitConverterForm = ({ crumbs }) => {
             <Form>
               <div>
                 <InputLabel htmlFor='wei-input'>Enter Wei Value</InputLabel>
-                <InputContainer>
-                  <input
-                    placeholder='Wei (10-¹⁸)'
-                    id='wei-input'
-                    value={formData.wei}
-                    onChange={(e) => handleInputChange('wei', e.target.value)}
-                  />
-                  <Icon variant='help-circle' size={16} />
-                </InputContainer>
+                <StyledInput
+                  placeholder='Wei (10-¹⁸)'
+                  id='wei-input'
+                  value={formData.wei}
+                  onChange={(e) => handleInputChange('wei', e.target.value)}
+                />
               </div>
 
               {
@@ -81,28 +77,22 @@ const UnitConverterForm = ({ crumbs }) => {
                   <>
                     <div>
                       <InputLabel htmlFor='kWei-input'>Enter KWei / Babbage / Femtoether Value</InputLabel>
-                      <InputContainer>
-                        <input
-                          placeholder='KWei / Babbage / Femtoether (10-¹⁵)'
-                          id='kWei-input'
-                          value={formData.kWei}
-                          onChange={(e) => handleInputChange('kWei', e.target.value)}
-                        />
-                        <Icon variant='help-circle' size={16} />
-                      </InputContainer>
+                      <StyledInput
+                        placeholder='KWei / Babbage / Femtoether (10-¹⁵)'
+                        id='kWei-input'
+                        value={formData.kWei}
+                        onChange={(e) => handleInputChange('kWei', e.target.value)}
+                      />
                     </div>
 
                     <div>
                       <InputLabel htmlFor='mWei-input'>Enter MWei / Lovelace / Picoether Value</InputLabel>
-                      <InputContainer>
-                        <input
-                          placeholder='MWei / Lovelace / Picoether (10-¹²)'
-                          id='mWei-input'
-                          value={formData.mWei}
-                          onChange={(e) => handleInputChange('mWei', e.target.value)}
-                        />
-                        <Icon variant='help-circle' size={16} />
-                      </InputContainer>
+                      <StyledInput
+                        placeholder='MWei / Lovelace / Picoether (10-¹²)'
+                        id='mWei-input'
+                        value={formData.mWei}
+                        onChange={(e) => handleInputChange('mWei', e.target.value)}
+                      />
                     </div>
                   </>
                 )
@@ -116,19 +106,16 @@ const UnitConverterForm = ({ crumbs }) => {
                       : 'Enter GWei / Shannon / Nanoether / Nano Value'
                   }
                 </InputLabel>
-                <InputContainer>
-                  <input
-                    placeholder={
+                <StyledInput
+                  placeholder={
                       formData.radio === 'simple'
                         ? 'GWei (10-⁹)'
                         : 'Enter GWei / Shannon / Nanoether / Nano Value'
                     }
-                    id='gwei-input'
-                    value={formData.gWei}
-                    onChange={(e) => handleInputChange('gWei', e.target.value)}
-                  />
-                  <Icon variant='help-circle' size={16} />
-                </InputContainer>
+                  id='gwei-input'
+                  value={formData.gWei}
+                  onChange={(e) => handleInputChange('gWei', e.target.value)}
+                />
               </div>
 
               {
@@ -136,28 +123,22 @@ const UnitConverterForm = ({ crumbs }) => {
                   <>
                     <div>
                       <InputLabel htmlFor='szabo-input'>Enter Szabo / Microether/ Micro Value</InputLabel>
-                      <InputContainer>
-                        <input
-                          placeholder='Szabo / Microether/ Micro (10-⁶)'
-                          id='szabo-input'
-                          value={formData.szabo}
-                          onChange={(e) => handleInputChange('szabo', e.target.value)}
-                        />
-                        <Icon variant='help-circle' size={16} />
-                      </InputContainer>
+                      <StyledInput
+                        placeholder='Szabo / Microether/ Micro (10-⁶)'
+                        id='szabo-input'
+                        value={formData.szabo}
+                        onChange={(e) => handleInputChange('szabo', e.target.value)}
+                      />
                     </div>
 
                     <div>
                       <InputLabel htmlFor='finney-input'>Enter Finney / Milliether / Milli Value</InputLabel>
-                      <InputContainer>
-                        <input
-                          placeholder='Finney / Milliether / Milli (10-³)'
-                          id='finney-input'
-                          value={formData.finney}
-                          onChange={(e) => handleInputChange('finney', e.target.value)}
-                        />
-                        <Icon variant='help-circle' size={16} />
-                      </InputContainer>
+                      <StyledInput
+                        placeholder='Finney / Milliether / Milli (10-³)'
+                        id='finney-input'
+                        value={formData.finney}
+                        onChange={(e) => handleInputChange('finney', e.target.value)}
+                      />
                     </div>
                   </>
                 )
@@ -165,15 +146,12 @@ const UnitConverterForm = ({ crumbs }) => {
 
               <div>
                 <InputLabel htmlFor='ether-input'>Enter Ether Value</InputLabel>
-                <InputContainer>
-                  <input
-                    placeholder='Ether (1)'
-                    id='ether-input'
-                    value={formData.ether}
-                    onChange={(e) => handleInputChange('ether', e.target.value)}
-                  />
-                  <Icon variant='help-circle' size={16} />
-                </InputContainer>
+                <StyledInput
+                  placeholder='Ether (1)'
+                  id='ether-input'
+                  value={formData.ether}
+                  onChange={(e) => handleInputChange('ether', e.target.value)}
+                />
               </div>
 
               {
@@ -181,54 +159,42 @@ const UnitConverterForm = ({ crumbs }) => {
                   <>
                     <div>
                       <InputLabel htmlFor='kEther-input'>Enter KEther / Grand Value</InputLabel>
-                      <InputContainer>
-                        <input
-                          placeholder='KEther / Grand (10³)'
-                          id='kEther-input'
-                          value={formData.kEther}
-                          onChange={(e) => handleInputChange('kEther', e.target.value)}
-                        />
-                        <Icon variant='help-circle' size={16} />
-                      </InputContainer>
+                      <StyledInput
+                        placeholder='KEther / Grand (10³)'
+                        id='kEther-input'
+                        value={formData.kEther}
+                        onChange={(e) => handleInputChange('kEther', e.target.value)}
+                      />
                     </div>
 
                     <div>
                       <InputLabel htmlFor='mEther-input'>Enter MEther Value</InputLabel>
-                      <InputContainer>
-                        <input
-                          placeholder='MEther (10⁶)'
-                          id='mEther-input'
-                          value={formData.mEther}
-                          onChange={(e) => handleInputChange('mEther', e.target.value)}
-                        />
-                        <Icon variant='help-circle' size={16} />
-                      </InputContainer>
+                      <StyledInput
+                        placeholder='MEther (10⁶)'
+                        id='mEther-input'
+                        value={formData.mEther}
+                        onChange={(e) => handleInputChange('mEther', e.target.value)}
+                      />
                     </div>
 
                     <div>
                       <InputLabel htmlFor='gEther-input'>Enter GEther Value</InputLabel>
-                      <InputContainer>
-                        <input
-                          placeholder='GEther (10⁹)'
-                          id='gEther-input'
-                          value={formData.gEther}
-                          onChange={(e) => handleInputChange('gEther', e.target.value)}
-                        />
-                        <Icon variant='help-circle' size={16} />
-                      </InputContainer>
+                      <StyledInput
+                        placeholder='GEther (10⁹)'
+                        id='gEther-input'
+                        value={formData.gEther}
+                        onChange={(e) => handleInputChange('gEther', e.target.value)}
+                      />
                     </div>
 
                     <div>
                       <InputLabel htmlFor='tEther-input'>Enter TEther Value</InputLabel>
-                      <InputContainer>
-                        <input
-                          placeholder='TEther (10¹²)'
-                          id='tEther-input'
-                          value={formData.tEther}
-                          onChange={(e) => handleInputChange('tEther', e.target.value)}
-                        />
-                        <Icon variant='help-circle' size={16} />
-                      </InputContainer>
+                      <StyledInput
+                        placeholder='TEther (10¹²)'
+                        id='tEther-input'
+                        value={formData.tEther}
+                        onChange={(e) => handleInputChange('tEther', e.target.value)}
+                      />
                     </div>
                   </>
                 )
@@ -351,7 +317,7 @@ const InputLabel = styled.label`
   color: ${props => props.theme.isLightMode ? colors.gray[700] : colors.gray[300]};
 `
 
-const Input = styled.div`
+const Input = styled.input`
   border-radius: 8px;
   border: 1px solid ${props => props.theme.isLightMode ? colors.gray[300] : colors.gray[500]};
   background: ${props => props.theme.isLightMode ? 'transparent' : colors.gray[600]};
@@ -360,37 +326,30 @@ const Input = styled.div`
   ${typography.styles.textMd}
   ${typography.weights.regular}
 
-  &:has(input:is(:focus,:active,:focus-visible), textarea:is(:focus,:active,:focus-visible)) {
+  &:is(:focus,:active,:focus-visible) {
     box-shadow: ${shadows.xs},
         0px 0px 0px 4px ${(props) => props.theme.isLightMode ? colors[primaryColorKey]['100'] : colors[primaryColorKey]['800']};
   }
 
-  input, textarea {
-    outline: none;
-    width: 100%;
-    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-      color: ${props => props.theme.isLightMode ? colors.gray['500'] : colors.gray['300']};
-      opacity: 1; /* Firefox */
-    }
-  
-    :-ms-input-placeholder { /* Internet Explorer 10-11 */
-      color: ${props => props.theme.isLightMode ? colors.gray['500'] : colors.gray['300']};
-    }
-  
-    ::-ms-input-placeholder { /* Microsoft Edge */
-      color: ${props => props.theme.isLightMode ? colors.gray['500'] : colors.gray['300']};
-    }
+  outline: none;
+  width: 100%;
+  ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: ${props => props.theme.isLightMode ? colors.gray['500'] : colors.gray['300']};
+    opacity: 1; /* Firefox */
+  }
+
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: ${props => props.theme.isLightMode ? colors.gray['500'] : colors.gray['300']};
+  }
+
+  ::-ms-input-placeholder { /* Microsoft Edge */
+    color: ${props => props.theme.isLightMode ? colors.gray['500'] : colors.gray['300']};
   }
 `
 
-const InputContainer = styled(Input)`
-  display: flex;
-  align-items: center;
-  gap: 8px;
+const StyledInput = styled(Input)`
+  display: block;
   padding: 10px 14px;
-  svg {
-    color: ${props => props.theme.isLightMode ? colors.gray[400] : colors.gray[50]};
-  }
 `
 
 const RightContainer = styled.div`
