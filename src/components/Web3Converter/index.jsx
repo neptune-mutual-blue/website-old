@@ -11,6 +11,7 @@ import { bytes32_to_number, bytes32_to_string, number_to_bytes32, string_to_byte
 import { Breadcrumbs } from '../Breadcrumbs'
 import { CircularCheckbox } from '../CircularCheckbox'
 import { Icon } from '../Icon'
+import { Tooltip } from '../Tooltip'
 
 const defaultValue = {
   from: 'string',
@@ -167,14 +168,15 @@ const Web3Converter = ({ slug, crumbs }) => {
     }
 
     try {
-      const _result = fn(...args)
+      let _result = fn(...args)
       if (_result) {
+        if (info.to === 'bytes32' && !_result.startsWith('0x')) _result = '0x' + _result
+
         setFormData(_val => ({ ..._val, result: _result }))
         setError(_val => ({ ..._val, input: false }))
         return
       }
-    } catch {
-    }
+    } catch {}
 
     setFormData(_val => ({ ..._val, result: '' }))
     setError(_val => ({ ..._val, input: true }))
@@ -258,10 +260,14 @@ const Web3Converter = ({ slug, crumbs }) => {
                     onChange={(e) => handleInputChange('input', e.target.value)}
                     data-error={error.input ? 'true' : 'false'}
                   />
-                  <button type='button'>
-                    <Icon variant='help-circle' size={16} />
-                    <span>Help icon</span>
-                  </button>
+                  <Tooltip
+                    infoComponent={`Enter value in ${info.from} to convert into ${info.to}`}
+                  >
+                    <button type='button'>
+                      <Icon variant='help-circle' size={16} />
+                      <span>Help icon</span>
+                    </button>
+                  </Tooltip>
                 </InputContainer>
               </div>
               <div>
