@@ -2,7 +2,6 @@ const { publicEnv } = require('../src/environment')
 
 const connectSources = [
   publicEnv.formsApiServer,
-  'https://blog.neptunemutual.com',
   'https://*.clarity.ms',
   'https://www.google-analytics.com',
   'https://youtube.com/'
@@ -41,7 +40,7 @@ module.exports = [
       "base-uri 'none'",
       "form-action 'none'",
       "object-src 'self'",
-      "img-src 'self' data: https://*.clarity.ms https://*.bing.com https://blog.neptunemutual.com",
+      "img-src 'self' data: https://*.clarity.ms https://*.bing.com",
       "font-src 'self'"
     ]
   },
