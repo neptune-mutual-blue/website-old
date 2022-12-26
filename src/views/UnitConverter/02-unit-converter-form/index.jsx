@@ -5,6 +5,28 @@ import { shadows } from '../../../../styles/shadows'
 import { typography } from '../../../../styles/typography'
 import { utils } from '../../../../styles/utils'
 import { Breadcrumbs } from '../../../components/Breadcrumbs'
+import {
+  etherToWei,
+  finneyToWei,
+  getherToWei,
+  gweiToWei,
+  ketherToWei,
+  kweiToWei,
+  metherToWei,
+  mweiToWei,
+  szaboToWei,
+  tetherToWei,
+  weiToEther,
+  weiToFinney,
+  weiToGether,
+  weiToGwei,
+  weiToKether,
+  weiToKwei,
+  weiToMether,
+  weiToMwei,
+  weiToSzabo,
+  weiToTether
+} from '../../../helpers/web3-tools/converter'
 
 const initialValue = {
   wei: '',
@@ -29,8 +51,98 @@ const UnitConverterForm = ({ crumbs }) => {
     // router.push(`/web3-tools/${info.radioButtonSlug}`, undefined, { scroll: false })
   }
 
-  const handleInputChange = (field, value) => {
-    setFormData(_prev => ({ ..._prev, [field]: value }))
+  const handleConversion = (field, value) => {
+    let values = {
+      wei: '',
+      kWei: '',
+      mWei: '',
+      gWei: '',
+      szabo: '',
+      finney: '',
+      ether: '',
+      kEther: '',
+      mEther: '',
+      gEther: '',
+      tEther: ''
+    }
+
+    if (value && (Number(value) >= 0)) {
+      let _wei
+
+      switch (field) {
+        case 'wei':
+          _wei = value
+          break
+
+        case 'kWei':
+          _wei = kweiToWei(value)
+          break
+
+        case 'mWei':
+          _wei = mweiToWei(value)
+          break
+
+        case 'gWei':
+          _wei = gweiToWei(value)
+          break
+
+        case 'szabo':
+          _wei = szaboToWei(value)
+          break
+
+        case 'finney':
+          _wei = finneyToWei(value)
+          break
+
+        case 'ether':
+          _wei = etherToWei(value)
+          break
+
+        case 'kEther':
+          _wei = ketherToWei(value)
+          break
+
+        case 'mEther':
+          _wei = metherToWei(value)
+          break
+
+        case 'gEther':
+          _wei = getherToWei(value)
+          break
+
+        case 'tEther':
+          _wei = tetherToWei(value)
+          break
+
+        default:
+          _wei = '0'
+          break
+      }
+
+      values = {
+        wei: _wei,
+        kWei: weiToKwei(_wei),
+        mWei: weiToMwei(_wei),
+        gWei: weiToGwei(_wei),
+        szabo: weiToSzabo(_wei),
+        finney: weiToFinney(_wei),
+        ether: weiToEther(_wei),
+        kEther: weiToKether(_wei),
+        mEther: weiToMether(_wei),
+        gEther: weiToGether(_wei),
+        tEther: weiToTether(_wei)
+      }
+    }
+
+    setFormData(_prev => ({ ..._prev, ...values }))
+  }
+
+  const handleInputChange = (field, value = '') => {
+    const numberRegex = /^(\d+\.?\d*)?$/
+    if (!value.match(numberRegex)) return
+
+    // setFormData(_prev => ({ ..._prev, [field]: value }))
+    handleConversion(field, value)
   }
 
   return (
