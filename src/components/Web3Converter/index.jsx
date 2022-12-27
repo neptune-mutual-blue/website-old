@@ -1,3 +1,4 @@
+/* eslint camelcase: 0 */
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
@@ -6,9 +7,11 @@ import { colors, primaryColorKey } from '../../../styles/colors'
 import { shadows } from '../../../styles/shadows'
 import { typography } from '../../../styles/typography'
 import { utils } from '../../../styles/utils'
+import { bytes32_to_number, bytes32_to_string, number_to_bytes32, string_to_bytes32 } from '../../helpers/web3-tools'
 import { Breadcrumbs } from '../Breadcrumbs'
 import { CircularCheckbox } from '../CircularCheckbox'
 import { Icon } from '../Icon'
+import { Tooltip } from '../Tooltip'
 
 const defaultValue = {
   from: 'string',
@@ -73,12 +76,23 @@ const getTitleText = t => {
   return _t
 }
 
+const initialFormValues = {
+  input: '',
+  result: '',
+  radio: 'string',
+  padding: true
+}
+
+const initialErrorValues = {
+  input: false,
+  result: false
+}
+
 const Web3Converter = ({ slug, crumbs }) => {
   const [info, setInfo] = useState(defaultValue)
-  const [radioForm, setRadioForm] = useState('string')
-  const [input, setInput] = useState('')
-  const [result, setResult] = useState('')
-  const [padding, setPadding] = useState(false)
+  const [formData, setFormData] = useState(initialFormValues)
+  const [error, setError] = useState(initialErrorValues)
+  const [copied, setCopied] = useState(false)
 
   const router = useRouter()
 
@@ -99,22 +113,94 @@ const Web3Converter = ({ slug, crumbs }) => {
     const _radio = (_info.from === 'number' || _info.to === 'number')
       ? 'number'
       : 'string'
-    setRadioForm(_radio)
+    setFormData(_val => ({ ..._val, radio: _radio }))
   }, [slug])
 
   const handleRadioChange = val => {
-    setRadioForm(val)
+    setFormData(_val => ({ ..._val, radio: val }))
 
     router.push(getRadioSwitchSlug(), undefined, { scroll: false })
   }
 
   const handleInputChange = (field, value) => {
-    if (field === 'input') setInput(value)
-    if (field === 'result') setResult(value)
+    const numberRegex = /^\d*$/
+    const bytesRegex = /^(0x)?.*$/
+
+    if (field === 'input') {
+      if (info.from === 'number') {
+        if (!value.match(numberRegex)) return
+      }
+
+      if (info.from === 'bytes32') {
+        if (!value.match(bytesRegex)) return
+      }
+    }
+    setFormData(_val => ({ ..._val, [field]: value }))
   }
 
+  useEffect(() => {
+    if (!formData.input) {
+      setFormData(_val => ({ ..._val, result: '' }))
+      setError(_val => ({ ..._val, input: false }))
+      return
+    }
+
+    let fn = () => {}; let args = []
+
+    if (info.from === 'string' && info.to === 'bytes32') {
+      fn = string_to_bytes32
+      args = [formData.input, formData.padding]
+    }
+
+    if (info.from === 'number' && info.to === 'bytes32') {
+      fn = number_to_bytes32
+      args = [formData.input, formData.padding]
+    }
+
+    if (info.from === 'bytes32' && info.to === 'string') {
+      fn = bytes32_to_string
+      args = [formData.input]
+    }
+
+    if (info.from === 'bytes32' && info.to === 'number') {
+      fn = bytes32_to_number
+      args = [formData.input]
+    }
+
+    try {
+      let _result = fn(...args)
+      if (_result) {
+        if (info.to === 'bytes32' && !_result.startsWith('0x')) _result = '0x' + _result
+
+        setFormData(_val => ({ ..._val, result: _result }))
+        setError(_val => ({ ..._val, input: false }))
+        return
+      }
+    } catch {}
+
+    setFormData(_val => ({ ..._val, result: '' }))
+    setError(_val => ({ ..._val, input: true }))
+  }, [formData.input, formData.padding, info.from, info.to])
+
   const handlePaddingChange = () => {
-    setPadding(_prev => !_prev)
+    setFormData(_val => ({ ..._val, padding: !_val.padding }))
+  }
+
+  useEffect(() => {
+    if (copied) {
+      setTimeout(() => {
+        setCopied(false)
+      }, 2000)
+    }
+  }, [copied])
+
+  const handleCopy = () => {
+    try {
+      navigator.clipboard.writeText(formData.result)
+      setCopied(true)
+    } catch (err) {
+      console.log('Unable to copy \nSee Error below:\n', err)
+    }
   }
 
   return (
@@ -153,33 +239,53 @@ const Web3Converter = ({ slug, crumbs }) => {
                 </SwitchButton>
               </TitleContainer>
             </DesktopContainer>
-            <Form>
+            <Form onSubmit={e => e.preventDefault()}>
               <div>
                 <InputLabel htmlFor='input-value'>
                   Enter Your {getCapitalizedText(info.from)} Value
                 </InputLabel>
                 <InputContainer>
-                  <input
+                  <StyledInput
                     placeholder={info.inputPlaceholder}
                     id='input-value'
-                    value={input}
+                    value={formData.input}
                     onChange={(e) => handleInputChange('input', e.target.value)}
+                    min={0}
+                    data-error={error.input ? 'true' : 'false'}
                   />
-                  <Icon variant='help-circle' size={16} />
+                  <StyledTextarea2
+                    placeholder={info.inputPlaceholder}
+                    id='input-value'
+                    value={formData.input}
+                    onChange={(e) => handleInputChange('input', e.target.value)}
+                    data-error={error.input ? 'true' : 'false'}
+                  />
+                  <Tooltip
+                    infoComponent={`Enter value in ${info.from} to convert into ${info.to}`}
+                  >
+                    <button type='button'>
+                      <Icon variant='help-circle' size={16} />
+                      <span>Help icon</span>
+                    </button>
+                  </Tooltip>
                 </InputContainer>
               </div>
               <div>
                 <InputLabel htmlFor='result-value'>Result</InputLabel>
                 <TextareaContainer>
-                  <textarea
+                  <StyledTextarea
                     placeholder={info.resultPlaceholder}
                     id='result-value'
-                    value={result}
-                    onChange={(e) => handleInputChange('result', e.target.value)}
+                    value={formData.result}
+                    onChange={() => {}}
                   />
-                  <CopyButton disabled>
-                    <Icon variant='copy-01' size={20} />
-                    <span>Copy Result</span>
+                  <CopyButton
+                    onClick={handleCopy}
+                    disabled={!formData.result}
+                    type='button'
+                  >
+                    <Icon variant={copied ? 'check' : 'copy-01'} size={20} />
+                    <span>{copied ? 'Copied' : 'Copy Result'}</span>
                   </CopyButton>
                 </TextareaContainer>
               </div>
@@ -196,7 +302,7 @@ const Web3Converter = ({ slug, crumbs }) => {
                     id='string-radio'
                     name='convert-from'
                     value='string'
-                    checked={radioForm === 'string'}
+                    checked={formData.radio === 'string'}
                     onChange={() => {}}
                   />
                   <label htmlFor='string-radio'>String</label>
@@ -207,7 +313,7 @@ const Web3Converter = ({ slug, crumbs }) => {
                     id='number-radio'
                     name='convert-from'
                     value='number'
-                    checked={radioForm === 'number'}
+                    checked={formData.radio === 'number'}
                     onChange={() => {}}
                   />
                   <label htmlFor='number-radio'>Number</label>
@@ -229,7 +335,7 @@ const Web3Converter = ({ slug, crumbs }) => {
                   <CircularCheckbox
                     id='padding-radio'
                     name='padding-radio'
-                    checked={padding}
+                    checked={formData.padding}
                     onChange={() => {}}
                   >
                     Add Padding checkbox
@@ -366,70 +472,147 @@ const Form = styled.form`
   }
 `
 
+const mobileOnly = css`
+  display: none;
+  
+  @media screen and (max-width: 768px) {
+    display: block;
+  }
+`
+
 const InputLabel = styled.label`
+  display: block;
+  margin-bottom: 6px;
   ${typography.styles.textSm}
   ${typography.weights.medium}
   color: ${props => props.theme.isLightMode ? colors.gray[700] : colors.gray[300]};
 `
 
-const Input = styled.div`
+const InputStyle = css`
   border-radius: 8px;
   border: 1px solid ${props => props.theme.isLightMode ? colors.gray[300] : colors.gray[500]};
   background: ${props => props.theme.isLightMode ? 'transparent' : colors.gray[600]};
-  margin-top: 6px;
   position: relative;
   ${typography.styles.textMd}
   ${typography.weights.regular}
 
-  &:has(input:is(:focus,:active,:focus-visible), textarea:is(:focus,:active,:focus-visible)) {
+  &:is(:focus,:active,:focus-visible) {
+    --shadow: ${(props) => props.theme.isLightMode ? colors[primaryColorKey]['100'] : colors[primaryColorKey]['800']};
+
     box-shadow: ${shadows.xs},
-        0px 0px 0px 4px ${(props) => props.theme.isLightMode ? colors[primaryColorKey]['100'] : colors[primaryColorKey]['800']};
+        0px 0px 0px 4px var(--shadow);
+
+    &[data-error='true'] {
+      --shadow: ${(props) => props.theme.isLightMode ? colors.error[100] : colors.error[900] + '90'};
+    }
   }
 
-  input, textarea {
-    outline: none;
-    width: 100%;
+  outline: none;
+  width: 100%;
 
-    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-      color: ${props => props.theme.isLightMode ? colors.gray['500'] : colors.gray['300']};
-      opacity: 1; /* Firefox */
-    }
+  ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: ${props => props.theme.isLightMode ? colors.gray['500'] : colors.gray['300']};
+    opacity: 1; /* Firefox */
+  }
+
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: ${props => props.theme.isLightMode ? colors.gray['500'] : colors.gray['300']};
+  }
+
+  ::-ms-input-placeholder { /* Microsoft Edge */
+    color: ${props => props.theme.isLightMode ? colors.gray['500'] : colors.gray['300']};
+  }
   
-    :-ms-input-placeholder { /* Internet Explorer 10-11 */
-      color: ${props => props.theme.isLightMode ? colors.gray['500'] : colors.gray['300']};
+  &[data-error='true'] {
+    border: 1px solid ${colors.error[700]};
+  }
+`
+
+const InputContainer = styled.div`
+  --input-padding-x: 14px;
+  --input-padding-y: 10px;
+  position: relative;
+
+  button {
+    padding: 8px;
+    padding-right: 0px;
+    position: absolute;
+    right: var(--input-padding-x);
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: ${props => props.theme.isLightMode ? colors.white : colors.gray[600]};
+
+    @media screen and (max-width: 768px) {
+      transform: translateY(0%);
+      padding: 0;
+      top: var(--input-padding-y);
+      right: var(--input-padding-x);
     }
-  
-    ::-ms-input-placeholder { /* Microsoft Edge */
-      color: ${props => props.theme.isLightMode ? colors.gray['500'] : colors.gray['300']};
+    
+    svg {
+      color: ${props => props.theme.isLightMode ? colors.gray[400] : colors.gray[50]};
+    }
+
+    span {
+      ${utils.srOnly};
     }
   }
+`
+
+const StyledInput = styled.input`
+  ${InputStyle}
+  padding: var(--input-padding-y) var(--input-padding-x);
+
+  height: 44px;
+  resize: none;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+
+  /* removing the arrows for number input field */
+  -moz-appearance: textfield; /* Firefox */
+
+  ::-webkit-outer-spin-button,
+  ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+`
+
+const TextareaContainer = styled.div`
+  --textarea-padding-x: 14px;
+  position: relative;
+  height: max-content;
 
 `
 
-const InputContainer = styled(Input)`
-  display: flex;
-  align-items: center;
-  gap: 8px;
+const StyledTextarea = styled.textarea`
+  ${InputStyle}
+  padding: 12px var(--textarea-padding-x);
+
+  height: 108px;
+  resize: none;
+
+  @media screen and (max-width: 768px) {
+    height: 168px;
+  }
+`
+
+const StyledTextarea2 = styled(StyledTextarea)`
+  ${mobileOnly}
   padding: 10px 14px;
-
-  svg {
-    color: ${props => props.theme.isLightMode ? colors.gray[400] : colors.gray[50]};
-  }
-`
-
-const TextareaContainer = styled(Input)`
-  padding: 12px 14px;
-
-  textarea {
-    height: 84px;
-    resize: none;
+  height: 100px;
+  
+  @media screen and (max-width: 768px) {
+    padding-right: 38px;
   }
 `
 
 const CopyButton = styled.button`
-  ${IconButtonStyle}
+  ${IconButtonStyle};
   position: absolute;
-  bottom: 12px;
+  bottom: 16px;
   right: 14px;
   color: ${colors.white};
   background-color: ${colors[primaryColorKey][600]};
