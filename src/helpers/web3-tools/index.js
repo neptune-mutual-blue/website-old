@@ -28,9 +28,10 @@ export const bytes32_to_number = (bytes32Str) => {
 }
 
 // eslint-disable-next-line camelcase
-export const number_to_bytes32 = (numberStr) => {
+export const number_to_bytes32 = (numberStr, addPadding) => {
   const num = new BigNumber(numberStr)
-  return num.toString(16)
+  const _bytes = num.toString(16)
+  return addPadding ? _bytes.padEnd(64, '0') : _bytes
 }
 
 /*

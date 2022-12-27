@@ -80,7 +80,7 @@ const initialFormValues = {
   input: '',
   result: '',
   radio: 'string',
-  padding: false
+  padding: true
 }
 
 const initialErrorValues = {
@@ -154,7 +154,7 @@ const Web3Converter = ({ slug, crumbs }) => {
 
     if (info.from === 'number' && info.to === 'bytes32') {
       fn = number_to_bytes32
-      args = [formData.input]
+      args = [formData.input, formData.padding]
     }
 
     if (info.from === 'bytes32' && info.to === 'string') {
@@ -239,7 +239,7 @@ const Web3Converter = ({ slug, crumbs }) => {
                 </SwitchButton>
               </TitleContainer>
             </DesktopContainer>
-            <Form>
+            <Form onSubmit={e => e.preventDefault()}>
               <div>
                 <InputLabel htmlFor='input-value'>
                   Enter Your {getCapitalizedText(info.from)} Value
