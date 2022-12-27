@@ -2,7 +2,7 @@ import { useRef } from 'react'
 
 import Slider from 'react-slick'
 import styled from 'styled-components'
-import { sizes, otherPartners } from './data'
+import { otherPartners } from './data'
 
 export const BrandCarousel = () => {
   const sliderRef = useRef(null)
@@ -12,29 +12,15 @@ export const BrandCarousel = () => {
     arrows: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 5,
-    autoplay: true,
+    slidesToShow: 1,
     slidesToScroll: 1,
-    autoplaySpeed: 2000,
+    autoplay: true,
+    autoplaySpeed: 5000,
     cssEase: 'linear',
-    adaptiveWidth: true,
+    adaptiveHeight: false,
     swipeToSlide: true,
-    variableWidth: false,
-    lazyLoad: true,
-    responsive: [
-      {
-        breakpoint: 1365,
-        settings: {
-          slidesToShow: 3
-        }
-      },
-      {
-        breakpoint: 767,
-        settings: {
-          slidesToShow: 2
-        }
-      }
-    ]
+    // centerMode: true,
+    variableWidth: true
   }
 
   return (
@@ -48,7 +34,7 @@ export const BrandCarousel = () => {
           return (
             <div key={idx}>
               <ImageContainer>
-                <ImageBackground position={partner.position} title={partner.name} />
+                <ImageBackground position={partner.position} width={partner.width} height={partner.height} title={partner.name} />
                 {/* <img src={partner.imgSrc} alt={partner.name} width={230} height={64} loading='lazy' /> */}
               </ImageContainer>
             </div>
@@ -72,14 +58,11 @@ const LogosContainer = styled.div`
 
   .slick-track {
     display: flex !important;
+    align-items: center;
   }
 
   .slick-list {
     margin: 0 -16px;
-  }
-
-  .slick-slide img{
-    object-fit: contain;
   }
 `
 
@@ -89,11 +72,13 @@ const ImageContainer = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
+  padding-left: 32px;
+  padding-right: 32px;
 `
 
 const ImageBackground = styled.div`
-  width: ${sizes.width}px;
-  height: ${sizes.height}px;
+  width: ${props => props.width}px;
+  height: ${props => props.height}px;
   background: url('assets/images/partners/partners_sprite.webp') ${props => props.position};
   filter: ${props => props.theme.isLightMode ? 'inherit' : 'invert(100%)'};
 `
