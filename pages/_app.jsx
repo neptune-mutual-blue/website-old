@@ -16,6 +16,7 @@ import { PageLoader } from '../src/components/PageLoader'
 import { CookiesAndAnalytics } from '../src/components/CookiesAndAnalytics'
 import { scrollToHash } from '../src/helpers'
 import Script from 'next/script'
+import { WalletContextProvider } from '../src/context/WalletContext'
 
 function MyApp ({ Component, pageProps }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -37,18 +38,20 @@ function MyApp ({ Component, pageProps }) {
 
   return (
     <ThemeProvider>
-      <VideosProvider videos={pageProps.videos}>
-        <HeaderContainer>
-          <PageLoader />
-          <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} colored={pageProps.headerStyle === 'colored'} />
-          <Border />
-        </HeaderContainer>
-        <MainContainer>
-          <Component {...pageProps} />
-          <MobileNavContainer isMenuOpen={isMenuOpen} />
-        </MainContainer>
-        <Footer pages={pageProps.pages} />
-      </VideosProvider>
+      <WalletContextProvider>
+        <VideosProvider videos={pageProps.videos}>
+          <HeaderContainer>
+            <PageLoader />
+            <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} colored={pageProps.headerStyle === 'colored'} />
+            <Border />
+          </HeaderContainer>
+          <MainContainer>
+            <Component {...pageProps} />
+            <MobileNavContainer isMenuOpen={isMenuOpen} />
+          </MainContainer>
+          <Footer pages={pageProps.pages} />
+        </VideosProvider>
+      </WalletContextProvider>
       <CookiesAndAnalytics />
       {pageProps.hasTweets && <Script defer src='https://platform.twitter.com/widgets.js' />}
     </ThemeProvider>
