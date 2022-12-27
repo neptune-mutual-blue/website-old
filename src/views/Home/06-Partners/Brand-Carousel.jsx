@@ -47,7 +47,8 @@ export const BrandCarousel = () => {
         {otherPartners.map((partner, idx) => {
           return (
             <div key={idx}>
-              <ImageContainer position={partner.position} title={partner.name}>
+              <ImageContainer>
+                <ImageBackground position={partner.position} title={partner.name} />
                 {/* <img src={partner.imgSrc} alt={partner.name} width={230} height={64} loading='lazy' /> */}
               </ImageContainer>
             </div>
@@ -83,9 +84,16 @@ const LogosContainer = styled.div`
 `
 
 const ImageContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+`
+
+const ImageBackground = styled.div`
   width: ${sizes.width}px;
   height: ${sizes.height}px;
-  aspect-ratio: ${sizes.width} / ${sizes.height};
   background: url('assets/images/partners/partners_sprite.webp') ${props => props.position};
   filter: ${props => props.theme.isLightMode ? 'inherit' : 'invert(100%)'};
 `
