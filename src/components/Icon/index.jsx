@@ -19,7 +19,10 @@ import {
   CheckCircleBroken,
   Share07,
   Tool01,
-  HelpCircle
+  HelpCircle,
+  DownloadCloud01,
+  Link03,
+  L
 } from "./variants/General";
 import {
   ArrowLeft,
@@ -28,8 +31,10 @@ import {
   ArrowSquareUpRight,
   ChevronDown,
   ChevronRight,
+  ChevronRightDouble,
   ChevronUp,
   SwitchHorizontal02,
+  RefreshCcw02,
 } from "./variants/Arrows";
 import { MoonStar, Stars01, Stars02, Sun } from "./variants/Weather";
 import {
@@ -64,7 +69,7 @@ import { Clock } from "./variants/Time";
 import { Flag06, MarkerPin01, Globe01, MarkerPin02 } from "./variants/MapsAndTravel";
 import { FaceSmile, Users01, UserSquare } from "./variants/Users";
 import { Folder, FolderPlus } from "./variants/Files";
-import { Bank, Tag03 } from "./variants/FinanceAndEcommerce";
+import { Bank, Tag03, Wallet04 } from "./variants/FinanceAndEcommerce";
 import { ShieldTick } from "./variants/Security";
 import { AnnotationDots, Mail02, MessageChatCircle, MessageDotsCircle, Send03 } from "./variants/Communication";
 import { PencilLine } from "./variants/Editor"
@@ -74,6 +79,7 @@ import Dot from "./custom/dot"
 import SunFilled from "./custom/sun-filled";
 import MoonStarFilled from "./custom/moon-star-filled";
 import { Arbitrum, ArbitrumDark, Avalanche, AvalancheDark, BNBChain, BNBChainDark, Ethereum, EthereumDark, Polygon, PolygonDark } from "./custom/Brands";
+import { AlignBottom01 } from "./variants/Layout";
 
 export const Icon = ({ size, variant }) => {
   let IconComponent = null;
@@ -478,6 +484,34 @@ export const Icon = ({ size, variant }) => {
 
   if(variant === 'help-circle') {
     IconComponent = HelpCircle
+  }
+
+  if(variant === 'align-bottom-01') {
+    IconComponent = AlignBottom01
+  }
+
+  if(variant === 'refresh-ccw-02'){
+    IconComponent = RefreshCcw02
+  }
+
+  if(variant === 'download-cloud-01') {
+    IconComponent = DownloadCloud01
+  }
+
+  if(variant === 'link-03') {
+    IconComponent = Link03
+  }
+
+  if(variant === 'L') {
+    IconComponent = L
+  }
+
+  if(variant === 'chevron-right-double') {
+    IconComponent = ChevronRightDouble
+  }
+
+  if(variant === 'wallet-04') {
+    IconComponent = Wallet04
   }
 
   return IconComponent ? <IconComponent width={size} height={size} /> : null;

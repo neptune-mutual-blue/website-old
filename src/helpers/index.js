@@ -62,6 +62,15 @@ const chunkArray = (arr, size) => {
   )
 }
 
+const isJSON = (string) => {
+  try {
+    JSON.parse(string)
+    return true
+  } catch (error) {
+    return false
+  }
+}
+
 export {
   chunkArray,
   copyToClipBoard,
@@ -70,5 +79,6 @@ export {
   getDns,
   getFormattedDate,
   getFQDN,
-  scrollToHash
+  scrollToHash,
+  isJSON
 }

@@ -21,7 +21,7 @@ const tools = [
     }]
   },
   {
-    slug: 'abi-encoder',
+    slug: 'solidity-abi-encoder-online',
     title: 'Online Solidity ABI Encoder',
     intro: 'Enter your Solidity smart contract or interface ABI code and access them easily.',
     category: 'Solidity',
