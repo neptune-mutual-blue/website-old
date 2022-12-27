@@ -12,16 +12,18 @@ export const Team = () => {
   return (
     <Container>
       <ContentContainer>
-        <LinkText href='/careers'>
-          <span>
-            {t('We’re hiring!')}
-          </span>
-          <Icon variant='link-external-01' size={16} />
-        </LinkText>
+        <Heading id='meet-our-team'>
+          <LinkText href='/careers'>
+            <span>
+              {t('We’re hiring!')}
+            </span>
+            <Icon variant='link-external-01' size={16} />
+          </LinkText>
 
-        <Title>
-          {t('Meet Our Team')}
-        </Title>
+          <Title id='meet-our-team'>
+            {t('Meet Our Team')}
+          </Title>
+        </Heading>
 
         <SubHeading>
           {t('We are a global and dynamic team with a mission to create a reliable, fast, and effective platform that protects digital assets.')}
@@ -78,7 +80,9 @@ const LinkText = styled.a`
   }
 `
 
-const Title = styled.h2`
+const Heading = styled.h2``
+
+const Title = styled.div`
   margin-top: 12px;
   ${typography.styles.displayMd}
   ${typography.weights.semibold}
