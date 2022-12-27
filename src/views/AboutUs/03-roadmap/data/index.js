@@ -6,10 +6,10 @@ import { UnorderedList } from './UnorderedList'
 const links = {
   SDK: 'https://docs.neptunemutual.com/sdk/quickstart',
   DISCORD: 'https://discord.com/invite/2qMGTtJtnW',
-  BLOG: 'https://blog.neptunemutual.com/',
+  BLOG: 'https://neptunemutual.com/blog',
   DOCUMENTATION: 'https://docs.neptunemutual.com/',
-  PRIVACY_POLICY: 'https://docs.neptunemutual.com/usage/privacy-policy',
-  TERMS_OF_USE: 'https://docs.neptunemutual.com/usage/terms-of-use',
+  PRIVACY_POLICY: 'https://neptunemutual.com/policies/privacy-policy',
+  TERMS_OF_USE: 'https://neptunemutual.com/policies/terms-of-use',
   FAUCET: 'https://faucet.neptunemutual.com/',
   LIGHTPAPER: '/files/lightpaper.v1.pdf',
   TESTNET: 'https://test.neptunemutual.net/',
