@@ -16,6 +16,12 @@ const placeHoldersSamples = {
 const ReadContract = (props) => {
   const id = useId()
   console.log(props)
+
+  function getFunctionSignature () {
+    const _func = props.func
+    return `${_func.name}(${_func.inputs.map(_inp => _inp.type).join(', ')})`
+  }
+
   return (
     <Container>
       {props.func.inputs.map((input, i) => {
@@ -29,15 +35,23 @@ const ReadContract = (props) => {
         )
       })}
 
-      {Array.isArray(props.func.inputs) && props.func.inputs.length > 0 && <Btn hierarchy='secondary'>Query</Btn>}
+      <Btn hierarchy='secondary'>Query</Btn>
 
-      {Array.isArray(props.func.inputs) && props.func.inputs.length > 0 && props.func.outputs.map((output, i) => {
+      {props.func.outputs.map((output, i) => {
         return (
           <Fragment key={`output-${i}`}>
-            <Output><Icon variant='L' size={10} />{(output.type)}</Output>
+            <Output>
+              <Icon variant='L' size={10} />
+              {output.type}
+            </Output>
             <ResultContainer>
-              <ResultTitle>[<Bold>{props.func.name}</Bold> method Response]</ResultTitle>
-              <Result><Icon variant='chevron-right-double' size={18} />{(output.type)}: @TODO</Result>
+              <ResultTitle>
+                [<Bold>{getFunctionSignature()}</Bold> method Response]
+              </ResultTitle>
+              <Result>
+                <Icon variant='chevron-right-double' size={18} />
+                <span>{(output.type)}: @TODO</span>
+              </Result>
             </ResultContainer>
           </Fragment>
         )
@@ -61,7 +75,7 @@ const Output = styled.div`
   display: flex;
   gap: 8px;
   align-items: center;
-  color: ${props => props.theme.isLightMode ? colors.gray[900] : colors.gray[900]};
+  color: ${props => props.theme.isLightMode ? colors.gray[900] : colors.white};
   font-style: italic;
   ${typography.weights.regular}
   ${typography.styles.textSm}
@@ -73,7 +87,9 @@ const ResultContainer = styled.div`
   gap: 4px;
 `
 
-const ResultTitle = styled.span``
+const ResultTitle = styled.span`
+  ${typography.styles.textSm}
+`
 
 const Bold = styled.span`
   ${typography.weights.semibold}
@@ -84,9 +100,14 @@ const Result = styled.span`
   align-items: center;
   gap: 8px;
   font-style: italic;
+  ${typography.styles.textSm}
+
+  span {
+    color: ${props => props.theme.isLightMode ? colors.black : colors.white}
+  }
 
   svg {
-    color: ${props => props.theme.isLightMode ? colors.success[700] : colors.gray[25]}
+    color: ${props => props.theme.isLightMode ? colors.success[700] : colors.success[500]}
   }
 `
 

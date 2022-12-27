@@ -69,7 +69,6 @@ const Func = (props) => {
 
 const Container = styled.div`
   border: 1px solid ${props => props.theme.isLightMode ? colors.gray[300] : colors.gray[700]};
-  cursor: pointer;
 `
 
 const ListHeader = styled.div`
@@ -78,12 +77,12 @@ const ListHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   z-index: -1;
+  cursor: pointer;
 `
 
 const Button = styled.button`
   outline: none;
   cursor: pointer;
-  z-index: 10;
 `
 
 const Name = styled.div`
@@ -95,7 +94,7 @@ const CallToAction = styled.div`
   align-items: center;
   gap: 30px;
   color: ${colors.black};
-  z-index: 9;
+  /* z-index: 9; */
 `
 
 export { Func }
