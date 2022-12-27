@@ -28,11 +28,6 @@ export function useWallet () {
   return context
 }
 
-// const web3Modal = new Web3Modal({
-//   cacheProvider: true, // optional
-//   providerOptions // required
-// })
-
 export const WalletContextProvider = ({ children }) => {
   const [provider, setProvider] = useState()
   const [library, setLibrary] = useState()

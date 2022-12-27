@@ -4,6 +4,7 @@ import { typography } from '../../../../styles/typography'
 import { Func } from './Func'
 import { Button } from '../../../components/Button'
 import { useState } from 'react'
+import { ConnectWallet } from './ConnectWallet'
 
 // function
 // https://github.com/neptune-mutual-blue/protocol/tree/develop/abis
@@ -82,14 +83,7 @@ const Result = (props) => {
           <RigthGroup>
             {
               type !== 'encode_data' && (
-                <Button
-                  hierarchy='primary'
-                  size='sm'
-                  iconLeading
-                  iconVariant='wallet-04'
-                >
-                  Connect Wallet
-                </Button>
+                <ConnectWallet />
               )
             }
           </RigthGroup>

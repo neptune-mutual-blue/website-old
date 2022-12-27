@@ -22,7 +22,8 @@ import {
   HelpCircle,
   DownloadCloud01,
   Link03,
-  L
+  L,
+  LogOut01
 } from "./variants/General";
 import {
   ArrowLeft,
@@ -512,6 +513,10 @@ export const Icon = ({ size, variant }) => {
 
   if(variant === 'wallet-04') {
     IconComponent = Wallet04
+  }
+
+  if(variant === 'log-out-01') {
+    IconComponent = LogOut01
   }
 
   return IconComponent ? <IconComponent width={size} height={size} /> : null;

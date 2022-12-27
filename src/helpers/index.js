@@ -71,6 +71,15 @@ const isJSON = (string) => {
   }
 }
 
+const handleCopy = (text, cb = () => {}) => {
+  try {
+    navigator.clipboard.writeText(text)
+    cb()
+  } catch (err) {
+    console.log('Unable to copy \nSee Error below:\n', err)
+  }
+}
+
 export {
   chunkArray,
   copyToClipBoard,
@@ -80,5 +89,6 @@ export {
   getFormattedDate,
   getFQDN,
   scrollToHash,
-  isJSON
+  isJSON,
+  handleCopy
 }
