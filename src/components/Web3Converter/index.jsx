@@ -12,6 +12,7 @@ import { Breadcrumbs } from '../Breadcrumbs'
 import { CircularCheckbox } from '../CircularCheckbox'
 import { Icon } from '../Icon'
 import { Tooltip } from '../Tooltip'
+// import { Tooltip } from '../Tooltip/index copy'
 
 const defaultValue = {
   from: 'string',
@@ -154,7 +155,7 @@ const Web3Converter = ({ slug, crumbs }) => {
 
     if (info.from === 'number' && info.to === 'bytes32') {
       fn = number_to_bytes32
-      args = [formData.input, formData.padding]
+      args = [formData.input]
     }
 
     if (info.from === 'bytes32' && info.to === 'string') {
@@ -260,14 +261,16 @@ const Web3Converter = ({ slug, crumbs }) => {
                     onChange={(e) => handleInputChange('input', e.target.value)}
                     data-error={error.input ? 'true' : 'false'}
                   />
-                  <Tooltip
-                    infoComponent={`Enter value in ${info.from} to convert into ${info.to}`}
-                  >
-                    <button type='button'>
-                      <Icon variant='help-circle' size={16} />
-                      <span>Help icon</span>
-                    </button>
-                  </Tooltip>
+                  <ButtonContainer>
+                    <Tooltip
+                      infoComponent={`Enter value in ${info.from} to convert into ${info.to}`}
+                    >
+                      <button type='button'>
+                        <Icon variant='help-circle' size={16} />
+                        <span>Help icon</span>
+                      </button>
+                    </Tooltip>
+                  </ButtonContainer>
                 </InputContainer>
               </div>
               <div>
@@ -322,7 +325,7 @@ const Web3Converter = ({ slug, crumbs }) => {
             </RadioContainer>
 
             {
-              info.to === 'bytes32' && (
+              (info.from === 'string' && info.to === 'bytes32') && (
                 <PaddingContainer
                   onClick={() => handlePaddingChange()}
                 >
@@ -528,25 +531,33 @@ const InputStyle = css`
   }
 `
 
+const ButtonContainer = styled.div``
+
 const InputContainer = styled.div`
   --input-padding-x: 14px;
   --input-padding-y: 10px;
   position: relative;
 
-  button {
-    padding: 8px;
-    padding-right: 0px;
+  ${ButtonContainer} {
     position: absolute;
     right: var(--input-padding-x);
     top: 50%;
     transform: translateY(-50%);
-    background-color: ${props => props.theme.isLightMode ? colors.white : colors.gray[600]};
 
     @media screen and (max-width: 768px) {
       transform: translateY(0%);
-      padding: 0;
       top: var(--input-padding-y);
       right: var(--input-padding-x);
+    }
+  }
+
+  button {
+    padding: 8px;
+    padding-right: 0px;
+    background-color: ${props => props.theme.isLightMode ? colors.white : colors.gray[600]};
+
+    @media screen and (max-width: 768px) {
+      padding: 0;
     }
     
     svg {
