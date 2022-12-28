@@ -1,368 +1,355 @@
+export const sizes = {
+  width: 232,
+  height: 64
+}
 
-const coinbase = '/assets/images/partners/coinbase.webp'
-const huobi = '/assets/images/partners/huobi.webp'
-const okx = '/assets/images/partners/okx.webp'
-const gravityX = '/assets/images/partners/gravityx.webp'
-const hexTrust = '/assets/images/partners/hex-trust.webp'
-const gsr = '/assets/images/partners/gsr.webp'
-const fundamentalLabs = '/assets/images/partners/fundamental-labs.webp'
-const gbv = '/assets/images/partners/gbv.webp'
-const cambiumGrove = '/assets/images/partners/cambium-grove.webp'
-const xt = '/assets/images/partners/xt.webp'
-const bitmart = '/assets/images/partners/bitmart.webp'
-const gate = '/assets/images/partners/gate.webp'
-const newVision = '/assets/images/partners/new-vision.webp'
-const baboonVc = '/assets/images/partners/baboon-vc.webp'
-const pacificCenturyGroup = '/assets/images/partners/pacific-century-group.webp'
-const titansVentures = '/assets/images/partners/titans-ventures.webp'
-const mhVentures = '/assets/images/partners/mh-ventures.webp'
-const cabinVc = '/assets/images/partners/cabin-vc.webp'
-const redlineDao = '/assets/images/partners/redline-dao.webp'
-const dweb3 = '/assets/images/partners/dweb3-capital.webp'
-const alphabit = '/assets/images/partners/alphabit.webp'
-const mapleBlock = '/assets/images/partners/mapleblock.webp'
-const ldCapital = '/assets/images/partners/ld-capital.webp'
-const dwfLabs = '/assets/images/partners/dwf-labs.webp'
-const twoACrypto = '/assets/images/partners/2a-crypto.webp'
-const barmy = '/assets/images/partners/barmy.webp'
-const vespertineCapital = '/assets/images/partners/vespertine-capital.webp'
-const htrGroup = '/assets/images/partners/htr-group.webp'
-const smo = '/assets/images/partners/smo.webp'
-const pulsarTrading = '/assets/images/partners/pulsar-trading.webp'
-const gtsVentures = '/assets/images/partners/gts-ventures.webp'
-const qudax = '/assets/images/partners/qudax.webp'
-const luxCapital = '/assets/images/partners/lux-capital.webp'
-const icoPantera = '/assets/images/partners/ico-pantera.webp'
-const bbsFinance = '/assets/images/partners/bbs-finance.webp'
-const avstar = '/assets/images/partners/avstar-capital.webp'
+const widths = {
+  '2a_crypto': 59,
+  alphabit: 180,
+  avstar_capital: 159,
+  baboonvc: 175,
+  bbs_finance: 145,
+  barmy: 156,
+  bitmart: 152,
+  cabinvc: 116,
+  cambium_grove: 126,
+  coinbase: 221,
+  dweb3_capital: 139,
+  dwf_labs: 60,
+  fundamental_labs: 125,
+  gate_io: 129,
+  gbv: 107,
+  gravity: 125,
+  gsr: 133,
+  gts_ventures: 138,
+  hextrust: 165,
+  htr_group: 84,
+  huobi: 206,
+  ico_pantera: 94,
+  ld_capital: 174,
+  lux_capital: 193,
+  mapleblock: 188,
+  mh_ventures: 156,
+  new_vision: 114,
+  okx: 95,
+  pacific_century: 233,
+  pulsar_trading: 87,
+  qudax: 119,
+  redline_dao: 175,
+  smo: 101,
+  titans_ventures: 55,
+  vespertine_capital: 152,
+  xt_com: 153
+}
 
-const coinbaseInverted = '/assets/images/partners/darkmode/coinbase.webp'
-const huobiInverted = '/assets/images/partners/darkmode/huobi.webp'
-const okxInverted = '/assets/images/partners/darkmode/okx.webp'
-const gravityXInverted = '/assets/images/partners/darkmode/gravityx.webp'
-const hexTrustInverted = '/assets/images/partners/darkmode/hex-trust.webp'
-const gsrInverted = '/assets/images/partners/darkmode/gsr.webp'
-const fundamentalLabsInverted = '/assets/images/partners/darkmode/fundamental-labs.webp'
-const gbvInverted = '/assets/images/partners/darkmode/gbv.webp'
-const cambiumGroveInverted = '/assets/images/partners/darkmode/cambium-grove.webp'
-const xtInverted = '/assets/images/partners/darkmode/xt.webp'
-const bitmartInverted = '/assets/images/partners/darkmode/bitmart.webp'
-const gateInverted = '/assets/images/partners/darkmode/gate.webp'
-const newVisionInverted = '/assets/images/partners/darkmode/new-vision.webp'
-const baboonVcInverted = '/assets/images/partners/darkmode/baboonvc.webp'
-const pacificCenturyGroupInverted = '/assets/images/partners/darkmode/pacific-century-group.webp'
-const titansVenturesInverted = '/assets/images/partners/darkmode/titans-ventures.webp'
-const mhVenturesInverted = '/assets/images/partners/darkmode/mh-ventures.webp'
-const cabinVcInverted = '/assets/images/partners/darkmode/cabin-vc.webp'
-const redlineDaoInverted = '/assets/images/partners/darkmode/redline-dao.webp'
-const dweb3Inverted = '/assets/images/partners/darkmode/dweb3-capital.webp'
-const alphabitInverted = '/assets/images/partners/darkmode/alphabit.webp'
-const mapleBlockInverted = '/assets/images/partners/darkmode/mapleblock.webp'
-const ldCapitalInverted = '/assets/images/partners/darkmode/ld-capital.webp'
-const dwfLabsInverted = '/assets/images/partners/darkmode/dwf-labs.webp'
-const twoACryptoInverted = '/assets/images/partners/darkmode/2a-crypto.webp'
-const barmyInverted = '/assets/images/partners/darkmode/barmy.webp'
-const vespertineInverted = '/assets/images/partners/darkmode/vespertine-capital.webp'
-const htrInverted = '/assets/images/partners/darkmode/htr-group.webp'
-const smoInverted = '/assets/images/partners/darkmode/smo.webp'
-const pulsarTradingInverted = '/assets/images/partners/darkmode/pulsar-trading.webp'
-const gtsVenturesInverted = '/assets/images/partners/darkmode/gts-ventures.webp'
-const qudaxInverted = '/assets/images/partners/darkmode/qudax.webp'
-const luxCapitalInverted = '/assets/images/partners/darkmode/lux-capital.webp'
-const icoPanteraInverted = '/assets/images/partners/darkmode/ico-pantera.webp'
-const bbsFinanceInverted = '/assets/images/partners/darkmode/bbs-finance.webp'
-const avstarCapitalInverted = '/assets/images/partners/darkmode/avstar-capital.webp'
+const heights = {
+  '2a_crypto': 61,
+  alphabit: 40,
+  avstar_capital: 45,
+  baboonvc: 47,
+  bbs_finance: 36,
+  barmy: 50,
+  bitmart: 37,
+  cabinvc: 60,
+  cambium_grove: 52,
+  coinbase: 29,
+  dweb3_capital: 53,
+  dwf_labs: 60,
+  fundamental_labs: 54,
+  gate_io: 40,
+  gbv: 53,
+  gravity: 36,
+  gsr: 35,
+  gts_ventures: 63,
+  hextrust: 28,
+  htr_group: 51,
+  huobi: 27,
+  ico_pantera: 53,
+  ld_capital: 37,
+  lux_capital: 31,
+  mapleblock: 32,
+  mh_ventures: 49,
+  new_vision: 64,
+  okx: 27,
+  pacific_century: 23,
+  pulsar_trading: 64,
+  qudax: 60,
+  redline_dao: 50,
+  smo: 40,
+  titans_ventures: 63,
+  vespertine_capital: 47,
+  xt_com: 43
+}
 
-export const carouselItemsInverted = [
+const positions = {
+  '2a_crypto': '-704px -90px',
+  alphabit: '-186px -163px',
+  avstar_capital: '-10px -281px',
+  baboonvc: '-205px -10px',
+  bbs_finance: '-156px -559px',
+  barmy: '-205px -77px',
+  bitmart: '-355px -346px',
+  cabinvc: '-400px -247px',
+  cambium_grove: '-10px -559px',
+  coinbase: '-10px -232px',
+  dweb3_capital: '-400px -10px',
+  dwf_labs: '-704px -10px',
+  fundamental_labs: '-559px -10px',
+  gate_io: '-10px -631px',
+  gbv: '-559px -84px',
+  gravity: '-559px -314px',
+  gsr: '-321px -559px',
+  gts_ventures: '-10px -80px',
+  hextrust: '-218px -507px',
+  htr_group: '-559px -370px',
+  huobi: '-223px -456px',
+  ico_pantera: '-559px -241px',
+  ld_capital: '-189px -281px',
+  lux_capital: '-10px -456px',
+  mapleblock: '-10px -507px',
+  mh_ventures: '-10px -163px',
+  new_vision: '-400px -83px',
+  okx: '-559px -501px',
+  pacific_century: '-10px -413px',
+  pulsar_trading: '-559px -157px',
+  qudax: '-400px -167px',
+  redline_dao: '-10px -10px',
+  smo: '-559px -441px',
+  titans_ventures: '-704px -171px',
+  vespertine_capital: '-10px -346px',
+  xt_com: '-182px -346px'
+}
+
+export const featuredPartners = [
   {
-    name: 'Coinbase Ventures',
-    imgSrc: coinbaseInverted
+    name: 'Fenbushi Capital',
+    position: '-10px -10px',
+    width: 402,
+    height: 80
   },
   {
-    name: 'Huobi Ventures',
-    imgSrc: huobiInverted
-  },
-  {
-    name: 'OKX',
-    imgSrc: okxInverted
-  },
-  {
-    name: 'GravityX',
-    imgSrc: gravityXInverted
-  },
-  {
-    name: 'Hex Trust',
-    imgSrc: hexTrustInverted
-  },
-  {
-    name: 'GSR',
-    imgSrc: gsrInverted
-  },
-  {
-    name: 'Fundamental Labs',
-    imgSrc: fundamentalLabsInverted
-  },
-  {
-    name: 'GBV',
-    imgSrc: gbvInverted
-  },
-  {
-    name: 'Cambium Grove',
-    imgSrc: cambiumGroveInverted
-  },
-  {
-    name: 'XT.com',
-    imgSrc: xtInverted
-  },
-  {
-    name: 'BitMart',
-    imgSrc: bitmartInverted
-  },
-  {
-    name: 'Gate.io',
-    imgSrc: gateInverted
-  },
-  {
-    name: 'New Vision',
-    imgSrc: newVisionInverted
-  },
-  {
-    name: 'Baboon VC',
-    imgSrc: baboonVcInverted
-  },
-  {
-    name: 'Pacific Century Group',
-    imgSrc: pacificCenturyGroupInverted
-  },
-  {
-    name: 'Titans',
-    imgSrc: titansVenturesInverted
-  },
-  {
-    name: 'MH Ventures',
-    imgSrc: mhVenturesInverted
-  },
-  {
-    name: 'Cabin VC',
-    imgSrc: cabinVcInverted
-  },
-  {
-    name: 'Redline DAO',
-    imgSrc: redlineDaoInverted
-  },
-  {
-    name: 'DWEB3',
-    imgSrc: dweb3Inverted
-  },
-  {
-    name: 'Alphabit',
-    imgSrc: alphabitInverted
-  },
-  {
-    name: 'Maple Block',
-    imgSrc: mapleBlockInverted
-  },
-  {
-    name: 'LD Capital',
-    imgSrc: ldCapitalInverted
-  },
-  {
-    name: 'DWF Labs',
-    imgSrc: dwfLabsInverted
-  },
-  {
-    name: '2A crypto',
-    imgSrc: twoACryptoInverted
-  },
-  {
-    name: 'Barmy',
-    imgSrc: barmyInverted
-  },
-  {
-    name: 'Vespertine Capital',
-    imgSrc: vespertineInverted
-  },
-  {
-    name: 'Htr Group',
-    imgSrc: htrInverted
-  },
-  {
-    name: 'SMO',
-    imgSrc: smoInverted
-  },
-  {
-    name: 'Pulsar',
-    imgSrc: pulsarTradingInverted
-  },
-  {
-    name: 'Gts Ventures',
-    imgSrc: gtsVenturesInverted
-  },
-  {
-    name: 'Qudax',
-    imgSrc: qudaxInverted
-  },
-  {
-    name: 'Lux',
-    imgSrc: luxCapitalInverted
-  },
-  {
-    name: 'Ico Pantera',
-    imgSrc: icoPanteraInverted
-  },
-  {
-    name: 'BBS Finance',
-    imgSrc: bbsFinanceInverted
-  },
-  {
-    name: 'AV Star Capital',
-    imgSrc: avstarCapitalInverted
+    name: 'Animoca Brands',
+    position: '-10px -110px',
+    width: 146,
+    height: 80
   }
 ]
 
-export const carouselItemsLight = [
+export const otherPartners = [
   {
     name: 'Coinbase Ventures',
-    imgSrc: coinbase
+    width: widths.coinbase,
+    height: heights.coinbase,
+    position: positions.coinbase
   },
   {
     name: 'Huobi Ventures',
-    imgSrc: huobi
+    width: widths.huobi,
+    height: heights.huobi,
+    position: positions.huobi
   },
   {
     name: 'OKX',
-    imgSrc: okx
+    width: widths.okx,
+    height: heights.okx,
+    position: positions.okx
   },
   {
     name: 'GravityX',
-    imgSrc: gravityX
+    width: widths.gravity,
+    height: heights.gravity,
+    position: positions.gravity
   },
   {
     name: 'Hex Trust',
-    imgSrc: hexTrust
+    width: widths.hextrust,
+    height: heights.hextrust,
+    position: positions.hextrust
   },
   {
     name: 'GSR',
-    imgSrc: gsr
+    width: widths.gsr,
+    height: heights.gsr,
+    position: positions.gsr
   },
   {
     name: 'Fundamental Labs',
-    imgSrc: fundamentalLabs
+    width: widths.fundamental_labs,
+    height: heights.fundamental_labs,
+    position: positions.fundamental_labs
   },
   {
     name: 'GBV',
-    imgSrc: gbv
+    width: widths.gbv,
+    height: heights.gbv,
+    position: positions.gbv
   },
   {
     name: 'Cambium Grove',
-    imgSrc: cambiumGrove
+    width: widths.cambium_grove,
+    height: heights.cambium_grove,
+    position: positions.cambium_grove
   },
   {
     name: 'XT.com',
-    imgSrc: xt
+    width: widths.xt_com,
+    height: heights.xt_com,
+    position: positions.xt_com
   },
   {
     name: 'BitMart',
-    imgSrc: bitmart
+    width: widths.bitmart,
+    height: heights.bitmart,
+    position: positions.bitmart
   },
   {
     name: 'Gate.io',
-    imgSrc: gate
+    width: widths.gate_io,
+    height: heights.gate_io,
+    position: positions.gate_io
   },
   {
     name: 'New Vision',
-    imgSrc: newVision
+    width: widths.new_vision,
+    height: heights.new_vision,
+    position: positions.new_vision
   },
   {
     name: 'Baboon VC',
-    imgSrc: baboonVc
+    width: widths.baboonvc,
+    height: heights.baboonvc,
+    position: positions.baboonvc
   },
   {
     name: 'Pacific Century Group',
-    imgSrc: pacificCenturyGroup
+    width: widths.pacific_century,
+    height: heights.pacific_century,
+    position: positions.pacific_century
   },
   {
     name: 'Titans',
-    imgSrc: titansVentures
+    width: widths.titans_ventures,
+    height: heights.titans_ventures,
+    position: positions.titans_ventures
   },
   {
     name: 'MH Ventures',
-    imgSrc: mhVentures
+    width: widths.mh_ventures,
+    height: heights.mh_ventures,
+    position: positions.mh_ventures
   },
   {
     name: 'Cabin VC',
-    imgSrc: cabinVc
+    width: widths.cabinvc,
+    height: heights.cabinvc,
+    position: positions.cabinvc
   },
   {
     name: 'Redline DAO',
-    imgSrc: redlineDao
+    width: widths.redline_dao,
+    height: heights.redline_dao,
+    position: positions.redline_dao
   },
   {
     name: 'DWEB3',
-    imgSrc: dweb3
+    width: widths.dweb3_capital,
+    height: heights.dweb3_capital,
+    position: positions.dweb3_capital
   },
   {
     name: 'Alphabit',
-    imgSrc: alphabit
+    width: widths.alphabit,
+    height: heights.alphabit,
+    position: positions.alphabit
   },
   {
     name: 'Maple Block',
-    imgSrc: mapleBlock
+    width: widths.mapleblock,
+    height: heights.mapleblock,
+    position: positions.mapleblock
   },
   {
     name: 'LD Capital',
-    imgSrc: ldCapital
+    width: widths.ld_capital,
+    height: heights.ld_capital,
+    position: positions.ld_capital
   },
   {
     name: 'DWF Labs',
-    imgSrc: dwfLabs
+    width: widths.dwf_labs,
+    height: heights.dwf_labs,
+    position: positions.dwf_labs
   },
   {
     name: '2A crypto',
-    imgSrc: twoACrypto
+    width: widths['2a_crypto'],
+    height: heights['2a_crypto'],
+    position: positions['2a_crypto']
   },
   {
     name: 'Barmy',
-    imgSrc: barmy
+    width: widths.barmy,
+    height: heights.barmy,
+    position: positions.barmy
   },
   {
     name: 'Vespertine Capital',
-    imgSrc: vespertineCapital
+    width: widths.vespertine_capital,
+    height: heights.vespertine_capital,
+    position: positions.vespertine_capital
   },
   {
     name: 'Htr Group',
-    imgSrc: htrGroup
+    width: widths.htr_group,
+    height: heights.htr_group,
+    position: positions.htr_group
   },
   {
     name: 'SMO',
-    imgSrc: smo
+    width: widths.smo,
+    height: heights.smo,
+    position: positions.smo
   },
   {
     name: 'Pulsar',
-    imgSrc: pulsarTrading
+    width: widths.pulsar_trading,
+    height: heights.pulsar_trading,
+    position: positions.pulsar_trading
   },
   {
     name: 'Gts Ventures',
-    imgSrc: gtsVentures
+    width: widths.gts_ventures,
+    height: heights.gts_ventures,
+    position: positions.gts_ventures
   },
   {
     name: 'Qudax',
-    imgSrc: qudax
+    width: widths.qudax,
+    height: heights.qudax,
+    position: positions.qudax
   },
   {
     name: 'Lux',
-    imgSrc: luxCapital
+    width: widths.lux_capital,
+    height: heights.lux_capital,
+    position: positions.lux_capital
   },
   {
     name: 'Ico Pantera',
-    imgSrc: icoPantera
+    width: widths.ico_pantera,
+    height: heights.ico_pantera,
+    position: positions.ico_pantera
   },
   {
     name: 'BBS Finance',
-    imgSrc: bbsFinance
+    width: widths.bbs_finance,
+    height: heights.bbs_finance,
+    position: positions.bbs_finance
   },
   {
     name: 'AV Star Capital',
-    imgSrc: avstar
+    width: widths.avstar_capital,
+    height: heights.avstar_capital,
+    position: positions.avstar_capital
   }
 ]
