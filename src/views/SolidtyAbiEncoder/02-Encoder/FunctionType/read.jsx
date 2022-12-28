@@ -1,4 +1,4 @@
-import { useId, Fragment } from 'react'
+import { useId, Fragment, useState } from 'react'
 
 import styled from 'styled-components'
 import { colors, primaryColorKey } from '../../../../../styles/colors'
@@ -15,11 +15,26 @@ const placeHoldersSamples = {
 
 const ReadContract = (props) => {
   const id = useId()
-  console.log(props)
+  const [inputData, setInputData] = useState({})
+  const [outputData, setOutputData] = useState(props.func.outputs)
 
   function getFunctionSignature () {
     const _func = props.func
     return `${_func.name}(${_func.inputs.map(_inp => _inp.type).join(', ')})`
+  }
+
+  async function handleQuery () {
+    const methodName = props.func.name
+    const args = Object.values(inputData)
+    const outputs = await props.call(methodName, args)
+
+    if (outputs && !outputs.error) {
+      const _outputData = props.func.outputs.map((o, i) => ({
+        ...o,
+        value: outputs[i]?.toString()
+      }))
+      setOutputData(_outputData)
+    }
   }
 
   return (
@@ -31,28 +46,39 @@ const ReadContract = (props) => {
             label={`${input.name} (${input.type})`}
             placeholder={placeHoldersSamples[input.type]}
             id={`${id}-${i}`}
+            onChange={e => setInputData(_prev => ({ ..._prev, [input.name]: e.target.value }))}
           />
         )
       })}
 
-      <Btn hierarchy='secondary'>Query</Btn>
+      <Btn
+        hierarchy='secondary'
+        onClick={handleQuery}
+        disabled={!props.isReady}
+      >
+        Query
+      </Btn>
 
-      {props.func.outputs.map((output, i) => {
+      {outputData.map((output, i) => {
         return (
           <Fragment key={`output-${i}`}>
             <Output>
               <Icon variant='L' size={10} />
               {output.type}
             </Output>
-            <ResultContainer>
-              <ResultTitle>
-                [<Bold>{getFunctionSignature()}</Bold> method Response]
-              </ResultTitle>
-              <Result>
-                <Icon variant='chevron-right-double' size={18} />
-                <span>{(output.type)}: @TODO</span>
-              </Result>
-            </ResultContainer>
+            {
+              output.value && (
+                <ResultContainer>
+                  <ResultTitle>
+                    [<Bold>{getFunctionSignature()}</Bold> method Response]
+                  </ResultTitle>
+                  <Result>
+                    <Icon variant='chevron-right-double' size={18} />
+                    <span>{(output.type)}: {output.value}</span>
+                  </Result>
+                </ResultContainer>
+              )
+            }
           </Fragment>
         )
       })}
@@ -68,6 +94,7 @@ const Container = styled.div`
   padding: 32px 24px;
   gap: 24px;
 `
+
 const Btn = styled(Button)`
   width: fit-content;
 `

@@ -5,6 +5,7 @@ import { Func } from './Func'
 import { Button } from '../../../components/Button'
 import { useState } from 'react'
 import { ConnectWallet } from './ConnectWallet'
+import { useContractCall } from '../../../hooks/useContractCall'
 
 // function
 // https://github.com/neptune-mutual-blue/protocol/tree/develop/abis
@@ -31,6 +32,10 @@ const filter = {
 
 const Result = (props) => {
   const [type, setType] = useState('encode_data')
+  const { callMethod, isReady } = useContractCall({
+    abi: props.abi,
+    address: props.address
+  })
 
   const handleType = (e) => {
     e.preventDefault()
@@ -96,7 +101,14 @@ const Result = (props) => {
           props.abi.filter(func => (
             func.type === 'function' && validateStateMutability(func.stateMutability)
           )).map((func, i) => (
-            <Func type={type} key={`func-${i}`} func={func} count={i + 1} />
+            <Func
+              type={type}
+              key={`func-${i}`}
+              func={func}
+              count={i + 1}
+              call={callMethod}
+              isReady={isReady}
+            />
           ))
         }
       </ListContainer>
