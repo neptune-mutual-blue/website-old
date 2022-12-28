@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useWallet } from '../context/WalletContext'
 import { getContract } from '../helpers/solidity/contract'
+import { ethers } from 'ethers'
 
 export const useContractCall = ({ abi, address }) => {
   const { provider, account } = useWallet()
@@ -24,8 +25,21 @@ export const useContractCall = ({ abi, address }) => {
   async function callMethod (methodName, args = []) {
     if (!contract || !methodName) return
 
+    let methodArgs = [...args]
     try {
-      const res = await contract[methodName](...args)
+      await contract.estimateGas[methodName](...args)
+    } catch (err) {
+      const overrides = {
+        gasLimit: '100000',
+        gasPrice: '25000000000',
+        value: ethers.utils.parseEther('0')
+      }
+
+      methodArgs = [...args, overrides]
+    }
+
+    try {
+      const res = await contract[methodName](...methodArgs)
       return Array.isArray(res) ? Array.from(res) : [res]
     } catch (err) {
       console.log(`Error in calling ${methodName} function: ${err}`)

@@ -1,4 +1,4 @@
-import { useId } from 'react'
+import { useId, useState } from 'react'
 
 import styled from 'styled-components'
 import { colors, primaryColorKey } from '../../../../../styles/colors'
@@ -14,6 +14,13 @@ const placeHoldersSamples = {
 
 const WriteContract = (props) => {
   const id = useId()
+  const [inputData, setInputData] = useState({})
+
+  async function handleWrite () {
+    const methodName = props.func.name
+    const args = Object.values(inputData)
+    await props.call(methodName, args)
+  }
 
   return (
     <Container>
@@ -24,11 +31,19 @@ const WriteContract = (props) => {
             label={`${input.name} (${input.type})`}
             placeholder={placeHoldersSamples[input.type]}
             id={`${id}-${i}`}
+            onChange={e => setInputData(_prev => ({ ..._prev, [input.name]: e.target.value }))}
           />
         )
       })}
 
-      <Btn hierarchy='primary' size='sm'>Write</Btn>
+      <Btn
+        hierarchy='primary'
+        size='sm'
+        onClick={handleWrite}
+        disabled={!props.isReady}
+      >
+        Write
+      </Btn>
 
     </Container>
   )
@@ -45,6 +60,11 @@ const Btn = styled(Button)`
   width: fit-content;
   ${typography.weights.semibold}
   ${typography.styles.textSm}
+
+  &:disabled {
+    background-color: ${colors[primaryColorKey][200]};
+    color: ${colors.white};
+  }
 `
 
 export { WriteContract }
