@@ -40,7 +40,8 @@ const Result = (props) => {
 
   const handleType = (e) => {
     e.preventDefault()
-    setType(e.target.parentNode.value || e.target.value)
+    const _type = e.target.parentNode.value || e.target.value
+    setType(_type)
   }
 
   const validateStateMutability = (stateMutability) => {
@@ -168,12 +169,19 @@ const CallToAction = styled.div`
   display: flex;
   margin: 24px 0;
   justify-content: space-between;
+  flex-wrap: wrap;
+  row-gap: 16px;
+  column-gap: 8px;
 `
 const LeftGroup = styled.div`
   display: flex;
   gap: 8px;
 `
-const RigthGroup = styled.div``
+const RigthGroup = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-left: auto;
+`
 
 const Btn = styled(Button)`
   padding: 8px 12px;

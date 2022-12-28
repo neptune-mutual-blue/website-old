@@ -1,9 +1,11 @@
-import { useState, useCallback, useEffect, useId } from 'react'
+import { useState, useEffect, useId } from 'react'
 
 import styled from 'styled-components'
 import { colors, primaryColorKey } from '../../../../../styles/colors'
+import { typography } from '../../../../../styles/typography'
 import { InputWithLabel } from '../../../../components/InputWithLabel'
 import { TextArea } from '../../../../components/TextArea'
+import { encodeData } from '../../../../helpers/solidity/methods'
 
 const placeHoldersSamples = {
   uint256: 111222333,
@@ -15,41 +17,46 @@ const EncodeData = (props) => {
   const id = useId()
   const [inputData, setInputData] = useState({})
   const [outputData, setOutputData] = useState('')
-
-  const getEncodedData = useCallback((methodArgs = [], onError = () => {}) => {
-    if (!props.interface || !props.func.name) return
-
-    const methodName = props.func.name
-    try {
-      const iface = props.interface
-      const encoded = iface.encodeFunctionData(methodName, methodArgs)
-      return encoded
-    } catch (err) {
-      // console.log(`Error in encoding ${methodName} with args: [${methodArgs}]\n${err}`)
-      onError()
-    }
-  }, [props.interface, props.func.name])
+  const [outputError, setOutputError] = useState('')
 
   useEffect(() => {
-    const inputs = props.func.inputs
+    const inputs = props.inputs
 
     if (inputs?.length === 0) {
-      const encoded = getEncodedData()
-      setOutputData(encoded)
+      const encoded = encodeData(props.interface, props.func.name)
+      if (encoded) setOutputData(encoded)
     }
-  }, [props.func, getEncodedData])
+  }, [props.func, props.interface, props.inputs])
+
+  const checkNonEmptyInputs = (_inputData) => {
+    const nonEmptyInput = props.inputs.find(i => {
+      if (_inputData[i.name]) return true
+      return false
+    })
+
+    return Boolean(nonEmptyInput)
+  }
 
   const handleChange = (name, value) => {
     setInputData(_prev => ({ ..._prev, [name]: value }))
 
-    const args = Object.values({ ...inputData, [name]: value })
-    const encoded = getEncodedData(args, () => setOutputData(''))
-    if (encoded) setOutputData(encoded)
+    const args = props.tupleInputs ? [inputData] : Object.values({ ...inputData, [name]: value })
+    const encoded = encodeData(props.interface, props.func.name, args, (err) => {
+      setOutputData('')
+
+      if (checkNonEmptyInputs({ ...inputData, [name]: value })) setOutputError(err)
+      else setOutputError('')
+    })
+
+    if (encoded) {
+      setOutputData(encoded)
+      setOutputError('')
+    }
   }
 
   return (
     <Container>
-      {props.func.inputs.map((input, i) => {
+      {props.inputs.map((input, i) => {
         return (
           <InputWithLabel
             key={`input-${i}`}
@@ -61,14 +68,18 @@ const EncodeData = (props) => {
         )
       })}
 
-      <TextArea
-        label='Result'
-        placeholder='0x'
-        id={`${id}-result`}
-        rows={5}
-        value={outputData}
-        onChange={() => {}}
-      />
+      <ResultContainer>
+        <StyledTextArea
+          label='Result'
+          placeholder='0x'
+          id={`${id}-result`}
+          rows={5}
+          value={outputData}
+          onChange={() => {}}
+          disabled
+        />
+        <span>{outputError}</span>
+      </ResultContainer>
 
     </Container>
   )
@@ -80,6 +91,21 @@ const Container = styled.div`
   background-color: ${props => props.theme.isLightMode ? colors[primaryColorKey][25] : colors.gray[900]};
   padding: 32px 24px;
   gap: 24px;
+`
+
+const StyledTextArea = styled(TextArea)`
+  &:disabled {
+    color: initial;
+  }
+`
+
+const ResultContainer = styled.div`
+  span {
+    display: block;
+    margin-top: 4px;
+    ${typography.styles.textSm};
+    color: ${colors.error[700]};
+  }
 `
 
 export { EncodeData }

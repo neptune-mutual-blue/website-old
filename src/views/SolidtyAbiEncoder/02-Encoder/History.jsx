@@ -13,8 +13,23 @@ const History = ({ contracts, download, restore, restorationFailed, restoreSpeci
     <Container>
       <HistoryTitle>Previous Contracts</HistoryTitle>
       <HistoryCTA>
-        <Button hierarchy='secondary' disabled={contracts.length === 0} size='sm' iconLeading iconVariant='align-bottom-01' onClick={download}>Download Backup</Button>
-        <Button hierarchy='secondary' size='sm' iconLeading iconVariant='refresh-ccw-02' onClick={restore}>Restore</Button>
+        <Button
+          hierarchy='secondary'
+          disabled={contracts.length === 0}
+          size='sm'
+          iconLeading
+          iconVariant='align-bottom-01'
+          onClick={download}
+        >Download Backup
+        </Button>
+        <Button
+          hierarchy='secondary'
+          size='sm'
+          iconLeading
+          iconVariant='refresh-ccw-02'
+          onClick={restore}
+        >Restore
+        </Button>
       </HistoryCTA>
       <HistoryList>
         {contracts.length > 0 && contracts.map((contract, i) => {
@@ -32,7 +47,7 @@ const History = ({ contracts, download, restore, restorationFailed, restoreSpeci
 
 const Container = styled.div`
   padding: 24px 0px 24px 24px;
-  border: 1px solid ${colors.gray[300]};
+  border: 1px solid ${props => props.theme.isLightMode ? colors.gray[300] : colors.gray[500]};
   border-radius: 8px;
   height: 302px;
   overflow-y: scroll;
@@ -71,15 +86,22 @@ const HistoryCTA = styled.div`
   button {
     color: ${props => props.theme.isLightMode ? colors[primaryColorKey][600] : colors.gray[700]};
     ${typography.styles.textSm}
+    ${typography.weights.semibold}
     background-color: ${colors.white};
+    border-radius: 8px;
+    padding: 4px 12px;
+
+    &[data-state="hover"], &:hover {
+      color: ${props => props.theme.isLightMode ? colors[primaryColorKey][600] : colors.gray[700]} !important;
+    }
   }
 `
 
 const Error = styled.p`
-  color: ${props => props.theme.isLightMode ? colors.error[800] : colors.error[600]};\
+  color: ${props => props.theme.isLightMode ? colors.error[800] : colors.error[600]};
   margin-top:6px;
-  ${typography.styles.textSm}
-  ${typography.weights.regular}
+  ${typography.styles.textSm};
+  ${typography.weights.regular};
 `
 
 export { History }

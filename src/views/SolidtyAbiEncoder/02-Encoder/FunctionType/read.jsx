@@ -17,6 +17,7 @@ const ReadContract = (props) => {
   const id = useId()
   const [inputData, setInputData] = useState({})
   const [outputData, setOutputData] = useState(props.func.outputs)
+  const [error, setError] = useState('')
 
   function getFunctionSignature () {
     const _func = props.func
@@ -29,6 +30,8 @@ const ReadContract = (props) => {
   }
 
   async function handleQuery () {
+    if (error) setError('')
+
     const methodName = props.func.name
     const args = Object.values(inputData)
     const outputs = await props.call(methodName, args)
@@ -40,29 +43,64 @@ const ReadContract = (props) => {
       }))
       setOutputData(_outputData)
     }
+
+    if (outputs?.error) setError(outputs.error)
+    else setError('')
+  }
+
+  const validateInput = (value = '', type) => {
+    if (!value) return true
+
+    let regex = ''
+    if (type === 'address') regex = /^0x([a-z]|[A-Z]|[0-9]){40}$/
+    if (type === 'uint256') regex = /^\d+$/
+    if (type === 'bytes32') regex = /^0x([a-z]|[A-Z]|[0-9])+$/
+    if (type === 'bool') regex = /^(true|false)$/
+
+    if (value.match(regex)) return true
+    return false
+  }
+
+  const checkInputErrors = () => {
+    const _error = props.inputs.find(i => {
+      const _value = inputData[i.name]
+      const _type = i.type
+      if (!_value || !validateInput(_value, _type)) return true
+      return false
+    })
+    return Boolean(_error)
+  }
+
+  const handleInputChange = (name, value = '') => {
+    setInputData(_prev => ({ ..._prev, [name]: value }))
+    if (error) setError('')
   }
 
   return (
     <Container>
-      {props.func.inputs.map((input, i) => {
+      {props.inputs.map((input, i) => {
         return (
           <InputWithLabel
             key={`input-${i}`}
             label={`${input.name} (${input.type})`}
             placeholder={placeHoldersSamples[input.type]}
             id={`${id}-${i}`}
-            onChange={e => setInputData(_prev => ({ ..._prev, [input.name]: e.target.value }))}
+            onChange={e => handleInputChange(input.name, e.target.value)}
+            error={!validateInput(inputData[input.name], input.type)}
           />
         )
       })}
 
-      <Btn
-        hierarchy='secondary'
-        onClick={handleQuery}
-        disabled={!props.isReady}
-      >
-        Query
-      </Btn>
+      <BtnWrapper>
+        <Btn
+          hierarchy='secondary'
+          onClick={handleQuery}
+          disabled={!props.isReady || checkInputErrors()}
+        >
+          Query
+        </Btn>
+        <span className='error'>{error}</span>
+      </BtnWrapper>
 
       <Output>
         <Icon variant='L' size={10} />
@@ -102,6 +140,10 @@ const Container = styled.div`
 
 const Btn = styled(Button)`
   width: fit-content;
+
+  &:disabled {
+    opacity: ${props => props.theme.isLightMode ? '1' : '0.75'};
+  }
 `
 const Output = styled.div`
   display: flex;
@@ -140,6 +182,22 @@ const Result = styled.span`
 
   svg {
     color: ${props => props.theme.isLightMode ? colors.success[700] : colors.success[500]}
+  }
+`
+
+const BtnWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  @media screen and (max-width: 768px) {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  span.error {
+    ${typography.styles.textSm}
+    color: ${colors.error[700]};
   }
 `
 

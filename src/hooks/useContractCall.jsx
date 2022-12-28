@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useWallet } from '../context/WalletContext'
 import { getContract } from '../helpers/solidity/contract'
-import { ethers } from 'ethers'
+import { calculateGasMargin, getErrorMessage } from '../helpers/solidity/methods'
 
 export const useContractCall = ({ abi, address }) => {
   const { provider, account } = useWallet()
@@ -26,24 +26,22 @@ export const useContractCall = ({ abi, address }) => {
     if (!contract || !methodName) return
 
     let methodArgs = [...args]
+    let estimatedGas = null
     try {
-      await contract.estimateGas[methodName](...args)
-    } catch (err) {
-      const overrides = {
-        gasLimit: '100000',
-        gasPrice: '25000000000',
-        value: ethers.utils.parseEther('0')
+      estimatedGas = await contract.estimateGas[methodName](...args)
+
+      try {
+        methodArgs = [...args, { gasLimit: calculateGasMargin(estimatedGas) }]
+
+        const res = await contract[methodName](...methodArgs)
+        return Array.isArray(res) ? Array.from(res) : [res]
+      } catch (err) {
+        console.log(`Error in calling ${methodName} function: ${err}`)
+        return { error: getErrorMessage(err) }
       }
-
-      methodArgs = [...args, overrides]
-    }
-
-    try {
-      const res = await contract[methodName](...methodArgs)
-      return Array.isArray(res) ? Array.from(res) : [res]
-    } catch (err) {
-      console.log(`Error in calling ${methodName} function: ${err}`)
-      return { error: err.message }
+    } catch (e) {
+      console.log(`Could not estimate gas for ${methodName}(${methodArgs})`)
+      return { error: getErrorMessage(e) }
     }
   }
 
