@@ -50,6 +50,7 @@ const Func = (props) => {
           func={props.func}
           call={props.call}
           isReady={props.isReady}
+          interface={props.interface}
         />}
     </Container>
   )

@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { ConnectWallet } from './ConnectWallet'
 import { useContractCall } from '../../../hooks/useContractCall'
 
+import { ethers } from 'ethers'
 // function
 // https://github.com/neptune-mutual-blue/protocol/tree/develop/abis
 // Encode
@@ -46,6 +47,8 @@ const Result = (props) => {
     const re = new RegExp(filter[type].stateMutability)
     return re.test(stateMutability)
   }
+
+  const ethersInterface = new ethers.utils.Interface(props.abi)
 
   return (
     <Container>
@@ -108,6 +111,7 @@ const Result = (props) => {
               count={i + 1}
               call={callMethod}
               isReady={isReady}
+              interface={ethersInterface}
             />
           ))
         }

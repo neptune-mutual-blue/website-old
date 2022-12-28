@@ -1,4 +1,4 @@
-import { useId } from 'react'
+import { useState, useCallback, useEffect, useId } from 'react'
 
 import styled from 'styled-components'
 import { colors, primaryColorKey } from '../../../../../styles/colors'
@@ -13,6 +13,39 @@ const placeHoldersSamples = {
 
 const EncodeData = (props) => {
   const id = useId()
+  const [inputData, setInputData] = useState({})
+  const [outputData, setOutputData] = useState('')
+
+  const getEncodedData = useCallback((methodArgs = [], onError = () => {}) => {
+    if (!props.interface || !props.func.name) return
+
+    const methodName = props.func.name
+    try {
+      const iface = props.interface
+      const encoded = iface.encodeFunctionData(methodName, methodArgs)
+      return encoded
+    } catch (err) {
+      // console.log(`Error in encoding ${methodName} with args: [${methodArgs}]\n${err}`)
+      onError()
+    }
+  }, [props.interface, props.func.name])
+
+  useEffect(() => {
+    const inputs = props.func.inputs
+
+    if (inputs?.length === 0) {
+      const encoded = getEncodedData()
+      setOutputData(encoded)
+    }
+  }, [props.func, getEncodedData])
+
+  const handleChange = (name, value) => {
+    setInputData(_prev => ({ ..._prev, [name]: value }))
+
+    const args = Object.values({ ...inputData, [name]: value })
+    const encoded = getEncodedData(args, () => setOutputData(''))
+    if (encoded) setOutputData(encoded)
+  }
 
   return (
     <Container>
@@ -23,6 +56,7 @@ const EncodeData = (props) => {
             label={`${input.name} (${input.type})`}
             placeholder={placeHoldersSamples[input.type]}
             id={`${id}-${i}`}
+            onChange={e => handleChange(input.name, e.target.value)}
           />
         )
       })}
@@ -32,6 +66,8 @@ const EncodeData = (props) => {
         placeholder='0x'
         id={`${id}-result`}
         rows={5}
+        value={outputData}
+        onChange={() => {}}
       />
 
     </Container>

@@ -23,6 +23,11 @@ const ReadContract = (props) => {
     return `${_func.name}(${_func.inputs.map(_inp => _inp.type).join(', ')})`
   }
 
+  function getOutputsSignature () {
+    const _func = props.func
+    return `${_func.outputs.map(_inp => _inp.type).join(', ')}`
+  }
+
   async function handleQuery () {
     const methodName = props.func.name
     const args = Object.values(inputData)
@@ -59,13 +64,13 @@ const ReadContract = (props) => {
         Query
       </Btn>
 
+      <Output>
+        <Icon variant='L' size={10} />
+        {getOutputsSignature()}
+      </Output>
       {outputData.map((output, i) => {
         return (
           <Fragment key={`output-${i}`}>
-            <Output>
-              <Icon variant='L' size={10} />
-              {output.type}
-            </Output>
             {
               output.value && (
                 <ResultContainer>
