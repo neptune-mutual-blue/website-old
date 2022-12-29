@@ -3,8 +3,8 @@ import { appWithTranslation } from 'next-i18next'
 import { Router } from 'next/router'
 import styled from 'styled-components'
 
-import '@fontsource/inter/latin.css'
 import 'slick-carousel/slick/slick.css'
+import '../styles/inter.css'
 
 import { ThemeProvider } from '../src/theme/ThemeContext'
 import { VideosProvider } from '../src/context/VideosContext'
