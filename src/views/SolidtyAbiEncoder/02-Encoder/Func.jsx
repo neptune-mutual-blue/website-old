@@ -16,23 +16,36 @@ const TypeComponent = {
 }
 
 const defaultData = type => {
-  switch (type) {
+  const _type = type.split('[]')[0]
+  let _value = ''
+  switch (_type) {
     case 'bytes32':
     case 'bytes':
-      return '0x7465737400000000000000000000000000000000000000000000000000000000'
+      _value = '0x7465737400000000000000000000000000000000000000000000000000000000'
+      break
 
     case 'uint256':
-      return '1'
+      _value = '1'
+      break
 
     case 'address':
-      return '0x0000000000000000000000000000000000000000'
+      _value = '0x0000000000000000000000000000000000000000'
+      break
 
     case 'bool':
-      return 'true'
+      _value = 'true'
+      break
 
     default:
-      return '0x7465737400000000000000000000000000000000000000000000000000000000'
+      _value = '0x7465737400000000000000000000000000000000000000000000000000000000'
+      break
   }
+
+  return type.endsWith('[]') ? [_value] : _value
+}
+
+function getFunctionSignature (_func) {
+  return `${_func.name}(${_func.inputs.map(_inp => _inp.type).join(', ')})`
 }
 
 const Func = (props) => {
@@ -61,9 +74,10 @@ const Func = (props) => {
       }
     }
 
-    const _encodedFn = encodeData(props.interface, props.func.name, encodeArgs)
+    const encodeName = getFunctionSignature(props.func)
+    const _encodedFn = encodeData(props.interface, encodeName, encodeArgs)
     if (_encodedFn) setEncodedFn(_encodedFn.slice(0, 10))
-  }, [props.func.name, props.func.inputs, props.interface, props.type, inputs])
+  }, [props.func, props.interface, props.type, inputs])
 
   useEffect(() => {
     setIsOpen(false)

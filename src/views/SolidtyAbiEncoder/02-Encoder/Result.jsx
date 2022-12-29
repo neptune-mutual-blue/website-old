@@ -142,6 +142,8 @@ const Address = styled.p`
   color: ${props => props.theme.isLightMode ? colors.gray[800] : colors.gray[25]};
   ${typography.styles.textMd}
   ${typography.weights.regular}
+  overflow: hidden;
+  text-overflow: ellipsis;
 `
 
 const ListContainer = styled.div`

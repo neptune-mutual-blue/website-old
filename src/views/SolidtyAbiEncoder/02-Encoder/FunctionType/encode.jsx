@@ -6,11 +6,10 @@ import { typography } from '../../../../../styles/typography'
 import { InputWithLabel } from '../../../../components/InputWithLabel'
 import { TextArea } from '../../../../components/TextArea'
 import { encodeData } from '../../../../helpers/solidity/methods'
+import { getPlaceholder } from '../../../../helpers/web3-tools/abi-encoder'
 
-const placeHoldersSamples = {
-  uint256: 111222333,
-  bytes32: '0x112233',
-  address: '0x11...22'
+function getFunctionSignature (_func) {
+  return `${_func.name}(${_func.inputs.map(_inp => _inp.type).join(', ')})`
 }
 
 const EncodeData = (props) => {
@@ -40,8 +39,21 @@ const EncodeData = (props) => {
   const handleChange = (name, value) => {
     setInputData(_prev => ({ ..._prev, [name]: value }))
 
-    const args = props.tupleInputs ? [inputData] : Object.values({ ...inputData, [name]: value })
-    const encoded = encodeData(props.interface, props.func.name, args, (err) => {
+    const _inputData = ({ ...inputData, [name]: value })
+    const signature = getFunctionSignature(props.func)
+    props.inputs.map(i => {
+      const _val = _inputData[i.name]
+      if (i.type.endsWith('[]')) {
+        try {
+          const _parsed = JSON.parse(_val)
+          if (_parsed && Array.isArray(_parsed)) _inputData[i.name] = _parsed
+        } catch {}
+      }
+      return true
+    })
+    const args = props.tupleInputs ? [_inputData] : Object.values(_inputData)
+
+    const encoded = encodeData(props.interface, signature, args, (err) => {
       setOutputData('')
 
       if (checkNonEmptyInputs({ ...inputData, [name]: value })) setOutputError(err)
@@ -61,7 +73,7 @@ const EncodeData = (props) => {
           <InputWithLabel
             key={`input-${i}`}
             label={`${input.name} (${input.type})`}
-            placeholder={placeHoldersSamples[input.type]}
+            placeholder={getPlaceholder(input.type)}
             id={`${id}-${i}`}
             onChange={e => handleChange(input.name, e.target.value)}
           />

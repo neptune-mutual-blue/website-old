@@ -6,12 +6,7 @@ import { InputWithLabel } from '../../../../components/InputWithLabel'
 import { Button } from '../../../../components/Button'
 import { Icon } from '../../../../components/Icon'
 import { typography } from '../../../../../styles/typography'
-
-const placeHoldersSamples = {
-  uint256: 111222333,
-  bytes32: '0x112233',
-  address: '0x11...22'
-}
+import { getPlaceholder } from '../../../../helpers/web3-tools/abi-encoder'
 
 const ReadContract = (props) => {
   const id = useId()
@@ -83,7 +78,7 @@ const ReadContract = (props) => {
           <InputWithLabel
             key={`input-${i}`}
             label={`${input.name} (${input.type})`}
-            placeholder={placeHoldersSamples[input.type]}
+            placeholder={getPlaceholder(input.type)}
             id={`${id}-${i}`}
             onChange={e => handleInputChange(input.name, e.target.value)}
             error={!validateInput(inputData[input.name], input.type)}
