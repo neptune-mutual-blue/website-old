@@ -23,24 +23,33 @@ export const Tooltip = ({
   const ref = useRef(null)
   const [align, setAlign] = useState('middle')
 
-  const handleMouseEnter = () => {
+  const handleMouseEnter = (isTouch = false) => {
     if (!ref.current || !window) return
 
     if (ref.current) {
-      const boundingInfo = ref.current.getBoundingClientRect()
-      const width = window.innerWidth
-      const overflowingRight = (boundingInfo.x + boundingInfo.width + 50) > width
-      const overflowingLeft = boundingInfo.x <= 0
+      const calculateAndReposition = () => {
+        const boundingInfo = ref.current.getBoundingClientRect()
+        const width = window.innerWidth
+        const overflowingRight = (boundingInfo.x + boundingInfo.width + 50) > width
+        const overflowingLeft = boundingInfo.x <= 0
 
-      if (overflowingRight) setAlign('right')
-      else if (overflowingLeft) setAlign('left')
+        if (overflowingRight) setAlign('right')
+        else if (overflowingLeft) setAlign('left')
+      }
+
+      if (isTouch) {
+        setTimeout(() => {
+          calculateAndReposition()
+        }, [100])
+      } else calculateAndReposition()
     }
   }
 
   return (
     <TooltipRoot>
       <TooltipTrigger
-        onMouseEnter={handleMouseEnter}
+        onMouseEnter={() => handleMouseEnter()}
+        onTouchStart={() => handleMouseEnter(true)}
       >
         {children}
       </TooltipTrigger>
@@ -59,7 +68,9 @@ export const Tooltip = ({
           className='arrow'
           onMouseEnter={() => setShowContent(true)}
           onMouseLeave={() => setShowContent(false)}
-        />
+        >
+          <Shape />
+        </TooltipArrow>
       )}
     </TooltipRoot>
   )
@@ -74,20 +85,22 @@ const TooltipRoot = styled.div`
 const TooltipArrow = styled.div`
   display: none;
 
-  background-image: ${props => props.theme.isLightMode
-    ? 'url("data:image/svg+xml,%3Csvg width=\'17\' height=\'9\' viewBox=\'0 0 17 9\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M14.5711 0.485289C15.462 0.485289 15.9081 1.56243 15.2782 2.1924L9.20711 8.26347C8.81658 8.654 8.18342 8.654 7.79289 8.26347L1.72183 2.1924C1.09187 1.56243 1.53803 0.485289 2.42894 0.485289L14.5711 0.485289Z\' fill=\'%23ffffff\'/%3E%3C/svg%3E%0A")'
-    : 'url("data:image/svg+xml,%3Csvg width=\'17\' height=\'9\' viewBox=\'0 0 17 9\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M14.5711 0.485289C15.462 0.485289 15.9081 1.56243 15.2782 2.1924L9.20711 8.26347C8.81658 8.654 8.18342 8.654 7.79289 8.26347L1.72183 2.1924C1.09187 1.56243 1.53803 0.485289 2.42894 0.485289L14.5711 0.485289Z\' fill=\'%23101828\'/%3E%3C/svg%3E%0A")'
-  };
-  background-repeat: no-repeat;
+  filter: drop-shadow(4px 4px 12px rgba(16, 24, 40, 1));
   width: 16px;
   height: 16px;
 
   z-index: 61;
-  box-shadow: ${shadows.lg};
 
   &:hover {
     display: block;
   }
+`
+
+const Shape = styled.div`
+  height: 100%;
+  width: 100%;
+  clip-path: polygon(100% 0, 0 0, 50% 50%);
+  background-color: ${props => props.theme.isLightMode ? colors.white : colors.gray[900]};
 `
 
 const positionStyles = css`

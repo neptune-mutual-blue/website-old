@@ -281,6 +281,7 @@ const Web3Converter = ({ slug, crumbs }) => {
                     id='result-value'
                     value={formData.result}
                     onChange={() => {}}
+                    disabled
                   />
                   <CopyButton
                     onClick={handleCopy}
@@ -607,6 +608,10 @@ const StyledTextarea = styled.textarea`
 
   @media screen and (max-width: 768px) {
     height: 168px;
+  }
+
+  &:disabled {
+    color: initial;
   }
 `
 

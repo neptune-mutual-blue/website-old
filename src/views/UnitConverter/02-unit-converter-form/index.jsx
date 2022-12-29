@@ -22,7 +22,7 @@ const initialValue = {
   mEther: '',
   gEther: '',
   tEther: '',
-  radio: 'simple'
+  radio: 'extended'
 }
 const UnitConverterForm = ({ crumbs }) => {
   const [formData, setFormData] = useState(initialValue)
@@ -244,18 +244,6 @@ const UnitConverterForm = ({ crumbs }) => {
                 <div>
                   <input
                     type='radio'
-                    id='simple-radio'
-                    name='options-radio'
-                    value='simple'
-                    checked={formData.radio === 'simple'}
-                    onChange={() => {}}
-                  />
-                  <label htmlFor='simple-radio'>Simple Converter</label>
-                </div>
-
-                <div>
-                  <input
-                    type='radio'
                     id='extended-radio'
                     name='options-radio'
                     value='extended'
@@ -263,6 +251,18 @@ const UnitConverterForm = ({ crumbs }) => {
                     onChange={() => {}}
                   />
                   <label htmlFor='extended-radio'>Extended Converter</label>
+                </div>
+
+                <div>
+                  <input
+                    type='radio'
+                    id='simple-radio'
+                    name='options-radio'
+                    value='simple'
+                    checked={formData.radio === 'simple'}
+                    onChange={() => {}}
+                  />
+                  <label htmlFor='simple-radio'>Simple Converter</label>
                 </div>
               </RadioButtons>
             </RadioContainer>

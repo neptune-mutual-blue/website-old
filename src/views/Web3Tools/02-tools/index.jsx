@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import styled from 'styled-components'
 
-import { colors } from '../../../../styles/colors'
+import { colors, primaryColorKey } from '../../../../styles/colors'
 import { typography } from '../../../../styles/typography'
 import { utils } from '../../../../styles/utils'
 import { Icon } from '../../../components/Icon'
@@ -199,7 +199,7 @@ const ArrowButton = styled.button`
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  color: ${props => props.theme.isLightMode ? colors.primary[700] : colors.primary[300]};
+  color: ${props => props.theme.isLightMode ? colors[primaryColorKey][700] : colors[primaryColorKey][300]};
 
   span {
     ${utils.srOnly};
