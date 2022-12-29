@@ -11,7 +11,7 @@ import {
 } from '../../styles/colors'
 import { typography } from '../../styles/typography'
 import { utils } from '../../styles/utils'
-import { parseEmbeds } from '../helpers/embed'
+import { loadTweets, parseEmbeds } from '../helpers/embed'
 
 export const HtmlContent = ({ content }) => {
   const { name } = useTheme()
@@ -19,10 +19,7 @@ export const HtmlContent = ({ content }) => {
 
   useEffect(() => {
     parseEmbeds(ref.current)
-
-    if (window.twttr) {
-      window.twttr.widgets.load()
-    }
+    loadTweets()
   }, [content])
 
   useEffect(() => {
@@ -51,6 +48,10 @@ const Container = styled.div`
   ${typography.weights.regular};
   color: ${props => props.theme.secondaryColor};
 
+  img {
+    filter: ${props => props.theme.isLightMode ? 'inherit' : 'invert(100%)'};
+  }
+
   strong {
     ${typography.weights.bold};
   }
@@ -75,25 +76,19 @@ const Container = styled.div`
     }
   }
 
-
   figure:has(figcaption) {
-    border: 1px dashed ${props => props.theme.isLightMode ? colors.gray['300'] : colors.gray['600']};
-    margin: 0.5rem 0 1.5rem 0;
-    border-radius: 1rem;
     padding: 0.5rem;
+    margin: 0.5rem 0 1.5rem 0;
+    border: 1px dashed ${props => props.theme.isLightMode ? colors.gray['300'] : colors.gray['600']};
 
-    img{
-      margin:unset!important;
-    }
-
-    p {
-      margin: 0
+    figcaption {
+      margin-top: 1em;
     }
 
     figcaption, figcaption p, figcaption ol, figcaption ul {
       color: ${props => props.theme.isLightMode ? colors.gray['500'] : colors.gray['300']};
       font-size: 0.78rem;
-      line-height: 1rem;
+      line-height: 1.5em;
       text-align: center;
     }
 
@@ -112,15 +107,46 @@ const Container = styled.div`
     }
   }
 
+  figure {
+    overflow: hidden;
+    border-radius: 1rem;
+    margin: 0;
+    padding: 0;
+
+    p {
+      margin: 0
+    }
+
+    
+
+    img{
+      margin:unset!important;
+      border-radius: 1rem;
+
+      transition: 0.2s;
+
+      :hover {
+        filter: ${props => props.theme.isLightMode ? 'inherit' : 'invert(100%)'};
+        transform: scale(1.075);
+        transition: 1.25s;
+      }
+    }
+  }
+
+
 
  h2, h3, h4 {
     color: ${props => props.theme.isLightMode ? colors.gray[900] : colors.white};
   }
 
   h2 {
-    margin: 20px 0;
     ${typography.styles.displaySm};
     ${typography.weights.semibold};
+    margin-bottom: 20px;
+    
+    :not(:first-child){
+      margin-top: 20px;
+    }
   }
 
   h3 {
@@ -155,8 +181,9 @@ const Container = styled.div`
     height: auto;
     width: 100%;
     object-fit: contain;
-    border-radius: 12px;
   }
+
+
 
   & > *:first-child {
     margin-top: 0;

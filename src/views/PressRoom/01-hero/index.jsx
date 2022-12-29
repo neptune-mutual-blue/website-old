@@ -1,7 +1,11 @@
 import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
-import { colors, primaryColorKey } from '../../../../styles/colors'
+
+import {
+  colors,
+  primaryColorKey
+} from '../../../../styles/colors'
 import { typography } from '../../../../styles/typography'
 import { utils } from '../../../../styles/utils'
 import { Button } from '../../../components/Button'
@@ -13,7 +17,7 @@ export const Hero = () => {
     <Container>
       <InnerContainer>
         <Text>
-          <Heading>{t('Neptune Mutual Press Room')}</Heading>
+          <Heading id='neptune-mutual-pressroom'>{t('Neptune Mutual Press Room')}</Heading>
           <Subtitle>{t('Together, let’s build a safer Ethereum DeFi ecosystem for everyone by decentralizing and democratizing crypto-native insurance.')}</Subtitle>
         </Text>
 

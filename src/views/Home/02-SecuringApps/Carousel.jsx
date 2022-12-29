@@ -58,7 +58,7 @@ const Carousel = () => {
         return (
           <AppContainer key={app.id}>
             {/* @note - alt is empty because the content of the image is already provided in context through text */}
-            <img src={app.src} alt='' height='32' width='32' />
+            <img src={app.src} alt='' height='32' width='32' loading='lazy' />
             <AppName>{app.name}</AppName>
           </AppContainer>
         )

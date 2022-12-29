@@ -14,7 +14,7 @@ export const Hero = () => {
     <Container>
       <InnerContainer>
         <div>
-          <Heading>{t('Grants and Bounties')}</Heading>
+          <Heading id='grants-and-bounties'>{t('Grants and Bounties')}</Heading>
           <SubHeading>
             {t('Join the Neptunite community and contribute to our goal of defending, safeguarding, and covering DeFi, CeFi, and Metaverse ecosystem against exploitation, hacking, and other forms of online attacks. We strive to strengthen and expand our community outreach and exposure via our community programs. The Neptune Mutual team will promote and reward users that participate in and contribute to the development of the protocol via the various community activities that are presently taking place. Partners that provide value and increase adoption and usage of Neptune Mutual will be handsomely compensated for their efforts.')}
           </SubHeading>

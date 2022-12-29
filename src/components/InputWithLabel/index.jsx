@@ -52,7 +52,7 @@ const Label = styled.label`
 
   ${typography.styles.textSm};
   ${typography.weights.medium};
-  color: ${props => props.theme.isLightMode ? colors.gray['700'] : colors.white};
+  color: ${props => props.theme.isLightMode ? colors.gray[700] : colors.gray[300]};
 `
 
 const StyledInput = styled.input`

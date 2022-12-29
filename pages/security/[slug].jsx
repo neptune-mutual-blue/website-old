@@ -62,7 +62,7 @@ export default function AuditPage (props) {
         <meta property='og:description' content={props.audit.meta.description} />
         <meta property='og:image' content={getFQDN(props.audit.meta.image.src)} />
         <meta property='og:locale' content={router.locale} />
-        <meta property='og:url' content={router.asPath} />
+        <meta property='og:url' content={getCanonical(router)} />
         <meta property='twitter:site' content='@neptunemutual' />
         <meta property='twitter:creator' content='@neptunemutual' />
         <meta property='twitter:card' content='summary_large_image' />

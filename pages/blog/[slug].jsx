@@ -42,7 +42,8 @@ export async function getStaticProps ({ locale, params }) {
       post,
       relatedPosts: await services.getRelatedBlogPosts(post.tags, params.slug),
       videos: await services.getVideos(),
-      pages: await services.getPages()
+      pages: await services.getPages(),
+      hasTweets: true
       // Will be passed to the page component as props
     }
   }
@@ -64,7 +65,7 @@ export default function BlogPostPage (props) {
         <meta property='og:description' content={props.post.meta.description} />
         <meta property='og:image' content={getFQDN(props.post.meta.image.src)} />
         <meta property='og:locale' content={router.locale} />
-        <meta property='og:url' content={router.asPath} />
+        <meta property='og:url' content={getCanonical(router)} />
         <meta property='twitter:site' content='@neptunemutual' />
         <meta property='twitter:creator' content='@neptunemutual' />
         <meta property='twitter:card' content='summary_large_image' />

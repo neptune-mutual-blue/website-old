@@ -19,13 +19,9 @@ export const NotFound = () => {
 
       <TextAndCta>
 
-        <H1>
-          <Subheading>
-            {t('404 Error')}
-          </Subheading>
-          <Heading>
-            {t("Something's gone missing")}
-          </Heading>
+        <H1 id='somethings-gone-missing'>
+          <Subheading>{t('404 Error')}</Subheading>
+          <Heading>{t('Something’s gone missing...')}</Heading>
         </H1>
         <Subtitle>
           {t("Sorry, the page you are looking for doesn't exist or has been moved.")}

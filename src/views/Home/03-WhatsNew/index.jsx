@@ -15,7 +15,7 @@ export const WhatsNew = ({ blogPosts }) => {
       <InnerContainer>
         <TextAndCta>
           <TextContainer>
-            <Heading>{t('What’s New?')}</Heading>
+            <Heading id='whats-new'>{t('What’s New?')}</Heading>
             <SupportingText>{t('The latest news, updates, and announcements from our team.')}</SupportingText>
           </TextContainer>
 

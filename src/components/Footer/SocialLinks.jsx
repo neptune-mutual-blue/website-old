@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { colors } from '../../../styles/colors'
+import { colors, primaryColorKey } from '../../../styles/colors'
 import { utils } from '../../../styles/utils'
 import { Icon } from '../Icon'
 import { social } from './data'
@@ -33,5 +33,9 @@ const ExternalLink = styled.a`
 
   > span {
     ${utils.srOnly};
+  }
+
+  :hover {
+    color: ${colors[primaryColorKey]['600']};
   }
 `

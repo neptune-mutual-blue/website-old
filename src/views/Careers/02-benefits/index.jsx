@@ -25,7 +25,7 @@ export const Benefits = () => {
             </Heading>
           </H2>
           <SupportingText>
-            {t('Inspiring unity and cooperation, our common principles serve as the bedrock of our company culture.')}
+            {t('Our common values are the cornerstone of our company culture, serving to foster collaboration and teamwork.')}
           </SupportingText>
         </TextContainer>
 

@@ -140,7 +140,7 @@ const Label = styled.p`
 
   ${typography.styles.textSm};
   ${typography.weights.medium};
-  color: ${props => props.theme.isLightMode ? colors.gray['700'] : colors.white};
+  color: ${props => props.theme.isLightMode ? colors.gray[700] : colors.gray[300]};
 `
 
 const DisplayContainer = styled.div`

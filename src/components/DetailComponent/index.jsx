@@ -11,7 +11,7 @@ export const DetailComponent = ({ title, intro, html, breadcrumbs, headers, shar
   return (
     <MainWrapper>
       <Sidebar>
-        <TableOfContents title='Policies' headers={headers} />
+        <TableOfContents title={title} headers={headers} />
       </Sidebar>
 
       <ContentWrapper>

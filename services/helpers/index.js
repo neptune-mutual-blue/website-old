@@ -1,12 +1,13 @@
 import { load as cheerioLoad } from 'cheerio'
+
 import { env } from '../environment'
 import { request } from '../http/request'
 import { storeLocally } from '../io/download'
-import { storeOgImage, getOgImageAlt } from './meta'
-
-const getSlug = (title) => {
-  return title.toLowerCase().replace(/ /g, '-').replace(/[-]+/g, '-').replace(/[^\w-]+/g, '')
-}
+import {
+  getOgImageAlt,
+  storeOgImage
+} from './meta'
+import { getSlug } from './slug'
 
 const parseLegacyHtml = async ($) => {
   const promises = []

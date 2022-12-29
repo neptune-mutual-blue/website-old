@@ -15,9 +15,9 @@ export const Hero = ({ latestAnnouncement }) => {
       <TextAndCta>
         <Announcement latestAnnouncement={latestAnnouncement} />
 
-        <Heading>{t('Covering Ethereum Decentralized Apps from Hacks')}</Heading>
-
-        <Subtitle>{t('Choose a DeFi insurance pool, select its duration, and enter how much you need to cover. Instantly receive your claims payout in stablecoin after incident resolution')}</Subtitle>
+        <Heading id='covering-ethereum-decentralized-apps-from-hacks'>{t('Neptune Mutual Decentralized Insurance Protocol')}</Heading>
+        <Subtitle>{t('Neptune Mutual is the first parametric insurance protocol for Ethereum. Launch the app, choose an insurance pool, and enter your coverage amount.')}</Subtitle>
+        <Subtitle>{t('After incident resolution, instantly get payouts in stablecoin. No need to provide personal info, loss proof, or wait.')}</Subtitle>
 
         <ButtonContainer>
           <Button

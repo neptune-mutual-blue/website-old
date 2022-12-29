@@ -69,7 +69,7 @@ export default function FilteredBlogPage (props) {
         <meta property='og:description' content={t('META_OG_DESCRIPTION')} />
         <meta property='og:image' content={getFQDN(t('META_OG_IMAGE'))} />
         <meta property='og:locale' content={router.locale} />
-        <meta property='og:url' content={router.asPath} />
+        <meta property='og:url' content={getCanonical(router)} />
         <meta property='twitter:site' content='@neptunemutual' />
         <meta property='twitter:creator' content='@neptunemutual' />
         <meta property='twitter:card' content='summary_large_image' />

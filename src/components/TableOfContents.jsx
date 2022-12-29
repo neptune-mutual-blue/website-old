@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
+import { getSlug } from '../../services/helpers/slug'
 import {
   colors,
   primaryColorKey
@@ -42,7 +43,7 @@ export const TableOfContents = ({ title, headers }) => {
 
       <TitleLink
         data-is-active={currentHeader === '' ? 'true' : 'false'}
-        href={router.asPath.split('#')[0] + '#'}
+        href={router.asPath.split('#')[0] + '#' + getSlug(title)}
       >
         {title}
       </TitleLink>
