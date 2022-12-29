@@ -5,7 +5,10 @@ import {
   ThemeProvider as StyledComponentsThemeProvider
 } from 'styled-components'
 
-import { colors } from '../../styles/colors'
+import {
+  colors,
+  primaryColorKey
+} from '../../styles/colors'
 import {
   darkTheme,
   lightTheme
@@ -57,7 +60,7 @@ const GlobalStyle = createGlobalStyle`
 
   a {
     text-decoration: none;
-    color: ${props => props.theme.isLightMode ? colors.primary['700'] : colors.primary['300']};
+    color: ${props => props.theme.isLightMode ? colors[primaryColorKey]['700'] : colors[primaryColorKey]['300']};
     
     :hover, :active{
       color: ${props => props.theme.isLightMode ? colors.rose['700'] : colors.rose['300']};
