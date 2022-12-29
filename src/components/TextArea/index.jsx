@@ -52,7 +52,9 @@ const StyledTextArea = styled.textarea`
   gap: 8px;
   ${typography.styles.textMd};
   ${typography.weights.regular};
+  min-height: 100px;
   height: auto;
+  resize: vertical;
 
   ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: ${props => props.theme.isLightMode ? colors.gray['500'] : colors.gray['300']};
