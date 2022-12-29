@@ -107,6 +107,10 @@ const Ul = styled.ul`
   gap: 12px;
 `
 
+const StyledLink = styled(Link)`
+  display:flex;
+`
+
 const Li = styled.li`
   color: ${(props) => props.theme.secondaryColor};
   display: flex;
@@ -114,14 +118,13 @@ const Li = styled.li`
   ${typography.styles.textMd};
   ${typography.weights.semibold};
 
-  a{
+  a {
     color: ${(props) => props.theme.secondaryColor};
 
     :hover{
-      color: ${(props) => props.theme.secondaryColor};
+      color: ${props => props.theme.isLightMode ? colors.gray['900'] : colors.gray['300']};
     }
   }
-
 `
 const Badge = styled.div`
   ${typography.styles.textSm};
@@ -131,13 +134,4 @@ const Badge = styled.div`
   padding: 2px 10px;
   border-radius: 16px;
   margin-left: 8px;
-`
-const StyledLink = styled(Link)`
-  display:flex;
-
-  color: ${(props) => props.theme.secondaryColor};
-
-  :hover{
-    color: ${(props) => props.theme.secondaryColor};
-  }
 `

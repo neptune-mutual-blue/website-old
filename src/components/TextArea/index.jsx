@@ -39,6 +39,9 @@ const Container = styled.div`
 const Label = styled.label`
   flex: 1;
   margin-bottom: 6px;
+  ${typography.styles.textSm};
+  ${typography.weights.medium};
+  color: ${props => props.theme.isLightMode ? colors.gray[700] : colors.gray[300]};
 `
 
 const StyledTextArea = styled.textarea`

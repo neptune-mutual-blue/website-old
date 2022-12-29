@@ -1,6 +1,10 @@
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
-import { colors, primaryColorKey } from '../../../../styles/colors'
+
+import {
+  colors,
+  primaryColorKey
+} from '../../../../styles/colors'
 import { typography } from '../../../../styles/typography'
 import { utils } from '../../../../styles/utils'
 
@@ -11,7 +15,7 @@ export const Hero = () => {
     <Container>
       <InnerContainer>
         <Text>
-          <H1>
+          <H1 id='get-in-touch'>
             <Subheading>{t('Contact Us')}</Subheading>
             <Heading>{t('Get In Touch')}</Heading>
           </H1>

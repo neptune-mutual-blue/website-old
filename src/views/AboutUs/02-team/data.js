@@ -14,9 +14,10 @@ const PaulImage = '/assets/images/team/Paul.webp'
 const PukarImage = '/assets/images/team/Pukar.webp'
 const RudolfImage = '/assets/images/team/Rudolf.webp'
 const RupakImage = '/assets/images/team/Rupak.webp'
-const SavinImage = '/assets/images/team/Savin.webp'
 const SujitaImage = '/assets/images/team/Sujita.webp'
 
+// @NOTE: DO NOT CHANGE THE ORDER OF FOUNDERS, LIST SHOULD START WITH BINOD, EDWARD, GILLIAN
+// REASON: THE FOUNDER OBJECTS ARE DESTRUCTURED IN src/views/AboutUs/02-team/TeamCarousel.jsx
 export const data = [
   {
     id: 'binod',
@@ -27,6 +28,17 @@ export const data = [
       linkedIn: 'https://linkedin.com/in/binodnirvan',
       twitter: 'https://twitter.com/npmbinod',
       medium: 'https://medium.com/@heyhibi'
+    }
+  },
+  {
+    id: 'edward',
+    imgSrc: EdwardImage,
+    name: 'Edward Ryall',
+    title: 'Co-Founder',
+    links: {
+      linkedIn: 'https://www.linkedin.com/in/ryall/',
+      twitter: 'https://twitter.com/edward_ryall',
+      facebook: 'https://www.facebook.com/edward.ryall'
     }
   },
   {
@@ -49,17 +61,17 @@ export const data = [
     }
   },
   {
-    id: 'flashburst',
-    imgSrc: FlashburstImage,
-    name: 'Flashburst',
-    title: 'Blockchain Engineer',
-    links: {}
-  },
-  {
     id: 'hans',
     imgSrc: HansImage,
     name: 'Hans Koning',
     title: 'Blockchain Advisor',
+    links: {}
+  },
+  {
+    id: 'flashburst',
+    imgSrc: FlashburstImage,
+    name: 'Flashburst',
+    title: 'Blockchain Engineer',
     links: {}
   },
   {
@@ -79,17 +91,6 @@ export const data = [
     links: {
       facebook: 'https://www.facebook.com/paul.cue/',
       linkedIn: 'https://www.linkedin.com/in/paul-steven-cue-680035a5/'
-    }
-  },
-  {
-    id: 'savin',
-    imgSrc: SavinImage,
-    name: 'Savin Bhandari',
-    title: 'Frontend Engineer',
-    links: {
-      facebook: 'https://www.facebook.com/sansiven',
-      linkedIn: 'https://www.linkedin.com/in/sansiven/',
-      twitter: 'https://twitter.com/sansiven'
     }
   },
   {
@@ -169,16 +170,5 @@ export const data = [
     name: 'Rudolf',
     title: 'Blockchain Engineer',
     links: {}
-  },
-  {
-    id: 'edward',
-    imgSrc: EdwardImage,
-    name: 'Edward Ryall',
-    title: 'Co-Founder',
-    links: {
-      linkedIn: 'https://www.linkedin.com/in/ryall/',
-      twitter: 'https://twitter.com/edward_ryall',
-      facebook: 'https://www.facebook.com/edward.ryall'
-    }
   }
 ]

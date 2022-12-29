@@ -15,7 +15,7 @@ const Hero = () => {
     <Container>
       <InnerContainer>
         <Content>
-          <H1>
+          <H1 id='interested-in-pursuing-a-career-with-neptune-mutual'>
             <SubheadingWithBadge>
               <Subheading>
                 {t('DeFi Insurance is the Future!')}

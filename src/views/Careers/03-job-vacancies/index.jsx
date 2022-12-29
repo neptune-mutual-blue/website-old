@@ -32,7 +32,7 @@ export const JobVacancies = ({ vacancies }) => {
             </Heading>
           </H2>
           <SupportingText>
-            {t('Our philosophy is simple — hire a team of diverse, passionate people and foster a culture that empowers you to do you best work.')}
+            {t('If you have a love for your job and a desire to succeed, you should consider joining our organization. We think that individuals who are enthusiastic about their job are the key to our success, and we are committed to fostering their professional growth and achievement. When you join our organization, you can expect assistance and opportunities to improve your skills and move up in your career.')}
           </SupportingText>
         </Content>
 

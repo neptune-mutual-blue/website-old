@@ -26,11 +26,11 @@ const Container = styled.button`
   }
 
   :focus,
-    :active,
-    :focus-visible {
+  :active,
+  :focus-visible {
 
-    outline: none;
-    box-shadow: ${shadows.xs},
-      0px 0px 0px 4px ${(props) => props.theme.isLightMode ? colors[primaryColorKey]['100'] : colors[primaryColorKey]['700']};
-    }
+  outline: none;
+  box-shadow: ${shadows.xs},
+    0px 0px 0px 4px ${(props) => props.theme.isLightMode ? colors[primaryColorKey]['100'] : colors[primaryColorKey]['700']};
+  }
 `

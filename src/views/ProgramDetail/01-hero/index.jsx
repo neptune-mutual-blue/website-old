@@ -1,5 +1,10 @@
 import styled from 'styled-components'
-import { colors, primaryColorKey } from '../../../../styles/colors'
+
+import { getSlug } from '../../../../services/helpers/slug'
+import {
+  colors,
+  primaryColorKey
+} from '../../../../styles/colors'
 import { typography } from '../../../../styles/typography'
 import { utils } from '../../../../styles/utils'
 
@@ -7,7 +12,7 @@ export const Hero = ({ title }) => {
   return (
     <Container>
       <InnerContainer>
-        <Title>
+        <Title id={getSlug(title)}>
           {title}
         </Title>
       </InnerContainer>

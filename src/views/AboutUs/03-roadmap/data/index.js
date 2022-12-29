@@ -6,10 +6,10 @@ import { UnorderedList } from './UnorderedList'
 const links = {
   SDK: 'https://docs.neptunemutual.com/sdk/quickstart',
   DISCORD: 'https://discord.com/invite/2qMGTtJtnW',
-  BLOG: 'https://blog.neptunemutual.com/',
+  BLOG: 'https://neptunemutual.com/blog',
   DOCUMENTATION: 'https://docs.neptunemutual.com/',
-  PRIVACY_POLICY: 'https://docs.neptunemutual.com/usage/privacy-policy',
-  TERMS_OF_USE: 'https://docs.neptunemutual.com/usage/terms-of-use',
+  PRIVACY_POLICY: 'https://neptunemutual.com/policies/privacy-policy',
+  TERMS_OF_USE: 'https://neptunemutual.com/policies/terms-of-use',
   FAUCET: 'https://faucet.neptunemutual.com/',
   LIGHTPAPER: '/files/lightpaper.v1.pdf',
   TESTNET: 'https://test.neptunemutual.net/',
@@ -273,7 +273,7 @@ export const data = [
   },
   {
     name: <>Binance Dedicated Cover</>,
-    current: true,
+    current: false,
     Story: () => {
       return (
         <>
@@ -282,6 +282,29 @@ export const data = [
           </p>
           <p>
             <a target='_blank' href='https://app.neptunemutual.net/covers/binance/purchase' rel='noreferrer'>Purchase Binance Policy</a>
+          </p>
+        </>
+      )
+    }
+  },
+  {
+    name: <>OKX Dedicated Cover</>,
+    current: true,
+    Story: () => {
+      return (
+        <>
+          <p>
+            We formed strategic alliance with OKX, one of the most popular cryptocurrency exchanges worldwide.
+            To serve the OKX community, we've previously implemented support for the OKX wallet and now we have a dedicated standalone
+            cover pool for OKX exchange custody. This dedicated cover pool will provide OKX policyholders instant payouts
+            if the cover parameters are triggered and resolved.
+          </p>
+          <p>
+            Moreover, both the Neptune Mutual and OKX teams are working diligently
+            to further the adoption of decentralized insurance.
+          </p>
+          <p>
+            <a target='_blank' href='https://app.neptunemutual.net/covers/okx/purchase' rel='noreferrer'>Purchase OKX Policy</a>
           </p>
         </>
       )
@@ -337,7 +360,24 @@ export const data = [
     }
   },
   {
-    name: <>Token Generation Event</>,
+    name: <>Penetration Test</>,
+    current: false,
+    Story: () => {
+      return (
+        <>
+          <p>
+            We will engage additional cybersecurity partners to conduct a thorough penetration test on our application's frontend and backend services
+            routinely to analyze and assess its security posture.
+          </p>
+          <p>
+            <Link title='Security' href='/security'>View Previous Penetration Tests</Link>
+          </p>
+        </>
+      )
+    }
+  },
+  {
+    name: <>TGE</>,
     current: false,
     Story: () => {
       return (

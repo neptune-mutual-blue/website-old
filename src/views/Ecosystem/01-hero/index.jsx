@@ -13,7 +13,7 @@ export const Hero = () => {
       <InnerContainer>
         <TextAndFeatures>
           <TextContainer>
-            <Heading>{t('Neptune Mutual Ecosystem')}</Heading>
+            <Heading id='neptune-mutual-ecosystem'>{t('Neptune Mutual Ecosystem')}</Heading>
             <SupportingText>{t('Neptune Mutual is designed to protect your project from any potential hacking or security issues. Make sure your community is aware of the advantages of a parametric insurance model. Unlike other insurance products, policyholders do not need to request another user to confirm their proof of loss.')}</SupportingText>
           </TextContainer>
 

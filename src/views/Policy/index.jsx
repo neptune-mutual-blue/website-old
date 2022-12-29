@@ -1,5 +1,5 @@
-import { Hero } from './01-hero'
 import { DetailComponent } from '../../components/DetailComponent'
+import { Hero } from './01-hero'
 
 export const Policy = ({ page, activeSlug, slugs }) => {
   return (
@@ -9,7 +9,7 @@ export const Policy = ({ page, activeSlug, slugs }) => {
       <DetailComponent
         headers={page.content.toc}
         html={page.content.html}
-        title={page.title}
+        title='Policies'
         sharelinks={false}
       />
     </>

@@ -4,8 +4,7 @@ const imageOrigins = process.env.IMAGE_ORIGINS
     .filter(Boolean)
   : [
       (new URL(process.env.WEBSITE_API_ORIGIN)).origin,
-      (new URL(process.env.COVER_FILE_URI_PREFIX)).origin,
-      'https://blog.neptunemutual.com'
+      (new URL(process.env.COVER_FILE_URI_PREFIX)).origin
     ]
 
 const env = {

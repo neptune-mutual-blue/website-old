@@ -1,7 +1,8 @@
-import Link from 'next/link'
 import { Fragment } from 'react'
+
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
+
 import { colors } from '../../../styles/colors'
 import { typography } from '../../../styles/typography'
 import { Icon } from '../Icon'
@@ -14,7 +15,19 @@ const Breadcrumbs = (props) => {
       {props.crumbs.map((link, i) => {
         return (
           <Fragment key={`link-${i}`}>
-            <Crumb href={link.link}>{t(`${link.name}`)}</Crumb>
+            <Crumb>
+              {link.link
+                ? (
+                  <a href={link.link}>
+                    {t(`${link.name}`)}
+                  </a>
+                  )
+                : (
+                  <>
+                    {t(`${link.name}`)}
+                  </>
+                  )}
+            </Crumb>
             {i < (props.crumbs.length - 1) && <Icon size='15' variant='chevron-right' />}
           </Fragment>
         )
@@ -40,12 +53,13 @@ const Trail = styled.div`
   }
 
 `
-const Crumb = styled(Link)`
+const Crumb = styled.span`
   display: inline-block;
   ${typography.styles.textSm}
   ${typography.weights.medium}
   color: ${props => (props.theme.isLightMode ? colors.gray[600] : colors.gray[300])};
   padding: 4px 8px;
+  cursor: pointer;
 
   &:nth-of-type(1) {
   }
@@ -61,6 +75,10 @@ const Crumb = styled(Link)`
     background-color: ${props => (props.theme.isLightMode ? colors.gray[50] : colors.gray[600])};
     border-radius:6px;
     color: ${props => (props.theme.isLightMode ? colors.gray[700] : colors.gray[25])};
+  }
+
+  a, a:hover {
+    color: inherit;
   }
 `
 

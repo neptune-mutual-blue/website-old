@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
+import { getSlug } from '../../../services/helpers/slug'
 import { colors } from '../../../styles/colors'
 import { typography } from '../../../styles/typography'
 import { utils } from '../../../styles/utils'
@@ -16,7 +17,7 @@ const CareersDetail = (props) => {
   return (
     <>
       <Header>
-        <Title>{props.vacancy.title}</Title>
+        <Title id={getSlug(props.vacancy.title)}>{props.vacancy.title}</Title>
       </Header>
 
       <MainWrapper>
@@ -25,7 +26,7 @@ const CareersDetail = (props) => {
         </Sidebar>
 
         <ContentWrapper>
-          <Breadcrumbs crumbs={[...props.crumbs, { name: props.vacancy.title, link: '#' }]} />
+          <Breadcrumbs crumbs={[...props.crumbs, { name: props.vacancy.title }]} />
 
           <Types>
             <Type>

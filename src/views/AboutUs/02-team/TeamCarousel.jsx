@@ -12,7 +12,15 @@ import {
 } from '../../../../styles/colors'
 import { typography } from '../../../../styles/typography'
 import { Icon } from '../../../components/Icon'
+import { useMediaQuery } from '../../../hooks/useMediaQuery'
+
 import { data } from './data'
+
+const [founder1, founder2, founder3, ...others] = data
+
+const desktopSlides = [founder1, founder2, founder3, ...others]
+const tabletSlides = [founder1, founder3, ...others, founder2]
+const mobileSlides = [founder1, founder2, founder3, ...others]
 
 const Details = ({ id, name, title, links, isMobile }) => (
   <DetailsContainer data-is-mobile={isMobile ? 'true' : 'false'}>
@@ -66,6 +74,8 @@ const TeamSliderItem = ({ team }) => {
 const INITIAL_SLIDE = 0
 export const TeamCarousel = () => {
   const sliderRef = useRef(null)
+  const isLessThan768 = useMediaQuery('(max-width: 768px)')
+  const isLessThan425 = useMediaQuery('(max-width: 425px)')
   const [currentSlide, setCurrentSlide] = useState(INITIAL_SLIDE)
 
   const handleAfterChange = i => {
@@ -91,18 +101,17 @@ export const TeamCarousel = () => {
           centerPadding: '0',
           slidesToScroll: 3,
           slidesToShow: 3,
-          afterChange: handleAfterChange,
           swipeToSlide: true
         }
       },
       {
         breakpoint: 425,
         settings: {
-          slidesToShow: 1,
           centerMode: true,
-          swipeToSlide: true,
           centerPadding: '0',
-          afterChange: handleAfterChange
+          slidesToScroll: 1,
+          slidesToShow: 1,
+          swipeToSlide: true
         }
       }
     ]
@@ -118,10 +127,18 @@ export const TeamCarousel = () => {
     }
   }
 
+  let currentSlidesData = desktopSlides
+
+  if (isLessThan768 && !isLessThan425) {
+    currentSlidesData = tabletSlides
+  } else if (isLessThan768 && isLessThan425) {
+    currentSlidesData = mobileSlides
+  }
+
   return (
     <Container>
       <Slider {...settings} ref={sliderRef}>
-        {data.map((team, idx) => {
+        {currentSlidesData.map((team, idx) => {
           return (
             <TeamSliderItem
               key={idx}
@@ -134,9 +151,9 @@ export const TeamCarousel = () => {
       <MobileDetailsWrapper>
         <Details
           isMobile
-          links={data[currentSlide].links}
-          title={data[currentSlide].title}
-          name={data[currentSlide].name}
+          links={currentSlidesData[currentSlide].links}
+          title={currentSlidesData[currentSlide].title}
+          name={currentSlidesData[currentSlide].name}
         />
       </MobileDetailsWrapper>
 
@@ -168,6 +185,11 @@ const Container = styled.div`
   }
   
   @media screen and (max-width: 768px) {
+    & .slick-track {
+      display: flex;
+      align-items: center;
+    }
+
     & .slick-slide {
       img {
         width: 89px;

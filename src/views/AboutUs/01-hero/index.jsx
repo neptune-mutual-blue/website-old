@@ -26,13 +26,9 @@ const Hero = () => {
     <Container>
       <InnerContainer>
         <Content>
-          <H1>
-            <Subheader>
-              {t('DeFi Insurance Protocol Based on Parametric Insurance Model')}
-            </Subheader>
-            <HeaderTitle>
-              {t('Simplifying Decentralized Insurance')}
-            </HeaderTitle>
+          <H1 id='simplifying-decentralized-insurance'>
+            <Subheader>{t('DeFi Insurance Protocol Based on Parametric Insurance Model')}</Subheader>
+            <HeaderTitle>{t('Simplifying Decentralized Insurance')}</HeaderTitle>
           </H1>
           <HeaderContent>
             {t('Watch out our 5-minute video to learn more about how Neptune Mutual contributes to the decentralized insurance industry.')}

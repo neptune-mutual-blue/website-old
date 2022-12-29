@@ -14,7 +14,7 @@ const Hero = ({ slugs, activeSlug }) => {
   return (
     <Container>
       <InnerContainer>
-        <Title>{t('Policies')}</Title>
+        <Title id='policies'>{t('Policies')}</Title>
 
         <HorizontalTabs>
           {
