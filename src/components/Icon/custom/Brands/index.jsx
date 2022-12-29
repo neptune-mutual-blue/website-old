@@ -3,6 +3,7 @@ export { default as Avalanche } from "./default/SvgAvalanche"
 export { default as Arbitrum } from "./default/SvgArbitrum"
 export { default as BNBChain } from "./default/SvgBNBChain"
 export { default as Polygon } from "./default/SvgPolygon"
+export { default as Metamask } from "./default/SvgMetamask"
 
 export { default as EthereumDark } from "./dark/SvgEthereumDark"
 export { default as AvalancheDark } from "./dark/SvgAvalancheDark"

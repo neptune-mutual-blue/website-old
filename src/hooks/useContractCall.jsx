@@ -1,26 +1,26 @@
 import { useEffect, useState } from 'react'
-import { useWallet } from '../context/WalletContext'
 import { getContract } from '../helpers/solidity/contract'
 import { calculateGasMargin, getErrorMessage } from '../helpers/solidity/methods'
+import { useWeb3React } from '@web3-react/core'
 
 export const useContractCall = ({ abi, address }) => {
-  const { provider, account } = useWallet()
+  const { library, account } = useWeb3React()
   const [contract, setContract] = useState(null)
 
   useEffect(() => {
-    if (!abi || !address || !provider?.getSigner || !account) {
+    if (!abi || !address || !library?.getSigner || !account) {
       setContract(null)
       return
     }
 
     try {
-      const _c = getContract(address, abi, provider.getSigner())
+      const _c = getContract(address, abi, library?.getSigner())
       setContract(_c)
     } catch (err) {
       console.log('Error in creating contract: ', err)
       setContract(null)
     }
-  }, [abi, address, provider, account])
+  }, [abi, address, library, account])
 
   async function callMethod (methodName, args = []) {
     if (!contract || !methodName) return

@@ -4,7 +4,7 @@ import { typography } from '../../../../styles/typography'
 import { Func } from './Func'
 import { Button } from '../../../components/Button'
 import { useState } from 'react'
-import { ConnectWallet } from './ConnectWallet'
+import { ConnectWallet } from '../../../components/ConnectWallet'
 import { useContractCall } from '../../../hooks/useContractCall'
 
 import { ethers } from 'ethers'

@@ -1,18 +1,23 @@
 import { Popover } from '@headlessui/react'
 import styled, { css } from 'styled-components'
-import { colors, primaryColorKey } from '../../../../styles/colors'
-import { typography } from '../../../../styles/typography'
-import { useWallet } from '../../../context/WalletContext'
-import { truncateAddress } from '../../../helpers/wallet/methods'
-import { Icon } from '../../../components/Icon'
-import { shadows } from '../../../../styles/shadows'
 import { useState, useEffect } from 'react'
-import { handleCopy } from '../../../helpers'
-import { chains } from '../../../helpers/wallet/chains'
+import { Icon } from '../Icon'
+import { truncateAddress } from '../../helpers/wallet/methods'
+import { handleCopy } from '../../helpers'
+import { chains } from '../../helpers/wallet/chains'
+import { typography } from '../../../styles/typography'
+import { colors, primaryColorKey } from '../../../styles/colors'
+import { shadows } from '../../../styles/shadows'
+
+import { useWeb3React } from '@web3-react/core'
+import { Popup } from '../../lib/connect-wallet/Popup'
+import useAuth from '../../lib/connect-wallet/hooks/useAuth'
 
 export const ConnectWallet = () => {
   const [copied, setCopied] = useState()
-  const { account, connect, disconnect, chainId } = useWallet()
+  const [popupOpen, setPopupOpen] = useState(false)
+  const { logout } = useAuth()
+  const { account, chainId } = useWeb3React()
 
   useEffect(() => {
     if (copied) {
@@ -24,9 +29,9 @@ export const ConnectWallet = () => {
 
   const handleWalletButtonClick = () => {
     if (!account) {
-      return connect()
+      return setPopupOpen(true)
     }
-    disconnect()
+    logout()
   }
 
   return (
@@ -88,6 +93,11 @@ export const ConnectWallet = () => {
             </Container>
             )
       }
+
+      <Popup
+        isOpen={popupOpen}
+        onClose={() => setPopupOpen(false)}
+      />
     </>
   )
 }
