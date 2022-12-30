@@ -9,6 +9,7 @@
     "prebuild:local": "node -r dotenv/config ./scripts/prebuild dotenv_config_path=.env.local",
     "prebuild": "node ./scripts/prebuild",
     "build": "next build",
+    "build:local": "yarn run prebuild:local && next build",
     "start": "next start",
     "lint": "next lint"
   },

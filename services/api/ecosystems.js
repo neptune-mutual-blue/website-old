@@ -1,8 +1,16 @@
 import { getApi } from './get'
 
+let docs = null
+
 const getDocs = async () => {
   try {
-    const { docs } = await getApi('ecosystem')
+    if (docs) {
+      return docs
+    }
+
+    const api = await getApi('ecosystem')
+    docs = api.docs
+
     return docs
   } catch (error) {
 

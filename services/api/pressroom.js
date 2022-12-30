@@ -8,10 +8,16 @@ import { storeLocally } from '../io/download'
 import { getApi } from './get'
 
 const POSTS_PER_PAGE = 4
+let docs = null
 
 const getDocs = async () => {
   try {
-    const { docs } = await getApi('pressroom')
+    if (docs) {
+      return docs
+    }
+
+    const api = await getApi('pressroom')
+    docs = api.docs
 
     return docs
   } catch (error) {

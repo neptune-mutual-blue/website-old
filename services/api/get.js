@@ -12,6 +12,7 @@ const getApi = async (type) => {
     const file = path.join(config.root, `${type}.json`)
     const contents = await io.readFile(file)
     const result = JSON.parse(contents)
+
     return result
   } catch (error) {
     console.error(error)

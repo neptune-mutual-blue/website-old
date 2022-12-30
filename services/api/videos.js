@@ -3,6 +3,8 @@ import { helpers } from '../helpers'
 import { storeLocally } from '../io/download'
 import { getApi } from './get'
 
+let docs = null
+
 const getVideoDurationText = (timestamp) => {
   // 2
   const hours = Math.floor(timestamp / 60 / 60)
@@ -23,7 +25,13 @@ const getVideoDurationText = (timestamp) => {
 
 const getDocs = async () => {
   try {
-    const { docs } = await getApi('videos')
+    if (docs) {
+      return docs
+    }
+
+    const api = await getApi('videos')
+    docs = api.docs
+
     return docs
   } catch (error) {
 

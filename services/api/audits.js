@@ -3,9 +3,17 @@ import { helpers } from '../helpers'
 import { storeLocally } from '../io/download'
 import { getApi } from './get'
 
+let docs = null
+
 const getDocs = async () => {
   try {
-    const { docs } = await getApi('audits')
+    if (docs) {
+      return docs
+    }
+
+    const api = await getApi('audits')
+    docs = api.docs
+
     return docs
   } catch (error) {
 

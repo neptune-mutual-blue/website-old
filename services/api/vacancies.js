@@ -1,9 +1,16 @@
 import { helpers } from '../helpers'
 import { getApi } from './get'
 
+let docs = null
+
 const getDocs = async () => {
   try {
-    const { docs } = await getApi('vacancies')
+    if (docs) {
+      return docs
+    }
+
+    const api = await getApi('vacancies')
+    docs = api.docs
 
     return docs
   } catch (error) {

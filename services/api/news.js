@@ -2,9 +2,16 @@ import { env } from '../environment'
 import { storeLocally } from '../io/download'
 import { getApi } from './get'
 
+let docs = null
+
 const getDocs = async () => {
   try {
-    const { docs } = await getApi('news')
+    if (docs) {
+      return docs
+    }
+
+    const api = await getApi('news')
+    docs = api.docs
 
     return docs
   } catch (error) {
