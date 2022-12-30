@@ -1,21 +1,11 @@
 import { env } from '../environment'
-import { request } from '../http/request'
 import { storeLocally } from '../io/download'
-import { getApiHeaders } from './config'
-
-let docs = null
+import { getApi } from './get'
 
 const getDocs = async () => {
-  if (docs) {
-    return docs
-  }
-
   try {
-    console.log('fetching all news')
+    const { docs } = await getApi('news')
 
-    const dataStr = await request.get(`${env.websiteApiServer}/api/news?limit=1000`, getApiHeaders())
-    const data = JSON.parse(dataStr)
-    docs = data.docs
     return docs
   } catch (error) {
 

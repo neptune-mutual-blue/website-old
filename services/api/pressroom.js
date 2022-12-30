@@ -1,25 +1,18 @@
-import { colors, primaryColorKey } from '../../styles/colors'
+import {
+  colors,
+  primaryColorKey
+} from '../../styles/colors'
+import { env } from '../environment'
 import { helpers } from '../helpers'
 import { storeLocally } from '../io/download'
-import { request } from '../http/request'
-import { getApiHeaders } from './config'
-import { env } from '../environment'
+import { getApi } from './get'
 
 const POSTS_PER_PAGE = 4
 
-let docs = null
-
 const getDocs = async () => {
-  if (docs) {
-    return docs
-  }
-
   try {
-    console.log('fetching all pressroom')
+    const { docs } = await getApi('pressroom')
 
-    const dataStr = await request.get(`${env.websiteApiServer}/api/pressroom?limit=1000`, getApiHeaders())
-    const data = JSON.parse(dataStr)
-    docs = data.docs
     return docs
   } catch (error) {
 

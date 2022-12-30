@@ -1,5 +1,5 @@
+const fs = require('fs/promises')
 const path = require('path')
-const fs = require('fs').promises
 
 const ensureDirectory = async (directory) => {
   try {
@@ -7,6 +7,16 @@ const ensureDirectory = async (directory) => {
   } catch {
     await fs.mkdir(directory, { recursive: true })
   }
+}
+
+const emptyDirectory = async (directory) => {
+  try {
+    await fs.rm(directory, { recursive: true })
+  } catch {
+    console.log('Can not delete directory: %s', directory)
+  }
+
+  await ensureDirectory(directory)
 }
 
 const ensureFile = async (file, content = '{}') => {
@@ -18,12 +28,12 @@ const ensureFile = async (file, content = '{}') => {
   }
 }
 
-const writeFile = async (filePath, contents) => {
-  await fs.writeFile(filePath, contents)
-}
-
 const saveToDisk = async (filePath, contents) => {
   await fs.writeFile(filePath, JSON.stringify(contents, null, 2))
+}
+
+const saveToDiskRaw = async (filePath, contents) => {
+  await fs.writeFile(filePath, contents)
 }
 
 const fetchValue = async (cache, key) => {
@@ -102,4 +112,15 @@ const exists = async (filePath) => {
   return false
 }
 
-module.exports = { saveToDisk, writeFile, ensureDirectory, ensureFile, cacheValue, fetchValue, findFiles, readFile, exists }
+module.exports = {
+  cacheValue,
+  emptyDirectory,
+  ensureDirectory,
+  ensureFile,
+  exists,
+  fetchValue,
+  findFiles,
+  readFile,
+  saveToDisk,
+  saveToDiskRaw
+}

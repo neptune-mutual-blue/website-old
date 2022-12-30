@@ -4,7 +4,8 @@
   "private": true,
   "sideEffects": false,
   "scripts": {
-    "dev": "next dev",
+    "dev": "yarn run prebuild:local && next dev",
+    "dev:cache": "next dev",
     "prebuild:local": "node -r dotenv/config ./scripts/prebuild dotenv_config_path=.env.local",
     "prebuild": "node ./scripts/prebuild",
     "build": "next build",
