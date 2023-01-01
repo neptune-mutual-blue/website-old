@@ -33,9 +33,12 @@ const filter = {
 
 const Result = (props) => {
   const [type, setType] = useState('encode_data')
+
+  const { abi, address, title } = props
+
   const { callMethod, isReady } = useContractCall({
-    abi: props.abi,
-    address: props.address
+    abi,
+    address
   })
 
   const handleType = (e) => {
@@ -49,16 +52,16 @@ const Result = (props) => {
     return re.test(stateMutability)
   }
 
-  const ethersInterface = new ethers.utils.Interface(props.abi)
+  const ethersInterface = new ethers.utils.Interface(abi)
 
   return (
     <Container>
       <Header>
-        <Title>{props.title}</Title>
-        <Address>{props.address}</Address>
+        <Title>{title}</Title>
+        <Address>{address}</Address>
       </Header>
 
-      {Array.isArray(props.abi) && props.abi.length > 0 && (
+      {Array.isArray(abi) && abi.length > 0 && (
         <CallToAction>
           <LeftGroup>
             <Btn
@@ -101,8 +104,8 @@ const Result = (props) => {
 
       <ListContainer>
         {
-          Array.isArray(props.abi) &&
-          props.abi.filter(func => (
+          Array.isArray(abi) &&
+          abi.filter(func => (
             func.type === 'function' && validateStateMutability(func.stateMutability)
           )).map((func, i) => (
             <Func

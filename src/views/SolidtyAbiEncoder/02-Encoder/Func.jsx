@@ -8,6 +8,7 @@ import { EncodeData } from './FunctionType/encode'
 import { ReadContract } from './FunctionType/read'
 import { WriteContract } from './FunctionType/write'
 import { encodeData } from '../../../helpers/solidity/methods'
+import { createJoiSchema } from '../../../helpers/web3-tools/abi-encoder'
 
 const TypeComponent = {
   encode_data: EncodeData,
@@ -51,15 +52,17 @@ function getFunctionSignature (_func) {
 const Func = (props) => {
   const [isOpen, setIsOpen] = useState(false)
 
-  const Component = TypeComponent[props.type]
+  const { type, func, interface: encodeInterface, count, call, isReady } = props
+
+  const Component = TypeComponent[type]
 
   const [encodedFn, setEncodedFn] = useState('')
   const inputs = props?.func?.inputs?.[0]?.components || props?.func?.inputs
 
   useEffect(() => {
-    if (props.type !== 'write_contract') return
+    if (type !== 'write_contract') return
 
-    const isTupleInputs = props.func.inputs[0]?.type === 'tuple'
+    const isTupleInputs = func.inputs[0]?.type === 'tuple'
     let encodeArgs = []
     if (inputs?.length) {
       if (isTupleInputs) {
@@ -74,14 +77,14 @@ const Func = (props) => {
       }
     }
 
-    const encodeName = getFunctionSignature(props.func)
-    const _encodedFn = encodeData(props.interface, encodeName, encodeArgs)
+    const encodeName = getFunctionSignature(func)
+    const _encodedFn = encodeData(encodeInterface, encodeName, encodeArgs)
     if (_encodedFn) setEncodedFn(_encodedFn.slice(0, 10))
-  }, [props.func, props.interface, props.type, inputs])
+  }, [func, encodeInterface, type, inputs])
 
   useEffect(() => {
     setIsOpen(false)
-  }, [props.type])
+  }, [type])
 
   const toggle = (e) => {
     e.preventDefault()
@@ -89,9 +92,9 @@ const Func = (props) => {
   }
 
   return (
-    <Container className='item' id={`func-${props.count}`}>
+    <Container className='item' id={`func-${count}`}>
       <ListHeader onClick={toggle}>
-        <Name>{props.count}. {props.func.name} {props.type === 'write_contract' && `(${encodedFn})`}</Name>
+        <Name>{count}. {func.name} {type === 'write_contract' && `(${encodedFn})`}</Name>
 
         <CallToAction>
           <Button title='Toggle'>
@@ -101,13 +104,14 @@ const Func = (props) => {
       </ListHeader>
       {isOpen &&
         <Component
-          type={props.type}
-          func={props.func}
+          type={type}
+          func={func}
           inputs={inputs}
-          tupleInputs={props.func.inputs[0]?.type === 'tuple'}
-          call={props.call}
-          isReady={props.isReady}
-          interface={props.interface}
+          tupleInputs={func.inputs[0]?.type === 'tuple'}
+          call={call}
+          isReady={isReady}
+          encodeInterface={encodeInterface}
+          joiSchema={createJoiSchema(inputs)}
         />}
     </Container>
   )

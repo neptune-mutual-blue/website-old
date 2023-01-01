@@ -50,21 +50,19 @@ export const Popup = ({ isOpen, onClose, notifier }) => {
           <Icon variant='x-close' size={24} />
         </CloseButton>
 
-        {!isConnecting && (
-          <>
-            <Disclaimer />
-            <WalletList wallets={wallets} onConnect={onConnect} />
-          </>
-        )}
-
-        {isConnecting && (
-          <>
+        {!isConnecting
+          ? (
+            <>
+              <Disclaimer />
+              <WalletList wallets={wallets} onConnect={onConnect} />
+            </>
+            )
+          : (
             <LoaderWrapper>
               <Loader />
               <p>Connecting</p>
             </LoaderWrapper>
-          </>
-        )}
+            )}
       </Wrapper>
     </Modal>
   )
@@ -103,6 +101,7 @@ const CloseButton = styled.button`
   justify-content: center; 
   align-items: center; 
   border-radius: 0.375rem; 
+  cursor: pointer;
 
   span {
     ${utils.srOnly}
@@ -114,4 +113,8 @@ const LoaderWrapper = styled.div`
   align-items: center;
   margin-top: 32px;
   justify-content: flex-start;
+  
+  @media screen and (min-width: 768px) {
+    min-width: 250px;
+  }
 `

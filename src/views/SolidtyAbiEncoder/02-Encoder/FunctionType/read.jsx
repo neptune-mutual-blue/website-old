@@ -6,33 +6,36 @@ import { InputWithLabel } from '../../../../components/InputWithLabel'
 import { Button } from '../../../../components/Button'
 import { Icon } from '../../../../components/Icon'
 import { typography } from '../../../../../styles/typography'
-import { getPlaceholder } from '../../../../helpers/web3-tools/abi-encoder'
+import { checkInputErrors, getPlaceholder, isInputError } from '../../../../helpers/web3-tools/abi-encoder'
 
 const ReadContract = (props) => {
   const id = useId()
+
+  const { func, call, inputs, joiSchema, isReady } = props
+
   const [inputData, setInputData] = useState({})
-  const [outputData, setOutputData] = useState(props.func.outputs)
+  const [outputData, setOutputData] = useState(func.outputs)
   const [error, setError] = useState('')
 
   function getFunctionSignature () {
-    const _func = props.func
+    const _func = func
     return `${_func.name}(${_func.inputs.map(_inp => _inp.type).join(', ')})`
   }
 
   function getOutputsSignature () {
-    const _func = props.func
+    const _func = func
     return `${_func.outputs.map(_inp => _inp.type).join(', ')}`
   }
 
   async function handleQuery () {
     if (error) setError('')
 
-    const methodName = props.func.name
+    const methodName = func.name
     const args = Object.values(inputData)
-    const outputs = await props.call(methodName, args)
+    const outputs = await call(methodName, args)
 
     if (outputs && !outputs.error) {
-      const _outputData = props.func.outputs.map((o, i) => ({
+      const _outputData = func.outputs.map((o, i) => ({
         ...o,
         value: outputs[i]?.toString()
       }))
@@ -43,29 +46,6 @@ const ReadContract = (props) => {
     else setError('')
   }
 
-  const validateInput = (value = '', type) => {
-    if (!value) return true
-
-    let regex = ''
-    if (type === 'address') regex = /^0x([a-z]|[A-Z]|[0-9]){40}$/
-    if (type === 'uint256') regex = /^\d+$/
-    if (type === 'bytes32') regex = /^0x([a-z]|[A-Z]|[0-9])+$/
-    if (type === 'bool') regex = /^(true|false)$/
-
-    if (value.match(regex)) return true
-    return false
-  }
-
-  const checkInputErrors = () => {
-    const _error = props.inputs.find(i => {
-      const _value = inputData[i.name]
-      const _type = i.type
-      if (!_value || !validateInput(_value, _type)) return true
-      return false
-    })
-    return Boolean(_error)
-  }
-
   const handleInputChange = (name, value = '') => {
     setInputData(_prev => ({ ..._prev, [name]: value }))
     if (error) setError('')
@@ -73,7 +53,7 @@ const ReadContract = (props) => {
 
   return (
     <Container>
-      {props.inputs.map((input, i) => {
+      {inputs.map((input, i) => {
         return (
           <InputWithLabel
             key={`input-${i}`}
@@ -81,7 +61,7 @@ const ReadContract = (props) => {
             placeholder={getPlaceholder(input.type)}
             id={`${id}-${i}`}
             onChange={e => handleInputChange(input.name, e.target.value)}
-            error={!validateInput(inputData[input.name], input.type)}
+            error={isInputError(joiSchema, inputData, input.name)}
           />
         )
       })}
@@ -90,7 +70,7 @@ const ReadContract = (props) => {
         <Btn
           hierarchy='secondary'
           onClick={handleQuery}
-          disabled={!props.isReady || checkInputErrors()}
+          disabled={!isReady || checkInputErrors(joiSchema, inputData)}
         >
           Query
         </Btn>

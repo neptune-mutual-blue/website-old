@@ -5,44 +5,21 @@ import { colors, primaryColorKey } from '../../../../../styles/colors'
 import { InputWithLabel } from '../../../../components/InputWithLabel'
 import { Button } from '../../../../components/Button'
 import { typography } from '../../../../../styles/typography'
-import { getPlaceholder } from '../../../../helpers/web3-tools/abi-encoder'
-
-const checkType = (value = '', type) => {
-  let regex = ''
-  if (type === 'address') regex = /^0x([a-z]|[A-Z]|[0-9]){40}$/
-  if (type === 'uint256') regex = /^\d+$/
-  if (type === 'bytes32') regex = /^0x([a-z]|[A-Z]|[0-9])+$/
-  if (type === 'bool') regex = /^(true|false)$/
-
-  if (value.match(regex)) return true
-  return false
-}
-
-const validateInput = (value = '', type) => {
-  if (!value) return true
-
-  if (type.endsWith('[]')) {
-    try {
-      const _parsed = JSON.parse(value)
-      if (_parsed && Array.isArray(_parsed)) return true
-    } catch {}
-    return false
-  }
-
-  return checkType(value, type)
-}
+import { checkInputErrors, getPlaceholder, isInputError } from '../../../../helpers/web3-tools/abi-encoder'
 
 const WriteContract = (props) => {
   const id = useId()
   const [inputData, setInputData] = useState({})
   const [error, setError] = useState('')
 
+  const { func, inputs, tupleInputs, call, joiSchema, isReady } = props
+
   async function handleWrite () {
     if (error) setError('')
 
-    const methodName = props.func.name
+    const methodName = func.name
     const _inputData = JSON.parse(JSON.stringify(inputData))
-    props.inputs.map(i => {
+    inputs.map(i => {
       const _val = inputData[i.name]
       if (i.type.endsWith('[]')) {
         try {
@@ -52,22 +29,12 @@ const WriteContract = (props) => {
       }
       return true
     })
-    const args = props.tupleInputs ? [_inputData] : Object.values(_inputData)
+    const args = tupleInputs ? [_inputData] : Object.values(_inputData)
 
-    const res = await props.call(methodName, args)
+    const res = await call(methodName, args)
 
     if (res.error) setError(res.error)
     else setError('')
-  }
-
-  const checkInputErrors = () => {
-    const _error = props.inputs.find(i => {
-      const _value = inputData[i.name]
-      const _type = i.type
-      if (!_value || !validateInput(_value, _type)) return true
-      return false
-    })
-    return Boolean(_error)
   }
 
   const handleInputChange = (name, value = '') => {
@@ -77,7 +44,7 @@ const WriteContract = (props) => {
 
   return (
     <Container>
-      {props.inputs.map((input, i) => {
+      {inputs.map((input, i) => {
         return (
           <InputWithLabel
             key={`input-${i}`}
@@ -85,7 +52,7 @@ const WriteContract = (props) => {
             placeholder={getPlaceholder(input.type)}
             id={`${id}-${i}`}
             onChange={e => handleInputChange(input.name, e.target.value, input.type)}
-            error={!validateInput(inputData[input.name], input.type)}
+            error={isInputError(joiSchema, inputData, input.name)}
           />
         )
       })}
@@ -95,7 +62,7 @@ const WriteContract = (props) => {
           hierarchy='primary'
           size='sm'
           onClick={handleWrite}
-          disabled={!props.isReady || checkInputErrors()}
+          disabled={!isReady || checkInputErrors(joiSchema, inputData)}
         >
           Write
         </Btn>

@@ -6,7 +6,7 @@ import { typography } from '../../../../../styles/typography'
 import { InputWithLabel } from '../../../../components/InputWithLabel'
 import { TextArea } from '../../../../components/TextArea'
 import { encodeData } from '../../../../helpers/solidity/methods'
-import { getPlaceholder } from '../../../../helpers/web3-tools/abi-encoder'
+import { getPlaceholder, isInputError } from '../../../../helpers/web3-tools/abi-encoder'
 
 function getFunctionSignature (_func) {
   return `${_func.name}(${_func.inputs.map(_inp => _inp.type).join(', ')})`
@@ -18,17 +18,17 @@ const EncodeData = (props) => {
   const [outputData, setOutputData] = useState('')
   const [outputError, setOutputError] = useState('')
 
-  useEffect(() => {
-    const inputs = props.inputs
+  const { inputs, encodeInterface, func, tupleInputs, joiSchema } = props
 
+  useEffect(() => {
     if (inputs?.length === 0) {
-      const encoded = encodeData(props.interface, props.func.name)
+      const encoded = encodeData(encodeInterface, func.name)
       if (encoded) setOutputData(encoded)
     }
-  }, [props.func, props.interface, props.inputs])
+  }, [func, encodeInterface, inputs])
 
   const checkNonEmptyInputs = (_inputData) => {
-    const nonEmptyInput = props.inputs.find(i => {
+    const nonEmptyInput = inputs.find(i => {
       if (_inputData[i.name]) return true
       return false
     })
@@ -40,8 +40,8 @@ const EncodeData = (props) => {
     setInputData(_prev => ({ ..._prev, [name]: value }))
 
     const _inputData = ({ ...inputData, [name]: value })
-    const signature = getFunctionSignature(props.func)
-    props.inputs.map(i => {
+    const signature = getFunctionSignature(func)
+    inputs.map(i => {
       const _val = _inputData[i.name]
       if (i.type.endsWith('[]')) {
         try {
@@ -51,9 +51,9 @@ const EncodeData = (props) => {
       }
       return true
     })
-    const args = props.tupleInputs ? [_inputData] : Object.values(_inputData)
+    const args = tupleInputs ? [_inputData] : Object.values(_inputData)
 
-    const encoded = encodeData(props.interface, signature, args, (err) => {
+    const encoded = encodeData(encodeInterface, signature, args, (err) => {
       setOutputData('')
 
       if (checkNonEmptyInputs({ ...inputData, [name]: value })) setOutputError(err)
@@ -68,7 +68,7 @@ const EncodeData = (props) => {
 
   return (
     <Container>
-      {props.inputs.map((input, i) => {
+      {inputs.map((input, i) => {
         return (
           <InputWithLabel
             key={`input-${i}`}
@@ -76,6 +76,7 @@ const EncodeData = (props) => {
             placeholder={getPlaceholder(input.type)}
             id={`${id}-${i}`}
             onChange={e => handleChange(input.name, e.target.value)}
+            error={isInputError(joiSchema, inputData, input.name)}
           />
         )
       })}

@@ -38,12 +38,14 @@ const Svg = styled.svg`
   width: 32px;
   color: #4e7dd9;
   animation: spin 1s linear infinite;
-`
+  `
 
 const Circle = styled.circle`
   opacity: 0.25;
-`
+  stroke: #4e7dd9;
+  `
 
-const Path = styled.circle`
+const Path = styled.path`
   opacity: 0.75;
+  fill: #4e7dd9;
 `
