@@ -67,7 +67,7 @@ export const getVideos = async () => {
 
     const allVideos = result.map(x => x.value)
 
-    const latestVideos = allVideos.sort((a, b) => a.sort - b.sort).slice(0, 3)
+    const latestVideos = allVideos.sort((a, b) => a.sort - b.sort).slice(0, 4)
 
     return latestVideos
   } catch (error) {
