@@ -1,21 +1,17 @@
 import { helpers } from '../helpers'
-import { request } from '../http/request'
-import { getApiHeaders } from './config'
-import { env } from '../environment'
+import { getApi } from './get'
 
 let docs = null
 
 const getDocs = async () => {
-  if (docs) {
-    return docs
-  }
-
   try {
-    console.log('fetching all pages')
+    if (docs) {
+      return docs
+    }
 
-    const dataStr = await request.get(`${env.websiteApiServer}/api/pages?limit=1000`, getApiHeaders())
-    const data = JSON.parse(dataStr)
-    docs = data.docs
+    const api = await getApi('pages')
+    docs = api.docs
+
     return docs
   } catch (error) {
 

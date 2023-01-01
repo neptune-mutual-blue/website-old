@@ -1,38 +1,16 @@
-const fs = require('fs')
-const https = require('https')
 const path = require('path')
 const { env } = require('../services/environment')
+const builder = require('../services/builder')
+const io = require('../services/io')
+const req = require('../services/builder/fetch/request')
 
-const download = function (url, dest) {
-  return new Promise((resolve, reject) => {
-    const request = https.get(url, function (response) {
-      if (response.statusCode !== 200) {
-        reject(Error('Failed with status: ' + response.statusCode))
-        return
-      }
-
-      const file = fs.createWriteStream(dest)
-      response.pipe(file)
-
-      file.on('finish', function () {
-        file.close(() => {}) // close() is async, call cb after close completes.
-        resolve()
-      })
-    })
-
-    request.on('error', function (err) { // Handle errors
-      // Delete the file async. (But we don't check the result)
-
-      console.log('Failed downloading, deleting unfinished file...')
-
-      fs.unlink(dest, (err) => {
-        console.log('Could not delete file...', dest)
-        reject(err)
-      })
-
-      reject(err)
-    })
-  })
+const download = async (url, dest) => {
+  try {
+    const { string } = await req.raw(url, dest)
+    await io.saveToDiskRaw(dest, string)
+  } catch {
+    console.error('Cant download %s', url)
+  }
 }
 
 const updateXmlFiles = async () => {
@@ -47,14 +25,6 @@ const updateXmlFiles = async () => {
     {
       url: `${urlPrefix}/sitemap.xml`,
       pathToStore: './sitemap.xml'
-    },
-    {
-      url: `${urlPrefix}/atom.xml`,
-      pathToStore: './atom.xml'
-    },
-    {
-      url: `${urlPrefix}/rss.xml`,
-      pathToStore: './rss.xml'
     },
     {
       url: `${urlPrefix}/blog/atom.xml`,
@@ -74,33 +44,44 @@ const updateXmlFiles = async () => {
     }
   ]
 
+  const promises = []
+
   for (let idx = 0; idx < files.length; idx++) {
     const item = files[idx]
 
     const parent = path.resolve('public')
     const storedAt = path.resolve(parent, item.pathToStore)
 
-    try {
-      await download(item.url, storedAt)
-    } catch (error) {
-      console.error(error) // Swallow
-    }
+    promises.push(download(item.url, storedAt))
   }
+
+  await Promise.allSettled(promises)
 }
 
-const udpateFileCache = () => {
+const resetCDNCache = async () => {
   if (env.resetFileCache !== 'true') {
     return
   }
 
+  console.log('Updating CDN cache')
   const localCacheFolder = path.resolve('public', 'cdn')
-  console.log('Clearing cache...')
-  fs.rmSync(localCacheFolder, { recursive: true, force: true })
+
+  await io.emptyDirectory(localCacheFolder)
+  console.log('Updated CDN cache')
 }
 
-const main = () => {
-  updateXmlFiles()
-  udpateFileCache()
+const main = async () => {
+  const promises = [
+    builder.start(),
+    updateXmlFiles(),
+    resetCDNCache()
+  ]
+
+  await Promise.allSettled(promises)
+
+  console.log('All done')
+
+  process.exit()
 }
 
 main()
