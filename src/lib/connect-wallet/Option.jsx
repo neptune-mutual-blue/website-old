@@ -7,7 +7,9 @@ export const Option = (props) => {
   const { id, name, onClick, iconVariant, iconVariantDark } = props
   const { isLightMode } = useTheme()
 
-  if (name.toLowerCase() === 'metamask') {
+  const WalletIcon = <Icon variant={isLightMode ? iconVariant : iconVariantDark} size={20} />
+
+  if (name.toLowerCase() === 'metamask wallet') {
     if (!(window.web3 || window.ethereum)) {
       return (
         <StyledLink
@@ -15,14 +17,29 @@ export const Option = (props) => {
           target='_blank'
           rel='noreferrer noopener'
         >
-          <Icon variant={isLightMode ? iconVariant : iconVariantDark} size={20} />
+          {WalletIcon}
           <p>Install Metamask</p>
         </StyledLink>
       )
     }
   }
 
-  if (name.toLowerCase() === 'binance chain wallet') {
+  if (name.toLowerCase() === 'okx wallet') {
+    if (!(window.okxwallet)) {
+      return (
+        <StyledLink
+          href='https://chrome.google.com/webstore/detail/okex-wallet/mcohilncbfahbmgdjkbpemcciiolgcge'
+          target='_blank'
+          rel='noreferrer noopener nofollow'
+        >
+          {WalletIcon}
+          <p>Install OKX Wallet</p>
+        </StyledLink>
+      )
+    }
+  }
+
+  if (name.toLowerCase() === 'binance wallet') {
     if (!window.BinanceChain) {
       return (
         <StyledLink
@@ -30,7 +47,7 @@ export const Option = (props) => {
           target='_blank'
           rel='noreferrer noopener'
         >
-          <Icon variant={isLightMode ? iconVariant : iconVariantDark} size={20} />
+          {WalletIcon}
           <p>Install Binance Wallet</p>
         </StyledLink>
       )
@@ -43,7 +60,7 @@ export const Option = (props) => {
       onClick={onClick}
       type='button'
     >
-      <Icon variant={isLightMode ? iconVariant : iconVariantDark} size={20} />
+      {WalletIcon}
       <p>{name}</p>
     </StyledButton>
   )

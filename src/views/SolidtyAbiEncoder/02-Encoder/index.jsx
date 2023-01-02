@@ -157,7 +157,7 @@ const Encoder = () => {
             onChange={(e) => { return setContractName(e.target.value) }}
           >
             <InputHint>
-              Enter the contract name or an easy to remember name for this contract
+              Enter the contract name or an easy way to remember name for this contract
             </InputHint>
           </InputWithLabel>
 
@@ -174,16 +174,53 @@ const Encoder = () => {
           </InputWithLabel>
 
           <FormAction>
-            <Button hierarchy='secondary' disabled={!isSaveable} size='sm' iconLeading iconVariant='folder' onClick={saveToStorage}>Save to Local Storage</Button>
-            <Button hierarchy='secondary' disabled={contracts.length === 0} size='sm' iconLeading iconVariant='download-cloud-01' onClick={download}>Save All to Your Computer</Button>
-            <Button hierarchy='secondary' size='sm' type='file' iconLeading iconVariant='refresh-ccw-02' onClick={restore}>Restore from Your Computer</Button>
+            <Button
+              hierarchy='secondary'
+              disabled={!isSaveable}
+              size='sm'
+              iconLeading
+              iconVariant='folder'
+              onClick={saveToStorage}
+            >
+              Save to Local Storage
+            </Button>
+            <Button
+              hierarchy='secondary'
+              disabled={contracts.length === 0}
+              size='sm'
+              iconLeading
+              iconVariant='download-cloud-01'
+              onClick={download}
+            >
+              Save All to Your Computer
+            </Button>
+            <Button
+              hierarchy='secondary'
+              size='sm'
+              type='file'
+              iconLeading
+              iconVariant='refresh-ccw-02'
+              onClick={restore}
+            >
+              Restore from Your Computer
+            </Button>
           </FormAction>
         </FormContent>
 
-        <History contracts={contracts} download={download} restore={restore} restorationFailed={restorationFailed} restoreSpecificCallback={restoreSpecificCallback} />
+        <History
+          contracts={contracts}
+          download={download}
+          restore={restore}
+          restorationFailed={restorationFailed}
+          restoreSpecificCallback={restoreSpecificCallback}
+        />
       </FormContainer>
 
-      <Result title={contractName} address={address} abi={JSON.parse(abi)} />
+      <Result
+        title={contractName}
+        address={address}
+        abi={JSON.parse(abi)}
+      />
 
     </Container>
   )

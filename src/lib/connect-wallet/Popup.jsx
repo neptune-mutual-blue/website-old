@@ -14,11 +14,14 @@ import { colors, primaryColorKey } from '../../../styles/colors'
 import { utils } from '../../../styles/utils'
 import { typography } from '../../../styles/typography'
 
-export const Popup = ({ isOpen, onClose, notifier }) => {
+export const Popup = ({ isOpen, onClose, notifier = console.log }) => {
   const [isConnecting, setIsConnecting] = useState(false)
   const { active } = useWeb3React()
 
-  const { login } = useAuth(notifier)
+  const { login } = useAuth((_error) => {
+    setIsConnecting(false)
+    notifier(_error)
+  })
 
   useEffect(() => {
     if (!isOpen) setIsConnecting(false)

@@ -1,6 +1,4 @@
 import styled from 'styled-components'
-import { colors } from '../../../styles/colors'
-import { typography } from '../../../styles/typography'
 import { Option } from './Option'
 
 export const WalletList = ({ wallets, onConnect }) => {
@@ -19,7 +17,7 @@ export const WalletList = ({ wallets, onConnect }) => {
 
 const Container = styled.div`
   margin-top: 32px;
-  ${typography.styles.textSm};
-  ${typography.weights.regular};
-  color: ${colors.black};
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 `
