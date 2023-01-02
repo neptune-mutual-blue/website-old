@@ -79,7 +79,7 @@ import { PencilLine } from "./variants/Editor"
 import Dot from "./custom/dot"
 import SunFilled from "./custom/sun-filled";
 import MoonStarFilled from "./custom/moon-star-filled";
-import { Arbitrum, ArbitrumDark, Avalanche, AvalancheDark, BNBChain, BNBChainDark, Ethereum, EthereumDark, Metamask, MetamaskDark, Polygon, PolygonDark } from "./custom/Brands";
+import { Arbitrum, ArbitrumDark, Avalanche, AvalancheDark, BNBChain, BNBChainDark, Ethereum, EthereumDark, GnosisWallet, GnosisWalletDark, Metamask, MetamaskDark, OkxWallet, OkxWalletDark, Polygon, PolygonDark, WalletConnect, WalletConnectDark } from "./custom/Brands";
 import { AlignBottom01 } from "./variants/Layout";
 
 export const Icon = ({ size, variant }) => {
@@ -525,6 +525,30 @@ export const Icon = ({ size, variant }) => {
 
   if(variant === 'metamask-dark') {
     IconComponent = MetamaskDark
+  }
+
+  if(variant === 'okx-wallet') {
+    IconComponent = OkxWallet
+  }
+
+  if(variant === 'okx-wallet-dark') {
+    IconComponent = OkxWalletDark
+  }
+
+  if(variant === 'gnosis-wallet') {
+    IconComponent = GnosisWallet
+  }
+
+  if(variant === 'gnosis-wallet-dark') {
+    IconComponent = GnosisWalletDark
+  }
+
+  if(variant === 'wallet-connect') {
+    IconComponent = WalletConnect
+  }
+
+  if(variant === 'wallet-connect-dark') {
+    IconComponent = WalletConnectDark 
   }
 
   return IconComponent ? <IconComponent width={size} height={size} /> : null;
