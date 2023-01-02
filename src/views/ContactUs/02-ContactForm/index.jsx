@@ -1,3 +1,4 @@
+import Joi from 'joi'
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
@@ -12,7 +13,6 @@ import { TextArea } from '../../../components/TextArea'
 import { publicEnv } from '../../../environment'
 import { FormOptions } from './FormOptions'
 import { FormSelector } from './FormSelector'
-import { validateForm } from './validateForm'
 
 export const purposeOptions = [
   { text: 'Choose your reason for contacting us', value: '' },
@@ -61,10 +61,60 @@ const initialState = {
   purpose: purposeOptions[0],
   contactMethod: contactMethodOptions[0],
   role: roleOptions[0],
-  blockchain: blockchainOptions[0],
+  blockchain: [],
   phone: '',
   message: ''
 }
+
+const schema = Joi.object({
+  firstname: Joi.string().required().max(128)
+    .messages({ 'string.empty': 'This is required' }),
+  lastname: Joi.string().required().max(128)
+    .messages({ 'string.empty': 'This is required' }),
+  email: Joi.string().email({ tlds: { allow: false } }).required().max(256)
+    .messages({ 'string.empty': 'This is required', 'string.email': 'Must be a valid email' }),
+  company: Joi.string().required().max(196)
+    .messages({ 'string.empty': 'This is required' }),
+  website: Joi.string().uri({ allowRelative: true }).max(256)
+    .messages({ 'string.empty': 'This is required', 'string.uri': 'Invalid url' }),
+  purpose: Joi.object().keys({
+    text: Joi.string()
+      .valid('Providing Liquidity', 'Purchasing Policy', 'Creating Cover', 'Media Reachout', 'Other')
+      .messages({ 'any.only': 'Please select an option' }),
+    value: Joi.optional(),
+    iconVariant: Joi.optional()
+  }),
+  contactMethod: Joi.object().keys({
+    text: Joi.string()
+      .valid('Email', 'Telegram', 'Phone/Whatsapp', 'Other')
+      .messages({ 'any.only': 'Please select an option' }),
+    value: Joi.optional(),
+    iconVariant: Joi.optional()
+  }),
+  phone: Joi.string().when('contactMethod.text', {
+    is: ['Telegram', 'Phone/Whatsapp'],
+    then: Joi.string().regex(/^(\+\d{1,3})?\s?\d{10}$/)
+      .message('Enter a valid phone number')
+      .messages({ 'string.empty': 'This is required' }),
+    otherwise: Joi.any().allow('')
+  }),
+  role: Joi.object().keys({
+    text: Joi.string()
+      .valid('Business Development', 'Sale', 'Blockchain Developer', 'Co-founder/CXO', 'Engineering', 'Operations', 'Product Management', 'Other')
+      .messages({ 'any.only': 'Please select an option' }),
+    value: Joi.optional(),
+    iconVariant: Joi.optional()
+  }),
+  blockchain: Joi.array().items(Joi.string().required()
+    .valid('Ethereum', 'Arbitrum', 'BNB Chain', 'Avalanche', 'Polygon', 'Other'))
+    .messages({ 'array.includesRequiredUnknowns': 'Please select at least one option' }),
+  message: Joi.string().required().max(1024)
+    .messages({
+      'string.empty': 'This is required',
+      'string.max': 'Message can\'t be longer than 1024 characters'
+    })
+})
+
 export const ContactForm = () => {
   const [formData, setFormData] = useState(initialState)
 
@@ -105,7 +155,10 @@ export const ContactForm = () => {
     ev.preventDefault()
     setSubmitClicked(true)
 
-    const { validated, firstErrorKey } = validateForm(formData, setError)
+    const { error: e } = schema.validate(formData, { abortEarly: false })
+    const validated = !e
+    let firstErrorKey
+    if (e) firstErrorKey = Array.isArray(e.details[0].path) ? e.details[0].path[0] : e.details[0].path
 
     if (!validated && firstErrorKey) {
       itemsRef.current?.[firstErrorKey]?.focus()
@@ -183,7 +236,17 @@ export const ContactForm = () => {
   }
 
   useEffect(() => {
-    if (submitClicked) validateForm(formData, setError)
+    if (submitClicked) {
+      const { error: e } = schema.validate(formData, { abortEarly: false })
+      const _error = {}
+      if (e) {
+        e.details.map(d => {
+          _error[d.path[0]] = d.message
+          return true
+        })
+      }
+      setError(_error)
+    }
   }, [formData, submitClicked])
 
   return (
@@ -191,7 +254,7 @@ export const ContactForm = () => {
       <FirstRow>
         <WrappedInput>
           <InputWithLabel
-            required
+            // required
             label='First Name*'
             placeholder='John'
             value={formData.firstname}
@@ -206,7 +269,7 @@ export const ContactForm = () => {
 
         <WrappedInput>
           <InputWithLabel
-            required
+            // required
             label='Last Name*'
             placeholder='Doe'
             value={formData.lastname}
@@ -221,10 +284,9 @@ export const ContactForm = () => {
       </FirstRow>
 
       <InputWithLabel
-        required
+        // required
         label='Email*'
         placeholder='john@example.com'
-        type='email'
         value={formData.email}
         onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
         error={error?.email}
@@ -235,7 +297,7 @@ export const ContactForm = () => {
       />
 
       <InputWithLabel
-        required
+        // required
         label='What is the name of your business or project?*'
         placeholder='Example Inc.'
         value={formData.company}
@@ -263,10 +325,9 @@ export const ContactForm = () => {
       </FilterContainer>
 
       <InputWithLabel
-        required
+        // required
         label='What is the website of your business or project?*'
         placeholder='https://example.com'
-        type='url'
         value={formData.website}
         onChange={(e) => setFormData((prev) => ({ ...prev, website: e.target.value }))}
         error={error?.website}
@@ -310,7 +371,7 @@ export const ContactForm = () => {
           ['telegram', 'phone'].includes(formData.contactMethod.value) && (
             <SubInputs>
               <InputWithLabel
-                required
+                // required
                 placeholder='Enter your Whatsapp/Telegram Id'
                 value={formData.phone}
                 onChange={(e) => handlePhoneChange('phone', e.target.value)}
@@ -343,7 +404,7 @@ export const ContactForm = () => {
       </FilterContainer>
 
       <TextArea
-        required
+        // required
         label='Message*'
         placeholder='Kindly write your message'
         value={formData.message}
