@@ -5,12 +5,8 @@ import { colors, primaryColorKey } from '../../../../../styles/colors'
 import { typography } from '../../../../../styles/typography'
 import { InputWithLabel } from '../../../../components/InputWithLabel'
 import { TextArea } from '../../../../components/TextArea'
-import { encodeData } from '../../../../helpers/solidity/methods'
+import { encodeData, getFunctionSignature } from '../../../../helpers/solidity/methods'
 import { getPlaceholder, isInputError } from '../../../../helpers/web3-tools/abi-encoder'
-
-function getFunctionSignature (_func) {
-  return `${_func.name}(${_func.inputs.map(_inp => _inp.type).join(', ')})`
-}
 
 const EncodeData = (props) => {
   const id = useId()
@@ -51,7 +47,8 @@ const EncodeData = (props) => {
       }
       return true
     })
-    const args = tupleInputs ? [_inputData] : Object.values(_inputData)
+    let args = Object.values(_inputData)
+    args = tupleInputs ? [args] : args
 
     const encoded = encodeData(encodeInterface, signature, args, (err) => {
       setOutputData('')
@@ -76,7 +73,12 @@ const EncodeData = (props) => {
             placeholder={getPlaceholder(input.type)}
             id={`${id}-${i}`}
             onChange={e => handleChange(input.name, e.target.value)}
-            error={isInputError(joiSchema, inputData, input.name)}
+            error={
+              isInputError(joiSchema, inputData, input.name)
+                ? `Invalid value for type: ${input.type}`
+                : ''
+            }
+            errorIcon='alert-circle'
           />
         )
       })}
@@ -104,6 +106,14 @@ const Container = styled.div`
   background-color: ${props => props.theme.isLightMode ? colors[primaryColorKey][25] : colors.gray[900]};
   padding: 32px 24px;
   gap: 24px;
+
+  input[data-error="true"] {
+    border-color: ${colors.error[300]};
+  }
+
+  p, svg {
+    color: ${colors.error[500]};
+  }
 `
 
 const StyledTextArea = styled(TextArea)`

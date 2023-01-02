@@ -61,7 +61,7 @@ import {
   Facebook as FacebookDefault
 } from './variants/Socials/Default'
 import { CodeCircle03, CodeSquare01, Database01, FileCode01 } from "./variants/Development";
-import { Bell02 } from "./variants/AlertsAndFeedback";
+import { AlertCircle, Bell02 } from "./variants/AlertsAndFeedback";
 import { ChartBreakoutSquare, LineChartUp03 } from "./variants/Charts";
 import { Cube01, Cube02 } from "./variants/Shapes";
 import { BookClosed, Glasses02 } from "./variants/Education";
@@ -513,6 +513,10 @@ export const Icon = ({ size, variant }) => {
 
   if(variant === 'wallet-04') {
     IconComponent = Wallet04
+  }
+
+  if(variant === 'alert-circle') {
+    IconComponent = AlertCircle
   }
 
   if(variant === 'log-out-01') {

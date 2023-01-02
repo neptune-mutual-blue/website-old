@@ -7,7 +7,7 @@ import { typography } from '../../../../styles/typography'
 import { EncodeData } from './FunctionType/encode'
 import { ReadContract } from './FunctionType/read'
 import { WriteContract } from './FunctionType/write'
-import { encodeData } from '../../../helpers/solidity/methods'
+import { encodeData, getFunctionSignature } from '../../../helpers/solidity/methods'
 import { createJoiSchema } from '../../../helpers/web3-tools/abi-encoder'
 
 const TypeComponent = {
@@ -45,10 +45,6 @@ const defaultData = type => {
   return type.endsWith('[]') ? [_value] : _value
 }
 
-function getFunctionSignature (_func) {
-  return `${_func.name}(${_func.inputs.map(_inp => _inp.type).join(', ')})`
-}
-
 const Func = (props) => {
   const [isOpen, setIsOpen] = useState(false)
 
@@ -65,16 +61,8 @@ const Func = (props) => {
     const isTupleInputs = func.inputs[0]?.type === 'tuple'
     let encodeArgs = []
     if (inputs?.length) {
-      if (isTupleInputs) {
-        const args = {}
-        inputs.map(i => {
-          args[i.name] = defaultData(i.type)
-          return true
-        })
-        encodeArgs = [args]
-      } else {
-        encodeArgs = inputs.map(i => defaultData(i.type))
-      }
+      const _args = inputs.map(i => defaultData(i.type))
+      encodeArgs = isTupleInputs ? [_args] : _args
     }
 
     const encodeName = getFunctionSignature(func)
@@ -131,8 +119,9 @@ const ListHeader = styled.div`
 `
 
 const Button = styled.button`
-  outline: none;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 `
 
 const Name = styled.div`

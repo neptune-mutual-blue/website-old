@@ -2,9 +2,10 @@ import styled, { css, useTheme } from 'styled-components'
 import { colors } from '../../../styles/colors'
 import { typography } from '../../../styles/typography'
 import { Icon } from '../../components/Icon'
+import { Loader } from './Loader'
 
 export const Option = (props) => {
-  const { id, name, onClick, iconVariant, iconVariantDark } = props
+  const { id, name, onClick, iconVariant, iconVariantDark, connectingId } = props
   const { isLightMode } = useTheme()
 
   const WalletIcon = <Icon variant={isLightMode ? iconVariant : iconVariantDark} size={20} />
@@ -59,9 +60,12 @@ export const Option = (props) => {
       key={id}
       onClick={onClick}
       type='button'
+      disabled={connectingId}
     >
       {WalletIcon}
       <p>{name}</p>
+
+      {connectingId === id && <Loader />}
     </StyledButton>
   )
 }
@@ -78,6 +82,11 @@ const LinkStyle = css`
   border-radius: 8px;
   cursor: pointer;
 
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.75;
+  }
+
   p {
     ${typography.styles.textMd};
     ${typography.weights.semibold};
@@ -86,7 +95,13 @@ const LinkStyle = css`
 `
 
 const StyledButton = styled.button`
-  ${LinkStyle}
+  ${LinkStyle};
+
+  svg:last-child {
+    width: 24px;
+    height: 24px;
+    margin-left: 12px;
+  }
 `
 
 const StyledLink = styled.a`

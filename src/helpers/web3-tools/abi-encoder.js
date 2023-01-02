@@ -56,7 +56,10 @@ export const getJoiType = (type) => {
 
       case 'bytes':
       case 'bytes32':
-        _joiType = Joi.string().custom((val) => val.startsWith('0x'))
+        _joiType = Joi.string().custom((val, helper) => {
+          if (val.startsWith('0x')) return val
+          return helper.message('Invalid account')
+        })
         break
 
       case 'uint':

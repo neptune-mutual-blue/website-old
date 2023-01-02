@@ -26,7 +26,7 @@ const StyledDialog = styled.div`
   z-index: 10;
   overflow-y: auto;
   background-color: ${colors.black}50;
-  backdrop-filter: blur(4px);
+  /* backdrop-filter: blur(4px); */
 `
 
 const OverlayWrapper = styled.div`

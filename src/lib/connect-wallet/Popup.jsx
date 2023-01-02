@@ -7,7 +7,6 @@ import { Dialog } from '@headlessui/react'
 
 import { WalletList } from './WalletList'
 import { Disclaimer } from './Disclaimer'
-import { Loader } from './Loader'
 import { Modal } from '../../components/Modal'
 import { Icon } from '../../components/Icon'
 import { colors, primaryColorKey } from '../../../styles/colors'
@@ -57,19 +56,13 @@ export const Popup = ({ isOpen, onClose, notifier = console.log }) => {
           <Icon variant='x-close' size={24} />
         </CloseButton>
 
-        {!isConnecting
-          ? (
-            <>
-              <Disclaimer />
-              <WalletList wallets={wallets} onConnect={onConnect} />
-            </>
-            )
-          : (
-            <LoaderWrapper>
-              <Loader />
-              <p>Connecting</p>
-            </LoaderWrapper>
-            )}
+        <Disclaimer />
+        <WalletList
+          wallets={wallets}
+          onConnect={onConnect}
+          isConnecting={isConnecting}
+        />
+
       </Wrapper>
     </Modal>
   )
@@ -97,11 +90,12 @@ const WalletIcon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 15px;
+  padding: 10px;
   color: ${props => props.theme.isLightMode ? colors[primaryColorKey][600] : colors.white};
-  background-color: ${props => props.theme.isLightMode ? colors[primaryColorKey][100] : colors.gray[700]};
-  width: max-content;
+  background-color: ${props => props.theme.isLightMode ? colors[primaryColorKey][100] : colors.gray[600]};
+  width: max-content; 
   border-radius: 50%;
+  box-shadow: 0 0 0 8px ${props => props.theme.isLightMode ? colors[primaryColorKey][50] : colors.gray[700]};
 `
 
 const StyledDialogTitle = styled(Dialog.Title)`
@@ -125,16 +119,5 @@ const CloseButton = styled.button`
 
   span {
     ${utils.srOnly}
-  }
-`
-
-const LoaderWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  margin-top: 32px;
-  justify-content: flex-start;
-  
-  @media screen and (min-width: 768px) {
-    min-width: 250px;
   }
 `
