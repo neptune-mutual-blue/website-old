@@ -5,7 +5,8 @@ export const wallets = [
     id: '1',
     name: 'MetaMask',
     connectorName: ConnectorNames.Injected,
-    iconVariant: 'metamask'
+    iconVariant: 'metamask',
+    iconVariantDark: 'metamask-dark'
   }
   // {
   //   id: '2',

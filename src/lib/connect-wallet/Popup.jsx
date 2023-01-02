@@ -10,7 +10,7 @@ import { Disclaimer } from './Disclaimer'
 import { Loader } from './Loader'
 import { Modal } from '../../components/Modal'
 import { Icon } from '../../components/Icon'
-import { colors } from '../../../styles/colors'
+import { colors, primaryColorKey } from '../../../styles/colors'
 import { utils } from '../../../styles/utils'
 import { typography } from '../../../styles/typography'
 
@@ -39,6 +39,10 @@ export const Popup = ({ isOpen, onClose, notifier }) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <Wrapper>
+        <WalletIcon>
+          <Icon variant='wallet-04' size={24} />
+        </WalletIcon>
+
         <StyledDialogTitle as='h3'>
           Connect Wallet
         </StyledDialogTitle>
@@ -76,28 +80,41 @@ const Wrapper = styled.div`
   transition-property: all; 
   text-align: left; 
   vertical-align: middle; 
-  max-width: 28rem; 
-  border-radius: 1.5rem; 
-  padding: 3rem; 
-  background: #f1f3f6;
+  max-width: 400px; 
+  border-radius: 12px; 
+  padding: 24px; 
+  background: ${props => props.theme.isLightMode ? colors.white : colors.gray[800]};
   
   @media screen and (max-width: 768px) {
     padding: 2rem; 
   }
 `
 
+const WalletIcon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  color: ${props => props.theme.isLightMode ? colors[primaryColorKey][600] : colors.white};
+  background-color: ${props => props.theme.isLightMode ? colors[primaryColorKey][100] : colors.gray[700]};
+  width: max-content;
+  border-radius: 50%;
+`
+
 const StyledDialogTitle = styled(Dialog.Title)`
-  color: ${colors.black};
-  ${typography.styles.displayXs}
-  ${typography.weights.bold}
+  margin-top: 16px;
+  color: ${props => props.theme.isLightMode ? colors.black : colors.white};
+  ${typography.styles.textLg}
+  ${typography.weights.semibold}
 `
 
 const CloseButton = styled.button`
   display: flex; 
   position: absolute; 
-  top: 1.75rem; 
-  right: 3rem; 
-  color: #000000; 
+  padding: 6px;
+  top: 16px; 
+  right: 16px; 
+  color: ${props => props.theme.isLightMode ? colors.gray[500] : colors.white}; 
   justify-content: center; 
   align-items: center; 
   border-radius: 0.375rem; 

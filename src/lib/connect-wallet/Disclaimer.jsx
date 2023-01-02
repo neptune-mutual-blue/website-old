@@ -28,16 +28,15 @@ export const Disclaimer = () => {
 
 const P = styled.p`
   ${typography.styles.textSm};
-  color: ${colors.black};
-  margin-top: 24px;
+  color: ${props => props.theme.isLightMode ? colors.gray[600] : colors.white};
+  margin-top: 4px;
 `
 
 const StyledLink = styled.a`
-  color: ${colors.blue[700]};
-  ${typography.weights.medium}
+  text-decoration: underline;
+  color: inherit;
   
   &:hover {
-    text-decoration: underline;
     color: ${colors.blue[700]};
   }
 `

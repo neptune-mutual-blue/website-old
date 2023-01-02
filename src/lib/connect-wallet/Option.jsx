@@ -1,10 +1,11 @@
-import styled, { css } from 'styled-components'
+import styled, { css, useTheme } from 'styled-components'
 import { colors } from '../../../styles/colors'
 import { typography } from '../../../styles/typography'
 import { Icon } from '../../components/Icon'
 
 export const Option = (props) => {
-  const { id, name, onClick, iconVariant } = props
+  const { id, name, onClick, iconVariant, iconVariantDark } = props
+  const { isLightMode } = useTheme()
 
   if (name.toLowerCase() === 'metamask') {
     if (!(window.web3 || window.ethereum)) {
@@ -14,7 +15,7 @@ export const Option = (props) => {
           target='_blank'
           rel='noreferrer noopener'
         >
-          <Icon variant={iconVariant} size={24} />
+          <Icon variant={isLightMode ? iconVariant : iconVariantDark} size={20} />
           <p>Install Metamask</p>
         </StyledLink>
       )
@@ -29,7 +30,7 @@ export const Option = (props) => {
           target='_blank'
           rel='noreferrer noopener'
         >
-          <Icon variant={iconVariant} size={24} />
+          <Icon variant={isLightMode ? iconVariant : iconVariantDark} size={20} />
           <p>Install Binance Wallet</p>
         </StyledLink>
       )
@@ -42,7 +43,7 @@ export const Option = (props) => {
       onClick={onClick}
       type='button'
     >
-      <Icon variant={iconVariant} size={24} />
+      <Icon variant={isLightMode ? iconVariant : iconVariantDark} size={20} />
       <p>{name}</p>
     </StyledButton>
   )
@@ -52,17 +53,18 @@ const LinkStyle = css`
   width: 100%;
   display: flex;
   align-items: center;
-  padding: 16px 24px;
-  background-color: ${colors.white};
-  border: 1px solid ${colors.gray[200]};
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background-color: ${props => props.theme.isLightMode ? 'transparent' : colors.gray[600]};
+  border: 1px solid ${props => props.theme.isLightMode ? colors.gray[300] : colors.gray[500]};
   border-radius: 8px;
   cursor: pointer;
 
   p {
-    ${typography.styles.textSm};
-    ${typography.weights.medium};
-    color: ${colors.black};
-    margin-left: 24px;
+    ${typography.styles.textMd};
+    ${typography.weights.semibold};
+    color: ${props => props.theme.isLightMode ? colors.gray[700] : colors.gray[25]};
   }
 `
 

@@ -79,7 +79,7 @@ import { PencilLine } from "./variants/Editor"
 import Dot from "./custom/dot"
 import SunFilled from "./custom/sun-filled";
 import MoonStarFilled from "./custom/moon-star-filled";
-import { Arbitrum, ArbitrumDark, Avalanche, AvalancheDark, BNBChain, BNBChainDark, Ethereum, EthereumDark, Metamask, Polygon, PolygonDark } from "./custom/Brands";
+import { Arbitrum, ArbitrumDark, Avalanche, AvalancheDark, BNBChain, BNBChainDark, Ethereum, EthereumDark, Metamask, MetamaskDark, Polygon, PolygonDark } from "./custom/Brands";
 import { AlignBottom01 } from "./variants/Layout";
 
 export const Icon = ({ size, variant }) => {
@@ -521,6 +521,10 @@ export const Icon = ({ size, variant }) => {
 
   if(variant === 'metamask') {
     IconComponent = Metamask
+  }
+
+  if(variant === 'metamask-dark') {
+    IconComponent = MetamaskDark
   }
 
   return IconComponent ? <IconComponent width={size} height={size} /> : null;
