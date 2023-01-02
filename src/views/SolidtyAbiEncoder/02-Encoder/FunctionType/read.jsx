@@ -1,4 +1,4 @@
-import { useId, Fragment } from 'react'
+import { useId, Fragment, useState } from 'react'
 
 import styled from 'styled-components'
 import { colors, primaryColorKey } from '../../../../../styles/colors'
@@ -6,39 +6,97 @@ import { InputWithLabel } from '../../../../components/InputWithLabel'
 import { Button } from '../../../../components/Button'
 import { Icon } from '../../../../components/Icon'
 import { typography } from '../../../../../styles/typography'
-
-const placeHoldersSamples = {
-  uint256: 111222333,
-  bytes32: '0x112233',
-  address: '0x11...22'
-}
+import { checkInputErrors, getPlaceholder, isInputError } from '../../../../helpers/web3-tools/abi-encoder'
 
 const ReadContract = (props) => {
   const id = useId()
-  console.log(props)
+
+  const { func, call, inputs, joiSchema, isReady } = props
+
+  const [inputData, setInputData] = useState({})
+  const [outputData, setOutputData] = useState(func.outputs)
+  const [error, setError] = useState('')
+
+  function getFunctionSignature () {
+    const _func = func
+    return `${_func.name}(${_func.inputs.map(_inp => _inp.type).join(', ')})`
+  }
+
+  function getOutputsSignature () {
+    const _func = func
+    return `${_func.outputs.map(_inp => _inp.type).join(', ')}`
+  }
+
+  async function handleQuery () {
+    if (error) setError('')
+
+    const methodName = func.name
+    const args = Object.values(inputData)
+    const outputs = await call(methodName, args)
+
+    if (outputs && !outputs.error) {
+      const _outputData = func.outputs.map((o, i) => ({
+        ...o,
+        value: outputs[i]?.toString()
+      }))
+      setOutputData(_outputData)
+    }
+
+    if (outputs?.error) setError(outputs.error)
+    else setError('')
+  }
+
+  const handleInputChange = (name, value = '') => {
+    setInputData(_prev => ({ ..._prev, [name]: value }))
+    if (error) setError('')
+  }
+
   return (
     <Container>
-      {props.func.inputs.map((input, i) => {
+      {inputs.map((input, i) => {
         return (
           <InputWithLabel
             key={`input-${i}`}
             label={`${input.name} (${input.type})`}
-            placeholder={placeHoldersSamples[input.type]}
+            placeholder={getPlaceholder(input.type)}
             id={`${id}-${i}`}
+            onChange={e => handleInputChange(input.name, e.target.value)}
+            error={isInputError(joiSchema, inputData, input.name)}
           />
         )
       })}
 
-      {Array.isArray(props.func.inputs) && props.func.inputs.length > 0 && <Btn hierarchy='secondary'>Query</Btn>}
+      <BtnWrapper>
+        <Btn
+          hierarchy='secondary'
+          onClick={handleQuery}
+          disabled={!isReady || checkInputErrors(joiSchema, inputData)}
+        >
+          Query
+        </Btn>
+        <span className='error'>{error}</span>
+      </BtnWrapper>
 
-      {Array.isArray(props.func.inputs) && props.func.inputs.length > 0 && props.func.outputs.map((output, i) => {
+      <Output>
+        <Icon variant='L' size={10} />
+        {getOutputsSignature()}
+      </Output>
+      {outputData.map((output, i) => {
         return (
           <Fragment key={`output-${i}`}>
-            <Output><Icon variant='L' size={10} />{(output.type)}</Output>
-            <ResultContainer>
-              <ResultTitle>[<Bold>{props.func.name}</Bold> method Response]</ResultTitle>
-              <Result><Icon variant='chevron-right-double' size={18} />{(output.type)}: @TODO</Result>
-            </ResultContainer>
+            {
+              output.value && (
+                <ResultContainer>
+                  <ResultTitle>
+                    [<Bold>{getFunctionSignature()}</Bold> method Response]
+                  </ResultTitle>
+                  <Result>
+                    <Icon variant='chevron-right-double' size={18} />
+                    <span>{(output.type)}: {output.value}</span>
+                  </Result>
+                </ResultContainer>
+              )
+            }
           </Fragment>
         )
       })}
@@ -54,14 +112,19 @@ const Container = styled.div`
   padding: 32px 24px;
   gap: 24px;
 `
+
 const Btn = styled(Button)`
   width: fit-content;
+
+  &:disabled {
+    opacity: ${props => props.theme.isLightMode ? '1' : '0.75'};
+  }
 `
 const Output = styled.div`
   display: flex;
   gap: 8px;
   align-items: center;
-  color: ${props => props.theme.isLightMode ? colors.gray[900] : colors.gray[900]};
+  color: ${props => props.theme.isLightMode ? colors.gray[900] : colors.white};
   font-style: italic;
   ${typography.weights.regular}
   ${typography.styles.textSm}
@@ -73,7 +136,9 @@ const ResultContainer = styled.div`
   gap: 4px;
 `
 
-const ResultTitle = styled.span``
+const ResultTitle = styled.span`
+  ${typography.styles.textSm}
+`
 
 const Bold = styled.span`
   ${typography.weights.semibold}
@@ -84,9 +149,30 @@ const Result = styled.span`
   align-items: center;
   gap: 8px;
   font-style: italic;
+  ${typography.styles.textSm}
+
+  span {
+    color: ${props => props.theme.isLightMode ? colors.black : colors.white}
+  }
 
   svg {
-    color: ${props => props.theme.isLightMode ? colors.success[700] : colors.gray[25]}
+    color: ${props => props.theme.isLightMode ? colors.success[700] : colors.success[500]}
+  }
+`
+
+const BtnWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  @media screen and (max-width: 768px) {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  span.error {
+    ${typography.styles.textSm}
+    color: ${colors.error[700]};
   }
 `
 

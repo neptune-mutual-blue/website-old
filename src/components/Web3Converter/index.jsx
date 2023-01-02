@@ -7,6 +7,7 @@ import { colors, primaryColorKey } from '../../../styles/colors'
 import { shadows } from '../../../styles/shadows'
 import { typography } from '../../../styles/typography'
 import { utils } from '../../../styles/utils'
+import { handleCopy } from '../../helpers'
 import { bytes32_to_number, bytes32_to_string, number_to_bytes32, string_to_bytes32 } from '../../helpers/web3-tools'
 import { Breadcrumbs } from '../Breadcrumbs'
 import { CircularCheckbox } from '../CircularCheckbox'
@@ -195,15 +196,6 @@ const Web3Converter = ({ slug, crumbs }) => {
     }
   }, [copied])
 
-  const handleCopy = () => {
-    try {
-      navigator.clipboard.writeText(formData.result)
-      setCopied(true)
-    } catch (err) {
-      console.log('Unable to copy \nSee Error below:\n', err)
-    }
-  }
-
   return (
     <Container>
       <InnerContainer>
@@ -284,7 +276,9 @@ const Web3Converter = ({ slug, crumbs }) => {
                     disabled
                   />
                   <CopyButton
-                    onClick={handleCopy}
+                    onClick={() => {
+                      handleCopy(formData.result, () => setCopied(true))
+                    }}
                     disabled={!formData.result}
                     type='button'
                   >

@@ -4,7 +4,10 @@ import { useRouter } from 'next/router.js'
 import { useTranslation } from 'react-i18next'
 import { services } from '../../services/index.js'
 import { getFQDN } from '../../src/helpers/index.js'
+
+import { Web3ReactProvider } from '@web3-react/core'
 import { SolidtyAbiEncoderPage } from '../../src/views/SolidtyAbiEncoder/index.jsx'
+import { getLibrary } from '../../src/lib/connect-wallet/utils/web3.js'
 
 export async function getStaticProps ({ locale }) {
   const s = await serverSideTranslations(locale, ['common', 'solidity-abi-encoder-online'])
@@ -46,7 +49,9 @@ export default function SolidityABIEncoderPage () {
       </Head>
 
       <main>
-        <SolidtyAbiEncoderPage />
+        <Web3ReactProvider getLibrary={getLibrary}>
+          <SolidtyAbiEncoderPage />
+        </Web3ReactProvider>
       </main>
     </>
   )

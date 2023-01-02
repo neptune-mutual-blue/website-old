@@ -4,7 +4,10 @@ import { typography } from '../../../../styles/typography'
 import { Func } from './Func'
 import { Button } from '../../../components/Button'
 import { useState } from 'react'
+import { ConnectWallet } from '../../../components/ConnectWallet'
+import { useContractCall } from '../../../hooks/useContractCall'
 
+import { ethers } from 'ethers'
 // function
 // https://github.com/neptune-mutual-blue/protocol/tree/develop/abis
 // Encode
@@ -29,12 +32,19 @@ const filter = {
 }
 
 const Result = (props) => {
-  let count = 0
   const [type, setType] = useState('encode_data')
+
+  const { abi, address, title } = props
+
+  const { callMethod, isReady } = useContractCall({
+    abi,
+    address
+  })
 
   const handleType = (e) => {
     e.preventDefault()
-    setType(e.target.parentNode.value || e.target.value)
+    const _type = e.target.parentNode.value || e.target.value
+    setType(_type)
   }
 
   const validateStateMutability = (stateMutability) => {
@@ -42,35 +52,73 @@ const Result = (props) => {
     return re.test(stateMutability)
   }
 
+  const ethersInterface = new ethers.utils.Interface(abi)
+
   return (
     <Container>
       <Header>
-        <Title>{props.title}</Title>
-        <Address>{props.address}</Address>
+        <Title>{title}</Title>
+        <Address>{address}</Address>
       </Header>
 
-      {Array.isArray(props.abi) && props.abi.length > 0 && (
+      {Array.isArray(abi) && abi.length > 0 && (
         <CallToAction>
           <LeftGroup>
-            <Btn hierarchy='secondary' active={type === 'encode_data'} size='sm' value='encode_data' onClick={handleType}>Encode Data</Btn>
-            <Btn hierarchy='secondary' active={type === 'read_contract'} size='sm' value='read_contract' onClick={handleType}>Read Contract</Btn>
-            <Btn hierarchy='secondary' active={type === 'write_contract'} size='sm' value='write_contract' onClick={handleType}>Write Contract</Btn>
+            <Btn
+              hierarchy='secondary'
+              active={type === 'encode_data'}
+              size='sm'
+              value='encode_data'
+              onClick={handleType}
+            >
+              Encode Data
+            </Btn>
+            <Btn
+              hierarchy='secondary'
+              active={type === 'read_contract'}
+              size='sm'
+              value='read_contract'
+              onClick={handleType}
+            >
+              Read Contract
+            </Btn>
+            <Btn
+              hierarchy='secondary'
+              active={type === 'write_contract'}
+              size='sm'
+              value='write_contract'
+              onClick={handleType}
+            >
+              Write Contract
+            </Btn>
           </LeftGroup>
           <RigthGroup>
-            {type !== 'encode_data' && <Button hierarchy='primary' size='sm' iconLeading iconVariant='wallet-04'>Connect Wallet</Button>}
+            {
+              type !== 'encode_data' && (
+                <ConnectWallet />
+              )
+            }
           </RigthGroup>
         </CallToAction>
       )}
 
       <ListContainer>
-        {Array.isArray(props.abi) && props.abi.map((func, i) => {
-          if (func.type === 'function' && validateStateMutability(func.stateMutability)) {
-            count++
-
-            return <Func type={type} key={`func-${i}`} func={func} count={count} />
-          }
-          return true
-        })}
+        {
+          Array.isArray(abi) &&
+          abi.filter(func => (
+            func.type === 'function' && validateStateMutability(func.stateMutability)
+          )).map((func, i) => (
+            <Func
+              type={type}
+              key={`func-${i}`}
+              func={func}
+              count={i + 1}
+              call={callMethod}
+              isReady={isReady}
+              interface={ethersInterface}
+            />
+          ))
+        }
       </ListContainer>
     </Container>
   )
@@ -97,6 +145,8 @@ const Address = styled.p`
   color: ${props => props.theme.isLightMode ? colors.gray[800] : colors.gray[25]};
   ${typography.styles.textMd}
   ${typography.weights.regular}
+  overflow: hidden;
+  text-overflow: ellipsis;
 `
 
 const ListContainer = styled.div`
@@ -124,12 +174,19 @@ const CallToAction = styled.div`
   display: flex;
   margin: 24px 0;
   justify-content: space-between;
+  flex-wrap: wrap;
+  row-gap: 16px;
+  column-gap: 8px;
 `
 const LeftGroup = styled.div`
   display: flex;
   gap: 8px;
 `
-const RigthGroup = styled.div``
+const RigthGroup = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-left: auto;
+`
 
 const Btn = styled(Button)`
   padding: 8px 12px;
@@ -137,7 +194,7 @@ const Btn = styled(Button)`
   ${typography.styles.textSm}
   cursor: pointer;
   color: ${props => props.theme.isLightMode ? colors.gray[500] : colors.gray[300]};
-  border: none;
+  border: 1px solid transparent;
   box-shadow: none;
 
   ${props => {
