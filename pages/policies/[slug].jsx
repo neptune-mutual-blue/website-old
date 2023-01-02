@@ -70,6 +70,9 @@ export default function SinglePolicyPage (props) {
         <meta property='twitter:title' content={props.page.meta.title} />
         <meta property='twitter:image' content={getFQDN(props.page.meta.image.src)} />
         <meta property='twitter:image:alt' content={props.page.meta.image.alt} />
+
+        {/* DO NOT INDEX */}
+        <meta name='robots' content='noindex' />
       </Head>
 
       <main>

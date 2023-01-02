@@ -52,6 +52,9 @@ export default function PolicyPage (props) {
         <meta property='twitter:title' content={t('META_TWITTER_TITLE')} />
         <meta property='twitter:image' content={getFQDN(t('META_TWITTER_IMAGE'))} />
         <meta property='twitter:image:alt' content={t('META_TWITTER_IMAGE_ALT')} />
+
+        {/* DO NOT INDEX */}
+        <meta name='robots' content='noindex' />
       </Head>
 
       <main>
