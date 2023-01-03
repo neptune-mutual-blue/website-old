@@ -129,7 +129,7 @@ const Content = styled.ol`
   display: flex;
   flex-direction: column;
   row-gap: 4px;
-  margin-top: 8px;
+  margin-top: 4px;
   padding-left: 0;
 
   ${typography.styles.textMd};

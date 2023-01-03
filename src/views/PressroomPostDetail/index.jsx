@@ -2,13 +2,14 @@ import styled from 'styled-components'
 
 import { colors } from '../../../styles/colors'
 import { utils } from '../../../styles/utils'
+import { Breadcrumbs } from '../../components/Breadcrumbs'
 import { HtmlContent } from '../../components/Content'
 import { NewsletterSignupForm } from '../../components/NewsletterSignupForm'
 import { SocialShare } from '../../components/SocialShare'
 import { TableOfContents } from '../../components/TableOfContents'
 import { Hero } from './01-hero'
-import { RelatedPosts } from './03-related-posts'
 import { Tags } from '../../components/Tags'
+import { RelatedPosts } from './03-related-posts'
 
 export const PressroomPostDetail = (props) => {
   const timeToRead = `${props.post.content.minsToRead} min`
@@ -23,6 +24,13 @@ export const PressroomPostDetail = (props) => {
         </Sidebar>
 
         <ContentWrapper>
+          <Breadcrumbs crumbs={[
+            { name: 'Home', link: '/' },
+            { name: 'Blog', link: '/blog' },
+            { name: props.post.title, link: null }
+          ]}
+          />
+
           <HtmlContent content={props.post.content.html} />
 
           <Tags tags={props.post.tags} type='pressroom' />
