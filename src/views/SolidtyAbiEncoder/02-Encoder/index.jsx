@@ -7,6 +7,7 @@ import { useRef, useState, useEffect } from 'react'
 import { isJSON } from '../../../helpers'
 import { TextArea } from '../../../components/TextArea'
 import { InputWithLabel } from '../../../components/InputWithLabel'
+import { Breadcrumbs } from '../../../components/Breadcrumbs'
 import { History } from './History'
 import { Result } from './Result'
 
@@ -138,74 +139,83 @@ const Encoder = () => {
   return (
     <Container>
       <FormContainer>
-        <FormContent ref={formRef}>
-          <TextArea
-            required
-            label='What is your contract ABI?'
-            placeholder='Paste your smart contract or interface ABI code here'
-            onChange={validateABI}
-            error={abiInvalidFormat ? 'ABI format is invalid.' : ''}
-            rows={5}
-            id='abi'
+        <div>
+          <Breadcrumbs crumbs={[
+            { name: 'Home', link: '/' },
+            { name: 'Web3 Tools', link: '/web3-tools' },
+            { name: 'ABI Encoder', link: null }
+          ]}
           />
 
-          <InputWithLabel
-            required
-            label='How would you want to remember your contract name in the future?'
-            placeholder='Contract or interface name'
-            id='contract_name'
-            onChange={(e) => { return setContractName(e.target.value) }}
-          >
-            <InputHint>
-              Enter the contract name or an easy way to remember name for this contract
-            </InputHint>
-          </InputWithLabel>
+          <FormContent ref={formRef}>
+            <TextArea
+              required
+              label='What is your contract ABI?'
+              placeholder='Paste your smart contract or interface ABI code here'
+              onChange={validateABI}
+              error={abiInvalidFormat ? 'ABI format is invalid.' : ''}
+              rows={5}
+              id='abi'
+            />
 
-          <InputWithLabel
-            required
-            label='Have you deployed this contract on a blockchain network?'
-            placeholder='0x'
-            id='address'
-            onChange={(e) => { return setAddress(e.target.value) }}
-          >
-            <InputHint>
-              If you’d like to perform read and write operations on this contract, paste its address.
-            </InputHint>
-          </InputWithLabel>
+            <InputWithLabel
+              required
+              label='How would you want to remember your contract name in the future?'
+              placeholder='Contract or interface name'
+              id='contract_name'
+              onChange={(e) => { return setContractName(e.target.value) }}
+            >
+              <InputHint>
+                Enter the contract name or an easy way to remember name for this contract
+              </InputHint>
+            </InputWithLabel>
 
-          <FormAction>
-            <Button
-              hierarchy='secondary'
-              disabled={!isSaveable}
-              size='sm'
-              iconLeading
-              iconVariant='folder'
-              onClick={saveToStorage}
+            <InputWithLabel
+              required
+              label='Have you deployed this contract on a blockchain network?'
+              placeholder='0x'
+              id='address'
+              onChange={(e) => { return setAddress(e.target.value) }}
             >
-              Save to Local Storage
-            </Button>
-            <Button
-              hierarchy='secondary'
-              disabled={contracts.length === 0}
-              size='sm'
-              iconLeading
-              iconVariant='download-cloud-01'
-              onClick={download}
-            >
-              Save All to Your Computer
-            </Button>
-            <Button
-              hierarchy='secondary'
-              size='sm'
-              type='file'
-              iconLeading
-              iconVariant='refresh-ccw-02'
-              onClick={restore}
-            >
-              Restore from Your Computer
-            </Button>
-          </FormAction>
-        </FormContent>
+              <InputHint>
+                If you’d like to perform read and write operations on this contract, paste its address.
+              </InputHint>
+            </InputWithLabel>
+
+            <FormAction>
+              <Button
+                hierarchy='secondary'
+                disabled={!isSaveable}
+                size='sm'
+                iconLeading
+                iconVariant='folder'
+                onClick={saveToStorage}
+              >
+                Save to Local Storage
+              </Button>
+              <Button
+                hierarchy='secondary'
+                disabled={contracts.length === 0}
+                size='sm'
+                iconLeading
+                iconVariant='download-cloud-01'
+                onClick={download}
+              >
+                Save All to Your Computer
+              </Button>
+              <Button
+                hierarchy='secondary'
+                size='sm'
+                type='file'
+                iconLeading
+                iconVariant='refresh-ccw-02'
+                onClick={restore}
+              >
+                Restore from Your Computer
+              </Button>
+            </FormAction>
+          </FormContent>
+        </div>
 
         <History
           contracts={contracts}

@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 import { colors } from '../../../styles/colors'
 import { utils } from '../../../styles/utils'
+import { Breadcrumbs } from '../../components/Breadcrumbs'
 import { HtmlContent } from '../../components/Content'
 import { NewsletterSignupForm } from '../../components/NewsletterSignupForm'
 import { SocialShare } from '../../components/SocialShare'
@@ -22,6 +23,13 @@ export const BlogPostDetail = (props) => {
         </Sidebar>
 
         <ContentWrapper>
+          <Breadcrumbs crumbs={[
+            { name: 'Home', link: '/' },
+            { name: 'Blog', link: '/blog' },
+            { name: props.post.title, link: null }
+          ]}
+          />
+
           <HtmlContent content={props.post.content.html} />
 
           <Tags tags={props.post.tags} />
