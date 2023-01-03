@@ -1,21 +1,19 @@
+import { env } from '../environment'
 import { helpers } from '../helpers'
 import { storeLocally } from '../io/download'
-import { request } from '../http/request'
-import { getApiHeaders } from './config'
-import { env } from '../environment'
+import { getApi } from './get'
 
 let docs = null
 
 const getDocs = async () => {
-  if (docs) {
-    return docs
-  }
-
   try {
-    console.log('fetching all audits')
-    const dataStr = await request.get(`${env.websiteApiServer}/api/audits?limit=1000&depth=6`, getApiHeaders())
-    const data = JSON.parse(dataStr)
-    docs = data.docs
+    if (docs) {
+      return docs
+    }
+
+    const api = await getApi('audits')
+    docs = api.docs
+
     return docs
   } catch (error) {
 

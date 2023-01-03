@@ -56,7 +56,7 @@ const StyledButton = styled.button`
 
   &:not(&:disabled) {
     &[data-state="hover"], :hover {
-      color: ${(props) => getBgColor(props.destructive)['700']};
+      color: ${(props) => props.theme.isLightMode ? getBgColor(props.destructive)['700'] : getBgColor(props.destructive)['100']};
     }
 
     &[data-state="focussed"],

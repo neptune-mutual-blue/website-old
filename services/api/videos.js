@@ -1,8 +1,9 @@
-import { helpers } from '../helpers'
-import { request } from '../http/request'
-import { storeLocally } from '../io/download'
-import { getApiHeaders } from './config'
 import { env } from '../environment'
+import { helpers } from '../helpers'
+import { storeLocally } from '../io/download'
+import { getApi } from './get'
+
+let docs = null
 
 const getVideoDurationText = (timestamp) => {
   // 2
@@ -22,20 +23,15 @@ const getVideoDurationText = (timestamp) => {
   }
 }
 
-let docs = null
-
 const getDocs = async () => {
-  if (docs) {
-    return docs
-  }
-
   try {
-    console.log('fetching all videos')
+    if (docs) {
+      return docs
+    }
 
-    const dataStr = await request.get(`${env.websiteApiServer}/api/videos?limit=1000`, getApiHeaders())
-    const data = JSON.parse(dataStr)
+    const api = await getApi('videos')
+    docs = api.docs
 
-    docs = data.docs
     return docs
   } catch (error) {
 
@@ -71,7 +67,7 @@ export const getVideos = async () => {
 
     const allVideos = result.map(x => x.value)
 
-    const latestVideos = allVideos.sort((a, b) => a.sort - b.sort).slice(0, 3)
+    const latestVideos = allVideos.sort((a, b) => a.sort - b.sort).slice(0, 4)
 
     return latestVideos
   } catch (error) {

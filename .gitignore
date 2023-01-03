@@ -36,3 +36,9 @@ yarn-error.log*
 next-env.d.ts
 
 public/cdn/
+public/sitemap.xml
+public/cache
+public/blog/atom.xml
+public/blog/rss.xml
+public/pressroom/atom.xml
+public/pressroom/rss.xml

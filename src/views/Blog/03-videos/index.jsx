@@ -29,7 +29,7 @@ export const RecentVideos = () => {
         </HeadingContainer>
 
         <VideosContainer>
-          {videos && videos.map((video, idx) => {
+          {videos && videos.slice(0, 3).map((video, idx) => {
             return <Video key={idx} video={video} />
           })}
         </VideosContainer>

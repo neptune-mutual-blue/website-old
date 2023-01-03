@@ -1,20 +1,16 @@
-import { env } from '../environment'
-import { request } from '../http/request'
-import { getApiHeaders } from './config'
+import { getApi } from './get'
 
 let docs = null
 
 const getDocs = async () => {
-  if (docs) {
-    return docs
-  }
-
   try {
-    console.log('fetching all ecosystems')
+    if (docs) {
+      return docs
+    }
 
-    const dataStr = await request.get(`${env.websiteApiServer}/api/ecosystems?limit=1000&depth=6`, getApiHeaders())
-    const data = JSON.parse(dataStr)
-    docs = data.docs
+    const api = await getApi('ecosystem')
+    docs = api.docs
+
     return docs
   } catch (error) {
 
