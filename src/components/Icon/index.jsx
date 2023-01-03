@@ -61,7 +61,7 @@ import {
   Facebook as FacebookDefault
 } from './variants/Socials/Default'
 import { CodeCircle03, CodeSquare01, Database01, FileCode01 } from "./variants/Development";
-import { Bell02 } from "./variants/AlertsAndFeedback";
+import { AlertCircle, Bell02 } from "./variants/AlertsAndFeedback";
 import { ChartBreakoutSquare, LineChartUp03 } from "./variants/Charts";
 import { Cube01, Cube02 } from "./variants/Shapes";
 import { BookClosed, Glasses02 } from "./variants/Education";
@@ -79,7 +79,7 @@ import { PencilLine } from "./variants/Editor"
 import Dot from "./custom/dot"
 import SunFilled from "./custom/sun-filled";
 import MoonStarFilled from "./custom/moon-star-filled";
-import { Arbitrum, ArbitrumDark, Avalanche, AvalancheDark, BNBChain, BNBChainDark, Ethereum, EthereumDark, Metamask, Polygon, PolygonDark } from "./custom/Brands";
+import { Arbitrum, ArbitrumDark, Avalanche, AvalancheDark, BNBChain, BNBChainDark, Ethereum, EthereumDark, GnosisWallet, GnosisWalletDark, Metamask, MetamaskDark, OkxWallet, OkxWalletDark, Polygon, PolygonDark, WalletConnect, WalletConnectDark } from "./custom/Brands";
 import { AlignBottom01 } from "./variants/Layout";
 
 export const Icon = ({ size, variant }) => {
@@ -515,12 +515,44 @@ export const Icon = ({ size, variant }) => {
     IconComponent = Wallet04
   }
 
+  if(variant === 'alert-circle') {
+    IconComponent = AlertCircle
+  }
+
   if(variant === 'log-out-01') {
     IconComponent = LogOut01
   }
 
   if(variant === 'metamask') {
     IconComponent = Metamask
+  }
+
+  if(variant === 'metamask-dark') {
+    IconComponent = MetamaskDark
+  }
+
+  if(variant === 'okx-wallet') {
+    IconComponent = OkxWallet
+  }
+
+  if(variant === 'okx-wallet-dark') {
+    IconComponent = OkxWalletDark
+  }
+
+  if(variant === 'gnosis-wallet') {
+    IconComponent = GnosisWallet
+  }
+
+  if(variant === 'gnosis-wallet-dark') {
+    IconComponent = GnosisWalletDark
+  }
+
+  if(variant === 'wallet-connect') {
+    IconComponent = WalletConnect
+  }
+
+  if(variant === 'wallet-connect-dark') {
+    IconComponent = WalletConnectDark 
   }
 
   return IconComponent ? <IconComponent width={size} height={size} /> : null;

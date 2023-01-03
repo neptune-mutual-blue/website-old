@@ -1,10 +1,5 @@
 import { ConnectorNames } from '../config/connectors'
 
-export const getInjectedConnector = async () => {
-  const { InjectedConnector } = await import('@web3-react/injected-connector')
-  return new InjectedConnector()
-}
-
 /**
  * Asynchronously load the selected connector only
  *
@@ -13,10 +8,30 @@ export const getInjectedConnector = async () => {
 export const getConnectorByName = async (name) => {
   switch (name) {
     case ConnectorNames.Injected: {
-      const c = await getInjectedConnector()
-      return c
-    }
+      const c = await import('./injected/connector')
 
+      return c.getConnector()
+    }
+    case ConnectorNames.OKXWallet: {
+      const c = await import('./okx-wallet/connector')
+
+      return c.getConnector()
+    }
+    case ConnectorNames.BSC: {
+      const c = await import('./binance-wallet/connector')
+
+      return c.getConnector()
+    }
+    case ConnectorNames.Gnosis: {
+      const c = await import('./gnosis-safe/connector')
+
+      return c.getConnector()
+    }
+    case ConnectorNames.WalletConnect: {
+      const c = await import('./walletconnect/connector')
+
+      return c.getConnector()
+    }
     default:
       return null
   }

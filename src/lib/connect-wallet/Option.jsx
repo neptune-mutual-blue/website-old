@@ -1,12 +1,16 @@
-import styled, { css } from 'styled-components'
+import styled, { css, useTheme } from 'styled-components'
 import { colors } from '../../../styles/colors'
 import { typography } from '../../../styles/typography'
 import { Icon } from '../../components/Icon'
+import { Loader } from './Loader'
 
 export const Option = (props) => {
-  const { id, name, onClick, iconVariant } = props
+  const { id, name, onClick, iconVariant, iconVariantDark, connectingId } = props
+  const { isLightMode } = useTheme()
 
-  if (name.toLowerCase() === 'metamask') {
+  const WalletIcon = <Icon variant={isLightMode ? iconVariant : iconVariantDark} size={20} />
+
+  if (name.toLowerCase() === 'metamask wallet') {
     if (!(window.web3 || window.ethereum)) {
       return (
         <StyledLink
@@ -14,14 +18,29 @@ export const Option = (props) => {
           target='_blank'
           rel='noreferrer noopener'
         >
-          <Icon variant={iconVariant} size={24} />
+          {WalletIcon}
           <p>Install Metamask</p>
         </StyledLink>
       )
     }
   }
 
-  if (name.toLowerCase() === 'binance chain wallet') {
+  if (name.toLowerCase() === 'okx wallet') {
+    if (!(window.okxwallet)) {
+      return (
+        <StyledLink
+          href='https://chrome.google.com/webstore/detail/okex-wallet/mcohilncbfahbmgdjkbpemcciiolgcge'
+          target='_blank'
+          rel='noreferrer noopener nofollow'
+        >
+          {WalletIcon}
+          <p>Install OKX Wallet</p>
+        </StyledLink>
+      )
+    }
+  }
+
+  if (name.toLowerCase() === 'binance wallet') {
     if (!window.BinanceChain) {
       return (
         <StyledLink
@@ -29,7 +48,7 @@ export const Option = (props) => {
           target='_blank'
           rel='noreferrer noopener'
         >
-          <Icon variant={iconVariant} size={24} />
+          {WalletIcon}
           <p>Install Binance Wallet</p>
         </StyledLink>
       )
@@ -41,9 +60,12 @@ export const Option = (props) => {
       key={id}
       onClick={onClick}
       type='button'
+      disabled={connectingId}
     >
-      <Icon variant={iconVariant} size={24} />
+      {WalletIcon}
       <p>{name}</p>
+
+      {connectingId === id && <Loader />}
     </StyledButton>
   )
 }
@@ -52,22 +74,34 @@ const LinkStyle = css`
   width: 100%;
   display: flex;
   align-items: center;
-  padding: 16px 24px;
-  background-color: ${colors.white};
-  border: 1px solid ${colors.gray[200]};
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background-color: ${props => props.theme.isLightMode ? 'transparent' : colors.gray[600]};
+  border: 1px solid ${props => props.theme.isLightMode ? colors.gray[300] : colors.gray[500]};
   border-radius: 8px;
   cursor: pointer;
 
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.75;
+  }
+
   p {
-    ${typography.styles.textSm};
-    ${typography.weights.medium};
-    color: ${colors.black};
-    margin-left: 24px;
+    ${typography.styles.textMd};
+    ${typography.weights.semibold};
+    color: ${props => props.theme.isLightMode ? colors.gray[700] : colors.gray[25]};
   }
 `
 
 const StyledButton = styled.button`
-  ${LinkStyle}
+  ${LinkStyle};
+
+  svg:last-child {
+    width: 24px;
+    height: 24px;
+    margin-left: 12px;
+  }
 `
 
 const StyledLink = styled.a`

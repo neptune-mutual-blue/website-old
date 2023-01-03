@@ -16,6 +16,7 @@ const ReadContract = (props) => {
   const [inputData, setInputData] = useState({})
   const [outputData, setOutputData] = useState(func.outputs)
   const [error, setError] = useState('')
+  const [makingCall, setMakingCall] = useState(false)
 
   function getFunctionSignature () {
     const _func = func
@@ -29,6 +30,7 @@ const ReadContract = (props) => {
 
   async function handleQuery () {
     if (error) setError('')
+    setMakingCall(true)
 
     const methodName = func.name
     const args = Object.values(inputData)
@@ -44,6 +46,8 @@ const ReadContract = (props) => {
 
     if (outputs?.error) setError(outputs.error)
     else setError('')
+
+    setMakingCall(false)
   }
 
   const handleInputChange = (name, value = '') => {
@@ -61,7 +65,12 @@ const ReadContract = (props) => {
             placeholder={getPlaceholder(input.type)}
             id={`${id}-${i}`}
             onChange={e => handleInputChange(input.name, e.target.value)}
-            error={isInputError(joiSchema, inputData, input.name)}
+            error={
+              isInputError(joiSchema, inputData, input.name)
+                ? `Invalid value for type: ${input.type}`
+                : ''
+            }
+            errorIcon='alert-circle'
           />
         )
       })}
@@ -70,7 +79,7 @@ const ReadContract = (props) => {
         <Btn
           hierarchy='secondary'
           onClick={handleQuery}
-          disabled={!isReady || checkInputErrors(joiSchema, inputData)}
+          disabled={!isReady || checkInputErrors(joiSchema, inputData) || makingCall}
         >
           Query
         </Btn>
@@ -111,6 +120,14 @@ const Container = styled.div`
   background-color: ${props => props.theme.isLightMode ? colors[primaryColorKey][25] : colors.gray[900]};
   padding: 32px 24px;
   gap: 24px;
+
+  input[data-error="true"] {
+    border-color: ${colors.error[300]};
+  }
+
+  p, svg {
+    color: ${colors.error[500]};
+  }
 `
 
 const Btn = styled(Button)`

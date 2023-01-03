@@ -1,15 +1,20 @@
+import { useState } from 'react'
 import styled from 'styled-components'
-import { colors } from '../../../styles/colors'
-import { typography } from '../../../styles/typography'
 import { Option } from './Option'
 
-export const WalletList = ({ wallets, onConnect }) => {
+export const WalletList = ({ wallets, onConnect, isConnecting }) => {
+  const [connectingId, setConnectingId] = useState('')
+
   return (
     <Container>
       {wallets.map((wallet) => (
         <Option
           key={wallet.id}
-          onClick={() => onConnect(wallet.id)}
+          onClick={() => {
+            setConnectingId(wallet.id)
+            onConnect(wallet.id)
+          }}
+          connectingId={(isConnecting && connectingId) ? connectingId : ''}
           {...wallet}
         />
       ))}
@@ -19,7 +24,7 @@ export const WalletList = ({ wallets, onConnect }) => {
 
 const Container = styled.div`
   margin-top: 32px;
-  ${typography.styles.textSm};
-  ${typography.weights.regular};
-  color: ${colors.black};
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 `

@@ -57,8 +57,8 @@ const Result = (props) => {
   return (
     <Container>
       <Header>
-        <Title>{title}</Title>
-        <Address>{address}</Address>
+        {title && <Title>{title}</Title>}
+        {address && <Address>{address}</Address>}
       </Header>
 
       {Array.isArray(abi) && abi.length > 0 && (

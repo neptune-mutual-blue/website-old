@@ -11,11 +11,13 @@ const WriteContract = (props) => {
   const id = useId()
   const [inputData, setInputData] = useState({})
   const [error, setError] = useState('')
+  const [makingCall, setMakingCall] = useState(false)
 
   const { func, inputs, tupleInputs, call, joiSchema, isReady } = props
 
   async function handleWrite () {
     if (error) setError('')
+    setMakingCall(true)
 
     const methodName = func.name
     const _inputData = JSON.parse(JSON.stringify(inputData))
@@ -35,6 +37,8 @@ const WriteContract = (props) => {
 
     if (res.error) setError(res.error)
     else setError('')
+
+    setMakingCall(false)
   }
 
   const handleInputChange = (name, value = '') => {
@@ -52,7 +56,12 @@ const WriteContract = (props) => {
             placeholder={getPlaceholder(input.type)}
             id={`${id}-${i}`}
             onChange={e => handleInputChange(input.name, e.target.value, input.type)}
-            error={isInputError(joiSchema, inputData, input.name)}
+            error={
+              isInputError(joiSchema, inputData, input.name)
+                ? `Invalid value for type: ${input.type}`
+                : ''
+            }
+            errorIcon='alert-circle'
           />
         )
       })}
@@ -62,7 +71,7 @@ const WriteContract = (props) => {
           hierarchy='primary'
           size='sm'
           onClick={handleWrite}
-          disabled={!isReady || checkInputErrors(joiSchema, inputData)}
+          disabled={!isReady || checkInputErrors(joiSchema, inputData) || makingCall}
         >
           Write
         </Btn>
@@ -79,6 +88,14 @@ const Container = styled.div`
   background-color: ${props => props.theme.isLightMode ? colors[primaryColorKey][25] : colors.gray[900]};
   padding: 32px 24px;
   gap: 24px;
+
+  input[data-error="true"] {
+    border-color: ${colors.error[300]};
+  }
+
+  p, svg {
+    color: ${colors.error[500]};
+  }
 `
 
 const Btn = styled(Button)`

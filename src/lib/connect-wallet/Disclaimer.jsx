@@ -6,19 +6,20 @@ export const Disclaimer = () => {
   return (
     <P>
       By connecting a wallet, you agree to Neptune Mutual
+      {' '}
       <StyledLink
         href='https://docs.neptunemutual.com/usage/terms-of-use'
         target='_blank'
       >
-        {' '}
-        Terms &amp; Conditions{' '}
+        Terms &amp; Conditions
       </StyledLink>
+      {' '}
       and acknowledge that you have read and understand the Neptune Mutual
+      {' '}
       <StyledLink
         href='https://docs.neptunemutual.com/usage/disclaimer'
         target='_blank'
       >
-        {' '}
         Protocol Disclaimer
       </StyledLink>
       .
@@ -28,16 +29,15 @@ export const Disclaimer = () => {
 
 const P = styled.p`
   ${typography.styles.textSm};
-  color: ${colors.black};
-  margin-top: 24px;
+  color: ${props => props.theme.isLightMode ? colors.gray[600] : colors.white};
+  margin-top: 4px;
 `
 
 const StyledLink = styled.a`
-  color: ${colors.blue[700]};
-  ${typography.weights.medium}
+  text-decoration: underline;
+  color: inherit;
   
   &:hover {
-    text-decoration: underline;
     color: ${colors.blue[700]};
   }
 `

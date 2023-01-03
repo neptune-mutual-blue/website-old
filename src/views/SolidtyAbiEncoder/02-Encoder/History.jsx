@@ -91,8 +91,10 @@ const HistoryCTA = styled.div`
     border-radius: 8px;
     padding: 4px 12px;
 
-    &[data-state="hover"], &:hover {
-      color: ${props => props.theme.isLightMode ? colors[primaryColorKey][600] : colors.gray[700]} !important;
+    &:not(:disabled) {
+      &[data-state="hover"], &:hover {
+        color: ${props => props.theme.isLightMode ? colors[primaryColorKey][600] : colors.gray[700]} !important;
+      }
     }
   }
 `

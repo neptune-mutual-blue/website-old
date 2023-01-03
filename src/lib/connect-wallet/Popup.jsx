@@ -7,18 +7,20 @@ import { Dialog } from '@headlessui/react'
 
 import { WalletList } from './WalletList'
 import { Disclaimer } from './Disclaimer'
-import { Loader } from './Loader'
 import { Modal } from '../../components/Modal'
 import { Icon } from '../../components/Icon'
-import { colors } from '../../../styles/colors'
+import { colors, primaryColorKey } from '../../../styles/colors'
 import { utils } from '../../../styles/utils'
 import { typography } from '../../../styles/typography'
 
-export const Popup = ({ isOpen, onClose, notifier }) => {
+export const Popup = ({ isOpen, onClose, notifier = console.log }) => {
   const [isConnecting, setIsConnecting] = useState(false)
   const { active } = useWeb3React()
 
-  const { login } = useAuth(notifier)
+  const { login } = useAuth((_error) => {
+    setIsConnecting(false)
+    notifier(_error)
+  })
 
   useEffect(() => {
     if (!isOpen) setIsConnecting(false)
@@ -39,6 +41,10 @@ export const Popup = ({ isOpen, onClose, notifier }) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <Wrapper>
+        <WalletIcon>
+          <Icon variant='wallet-04' size={24} />
+        </WalletIcon>
+
         <StyledDialogTitle as='h3'>
           Connect Wallet
         </StyledDialogTitle>
@@ -50,19 +56,13 @@ export const Popup = ({ isOpen, onClose, notifier }) => {
           <Icon variant='x-close' size={24} />
         </CloseButton>
 
-        {!isConnecting
-          ? (
-            <>
-              <Disclaimer />
-              <WalletList wallets={wallets} onConnect={onConnect} />
-            </>
-            )
-          : (
-            <LoaderWrapper>
-              <Loader />
-              <p>Connecting</p>
-            </LoaderWrapper>
-            )}
+        <Disclaimer />
+        <WalletList
+          wallets={wallets}
+          onConnect={onConnect}
+          isConnecting={isConnecting}
+        />
+
       </Wrapper>
     </Modal>
   )
@@ -76,28 +76,42 @@ const Wrapper = styled.div`
   transition-property: all; 
   text-align: left; 
   vertical-align: middle; 
-  max-width: 28rem; 
-  border-radius: 1.5rem; 
-  padding: 3rem; 
-  background: #f1f3f6;
+  max-width: 400px; 
+  border-radius: 12px; 
+  padding: 24px; 
+  background: ${props => props.theme.isLightMode ? colors.white : colors.gray[800]};
   
   @media screen and (max-width: 768px) {
     padding: 2rem; 
   }
 `
 
+const WalletIcon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  color: ${props => props.theme.isLightMode ? colors[primaryColorKey][600] : colors.white};
+  background-color: ${props => props.theme.isLightMode ? colors[primaryColorKey][100] : colors.gray[600]};
+  width: max-content; 
+  border-radius: 50%;
+  box-shadow: 0 0 0 8px ${props => props.theme.isLightMode ? colors[primaryColorKey][50] : colors.gray[700]};
+`
+
 const StyledDialogTitle = styled(Dialog.Title)`
-  color: ${colors.black};
-  ${typography.styles.displayXs}
-  ${typography.weights.bold}
+  margin-top: 16px;
+  color: ${props => props.theme.isLightMode ? colors.black : colors.white};
+  ${typography.styles.textLg}
+  ${typography.weights.semibold}
 `
 
 const CloseButton = styled.button`
   display: flex; 
   position: absolute; 
-  top: 1.75rem; 
-  right: 3rem; 
-  color: #000000; 
+  padding: 6px;
+  top: 16px; 
+  right: 16px; 
+  color: ${props => props.theme.isLightMode ? colors.gray[500] : colors.white}; 
   justify-content: center; 
   align-items: center; 
   border-radius: 0.375rem; 
@@ -105,16 +119,5 @@ const CloseButton = styled.button`
 
   span {
     ${utils.srOnly}
-  }
-`
-
-const LoaderWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  margin-top: 32px;
-  justify-content: flex-start;
-  
-  @media screen and (min-width: 768px) {
-    min-width: 250px;
   }
 `

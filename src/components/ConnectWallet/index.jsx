@@ -61,9 +61,11 @@ export const ConnectWallet = () => {
                           <TitleText1>Wallet</TitleText1>
                           <InfoTextContainer>
                             <span>{truncateAddress(account)}</span>
-                            <CopyButton onClick={() => {
-                              handleCopy(account, () => setCopied(true))
-                            }}
+                            <CopyButton
+                              onClick={() => {
+                                handleCopy(account, () => setCopied(true))
+                              }}
+                              aria-label='Copy Address button'
                             >
                               <Icon variant={copied ? 'check' : 'copy-01'} size={16} />
                             </CopyButton>
@@ -118,6 +120,10 @@ const ButtonStyle = css`
   display: flex;
   gap: 8px;
   align-items: center;
+
+  :hover {
+    transform: scale(1.0125);
+  }
 `
 
 const ConnectButton = styled.button`
@@ -137,6 +143,7 @@ const DetailsContainer = styled.div`
   box-shadow: ${shadows.lg};
   ${typography.styles.textSm}
   background-color: ${props => props.theme.isLightMode ? colors.white : colors.gray[600]};
+  z-index: 99;
 
   position: absolute;
   right: 0px;

@@ -44,7 +44,16 @@ export const encodeData = (encodeInterface, methodName, methodArgs = [], onError
     const encoded = encodeInterface.encodeFunctionData(methodName, methodArgs)
     return encoded
   } catch (err) {
-    // console.log(`Error in encoding ${methodName} with args: [${methodArgs}]\n`, err)
+    // console.log(`Error in encoding ${methodName}\n`, { methodArgs, err })
     onError(getErrorMessage(err))
   }
+}
+
+export const getFunctionSignature = (_function) => {
+  const _isTuple = _function.inputs[0]?.type === 'tuple'
+  const inputs = _function?.inputs?.[0]?.components || _function?.inputs
+
+  const argsSignature = inputs.map(_inp => _inp.type).join(', ')
+  const args = _isTuple ? `(${argsSignature})` : argsSignature
+  return `${_function.name}(${args})`
 }
