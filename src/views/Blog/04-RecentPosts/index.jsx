@@ -31,7 +31,13 @@ const filters = [
 export const RecentPosts = ({ blogPosts, page, totalPages, tag }) => {
   const router = useRouter()
 
+  // Only used for mobile filter
   const handleFilterChange = option => {
+    if (option === 'all') {
+      router.push('/blog/', undefined, { scroll: false })
+      return
+    }
+
     router.push(`/blog/tag/${option}`, undefined, { scroll: false })
   }
 
