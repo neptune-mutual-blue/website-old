@@ -5,7 +5,7 @@ import { colors, primaryColorKey } from '../../../../../styles/colors'
 import { typography } from '../../../../../styles/typography'
 import { InputWithLabel } from '../../../../components/InputWithLabel'
 import { TextArea } from '../../../../components/TextArea'
-import { encodeData } from '../../../../helpers/solidity/methods'
+import { encodeData, getFunctionSignature } from '../../../../helpers/solidity/methods'
 import { getPlaceholder, isInputError } from '../../../../helpers/web3-tools/abi-encoder'
 
 const EncodeData = (props) => {
@@ -14,14 +14,14 @@ const EncodeData = (props) => {
   const [outputData, setOutputData] = useState('')
   const [outputError, setOutputError] = useState('')
 
-  const { inputs, ethersInterface, func, tupleInputs, joiSchema } = props
+  const { inputs, encodeInterface, func, tupleInputs, joiSchema } = props
 
   useEffect(() => {
     if (inputs?.length === 0) {
-      const encoded = encodeData(ethersInterface, func.name)
+      const encoded = encodeData(encodeInterface, func.name)
       if (encoded) setOutputData(encoded)
     }
-  }, [func, ethersInterface, inputs])
+  }, [func, encodeInterface, inputs])
 
   const checkNonEmptyInputs = (_inputData) => {
     const nonEmptyInput = inputs.find(i => {
@@ -36,7 +36,7 @@ const EncodeData = (props) => {
     setInputData(_prev => ({ ..._prev, [name]: value }))
 
     const _inputData = ({ ...inputData, [name]: value })
-
+    const signature = getFunctionSignature(func)
     inputs.map(i => {
       const _val = _inputData[i.name]
       if (i.type.endsWith('[]')) {
@@ -50,7 +50,7 @@ const EncodeData = (props) => {
     let args = Object.values(_inputData)
     args = tupleInputs ? [args] : args
 
-    const encoded = encodeData(ethersInterface, func.name, args, (err) => {
+    const encoded = encodeData(encodeInterface, signature, args, (err) => {
       setOutputData('')
 
       if (checkNonEmptyInputs({ ...inputData, [name]: value })) setOutputError(err)

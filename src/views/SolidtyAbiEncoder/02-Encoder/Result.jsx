@@ -105,19 +105,19 @@ const Result = (props) => {
       <ListContainer>
         {
           Array.isArray(abi) &&
-          abi
-            .filter(x => (x.type === 'function' && validateStateMutability(x.stateMutability)))
-            .map((func, i) => (
-              <Func
-                type={type}
-                key={`func-${i}`}
-                func={func}
-                count={i + 1}
-                call={callMethod}
-                isReady={isReady}
-                ethersInterface={ethersInterface}
-              />
-            ))
+          abi.filter(func => (
+            func.type === 'function' && validateStateMutability(func.stateMutability)
+          )).map((func, i) => (
+            <Func
+              type={type}
+              key={`func-${i}`}
+              func={func}
+              count={i + 1}
+              call={callMethod}
+              isReady={isReady}
+              interface={ethersInterface}
+            />
+          ))
         }
       </ListContainer>
     </Container>

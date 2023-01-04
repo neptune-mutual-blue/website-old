@@ -7,7 +7,7 @@ import { typography } from '../../../../styles/typography'
 import { EncodeData } from './FunctionType/encode'
 import { ReadContract } from './FunctionType/read'
 import { WriteContract } from './FunctionType/write'
-import { getEncodedFnSignature } from '../../../helpers/solidity/methods'
+import { encodeData, getFunctionSignature } from '../../../helpers/solidity/methods'
 import { createJoiSchema } from '../../../helpers/web3-tools/abi-encoder'
 
 const TypeComponent = {
@@ -16,12 +16,59 @@ const TypeComponent = {
   write_contract: WriteContract
 }
 
-const Func = ({ type, func, ethersInterface, count, call, isReady }) => {
+const defaultData = type => {
+  const _type = type.split('[]')[0]
+  let _value = ''
+  switch (_type) {
+    case 'bytes32':
+    case 'bytes':
+      _value = '0x7465737400000000000000000000000000000000000000000000000000000000'
+      break
+
+    case 'uint256':
+      _value = '1'
+      break
+
+    case 'address':
+      _value = '0x0000000000000000000000000000000000000000'
+      break
+
+    case 'bool':
+      _value = 'true'
+      break
+
+    default:
+      _value = '0x7465737400000000000000000000000000000000000000000000000000000000'
+      break
+  }
+
+  return type.endsWith('[]') ? [_value] : _value
+}
+
+const Func = (props) => {
   const [isOpen, setIsOpen] = useState(false)
+
+  const { type, func, interface: encodeInterface, count, call, isReady } = props
 
   const Component = TypeComponent[type]
 
-  const inputs = func?.inputs?.[0]?.components || func?.inputs
+  const [encodedFn, setEncodedFn] = useState('')
+  const inputs = props?.func?.inputs?.[0]?.components || props?.func?.inputs
+
+  useEffect(() => {
+    if (type !== 'write_contract') return
+
+    const isTupleInputs = func.inputs[0]?.type === 'tuple'
+    let encodeArgs = []
+    if (inputs?.length) {
+      const _args = inputs.map(i => defaultData(i.type))
+      encodeArgs = isTupleInputs ? [_args] : _args
+    }
+
+    const encodeName = getFunctionSignature(func)
+    const _encodedFn = encodeData(encodeInterface, encodeName, encodeArgs)
+    if (_encodedFn) setEncodedFn(_encodedFn.slice(0, 10))
+  }, [func, encodeInterface, type, inputs])
 
   useEffect(() => {
     setIsOpen(false)
@@ -35,7 +82,7 @@ const Func = ({ type, func, ethersInterface, count, call, isReady }) => {
   return (
     <Container className='item' id={`func-${count}`}>
       <ListHeader onClick={toggle}>
-        <Name>{count}. {func.name} {type === 'write_contract' && `(${getEncodedFnSignature(ethersInterface, func.name)})`}</Name>
+        <Name>{count}. {func.name} {type === 'write_contract' && `(${encodedFn})`}</Name>
 
         <CallToAction>
           <Button title='Toggle'>
@@ -43,7 +90,7 @@ const Func = ({ type, func, ethersInterface, count, call, isReady }) => {
           </Button>
         </CallToAction>
       </ListHeader>
-      {isOpen && (
+      {isOpen &&
         <Component
           type={type}
           func={func}
@@ -51,10 +98,9 @@ const Func = ({ type, func, ethersInterface, count, call, isReady }) => {
           tupleInputs={func.inputs[0]?.type === 'tuple'}
           call={call}
           isReady={isReady}
-          ethersInterface={ethersInterface}
+          encodeInterface={encodeInterface}
           joiSchema={createJoiSchema(inputs)}
-        />
-      )}
+        />}
     </Container>
   )
 }
@@ -87,6 +133,7 @@ const CallToAction = styled.div`
   align-items: center;
   gap: 30px;
   color: ${colors.black};
+  /* z-index: 9; */
 `
 
 export { Func }

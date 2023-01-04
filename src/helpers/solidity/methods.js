@@ -1,5 +1,4 @@
 import BigNumber from 'bignumber.js'
-import { ethers } from 'ethers'
 
 BigNumber.config({
   EXPONENTIAL_AT: 1000,
@@ -38,12 +37,11 @@ export const calculateGasMargin = (value) => {
     .toString()
 }
 
-export const encodeData = (ethersInterface, methodName, methodArgs = [], onError = () => {}) => {
-  if (!ethersInterface || !methodName) return
+export const encodeData = (encodeInterface, methodName, methodArgs = [], onError = () => {}) => {
+  if (!encodeInterface || !methodName) return
 
   try {
-    const str = ethersInterface.getFunction(methodName).format()
-    const encoded = ethersInterface.encodeFunctionData(str, methodArgs)
+    const encoded = encodeInterface.encodeFunctionData(methodName, methodArgs)
     return encoded
   } catch (err) {
     // console.log(`Error in encoding ${methodName}\n`, { methodArgs, err })
@@ -51,15 +49,11 @@ export const encodeData = (ethersInterface, methodName, methodArgs = [], onError
   }
 }
 
-export const getEncodedFnSignature = (ethersInterface, methodName) => {
-  if (!ethersInterface || !methodName) return ''
+export const getFunctionSignature = (_function) => {
+  const _isTuple = _function.inputs[0]?.type === 'tuple'
+  const inputs = _function?.inputs?.[0]?.components || _function?.inputs
 
-  try {
-    const str = ethersInterface.getFunction(methodName).format()
-    const encoded = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(str)).substring(0, 10)
-    return encoded
-  } catch (err) {
-    console.log(`Error in encoding ${methodName}`)
-    console.error(err)
-  }
+  const argsSignature = inputs.map(_inp => _inp.type).join(', ')
+  const args = _isTuple ? `(${argsSignature})` : argsSignature
+  return `${_function.name}(${args})`
 }

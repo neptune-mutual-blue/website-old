@@ -11,12 +11,17 @@ import { checkInputErrors, getPlaceholder, isInputError } from '../../../../help
 const ReadContract = (props) => {
   const id = useId()
 
-  const { func, call, inputs, joiSchema, isReady, ethersInterface } = props
+  const { func, call, inputs, joiSchema, isReady } = props
 
   const [inputData, setInputData] = useState({})
   const [outputData, setOutputData] = useState(func.outputs)
   const [error, setError] = useState('')
   const [makingCall, setMakingCall] = useState(false)
+
+  function getFunctionSignature () {
+    const _func = func
+    return `${_func.name}(${_func.inputs.map(_inp => _inp.type).join(', ')})`
+  }
 
   function getOutputsSignature () {
     const _func = func
@@ -92,7 +97,7 @@ const ReadContract = (props) => {
               output.value && (
                 <ResultContainer>
                   <ResultTitle>
-                    [<Bold>{ethersInterface.getFunction(func.name).format()}</Bold> method Response]
+                    [<Bold>{getFunctionSignature()}</Bold> method Response]
                   </ResultTitle>
                   <Result>
                     <Icon variant='chevron-right-double' size={18} />
