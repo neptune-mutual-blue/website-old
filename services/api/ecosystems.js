@@ -8,7 +8,7 @@ const getDocs = async () => {
       return docs
     }
 
-    const api = await getApi('ecosystem')
+    const api = await getApi('ecosystems')
     docs = api.docs
 
     return docs
