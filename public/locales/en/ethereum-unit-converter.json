@@ -1,13 +1,13 @@
 {
-  "META_TITLE": "Ethereum Unit Converter",
-  "META_DESCRIPTION": "@todo",
-  "META_OG_TITLE": "@todo",
-  "META_OG_DESCRIPTION": "@todo",
+  "META_TITLE": "Online Ethereum Unit Converter",
+  "META_DESCRIPTION": "Change the unit of measurement for ETH denominations, such as Wei, KWei, MWei, GWei, Szabo, Finney, Ether, and others.",
+  "META_OG_TITLE": "Online Ethereum Unit Converter",
+  "META_OG_DESCRIPTION": "Change the unit of measurement for ETH denominations, such as Wei, KWei, MWei, GWei, Szabo, Finney, Ether, and others.",
   "META_OG_IMAGE": "/assets/images/meta/og/web3-ethereum-unit-converter.png",
-  "META_TWITTER_TITLE": "@todo",
-  "META_TWITTER_DESCRIPTION": "@todo",
+  "META_TWITTER_TITLE": "Online Ethereum Unit Converter",
+  "META_TWITTER_DESCRIPTION": "Change the unit of measurement for ETH denominations, such as Wei, KWei, MWei, GWei, Szabo, Finney, Ether, and others.",
   "META_TWITTER_IMAGE": "/assets/images/meta/og/web3-ethereum-unit-converter.png",
-  "META_TWITTER_IMAGE_ALT": "@todo",
+  "META_TWITTER_IMAGE_ALT": "Ethereum Unit Converter",
   "Ethereum Unit Converter Online Online": "Ethereum Unit Converter Online Online",
   "Ether or ETH is often used in different denominations of its currency, such as Wei for interacting with smart contracts and Gwei for calculating gas prices. Use our Unit Converter to easily convert between them!": "Ether or ETH is often used in different denominations of its currency, such as Wei for interacting with smart contracts and Gwei for calculating gas prices. Use our Unit Converter to easily convert between them!"
 }

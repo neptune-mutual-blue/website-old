@@ -1,13 +1,13 @@
 {
-  "META_TITLE": "Bytes32 to Number converter",
-  "META_DESCRIPTION": "@todo",
-  "META_OG_TITLE": "@todo",
-  "META_OG_DESCRIPTION": "@todo",
+  "META_TITLE": "Online Solidity Bytes32 to Number Converter",
+  "META_DESCRIPTION": "Efficiently convert solidity's bytes32 data type to number. Additionally, discover other useful web3 tools.",
+  "META_OG_TITLE": "Online Solidity Bytes32 to Number Converter",
+  "META_OG_DESCRIPTION": "Efficiently convert solidity's bytes32 data type to number. Additionally, discover other useful web3 tools.",
   "META_OG_IMAGE": "/assets/images/meta/og/web3-bytes32-to-number.png",
-  "META_TWITTER_TITLE": "@todo",
-  "META_TWITTER_DESCRIPTION": "@todo",
+  "META_TWITTER_TITLE": "Online Solidity Bytes32 to Number Converter",
+  "META_TWITTER_DESCRIPTION": "Efficiently convert solidity's bytes32 data type to number. Additionally, discover other useful web3 tools.",
   "META_TWITTER_IMAGE": "/assets/images/meta/og/web3-bytes32-to-number.png",
-  "META_TWITTER_IMAGE_ALT": "@todo",
+  "META_TWITTER_IMAGE_ALT": "Bytes32 to Number Converter",
   "Bytes32 to Number Converter Online": "Bytes32 to Number Converter Online",
   "Bytes32 format is used in smart contracts with specific length of 64 characters, most commonly using the solidity programming language.": "Bytes32 format is used in smart contracts with specific length of 64 characters, most commonly using the solidity programming language."
 }
