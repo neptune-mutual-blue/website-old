@@ -3,10 +3,10 @@
   "META_DESCRIPTION": "@todo",
   "META_OG_TITLE": "@todo",
   "META_OG_DESCRIPTION": "@todo",
-  "META_OG_IMAGE": "@todo",
+  "META_OG_IMAGE": "/assets/images/meta/og/web3-number-to-bytes32.png",
   "META_TWITTER_TITLE": "@todo",
   "META_TWITTER_DESCRIPTION": "@todo",
-  "META_TWITTER_IMAGE": "@todo",
+  "META_TWITTER_IMAGE": "/assets/images/meta/og/web3-number-to-bytes32.png",
   "META_TWITTER_IMAGE_ALT": "@todo",
   "Number to Bytes32 Converter Online": "Number to Bytes32 Converter Online",
   "Bytes32 format is used in smart contracts with specific length of 64 characters, most commonly using the solidity programming language.": "Bytes32 format is used in smart contracts with specific length of 64 characters, most commonly using the solidity programming language."
