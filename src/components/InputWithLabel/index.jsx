@@ -3,11 +3,14 @@ import styled from 'styled-components'
 import { colors, primaryColorKey } from '../../../styles/colors'
 import { shadows } from '../../../styles/shadows'
 import { typography } from '../../../styles/typography'
+import { Icon } from '../Icon'
 
-const InputWithLabel = forwardRef(({ children, placeholder, label, error, ...props }, ref) => {
+const InputWithLabel = forwardRef(({ children, placeholder, label, error, errorIcon, ...props }, ref) => {
   useEffect(() => {
     return () => {
-      props?.onChange({ target: { value: '' } })
+      if (typeof props.onChange === 'function') {
+        props?.onChange({ target: { value: '' } })
+      }
     }
   }, [])
 
@@ -17,13 +20,16 @@ const InputWithLabel = forwardRef(({ children, placeholder, label, error, ...pro
         {label}
       </Label>
 
-      <StyledInput
-        data-error={(error) ? 'true' : 'false'}
-        placeholder={placeholder}
-        autoComplete='off'
-        {...props}
-        ref={ref}
-      />
+      <InputWrapper>
+        <StyledInput
+          data-error={(error) ? 'true' : 'false'}
+          placeholder={placeholder}
+          autoComplete='off'
+          {...props}
+          ref={ref}
+        />
+        {(error && errorIcon) && <Icon variant={errorIcon} size={16} />}
+      </InputWrapper>
 
       {(error) && <ErrorText>{error}</ErrorText>}
 
@@ -42,6 +48,18 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width:100%;
+`
+
+const InputWrapper = styled.div`
+  position: relative;
+
+  svg {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: ${props => props.theme.isLightMode ? colors.error[700] : colors.error[300]};
+  }
 `
 
 const Label = styled.label`

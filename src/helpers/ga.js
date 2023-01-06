@@ -5,7 +5,7 @@ export const pageview = (url) => {
     throw Error('GA: not configured')
   }
 
-  return window.gtag('config', publicEnv.googleAnalyticsId, {
+  return window?.gtag?.('config', publicEnv.googleAnalyticsId, {
     path_url: url
   })
 }

@@ -62,6 +62,24 @@ const chunkArray = (arr, size) => {
   )
 }
 
+const isJSON = (string) => {
+  try {
+    JSON.parse(string)
+    return true
+  } catch (error) {
+    return false
+  }
+}
+
+const handleCopy = (text, cb = () => {}) => {
+  try {
+    navigator.clipboard.writeText(text)
+    cb()
+  } catch (err) {
+    console.log('Unable to copy \nSee Error below:\n', err)
+  }
+}
+
 export {
   chunkArray,
   copyToClipBoard,
@@ -70,5 +88,7 @@ export {
   getDns,
   getFormattedDate,
   getFQDN,
-  scrollToHash
+  scrollToHash,
+  isJSON,
+  handleCopy
 }

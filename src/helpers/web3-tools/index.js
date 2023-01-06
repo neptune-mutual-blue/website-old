@@ -30,7 +30,8 @@ export const bytes32_to_number = (bytes32Str) => {
 // eslint-disable-next-line camelcase
 export const number_to_bytes32 = (numberStr) => {
   const num = new BigNumber(numberStr)
-  return num.toString(16)
+  const _bytes = num.toString(16)
+  return _bytes
 }
 
 /*

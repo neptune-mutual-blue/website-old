@@ -1,0 +1,13 @@
+{
+  "META_TITLE": "Online Solidity ABI Encoder / Unverified Contract Explorer",
+  "META_DESCRIPTION": "Encode solidity smart contract constructor and function payloads. Interact with contracts directly on any blockchain without Etherscan verification.",
+  "META_OG_TITLE": "Online Solidity ABI Encoder / Unverified Contract Explorer",
+  "META_OG_DESCRIPTION": "Encode solidity smart contract constructor and function payloads. Interact with contracts directly on any blockchain without Etherscan verification.",
+  "META_OG_IMAGE": "/assets/images/meta/og/web3-solidity-abi-encoder.png",
+  "META_TWITTER_TITLE": "Online Solidity ABI Encoder / Unverified Contract Explorer",
+  "META_TWITTER_DESCRIPTION": "Encode solidity smart contract constructor and function payloads. Interact with contracts directly on any blockchain without Etherscan verification.",
+  "META_TWITTER_IMAGE": "/assets/images/meta/og/web3-solidity-abi-encoder.png",
+  "META_TWITTER_IMAGE_ALT": "Solidity ABI Encoder",
+  "Solidity ABI Encoder Online": "Solidity ABI Encoder Online",
+  "The Solidity ABI Encoder from Neptune Mutual allows you to encode your smart contract arguments. You may also use your ABI and smart contract address to perform read and write operations on the blockchain.": "The Solidity ABI Encoder from Neptune Mutual allows you to encode your smart contract arguments. You may also use your ABI and smart contract address to perform read and write operations on the blockchain."
+}

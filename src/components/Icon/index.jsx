@@ -17,7 +17,13 @@ import {
   DotsGrid,
   HeartHand,
   CheckCircleBroken,
-  Share07
+  Share07,
+  Tool01,
+  HelpCircle,
+  DownloadCloud01,
+  Link03,
+  L,
+  LogOut01
 } from "./variants/General";
 import {
   ArrowLeft,
@@ -26,9 +32,12 @@ import {
   ArrowSquareUpRight,
   ChevronDown,
   ChevronRight,
+  ChevronRightDouble,
   ChevronUp,
+  SwitchHorizontal02,
+  RefreshCcw02,
 } from "./variants/Arrows";
-import { MoonStar, Stars02, Sun } from "./variants/Weather";
+import { MoonStar, Stars01, Stars02, Sun } from "./variants/Weather";
 import {
   Discord,
   Facebook,
@@ -52,7 +61,7 @@ import {
   Facebook as FacebookDefault
 } from './variants/Socials/Default'
 import { CodeCircle03, CodeSquare01, Database01, FileCode01 } from "./variants/Development";
-import { Bell02 } from "./variants/AlertsAndFeedback";
+import { AlertCircle, Bell02 } from "./variants/AlertsAndFeedback";
 import { ChartBreakoutSquare, LineChartUp03 } from "./variants/Charts";
 import { Cube01, Cube02 } from "./variants/Shapes";
 import { BookClosed, Glasses02 } from "./variants/Education";
@@ -61,7 +70,7 @@ import { Clock } from "./variants/Time";
 import { Flag06, MarkerPin01, Globe01, MarkerPin02 } from "./variants/MapsAndTravel";
 import { FaceSmile, Users01, UserSquare } from "./variants/Users";
 import { Folder, FolderPlus } from "./variants/Files";
-import { Bank, Tag03 } from "./variants/FinanceAndEcommerce";
+import { Bank, Tag03, Wallet04 } from "./variants/FinanceAndEcommerce";
 import { ShieldTick } from "./variants/Security";
 import { AnnotationDots, Mail02, MessageChatCircle, MessageDotsCircle, Send03 } from "./variants/Communication";
 import { PencilLine } from "./variants/Editor"
@@ -70,7 +79,8 @@ import { PencilLine } from "./variants/Editor"
 import Dot from "./custom/dot"
 import SunFilled from "./custom/sun-filled";
 import MoonStarFilled from "./custom/moon-star-filled";
-import { Arbitrum, ArbitrumDark, Avalanche, AvalancheDark, BNBChain, BNBChainDark, Ethereum, EthereumDark, Polygon, PolygonDark } from "./custom/Brands";
+import { Arbitrum, ArbitrumDark, Avalanche, AvalancheDark, BNBChain, BNBChainDark, Ethereum, EthereumDark, GnosisWallet, GnosisWalletDark, Metamask, MetamaskDark, OkxWallet, OkxWalletDark, Polygon, PolygonDark, WalletConnect, WalletConnectDark } from "./custom/Brands";
+import { AlignBottom01 } from "./variants/Layout";
 
 export const Icon = ({ size, variant }) => {
   let IconComponent = null;
@@ -297,6 +307,10 @@ export const Icon = ({ size, variant }) => {
     IconComponent = Target04;
   }
 
+  if (variant === "stars-01") {
+    IconComponent = Stars01;
+  }
+
   if (variant === "stars-02") {
     IconComponent = Stars02;
   }
@@ -459,6 +473,86 @@ export const Icon = ({ size, variant }) => {
 
   if(variant === 'send-03') {
     IconComponent = Send03
+  }
+
+  if(variant === 'tool-01') {
+    IconComponent = Tool01
+  }
+
+  if(variant === 'switch-horizontal-02') {
+    IconComponent = SwitchHorizontal02
+  }
+
+  if(variant === 'help-circle') {
+    IconComponent = HelpCircle
+  }
+
+  if(variant === 'align-bottom-01') {
+    IconComponent = AlignBottom01
+  }
+
+  if(variant === 'refresh-ccw-02'){
+    IconComponent = RefreshCcw02
+  }
+
+  if(variant === 'download-cloud-01') {
+    IconComponent = DownloadCloud01
+  }
+
+  if(variant === 'link-03') {
+    IconComponent = Link03
+  }
+
+  if(variant === 'L') {
+    IconComponent = L
+  }
+
+  if(variant === 'chevron-right-double') {
+    IconComponent = ChevronRightDouble
+  }
+
+  if(variant === 'wallet-04') {
+    IconComponent = Wallet04
+  }
+
+  if(variant === 'alert-circle') {
+    IconComponent = AlertCircle
+  }
+
+  if(variant === 'log-out-01') {
+    IconComponent = LogOut01
+  }
+
+  if(variant === 'metamask') {
+    IconComponent = Metamask
+  }
+
+  if(variant === 'metamask-dark') {
+    IconComponent = MetamaskDark
+  }
+
+  if(variant === 'okx-wallet') {
+    IconComponent = OkxWallet
+  }
+
+  if(variant === 'okx-wallet-dark') {
+    IconComponent = OkxWalletDark
+  }
+
+  if(variant === 'gnosis-wallet') {
+    IconComponent = GnosisWallet
+  }
+
+  if(variant === 'gnosis-wallet-dark') {
+    IconComponent = GnosisWalletDark
+  }
+
+  if(variant === 'wallet-connect') {
+    IconComponent = WalletConnect
+  }
+
+  if(variant === 'wallet-connect-dark') {
+    IconComponent = WalletConnectDark 
   }
 
   return IconComponent ? <IconComponent width={size} height={size} /> : null;

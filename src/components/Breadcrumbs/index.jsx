@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { Fragment } from 'react'
 
 import { useTranslation } from 'react-i18next'
@@ -15,12 +16,12 @@ const Breadcrumbs = (props) => {
       {props.crumbs.map((link, i) => {
         return (
           <Fragment key={`link-${i}`}>
-            <Crumb isLast={props.crumbs.length === i}>
+            <Crumb>
               {link.link
                 ? (
-                  <a href={link.link}>
+                  <Link href={link.link}>
                     {t(`${link.name}`)}
-                  </a>
+                  </Link>
                   )
                 : (
                   <>
@@ -62,6 +63,7 @@ const Crumb = styled.span`
   cursor: pointer;
 
   &:nth-of-type(1) {
+    margin-left: -8px;
   }
 
   &:nth-last-of-type(1) {
@@ -71,7 +73,7 @@ const Crumb = styled.span`
     ${typography.weights.semibold}
   }
 
-  :hover{
+  &:not(:nth-last-of-type(1)):hover{
     background-color: ${props => (props.theme.isLightMode ? colors.gray[50] : colors.gray[600])};
     border-radius:6px;
     color: ${props => (props.theme.isLightMode ? colors.gray[700] : colors.gray[25])};
