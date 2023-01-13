@@ -1,4 +1,3 @@
-
 import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
@@ -31,7 +30,6 @@ export const NotFound = () => {
           <Button
             href='/'
             as={Link}
-            target='_blank'
             hierarchy='primary'
             size='2xl'
             iconTrailing
